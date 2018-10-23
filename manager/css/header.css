@@ -1,0 +1,38 @@
+a {
+	text-decoration: none;
+}
+
+nav{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 20px;
+	flex-shrink: all;
+}
+
+#nav-left {
+	display: flex;
+	align-items: center; 
+}
+
+#main-icon {
+	width: 160px;
+	height: 100px;
+	margin: 0 30px;
+}
+
+#nav-name {
+	font-size: 30px;
+	color: red;
+}
+
+.get-out {
+	color: red;
+	background-color: white;
+}
+
+.out-icon {
+	width: 15px;
+	height: 15px;
+}
+
