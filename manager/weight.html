@@ -2,18 +2,19 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>学生管理页面</title>
+	<title>管理员界面</title>
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/aside.css">
 	<link rel="stylesheet" type="text/css" href="./css/header.css">
+	<link rel="stylesheet" type="text/css" href="./css/weight.css">
 </head>
 <body>
 	<header>
 		<!-- <iframe src="./header.html" width="100%" height="120px;" frameborder="no"></iframe> -->
 		<nav>
 			<div id="nav-left">
-				<a href=""><img src="" alt="图标" id="main-icon"></a>
+				<a href=""><img src="../img/logo.svg" alt="图标" id="main-icon"></a>
 				<span id="nav-name">中南大学工程训练中心教学管理系统--管理端</span>
 			</div>
 			<a class="btn btn-default get-out" href="../login.html"><img src="./img/out.svg" class="out-icon">退  出</a>
@@ -29,7 +30,7 @@
 	</nav>
 	<!-- 面包屑导航结束 -->
 	<!-- 主体部分 -->
-	<div class="mainbody">
+	<div class="mainbody row">
 		<aside class="col-xs-2 col-sm-2">
 			<!-- <iframe src="./aside.html" width="100%" height="700px;" frameborder="no"></iframe> -->
 			<div id="aside">
@@ -66,8 +67,54 @@
 				</ul>
 			</div>
 		</aside>
-		<div class="right">
-			
+		<div class="right col-xs-9 col-sm-9">
+			<div class="card">
+				<div class="card-header">
+					权重设置
+				</div>
+				<div class="card-body">
+					<div class="row select-module">
+						<select class="form-control col-xs-5 col-sm-5">
+							<option>1学分学生</option>
+							<option>2学分学生</option>
+							<option>5学分学生</option>
+						</select>
+						<button class="btn btn-default">查询</button>
+					</div>
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th>工种</th>
+								<th>车工</th>
+								<th>钳工</th>
+								<th>铣削</th>
+								<th>实习报告</th>
+								<th>上机</th>
+								<th>小车制造</th>
+								<th>小车设计</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>权重</td>
+								<td><input type="text" name="" value="30"> %</td>
+								<td><input type="text" name="" value="30"> %</td>
+								<td><input type="text" name="" value="30"> %</td>
+								<td><input type="text" name="" value="2"> %</td>
+								<td><input type="text" name="" value="2"> %</td>
+								<td><input type="text" name="" value="3"> %</td>
+								<td><input type="text" name="" value="3"> %</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+
+					<div class="edit-ensure">
+						<button class="btn btn-success float-right">保存修改</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
