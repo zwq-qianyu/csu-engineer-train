@@ -49,10 +49,21 @@ nav {
 	margin-left: 20px;
 }
 
-aside {
-	width: 15%;
-	margin: 0 20px;
+/*header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
+
+#aside {
+	position: fixed;
+	top: 230px;
+	left: 50px;
+	right: 0;
+	background-color: #aaa;
+}*/
 
 .left-active a{
 	color: red;

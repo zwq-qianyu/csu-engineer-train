@@ -1,13 +1,3 @@
-.fill-in {
-	margin-left: 100px;
-	margin-top: 60px;
-}
-
-.fill-check {
-	margin-left: 100px;
-	margin-top: 30px;
-}
-
 .card {
 	margin-bottom: 50px;
 }
@@ -17,7 +7,7 @@
 	text-align: center;
 }
 
-.select-person {
+.select-worktype {
 	margin-left: 50px;
 }
 
@@ -35,4 +25,8 @@ table {
 
 th, td {
 	text-align: center;
+}
+
+.last-time {
+	margin-left: 50px;
 }

@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/aside.css">
 	<link rel="stylesheet" type="text/css" href="./css/header.css">
+	<link rel="stylesheet" type="text/css" href="./css/score.css">
 </head>
 <body>
 	<header>
@@ -29,7 +30,7 @@
 	</nav>
 	<!-- 面包屑导航结束 -->
 	<!-- 主体部分 -->
-	<div class="mainbody">
+	<div class="mainbody row">
 		<aside class="col-xs-2 col-sm-2">
 			<!-- <iframe src="./aside.html" width="100%" height="700px;" frameborder="no"></iframe> -->
 			<div id="aside">
@@ -66,8 +67,162 @@
 				</ul>
 			</div>
 		</aside>
-		<div class="right">
-			
+		<div class="right col-xs-10 col-sm-10">
+			<!-- 成绩列表 -->
+			<div class="card score-list">
+				<div class="card-header">
+					<h5>成绩列表</h5>
+				</div>
+				<div class="card-body">
+					<div class="row select-area">
+						<select class="form-control col-xs-3 col-sm-3">
+							<option>实习批次选择</option>
+							<option>2018A01</option>
+							<option>2018A02</option>
+							<option>2019A01</option>
+							<option>2019A02</option>
+						</select>
+						<select class="form-control col-xs-3 col-sm-3">
+							<option>工种</option>
+							<option>车削</option>
+							<option>铣削</option>
+							<option>车工</option>
+							<option>钳工</option>
+						</select>
+						<select class="form-control col-xs-3 col-sm-3">
+							<option>组号</option>
+							<option>A</option>
+							<option>B</option>
+							<option>C</option>
+						</select>
+					</div>
+					<div class="row input-select">
+						<input type="text" name="stu-num" placeholder="学生学号" class="form-control col-xs-3 col-sm-3">
+						<input type="text" name="stu-name" placeholder="学生姓名" class="form-control col-xs-3 col-sm-3">
+						<span class="col-xs-3 col-sm-3">
+							<button  class="btn btn-sm btn-success ">查&emsp;询</button>
+						</span>
+					</div>
+					<br><br>
+					<table class="table table-striped">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">批次/组</th>
+								<th scope="col">姓名</th>
+								<th scope="col">车工</th>
+								<th scope="col">钳工</th>
+								<th scope="col">铣削</th>
+								<th scope="col">上机</th>
+								<th scope="col">考勤</th>
+								<th scope="col">实习报告</th>
+								<th scope="col">小车制造</th>
+								<th scope="col">小车设计</th>
+								<th scope="col">总成绩</th>
+								<th scope="col">操作</th>
+							</tr>
+						</thead>
+						<tbody class="score-table">
+							<tr>
+								<td>2018A01/A</td>
+								<td><input type="text" name="" value="刘淇欣" class="form-control list-name"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="-2"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input disabled type="text" name="" class="form-control" value="90"></td>
+								<td>
+									<button class="btn btn-sm btn-danger">修改</button>
+								</td>
+							</tr>
+							<tr>
+								<td>2018A01/A</td>
+								<td><input type="text" name="" value="王琳" class="form-control list-name"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="-2"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input type="text" name="" class="form-control" value="90"></td>
+								<td><input disabled type="text" name="" class="form-control" value="90"></td>
+								<td>
+									<button class="btn btn-sm btn-danger">修改</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- 成绩列表结束 -->
+
+			<!-- 成绩提交记录 -->
+			<div class="card commit-history">
+				<div class="card-header">
+					<h5>成绩提交记录</h5>
+				</div>
+				<div class="card-body">
+					<div class="row select-area">
+						<select class="form-control col-xs-2 col-sm-2">
+							<option>实习批次选择</option>
+							<option>2018A01</option>
+							<option>2018A02</option>
+							<option>2019A01</option>
+							<option>2019A02</option>
+						</select>
+						<select class="form-control col-xs-2 col-sm-2">
+							<option>工种</option>
+							<option>车削</option>
+							<option>铣削</option>
+							<option>车工</option>
+							<option>钳工</option>
+						</select>
+						<select class="form-control col-xs-2 col-sm-2">
+							<option>组号</option>
+							<option>A</option>
+							<option>B</option>
+							<option>C</option>
+						</select>
+						<button class="btn btn-success">查&emsp;询</button>
+					</div>
+					<br><br>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>提交时间</th>
+								<th>批次</th>
+								<th>组号</th>
+								<th>工种</th>
+								<th>提交人</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>2018-10-05 12:00</td>
+								<td>2019A01</td>
+								<td>A</td>
+								<td>铣削</td>
+								<td>王旭</td>
+								<td><input type="button" name="" value="查看提交结果" class="btn btn-default"></td>
+							</tr>
+							<tr>
+								<td>2018-10-21 10:04</td>
+								<td>2019A02</td>
+								<td>B</td>
+								<td>铣削</td>
+								<td>王旭</td>
+								<td><input type="button" name="" value="查看提交结果" class="btn btn-default"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- 成绩提交记录结束 -->
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
