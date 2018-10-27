@@ -3,10 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>管理员界面</title>
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<!-- jquery -->
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap3.min.css">
+	<script type="text/javascript" src="../js/bootstrap3.min.js"></script>
+	<!-- bootstrap 结束 -->
 	<link rel="stylesheet" type="text/css" href="./css/aside.css">
 	<link rel="stylesheet" type="text/css" href="./css/header.css">
+	<link rel="stylesheet" type="text/css" href="./css/divide-group.css">
 </head>
 <body>
 	<header>
@@ -29,7 +34,7 @@
 	</nav>
 	<!-- 面包屑导航结束 -->
 	<!-- 主体部分 -->
-	<div class="mainbody">
+	<div class="mainbody row">
 		<aside class="col-xs-2 col-sm-2">
 			<!-- <iframe src="./aside.html" width="100%" height="700px;" frameborder="no"></iframe> -->
 			<div id="aside">
@@ -66,8 +71,46 @@
 				</ul>
 			</div>
 		</aside>
-		<div class="right">
-			
+		<div class="right col-xs-10 col-sm-10">
+			<div class="container">
+			    <div class="row">
+			        <div class="col-md-offset-1 col-md-10">
+			            <div class="tab" role="tabpanel">
+			                <!-- Nav tabs -->
+			                <ul class="nav nav-tabs" role="tablist">
+			                    <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">课时分配</a></li>
+			                    <li role="presentation"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">批次工序排课查询</a></li>
+			                    <li role="presentation"><a href="#Section3" aria-controls="messages" role="tab" data-toggle="tab">学生分组</a></li>
+			                    <li role="presentation"><a href="#Section4" aria-controls="messages" role="tab" data-toggle="tab">学生课表查询</a></li>
+			                    <li role="presentation"><a href="#Section5" aria-controls="messages" role="tab" data-toggle="tab">特殊学生课程分配</a></li>
+			                </ul>
+			                <!-- Tab panes -->
+			                <div class="tab-content tabs">
+			                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+			                        <h3>课时分配</h3>
+			                        <p>.......</p>
+			                    </div>
+			                    <div role="tabpanel" class="tab-pane fade" id="Section2">
+			                        <h3>批次工序排课查询</h3>
+			                        <p>......</p>
+			                    </div>
+			                    <div role="tabpanel" class="tab-pane fade" id="Section3">
+			                        <h3>学生分组</h3>
+			                        <p>.......</p>
+			                    </div>
+			                    <div role="tabpanel" class="tab-pane fade" id="Section4">
+			                        <h3>学生课表查询</h3>
+			                        <p>.......</p>
+			                    </div>
+			                    <div role="tabpanel" class="tab-pane fade" id="Section5">
+			                        <h3>特殊学生课程分配</h3>
+			                        <p>.......</p>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
