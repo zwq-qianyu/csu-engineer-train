@@ -90,7 +90,12 @@
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">课时分配</div>
 			                    		<div class="panel-body">
-			                    			
+			                    			<div class="row">
+			                    				
+			                    			</div>
+			                    			<div class="row">
+			                    				
+			                    			</div>
 			                    		</div>
 			                    	</div>
 			                    </div>
@@ -98,7 +103,94 @@
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">批次工序排课查询</div>
 			                    		<div class="panel-body">
+			                    			<div class="table1">
+			                    				<div class="row">
+				                    				<div class="col-xs-3 col-sm-3">
+				                    					<select class="form-control">
+					                    					<option>实习批次选择</option>
+					                    					<option>2018A01</option>
+					                    					<option>2018A02</option>
+					                    					<option>2018B01</option>
+					                    					<option>2018B02</option>
+					                    				</select>
+				                    				</div>
+				                    				<input type="button" name="" class="btn btn-success btn-sm" value="查询排课表">
+				                    				<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表">
+				                    			</div>
+				                    			<table class="table">
+				                    				<thead>
+				                    					<tr>
+				                    						<th>课时\组号</th>
+				                    						<th>A</th>
+				                    						<th>B</th>
+				                    						<th>C</th>
+				                    					</tr>
+				                    				</thead>
+				                    				<tbody>
+				                    					<tr>
+				                    						<td>1(2019/3/13/56)</td>
+				                    						<td>钳工</td>
+				                    						<td>车工</td>
+				                    						<td>铣削</td>
+				                    					</tr>
+				                    					<tr>
+				                    						<td>2(2019/3/21/78)</td>
+				                    						<td>车工</td>
+				                    						<td>铣削</td>
+				                    						<td>钳工</td>
+				                    					</tr>
+				                    				</tbody>
+				                    			</table>
+			                    			</div>
 			                    			
+			                    			<hr>
+			                    			<div class="table2">
+			                    				<div class="row">
+			                    					<div class="col-xs-3 col-sm-3">
+				                    					<select class="form-control">
+					                    					<option>工种</option>
+					                    					<option>车工</option>
+					                    					<option>钳工</option>
+					                    					<option>铣削</option>
+					                    				</select>
+				                    				</div>
+				                    				<div class="col-xs-3 col-sm-3">
+				                    					<select class="form-control">
+					                    					<option>实习批次选择</option>
+					                    					<option>2018A01</option>
+					                    					<option>2018A02</option>
+					                    					<option>2018B01</option>
+					                    					<option>2018B02</option>
+					                    				</select>
+				                    				</div>
+				                    				<input type="button" name="" class="btn btn-success btn-sm" value="查询排课表">
+				                    				<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表">
+				                    			</div>
+				                    			<table class="table">
+				                    				<thead>
+				                    					<tr>
+				                    						<th>课时\工种</th>
+				                    						<th>车工</th>
+				                    						<th>钳工</th>
+				                    						<th>铣削</th>
+				                    					</tr>
+				                    				</thead>
+				                    				<tbody>
+				                    					<tr>
+				                    						<td>1(2019/3/13/56)</td>
+				                    						<td>C</td>
+				                    						<td>A</td>
+				                    						<td>B</td>
+				                    					</tr>
+				                    					<tr>
+				                    						<td>2(2019/3/21/78)</td>
+				                    						<td>A</td>
+				                    						<td>B</td>
+				                    						<td>C</td>
+				                    					</tr>
+				                    				</tbody>
+				                    			</table>
+			                    			</div>
 			                    		</div>
 			                    	</div>
 			                    </div>
@@ -106,7 +198,112 @@
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">学生分组</div>
 			                    		<div class="panel-body">
-			                    			
+			                    			<!-- 选择批次对学生分组 -->
+			                    			<div class="row group-divide">
+			                    				<div class="col-xs-3 col-sm-3">
+			                    					<select class="form-control">
+				                    					<option>实习批次选择</option>
+				                    					<option>2018A01</option>
+				                    					<option>2018A02</option>
+				                    					<option>2018B01</option>
+				                    					<option>2018B02</option>
+				                    				</select>
+			                    				</div>
+			                    				<input type="button" name="" class="btn btn-success pull-right" value="学生分组">
+			                    			</div>
+
+			                    			<hr>
+			                    			<!-- 学生列表筛选 -->
+			                    			<div class="row student-select">
+			                    				<div class="col-xs-2 col-sm-2">
+			                    					<h4 class="text-center">学生列表</h4>
+			                    				</div>
+			                    				
+			                    				<div class="col-xs-2 col-sm-2">
+			                    					<select class="form-control">
+				                    					<option>实习批次选择</option>
+				                    					<option>2018A01</option>
+				                    					<option>2018A02</option>
+				                    					<option>2018B01</option>
+				                    					<option>2018B02</option>
+				                    				</select>
+			                    				</div>
+			                    				<div class="col-xs-2 col-sm-2">
+			                    					<select class="form-control">
+				                    					<option>组号</option>
+				                    					<option>A</option>
+				                    					<option>B</option>
+				                    					<option>C</option>
+				                    					<option>D</option>
+				                    				</select>
+			                    				</div>
+			                    				<div class="col-xs-1 col-sm-1">
+			                    					<input type="button" name="" class="btn btn-sm btn-default" value="筛选">
+			                    				</div>
+
+			                    				<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印名单">
+			                    				<button class="btn btn-default pull-right btn-sm" id="add"><i class="fa fa-plus"></i> 添加</button> 
+			                    			</div>
+
+			                    			<!-- 学生列表表格 -->
+			                    			<div class="table-responsive">
+				                    			<table class="table" id="mytable">
+				                    				<thead>
+												      <tr>
+												        <th>选择</th>
+												        <th>学号</th>
+												        <th>姓名</th>
+												        <th>班级</th>
+												        <th>批次</th>
+												        <th>组号</th>
+												        <th>操作</th>
+												      </tr>
+												    </thead>
+												    <tbody>
+												      <tr>
+												      	<td><input type="checkbox" name=""></td>
+												      	<td>1302160126</td>
+												      	<td>邱梓峰</td>
+												      	<td>信科1601</td>
+												        <td>2019A01</td>
+												        <td>A</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
+												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+												        </td>
+												      </tr>
+												      <tr>
+												        <td><input type="checkbox" name=""></td>
+												      	<td>1302160126</td>
+												      	<td>邱梓峰</td>
+												      	<td>信科1601</td>
+												        <td>2019A01</td>
+												        <td>A</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
+												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+												        </td>
+												      </tr>
+												      <tr>
+												        <td><input type="checkbox" name=""></td>
+												      	<td>1302160126</td>
+												      	<td>邱梓峰</td>
+												      	<td>信科1601</td>
+												        <td>2019A01</td>
+												        <td>A</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
+												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+												        </td>
+												      </tr>
+												    </tbody>
+				                    			</table>
+				                    		</div>
+
+			                    			<!-- 全体操作 -->
+			                    			<div class="row operate-n">
+			                    				<input type="button" class="btn btn-danger pull-right" name="" value="删&emsp;除">
+			                    			</div>
 			                    		</div>
 			                    	</div>
 			                    </div>
@@ -114,7 +311,78 @@
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">学生课表查询</div>
 			                    		<div class="panel-body">
-			                    			
+			                    			<!-- 筛选区域 -->
+			                    			<div class="row student-select">
+			                    				<div class="col-xs-2 col-sm-2">
+			                    					<input type="text" name="" class="form-control" placeholder="学生学号">
+			                    				</div>
+			                    				<div class="col-xs-2 col-sm-2">
+			                    					<input type="text" name="" class="form-control" placeholder="学生姓名">
+			                    				</div>
+			                    				
+			                    				<div class="col-xs-1 col-sm-1">
+			                    					<input type="button" name="" class="btn btn-sm btn-default" value="查询排课表">
+			                    				</div>
+
+			                    				<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印排课表">
+			                    			</div>
+			                    			<!-- 筛选区域结束 -->
+
+			                    			<!-- 学生列表表格 -->
+			                    			<div class="table-responsive">
+				                    			<table class="table">
+				                    				<thead>
+												      <tr>
+												        <th>选择</th>
+												        <th>课时</th>
+												        <th>工种</th>
+												        <th>批次</th>
+												        <th>组号</th>
+												        <th>操作</th>
+												      </tr>
+												    </thead>
+												    <tbody>
+												      <tr>
+												      	<td><input type="checkbox" name=""></td>
+												      	<td>1(2019/03/13/56)</td>
+												      	<td>铣削</td>
+												        <td>2019A01</td>
+												        <td>A</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
+												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+												        </td>
+												      </tr>
+												      <tr>
+												        <td><input type="checkbox" name=""></td>
+												      	<td>2(2019/03/13/78)</td>
+												      	<td>车工</td>
+												        <td>2019A01</td>
+												        <td>A</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
+												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+												        </td>
+												      </tr>
+												      <tr>
+												        <td><input type="checkbox" name=""></td>
+												      	<td>3(2019/5/12/34)</td>
+												      	<td>钳工</td>
+												        <td>2019A01</td>
+												        <td>A</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
+												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+												        </td>
+												      </tr>
+												    </tbody>
+				                    			</table>
+				                    		</div>
+
+			                    			<!-- 全体操作 -->
+			                    			<div class="row operate-n">
+			                    				<input type="button" class="btn btn-danger pull-right" name="" value="删&emsp;除">
+			                    			</div>
 			                    		</div>
 			                    	</div>
 			                    </div>
@@ -122,7 +390,81 @@
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">特殊学生课程分配</div>
 			                    		<div class="panel-body">
-			                    			
+			                    			<!-- 特殊学生列表筛选 -->
+			                    			<div class="row student-select">
+			                    				<div class="col-xs-2 col-sm-2">
+			                    					<h4 class="text-center">学生列表</h4>
+			                    				</div>
+			                    				
+			                    				<div class="col-xs-2 col-sm-2">
+			                    					<input type="text" name="" class="form-control" placeholder="学生学号">
+			                    				</div>
+			                    				<div class="col-xs-2 col-sm-2">
+			                    					<input type="text" name="" class="form-control" placeholder="学生姓名">
+			                    				</div>
+
+			                    				<div class="col-xs-1 col-sm-1">
+			                    					<input type="button" name="" class="btn btn-sm btn-default" value="筛选">
+			                    				</div>
+
+			                    				<button class="btn btn-default pull-right btn-sm" id="add"><i class="fa fa-plus"></i> 添加</button> 
+			                    			</div>
+
+			                    			<!-- 学生列表表格 -->
+			                    			<div class="table-responsive">
+				                    			<table class="table" id="mytable">
+				                    				<thead>
+												      <tr>
+												        <th>选择</th>
+												        <th>学号</th>
+												        <th>姓名</th>
+												        <th>班级</th>
+												        <th>批次</th>
+												        <th>操作</th>
+												      </tr>
+												    </thead>
+												    <tbody>
+												      <tr>
+												      	<td><input type="checkbox" name=""></td>
+												      	<td>1302160126</td>
+												      	<td>邱梓峰</td>
+												      	<td>信科1601</td>
+												        <td>A</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-success" name="" value="排课">
+												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+												        </td>
+												      </tr>
+												      <tr>
+												        <td><input type="checkbox" name=""></td>
+												      	<td>1302160126</td>
+												      	<td>邱梓峰</td>
+												      	<td>信科1601</td>
+												        <td>A</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-success" name="" value="排课">
+												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+												        </td>
+												      </tr>
+												      <tr>
+												        <td><input type="checkbox" name=""></td>
+												      	<td>1302160126</td>
+												      	<td>邱梓峰</td>
+												      	<td>信科1601</td>
+												        <td>A</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-success" name="" value="排课">
+												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+												        </td>
+												      </tr>
+												    </tbody>
+				                    			</table>
+				                    		</div>
+
+			                    			<!-- 全体操作 -->
+			                    			<div class="row operate-n">
+			                    				<input type="button" class="btn btn-danger pull-right" name="" value="删&emsp;除">
+			                    			</div>
 			                    		</div>
 			                    	</div>
 			                    </div>
@@ -134,5 +476,11 @@
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
+	<!-- <script type="text/javascript" src="../js/bootstable.js"></script>
+	<script type="text/javascript">
+		$('#mytable').SetEditable({
+			$addButton: $('#add')
+		});
+	</script> -->
 </body>
 </html>
