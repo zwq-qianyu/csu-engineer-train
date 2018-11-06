@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>教师端界面</title>
+	<!-- jquery -->
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../manager/css/aside.css">
+	<link rel="stylesheet" type="text/css" href="../manager/css/header.css">
+</head>
+<body>
+	<header>
+		<!-- <iframe src="./header.html" width="100%" height="120px;" frameborder="no"></iframe> -->
+		<nav>
+			<div id="nav-left">
+				<a href=""><img src="../img/logo.svg" alt="图标" id="main-icon"></a>
+				<span id="nav-name">中南大学工程训练中心教学管理系统--教师端</span>
+			</div>
+			<a class="btn btn-default get-out" href="../login.html"><img src="../manager/img/out.svg" class="out-icon">退  出</a>
+		</nav>
+	</header>
+	<!-- 面包屑导航 -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">教师端</a></li>
+			<li class="breadcrumb-item"><a href="#">物料管理</a></li>
+			<li class="breadcrumb-item active">物料申购</li>
+		</ol>
+	</nav>
+	<!-- 面包屑导航结束 -->
+	<!-- 主体部分 -->
+	<div class="mainbody row">
+		<aside class="col-xs-2 col-sm-2">
+			<!-- <iframe src="./aside.html" width="100%" height="700px;" frameborder="no"></iframe> -->
+			<div id="aside">
+				<ul class="list-group">
+					<li class="list-group-item"><img class="icon" src="../manager/img/paike.svg"> 实习课程
+						<ul>
+							<li><a href="./teach-schedule.html">教学安排</a></li>
+						</ul>
+					</li>
+					<li class="list-group-item"><img class="icon" src="../manager/img/score.svg"> 成绩管理
+						<ul>
+							<li><a href="./operate-score.html">操作评分</a></li>
+						</ul>
+					</li>
+					<li class="list-group-item"><img class="icon" src="../manager/img/extra-work.svg"> 加班情况
+						<ul>
+							<li><a href="./extra-record.html">加班记录</a></li>
+						</ul>
+					</li>
+					<li class="list-group-item"><img class="icon" src="../manager/img/materal-manage.svg"> 物料管理
+						<ul>
+							<li><a href="./materal-record.html">物料登记</a></li>
+							<li class="left-active"><a href="./materal-buy.html">物料申购</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</aside>
+		<div class="main-right clearfix col-xs-10 col-sm-10">
+			
+		</div>
+	</div>
+	<!-- 主体部分结束 -->
+</body>
+</html>
