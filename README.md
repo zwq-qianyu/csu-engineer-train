@@ -1,5 +1,3 @@
-中南大学工程训练中心教务系统前端代码
-
 
 ### [管理员端](http://gxxt.runtofuture.cn/manager/student-manage.html)
 
