@@ -10,6 +10,11 @@
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../manager/css/aside.css">
 	<link rel="stylesheet" type="text/css" href="../manager/css/header.css">
+	<!-- 日期时间插件 flatpickr.js -->
+	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<link rel="stylesheet" type="text/css" href="./css/extra-select.css">
 </head>
 <body>
 	<header>
@@ -56,9 +61,59 @@
 			</div>
 		</aside>
 		<div class="main-right clearfix col-xs-10 col-sm-10">
-			
+			<div class="card">
+				<div class="card-header">
+					<strong>新增申请</strong>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期" data-enable-time=true data-time_24hr=true>
+						<select class="form-control col-xs-2 col-sm-2 select-worktype">
+							<option>选择工种</option>
+							<option>车工</option>
+							<option>钳工</option>
+							<option>铣削</option>
+						</select>
+						<input type="text" name="" class="form-control col-xs-2 col-sm-2 input-times" placeholder="输入时长">
+						<input type="button" name=""class="btn btn-outline-danger float-right" value="确认">
+					</div>
+				</div>
+			</div>
+
+			<br><br>
+
+			<div class="card">
+				<div class="card-header">
+					<strong>我的申请</strong>
+				</div>
+				<div class="card-body">
+					<br>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>申请日期</th>
+								<th>工种</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>2018-09-10 12:00-14:00</td>
+								<td>钳工</td>
+							</tr>
+							<tr>
+								<td>2018-09-10 12:00-14:00</td>
+								<td>钳工</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
+	<!-- 主体部分结束 -->
+	<script type="text/javascript">
+		$(".mycalendar").flatpickr();
+	</script>
 </body>
 </html>
