@@ -10,6 +10,12 @@
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../manager/css/aside.css">
 	<link rel="stylesheet" type="text/css" href="../manager/css/header.css">
+	<link rel="stylesheet" type="text/css" href="../manager/css/extra-work.css">
+	<!-- 日期时间插件 flatpickr.js -->
+	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<link rel="stylesheet" type="text/css" href="./css/teach-schedule.css">
 </head>
 <body>
 	<header>
@@ -62,9 +68,126 @@
 			</div>
 		</aside>
 		<div class="main-right clearfix col-xs-10 col-sm-10">
-			
+			<div class="card">
+				<div class="card-header">
+					<strong>学生加班申请</strong>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期">
+						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间">
+						<select class="form-control col-xs-2 col-sm-2 select-worktype">
+							<option>选择工种</option>
+							<option>车工</option>
+							<option>钳工</option>
+							<option>铣削</option>
+						</select>
+						<input type="button" name=""class="btn btn-success float-right" value="查询">
+					</div>
+
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								<th>申请日期</th>
+								<th>姓名</th>
+								<th>学号</th>
+								<th>批次</th>
+								<th>小组</th>
+								<th>工种</th>
+								<th>时长</th>
+								<th>加班事由</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>2018-10-05 20:00-22:00</td>
+								<td>张扬帆</td>
+								<td>0903161009</td>
+								<td>2016B01</td>
+								<td>B</td>
+								<td>钳工</td>
+								<td>2h</td>
+								<td>无碳小车校赛加班</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-header">
+					<strong>新增教师值班</strong>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<input class="flatpickr mycalendar-card2 form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期" data-enable-time=true data-time_24hr=true>
+						<select class="form-control col-xs-2 col-sm-2 select-worktype">
+							<option>选择工种</option>
+							<option>车工</option>
+							<option>钳工</option>
+							<option>铣削</option>
+						</select>
+						<select class="form-control col-xs-2 col-sm-2 select-teacher">
+							<option>选择教师</option>
+							<option>教师A</option>
+							<option>教师B</option>
+							<option>教师C</option>
+						</select>
+						<input type="text" name="" class="form-control col-xs-2 col-sm-2 input-times" placeholder="输入时长">
+						<input type="button" name=""class="btn btn-outline-danger float-right" value="确认">
+					</div>
+				</div>
+			</div>
+			<div class="card extra-record-card3">
+				<div class="card-header">
+					<strong>教师值班记录</strong>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<input class="flatpickr mycalendar-card3 form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期">
+						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间">
+						<select class="form-control col-xs-2 col-sm-2 select-worktype">
+							<option>选择工种</option>
+							<option>车工</option>
+							<option>钳工</option>
+							<option>铣削</option>
+						</select>
+						<input type="button" name=""class="btn btn-success float-right" value="查询">
+					</div>
+
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								<th>日期</th>
+								<th>姓名</th>
+								<th>工种</th>
+								<th>时长</th>
+								<th>加班事由</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>2018/09/12 20:00-22:00</td>
+								<td>李华</td>
+								<td>钳工</td>
+								<td>2h</td>
+								<td>无碳小车校赛加班</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
+	<!-- 主体部分结束 -->
+	<script type="text/javascript">
+		$(".mycalendar").flatpickr();
+		$(".mycalendar-card2").flatpickr();
+		$(".mycalendar-card3").flatpickr();
+	</script>
 </body>
 </html>

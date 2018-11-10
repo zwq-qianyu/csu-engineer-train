@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../manager/css/aside.css">
 	<link rel="stylesheet" type="text/css" href="../manager/css/header.css">
+	<link rel="stylesheet" type="text/css" href="./css/teach-schedule.css">
 </head>
 <body>
 	<header>
@@ -32,7 +33,7 @@
 	</nav>
 	<!-- 面包屑导航结束 -->
 	<!-- 主体部分 -->
-	<div class="mainbody row">
+	<div class="mainbody row operate-score">
 		<aside class="col-xs-2 col-sm-2">
 			<!-- <iframe src="./aside.html" width="100%" height="700px;" frameborder="no"></iframe> -->
 			<div id="aside">
@@ -62,7 +63,97 @@
 			</div>
 		</aside>
 		<div class="main-right clearfix col-xs-10 col-sm-10">
-			
+			<div class="card">
+				<div class="card-header">
+					<h5>筛选条件</h5>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-2 col-xs-2">
+							<select class="form-control">
+								<option>选择实习批次</option>
+								<option></option>
+								<option></option>
+							</select>
+						</div>
+						<div class="col-sm-2 col-xs-2">
+							<select class="form-control">
+								<option>选择工种</option>
+								<option></option>
+								<option></option>
+							</select>
+						</div>
+						<div class="col-sm-2 col-xs-2">
+							<select class="form-control">
+								<option>选择组数</option>
+								<option></option>
+								<option></option>
+							</select>
+						</div>
+						
+						<input type="button" name="" class="btn btn-danger" value="筛选">
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-header">
+					<h5>查询条件</h5>
+				</div>
+				<div class="card-body">
+					<div class="row input-select">
+						<input type="text" name="" class="form-control col-sm-2 col-xs-2" placeholder="请输入学号">
+						<input type="text" name="" class="form-control col-sm-2 col-xs-2" placeholder="请输入姓名">
+						<input type="text" name="" class="form-control col-sm-2 col-xs-2" placeholder="请输入班级">
+						<input type="button" name="" value="查询" class="btn btn-default">
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-header">
+					<div class="row input-score">
+						<div class="col-xs-2 col-sm-2 inline-block">学生列表</div>
+						<input type="text" name="" class="col-sm-2 col-xs-2 form-control" placeholder="请输入成绩">
+						<input type="button" name="" value="确认" class="btn btn-outline-danger">
+					</div>
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>框选</th>
+								<th>学号</th>
+								<th>姓名</th>
+								<th>学院</th>
+								<th>班级</th>
+								<th>实习批次</th>
+								<th>工种</th>
+								<th>组数</th>
+								<th>分数</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="checkbox" name=""></td>
+								<td>123456</td>
+								<td>李华</td>
+								<td>机电工程学院</td>
+								<td>机械1909班</td>
+								<td>2018A01</td>
+								<td>钳工</td>
+								<td>A</td>
+								<td>98</td>
+							</tr>
+						</tbody>
+					</table>
+					<br>
+					<div>
+						<input type="button" name="" value="提交" class="btn btn-danger float-right">
+					</div>
+					<br>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
