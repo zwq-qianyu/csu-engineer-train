@@ -110,7 +110,7 @@
 		    	 		<a class="btn btn-sm btn-default" href="#"><img class="edit-icon" src="./img/edit.svg"></a>
 				  		<a class="btn btn-sm btn-default" href="#"><img class="del-icon" src="./img/delete-x.svg"></a>
 				    </p>
-			   
+
 				    <div class="collapse" id="fall">
 				    	<div class="card card-body">
 				    		<ul>
@@ -141,23 +141,23 @@
 			    	<p>学生信息批量导入：</p>
 			    	<form class="form-inline" role="form">
 			    		<input type="file" name="choose-file" class="form-control-file">
-			    		<select class="form-control">
+			    		<select class="form-control custom-select">
 			    			<option>选择导入至批次</option>
 			    			<option>2019A01</option>
 			    			<option>2019A02</option>
 			    			<option>2019B01</option>
 			    			<option>2019B02</option>
 			    		</select>
-			    		<select class="form-control">
+			    		<select class="form-control custom-select">
 			    			<option>选择导入形式</option>
 			    			<option>追加</option>
 			    			<option>覆盖</option>
 			    			<option>删除</option>
 			    		</select>
-			    		<div class="">
+			    		<!-- <div class="">
 			    			<span>分组数量：</span>
 			    			<input type="text" name="" class="form-control">
-			    		</div>
+			    		</div> -->
 			    		<button class="btn btn-danger">开始导入</button>
 			    	</form>
 			    </div>
@@ -171,7 +171,7 @@
 			  <h5 class="card-header">学生列表</h5>
 			  <div class="card-body stu-list">
 			  	<div class="row">
-			  		<select class="form-control col-xs-2 col-sm-2">
+			  		<select class="form-control custom-select col-xs-2 col-sm-2">
 		    			<option>选择批次</option>
 		    			<option>2019A01</option>
 		    			<option>2019A02</option>
@@ -179,7 +179,47 @@
 		    			<option>2019B02</option>
 		    		</select>
 		    		<button class="btn btn-default query">查   询</button>
-		    		<button class="add btn btn-cyan" style="float: right;">添   加</button>
+		    		<button class="add btn btn-cyan" data-toggle="modal" data-target="#studentManage-button-addModal" style="float: right;">添   加</button>
+						<!-- Modal -->
+						<div class="modal fade" id="studentManage-button-addModal" tabindex="-1" role="dialog" aria-labelledby="studentManage-button-addModalTitle" aria-hidden="true">
+						  <div class="modal-dialog modal-dialog-centered" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="studentManage-button-addModalTitle">添加学生</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+										<div class="container-fluid">
+											<div class="row">
+								        <input type="text" class="form-control col-md-5" id="stu-number-add" placeholder="学号">
+												<span class="col-md-2"></span>
+												<input type="text" class="form-control col-md-5" id="stu-name-add" placeholder="姓名">
+												<!-- <span class="col-md-1"></span>
+												<input type="text" class="form-control col-md-3" id="stu-class-add" placeholder="班级"> -->
+											</div>
+											<br>
+											<div class="row">
+												<input type="text" class="form-control col-md-5" id="stu-class-add" placeholder="班级">
+												<span class="col-md-2"></span>
+												<select class="form-control custom-select col-md-5">
+								    			<option>选择批次</option>
+								    			<option>2019A01</option>
+								    			<option>2019A02</option>
+								    			<option>2019B01</option>
+								    			<option>2019B02</option>
+								    		</select>
+											</div>
+										</div>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+						        <button type="button" class="btn btn-primary">确定</button>
+						      </div>
+						    </div>
+						  </div>
+						</div><!-- /.modal -->
 			  	</div>
 			  	<div class="container">
 			  		<table class="table">
@@ -202,7 +242,46 @@
 			  					<td>2016B01</td>
 			  					<td>
 			  						<a class="btn btn-danger btn-sm" href="#">删除</a>
-			  						<a class="btn btn-success btn-sm" href="#">编辑</a>
+			  						<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#studentManage-button-editModal">编辑</a>
+										<div class="modal fade" id="studentManage-button-editModal" tabindex="-1" role="dialog" aria-labelledby="studentManage-button-editModalTitle" aria-hidden="true">
+											  <div class="modal-dialog modal-dialog-centered" role="document">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <h5 class="modal-title" id="studentManage-button-editModalTitle">学生信息修改</h5>
+											        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											          <span aria-hidden="true">&times;</span>
+											        </button>
+											      </div>
+											      <div class="modal-body">
+															<div class="container-fluid">
+																<div class="row">
+													        <input type="text" class="form-control col-md-5" id="stu-number-edit" placeholder="学号">
+																	<span class="col-md-2"></span>
+																	<input type="text" class="form-control col-md-5" id="stu-name-edit" placeholder="姓名">
+																	<!-- <span class="col-md-1"></span>
+																	<input type="text" class="form-control col-md-3" id="stu-class-edit" placeholder="班级"> -->
+																</div>
+																<br>
+																<div class="row">
+																	<input type="text" class="form-control col-md-5" id="stu-class-add" placeholder="班级">
+																	<span class="col-md-2"></span>
+																	<select class="form-control custom-select col-md-5">
+													    			<option>选择批次</option>
+													    			<option>2019A01</option>
+													    			<option>2019A02</option>
+													    			<option>2019B01</option>
+													    			<option>2019B02</option>
+													    		</select>
+																</div>
+															</div>
+											      </div>
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+											        <button type="button" class="btn btn-primary">确定</button>
+											      </div>
+											    </div>
+											  </div>
+											</div><!-- /.modal -->
 			  					</td>
 			  				</tr>
 			  			</tbody>

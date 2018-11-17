@@ -83,10 +83,11 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="submit-time" placeholder="提交日期">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="加班开始日期">
 						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间">
-						<select class="form-control col-xs-2 col-sm-2 select-worktype">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="加班结束时间">
+						<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype">
 							<option>选择工种</option>
 							<option>车工</option>
 							<option>钳工</option>
@@ -98,24 +99,22 @@
 					<table class="table">
 						<thead class="thead-dark">
 							<tr>
-								<th>申请日期</th>
+								<th>提交日期</th>
 								<th>姓名</th>
 								<th>学号</th>
-								<th>批次</th>
-								<th>小组</th>
 								<th>工种</th>
+								<th>加班时间</th>
 								<th>时长</th>
 								<th>加班事由</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>2018-10-05 20:00-22:00</td>
+								<td>2018-10-04 20:45</td>
 								<td>张扬帆</td>
 								<td>0903161009</td>
-								<td>2016B01</td>
-								<td>B</td>
 								<td>钳工</td>
+								<td>2018-10-05 20:00-22:00</td>
 								<td>2h</td>
 								<td>无碳小车校赛加班</td>
 							</tr>
@@ -133,21 +132,31 @@
 				<div class="card-body">
 					<div class="row">
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" data-enable-time="true" data-time_24hr="true" placeholder="值班时间">
-						<select class="form-control col-xs-2 col-sm-2 select-worktype">
+						<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype">
 							<option>选择工种</option>
 							<option>车工</option>
 							<option>钳工</option>
 							<option>铣削</option>
 						</select>
-						<select class="form-control col-xs-2 col-sm-2 select-worktype">
+						<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype">
 							<option>选择教师</option>
 							<option>张三</option>
 							<option>李四</option>
 							<option>王五</option>
 						</select>
 						<input type="text" name="last-time" placeholder="输入时长" class="form-control col-xs-2 col-sm-2 last-time">
-						<input type="button" name=""class="btn btn-success float-right" value="确定">
 					</div>
+					<br>
+
+					<form>
+						<div class="form-group">
+					    <label for="extraWork-reason">加班事由：</label>
+					    <textarea class="form-control" id="extraWork-reason" rows="3"></textarea>
+					  </div>
+					</form>
+					<br>
+
+					<input type="button" name=""class="btn btn-success float-right" value="确定">
 				</div>
 			</div>
 			<!-- 新增教师值班结束 -->
@@ -162,7 +171,7 @@
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期">
 						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间">
-						<select class="form-control col-xs-2 col-sm-2 select-worktype">
+						<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype">
 							<option>选择工种</option>
 							<option>车工</option>
 							<option>钳工</option>

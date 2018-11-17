@@ -3,6 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<title>管理员界面</title>
+	<!-- jquery -->
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<!-- bootstrap -->
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/aside.css">
@@ -75,21 +78,21 @@
 				</div>
 				<div class="card-body">
 					<div class="row select-area">
-						<select class="form-control col-xs-3 col-sm-3">
+						<select class="form-control custom-select col-xs-3 col-sm-3">
 							<option>实习批次选择</option>
 							<option>2018A01</option>
 							<option>2018A02</option>
 							<option>2019A01</option>
 							<option>2019A02</option>
 						</select>
-						<select class="form-control col-xs-3 col-sm-3">
+						<select class="form-control custom-select col-xs-3 col-sm-3">
 							<option>工种</option>
 							<option>车削</option>
 							<option>铣削</option>
 							<option>车工</option>
 							<option>钳工</option>
 						</select>
-						<select class="form-control col-xs-3 col-sm-3">
+						<select class="form-control custom-select col-xs-3 col-sm-3">
 							<option>组号</option>
 							<option>A</option>
 							<option>B</option>
@@ -99,12 +102,69 @@
 					<div class="row input-select">
 						<input type="text" name="stu-num" placeholder="学生学号" class="form-control col-xs-3 col-sm-3">
 						<input type="text" name="stu-name" placeholder="学生姓名" class="form-control col-xs-3 col-sm-3">
-						<span class="col-xs-3 col-sm-3">
-							<button  class="btn btn-sm btn-success ">查&emsp;询</button>
-						</span>
+						<button  class="btn btn-sm btn-success ">查&emsp;询</button>
+						<button  class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#score-grade-test">等级评定</button>
+						<div class="modal fade" id="score-grade-test" tabindex="-1" role="dialog" aria-labelledby="score-grade-testTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="score-grade-testTitle">等级评定规则</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<select class="form-control custom-select col-xs-3">
+											<option>选择评级模式</option>
+											<option>按照成绩总分数划分</option>
+											<option>按照成绩总排名划分</option>
+										</select>
+
+										<table class="table col-xs-9 addGradeTest-table">
+											<!-- <thead>
+												<tr>
+													<th>打分项</th>
+													<th>权重</th>
+												</tr>
+											</thead> -->
+											<tbody>
+												<tr>
+													<td>优秀</td>
+													<td><input type="text" name="" value="30"> %</td>
+												</tr>
+												<tr>
+													<td>良好</td>
+													<td><input type="text" name="" value="30"> %</td>
+												</tr>
+												<tr>
+													<td>中等</td>
+													<td><input type="text" name="" value="30"> %</td>
+												</tr>
+												<tr>
+													<td>及格</td>
+													<td><input type="text" name="" value="30"> %</td>
+												</tr>
+												<tr>
+													<td>不及格</td>
+													<td><input type="text" name="" value="30"> %</td>
+												</tr>
+												<tr>
+											</tbody>
+										</table>
+										<br>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal" id="addNewPlan-close">关闭</button>
+										<button type="button" class="btn btn-primary" id="addNewPlan-ensure">确定</button>
+									</div>
+								</div>
+							</div>
+						</div><!-- /.modal -->
+
 					</div>
 					<br><br>
-					<table class="table table-striped">
+					<table class="table table-striped score-list-table">
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">批次/组</th>
@@ -156,6 +216,18 @@
 							</tr>
 						</tbody>
 					</table>
+					<div class="row">
+						<div class="col-xs-3 col-sm-3">
+							<select class="form-control csutom-select">
+								<option>实习批次选择</option>
+								<option>2018A01</option>
+								<option>2018A02</option>
+								<option>2018B01</option>
+								<option>2018B02</option>
+							</select>
+						</div>
+						<button class="btn btn-dark">发布总成绩</button>
+					</div>
 				</div>
 			</div>
 			<!-- 成绩列表结束 -->
@@ -167,21 +239,21 @@
 				</div>
 				<div class="card-body">
 					<div class="row select-area">
-						<select class="form-control col-xs-2 col-sm-2">
+						<select class="form-control custom-select col-xs-2 col-sm-2">
 							<option>实习批次选择</option>
 							<option>2018A01</option>
 							<option>2018A02</option>
 							<option>2019A01</option>
 							<option>2019A02</option>
 						</select>
-						<select class="form-control col-xs-2 col-sm-2">
+						<select class="form-control custom-select col-xs-2 col-sm-2">
 							<option>工种</option>
 							<option>车削</option>
 							<option>铣削</option>
 							<option>车工</option>
 							<option>钳工</option>
 						</select>
-						<select class="form-control col-xs-2 col-sm-2">
+						<select class="form-control custom-select col-xs-2 col-sm-2">
 							<option>组号</option>
 							<option>A</option>
 							<option>B</option>

@@ -110,3 +110,8 @@ th, td {
     margin: 0 20px;
     text-align: center;
 }
+
+#divide_course_select_batch {
+  border: solid 2px;
+  padding: 10px;
+}

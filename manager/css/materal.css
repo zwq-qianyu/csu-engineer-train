@@ -4,7 +4,7 @@
 }
 
 .fill-check {
-	margin-left: 100px;
+	margin-right: 100px;
 	margin-top: 30px;
 }
 
@@ -13,12 +13,12 @@
 }
 
 .time-last {
-	border: none; 
+	border: none;
 	text-align: center;
 }
 
 .select-person {
-	margin-left: 50px;
+	margin-left: 25px;
 }
 
 .float-right {
@@ -35,4 +35,28 @@ table {
 
 th, td {
 	text-align: center;
+}
+
+.materal-out-number {
+	margin: 10px;
+}
+
+.outNumber-card {
+	margin-top: 20px;
+}
+
+.outNumber-card input {
+	margin: 10px;
+}
+
+.outNumber-card select {
+	margin: 0 10px;
+}
+
+.outNumber-card a {
+	margin-top: 30px;
+}
+
+.record-search2 input {
+	margin: 20px;
 }

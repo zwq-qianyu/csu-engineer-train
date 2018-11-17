@@ -178,21 +178,84 @@
 				<h5 class="card-header">教师列表</h5>
 				<div class="card-body">
 					<div class="row teacher-list">
-				  		<select class="form-control col-xs-2 col-sm-2">
+				  		<select class="form-control custom-select col-xs-2 col-sm-2">
 			    			<option>选择教师组</option>
 			    			<option>车  削</option>
 			    			<option>铣   削</option>
 			    			<option>管理教师组</option>
 			    		</select>
-			    		<select class="form-control col-xs-2 col-sm-2">
+			    		<select class="form-control custom-select col-xs-2 col-sm-2">
 			    			<option>选择角色</option>
-			    			<option>考   勤</option>
-			    			<option>小车设计</option>
-			    			<option>小车制造</option>
-			    			<option>实习报告</option>
+			    			<option>管理员</option>
+			    			<option>实训教师</option>
+			    		</select>
+							<select class="form-control custom-select col-xs-2 col-sm-2">
+			    			<option>物料筛选</option>
+			    			<option>无</option>
+			    			<option>物料管理</option>
+								<option>物料登记</option>
+			    		</select>
+							<select class="form-control custom-select col-xs-1 col-sm-1">
+			    			<option>加班管理</option>
+			    			<option>无</option>
+			    			<option>加班</option>
 			    		</select>
 			    		<button class="btn btn-default query">查   询</button>
-			    		<button class="add btn btn-cyan" style="float: right;">添   加</button>
+			    		<button class="add btn btn-cyan" data-toggle="modal" data-target="#teacherManage-button-addModal" style="float: right;">添   加</button>
+							<div class="modal fade" id="teacherManage-button-addModal" tabindex="-1" role="dialog" aria-labelledby="teacherManage-button-addModalTitle" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="teacherManage-button-addModalTitle">添加教师</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+											<div class="container-fluid">
+												<div class="row">
+									        <input type="text" class="form-control col-md-3" id="teach-nickname-add" placeholder="用户名">
+													<input type="text" class="form-control col-md-3" id="teach-name-add" placeholder="姓名">
+													<select class="custom-select form-control col-md-3">
+														<option>选择教师组</option>
+									    			<option>管理员</option>
+									    			<option>实训教师</option>
+													</select>
+												</div>
+												<br>
+												<div class="row">
+													<select class="form-control custom-select col-md-2">
+														<option>性别</option>
+									    			<option>男</option>
+									    			<option>女</option>
+									    		</select>
+													<select class="form-control custom-select col-md-2">
+									    			<option>角色</option>
+									    			<option>考勤</option>
+									    			<option>。。。</option>
+									    			<option>。。。</option>
+									    		</select>
+													<select class="form-control custom-select col-md-2">
+									    			<option>物料</option>
+									    			<option>物料登记</option>
+									    			<option>物料管理</option>
+									    			<option>无</option>
+									    		</select>
+													<select class="form-control custom-select col-md-2">
+									    			<option>加班</option>
+									    			<option>无</option>
+									    			<option>加班管理</option>
+									    		</select>
+												</div>
+											</div>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+							        <button type="button" class="btn btn-primary">确定</button>
+							      </div>
+							    </div>
+							  </div>
+							</div><!-- /.modal -->
 				  	</div>
 				  	<div class="container clearfix">
 				  		<table class="table">
@@ -221,7 +284,61 @@
 				  					<td>加班管理</td>
 				  					<td>
 				  						<a class="btn btn-danger btn-sm" href="#">删除</a>
-				  						<a class="btn btn-success btn-sm" href="#">编辑</a>
+				  						<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#teacherManage-button-editModal">编辑</a>
+											<div class="modal fade" id="teacherManage-button-editModal" tabindex="-1" role="dialog" aria-labelledby="teacherManage-button-editModalTitle" aria-hidden="true">
+											  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <h5 class="modal-title" id="teacherManage-button-editModalTitle">教师信息修改</h5>
+											        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											          <span aria-hidden="true">&times;</span>
+											        </button>
+											      </div>
+											      <div class="modal-body">
+															<div class="container-fluid">
+																<div class="row edit-row">
+													        <input type="text" class="form-control col-md-3" id="teach-nickname-add" placeholder="用户名">
+																	<input type="text" class="form-control col-md-3" id="teach-name-add" placeholder="姓名">
+																	<select class="custom-select form-control col-md-3">
+																		<option>选择教师组</option>
+													    			<option>管理员</option>
+													    			<option>实训教师</option>
+																	</select>
+																</div>
+																<br>
+																<div class="row edit-row">
+																	<select class="form-control custom-select col-md-2">
+																		<option>性别</option>
+													    			<option>男</option>
+													    			<option>女</option>
+													    		</select>
+																	<select class="form-control custom-select col-md-2">
+													    			<option>角色</option>
+													    			<option>考勤</option>
+													    			<option>。。。</option>
+													    			<option>。。。</option>
+													    		</select>
+																	<select class="form-control custom-select col-md-2">
+													    			<option>物料</option>
+													    			<option>物料登记</option>
+													    			<option>物料管理</option>
+													    			<option>无</option>
+													    		</select>
+																	<select class="form-control custom-select col-md-2">
+													    			<option>加班</option>
+													    			<option>无</option>
+													    			<option>加班管理</option>
+													    		</select>
+																</div>
+															</div>
+											      </div>
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+											        <button type="button" class="btn btn-primary">确定</button>
+											      </div>
+											    </div>
+											  </div>
+											</div><!-- /.modal -->
 				  					</td>
 				  				</tr>
 				  			</tbody>
