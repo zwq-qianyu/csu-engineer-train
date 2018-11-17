@@ -11,6 +11,10 @@
 	<link rel="stylesheet" type="text/css" href="../manager/css/aside.css">
 	<link rel="stylesheet" type="text/css" href="../manager/css/header.css">
 	<link rel="stylesheet" type="text/css" href="../manager/css/materal.css">
+	<!-- 日期时间插件 flatpickr.js -->
+	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js 结束 -->
 </head>
 <body>
 	<header>
@@ -63,6 +67,7 @@
 			</div>
 		</aside>
 		<div class="main-right clearfix col-xs-10 col-sm-10">
+
 			<!-- 物料登记 -->
 			<div class="card">
 				<div class="card-header">
@@ -70,35 +75,109 @@
 				</div>
 				<div class="card-body">
 					<h3 class="text-center">库存</h3>
-					<table class="table">
+					<div class="row">
+						<div class="col-md-6 col-xs-6">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>物料种类</th>
+										<th>存量</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>铝棒（根x2m）</td>
+										<td>20</td>
+									</tr>
+									<tr>
+										<td>轴承23（个）</td>
+										<td>2</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<span class="col-md-1 col-xs-1"></span>
+						<div class="col-md-4 col-xs-4 materal-out-number float-right">
+							<div class="card outNumber-card">
+								<div class="card-header">
+									派出数
+								</div>
+								<div class="card-body">
+									<input type="text" class="form-control col-md-11 col-xs-11" placeholder="输入领取学生学号">
+									<input type="text" class="form-control col-md-11 col-xs-11" placeholder="输入领取学生姓名">
+									<select class="form-control custom-select col-md-11 col-xs-11">
+										<option>选择物料种类</option>
+										<option>铝棒</option>
+										<option>轴承</option>
+									</select>
+									<input type="text" class="form-control col-md-11 col-xs-11" placeholder="输入领取数量">
+									<a href="#" class="btn btn-primary float-right">确定</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 物料登记结束 -->
+
+			<!-- 物料登记记录 -->
+			<div class="card">
+				<div class="card-header">
+					<h5>领取记录</h5>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期">
+						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间">
+						<select class="form-control custom-select col-xs-2 col-sm-2 select-person">
+							<option>物料种类</option>
+							<option>铝棒</option>
+							<option>轴承</option>
+						</select>
+					</div>
+					<div class="row record-search2">
+						<input type="text" class="form-control col-xs-2 col-sm-2" placeholder="学号">
+						<input type="text" class="form-control col-xs-2 col-sm-2" placeholder="姓名">
+						<input type="button" class="btn btn-success float-right" value="查询">
+					</div>
+
+					<table class="table table-striped">
 						<thead>
 							<tr>
+								<th>领取时间</th>
+								<th>领取学生</th>
+								<th>领取人学号</th>
 								<th>物料种类</th>
-								<th>铝棒(根x2m)</th>
-								<th>轴承23(个)</th>
+								<th>物料数量</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>存量</td>
-								<td>20</td>
-								<td>2</td>
+								<td>2018-10-05 12:12</td>
+								<td>张三</td>
+								<td>0906160204</td>
+								<td>铝棒(根x2m)</td>
+								<td>200</td>
+							</tr>
+							<tr>
+								<td>2018-10-08 10:23</td>
+								<td>王五</td>
+								<td>0906160211</td>
+								<td>轴承23(个)</td>
+								<td>18</td>
 							</tr>
 						</tbody>
 					</table>
-					<hr>
-
-					<div class="row fill-in">
-						<span>派出数：</span>
-						<input type="text" name="" placeholder="单行输入">
-					</div>
-					<div class="row fill-check">
-						<button class="btn btn-default">确&emsp;认</button>
-					</div>
 				</div>
 			</div>
+			<!-- 物料登记记录结束 -->
+
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
+	<script type="text/javascript">
+		$(".mycalendar").flatpickr();
+	</script>
 </body>
 </html>

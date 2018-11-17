@@ -63,63 +63,37 @@
 			</div>
 		</aside>
 		<div class="main-right clearfix col-xs-10 col-sm-10">
+			<!-- 给学生评分 -->
 			<div class="card">
 				<div class="card-header">
-					<h5>筛选条件</h5>
+					<h5>学生列表</h5>
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-2 col-xs-2">
-							<select class="form-control custom-select">
-								<option>选择实习批次</option>
-								<option></option>
+							<select class="form-control custom-select col-xs-2 col-sm-2 stu-divide-search">
+								<option>选择批次</option>
 								<option></option>
 							</select>
-						</div>
-						<div class="col-sm-2 col-xs-2">
-							<select class="form-control custom-select">
-								<option>选择工种</option>
-								<option></option>
-								<option></option>
-							</select>
-						</div>
-						<div class="col-sm-2 col-xs-2">
-							<select class="form-control custom-select">
+							<select class="form-control custom-select col-xs-2 col-sm-2 stu-divide-search">
 								<option>选择组数</option>
 								<option></option>
-								<option></option>
 							</select>
-						</div>
-
-						<input type="button" name="" class="btn btn-danger" value="筛选">
+							<input type="text" name="" class="form-control col-sm-2 col-xs-2 stu-divide-search" placeholder="请输入学号">
+							<input type="text" name="" class="form-control col-sm-2 col-xs-2 stu-divide-search" placeholder="请输入姓名">
+							<input type="button" name="" value="查&emsp;询" class="btn btn-outline-success stu-divide-search">
 					</div>
 				</div>
 			</div>
-
-			<div class="card">
-				<div class="card-header">
-					<h5>查询条件</h5>
-				</div>
-				<div class="card-body">
-					<div class="row input-select">
-						<input type="text" name="" class="form-control col-sm-2 col-xs-2" placeholder="请输入学号">
-						<input type="text" name="" class="form-control col-sm-2 col-xs-2" placeholder="请输入姓名">
-						<input type="text" name="" class="form-control col-sm-2 col-xs-2" placeholder="请输入班级">
-						<input type="button" name="" value="查询" class="btn btn-default">
-					</div>
-				</div>
-			</div>
-
 			<div class="card">
 				<div class="card-header">
 					<div class="row input-score">
-						<div class="col-xs-2 col-sm-2 inline-block">学生列表</div>
+						<div class="col-xs-2 col-sm-2 inline-block"><h6>输入成绩：<h6></div>
 						<input type="text" name="" class="col-sm-2 col-xs-2 form-control" placeholder="请输入成绩">
 						<input type="button" name="" value="确认" class="btn btn-outline-danger">
 					</div>
 				</div>
 				<div class="card-body">
-					<table class="table">
+					<table class="table table-bordered">
 						<thead>
 							<tr>
 								<th>框选</th>
@@ -154,6 +128,38 @@
 					<br>
 				</div>
 			</div>
+			<!-- 给学生评分结束 -->
+
+			<!-- 成绩批量导入 -->
+			<div class="card input-socre-excel">
+			  <h5 class="card-header">学生信息导入</h5>
+			  <div class="card-body">
+			    <h5 class="card-title">从Excel文件导入：<small class="download-excel"><a href="#" class="btn btn-outline-success">标准模版下载</a></small></h5>
+			    <div class="row choose-line">
+			    	<p>成绩批量导入：</p>
+		    		<input type="file" name="choose-file" class="form-control-file col-md-3 col-xs-3">
+		    		<select class="form-control custom-select col-md-2 col-xs-2">
+		    			<option>选择导入至批次</option>
+		    			<option>2019A01</option>
+		    			<option>2019A02</option>
+		    			<option>2019B01</option>
+		    			<option>2019B02</option>
+		    		</select>
+		    		<select class="form-control custom-select col-md-2 ol-xs-2">
+		    			<option>选择打分项</option>
+		    			<option>车削</option>
+		    			<option>铣削</option>
+		    			<option>考勤</option>
+							<option>小车设计</option>
+		    		</select>
+
+		    		<button class="btn btn-danger">开始导入</button>
+			    </div>
+
+			  </div>
+			</div>
+			<!-- 成绩批量导入结束 -->
+
 		</div>
 	</div>
 	<!-- 主体部分结束 -->

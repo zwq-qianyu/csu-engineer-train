@@ -68,15 +68,17 @@
 			</div>
 		</aside>
 		<div class="main-right clearfix col-xs-10 col-sm-10">
+			<!-- 学生加班申请 -->
 			<div class="card">
 				<div class="card-header">
-					<strong>学生加班申请</strong>
+					<h5>学生加班申请</h5>
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="submit-time" placeholder="提交日期">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="加班开始日期">
 						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="加班结束时间">
 						<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype">
 							<option>选择工种</option>
 							<option>车工</option>
@@ -89,24 +91,22 @@
 					<table class="table">
 						<thead class="thead-dark">
 							<tr>
-								<th>申请日期</th>
+								<th>提交日期</th>
 								<th>姓名</th>
 								<th>学号</th>
-								<th>批次</th>
-								<th>小组</th>
 								<th>工种</th>
+								<th>加班时间</th>
 								<th>时长</th>
 								<th>加班事由</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>2018-10-05 20:00-22:00</td>
+								<td>2018-10-04 20:45</td>
 								<td>张扬帆</td>
 								<td>0903161009</td>
-								<td>2016B01</td>
-								<td>B</td>
 								<td>钳工</td>
+								<td>2018-10-05 20:00-22:00</td>
 								<td>2h</td>
 								<td>无碳小车校赛加班</td>
 							</tr>
@@ -114,6 +114,7 @@
 					</table>
 				</div>
 			</div>
+			<!-- 学生加班申请结束 -->
 
 			<div class="card">
 				<div class="card-header">
