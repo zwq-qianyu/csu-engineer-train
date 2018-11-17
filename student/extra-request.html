@@ -8,6 +8,8 @@
 	<!-- bootstrap -->
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./js/color.js"></script>
+	<script type="text/javascript" src="./js/scroll.js"></script>
 	<link rel="stylesheet" type="text/css" href="../manager/css/aside.css">
 	<link rel="stylesheet" type="text/css" href="../manager/css/header.css">
 	<!-- 日期时间插件 flatpickr.js -->
@@ -67,22 +69,64 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期" data-enable-time=true data-time_24hr=true>
-						<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype">
-							<option>选择工种</option>
-							<option>车工</option>
-							<option>钳工</option>
-							<option>铣削</option>
-						</select>
-						<input type="text" name="" class="form-control col-xs-2 col-sm-2 input-times" placeholder="输入时长">
-					</div>
-					<br>
-					<div class="form-group">
-						<label>加班事由：</label>
-						<textarea class="form-control" rows="3"></textarea>
-					</div>
-					<div class="float-right">
-						<input type="button" name=""class="btn btn-outline-danger float-right" value="确认">
+						<div class="left-cardBody col-md-6 col-xs-6">
+							<div class="row">
+								<input class="flatpickr mycalendar form-control col-xs-3 col-sm-3 left-flatpickr" name="start-time" placeholder="开始日期" data-enable-time=true data-time_24hr=true>
+								<select class="form-control custom-select col-xs-3 col-sm-3 select-worktype">
+									<option>选择工种</option>
+									<option>车工</option>
+									<option>钳工</option>
+									<option>铣削</option>
+								</select>
+								<input type="text" name="" class="form-control col-xs-3 col-sm-3 input-times" placeholder="输入时长">
+							</div>
+							<br>
+							<div class="form-group">
+								<label>加班事由：</label>
+								<textarea class="form-control" rows="3"></textarea>
+							</div>
+							<div class="float-right">
+								<input type="button" name=""class="btn btn-outline-danger float-right" value="确认">
+							</div>
+						</div>
+
+
+						<div class="right-cardBody col-md-6 col-xs-6">
+							<div class="bcon">
+					      <div class="title"><b>近期值班公示</b><a href="#">更多 ></a></div>
+					      <div class="list_lh">
+					        <ul>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;钳工&emsp;&emsp;A老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;车工&emsp;&emsp;B老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;钳工&emsp;&emsp;C老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;车工&emsp;&emsp;D老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;钳工&emsp;&emsp;E老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;车工&emsp;&emsp;F老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;钳工&emsp;&emsp;G老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;车工&emsp;&emsp;H老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;钳工&emsp;&emsp;I老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;铣洗&emsp;&emsp;J老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;钳工&emsp;&emsp;K老师</a></p></li>
+					            <li><p><a target='_blank' href="#">2018-09-10 20:00-22:00&emsp;&emsp;车工&emsp;&emsp;L老师</a></p></li>
+					        </ul>
+					      </div>
+					    </div>
+					    <script type="text/javascript">
+					       $(function(){
+					            $("div.list_lh").myScroll({
+					                speed: 40, //数值越大，速度越慢
+					                rowHeight: 30 //li的高度
+					            });
+
+					            $('.list_lh li:even').addClass('lieven');
+
+					            $('.list_lh ul li a').myLink({
+					                'color': '#111',
+					                'fontSize': '13px'
+					            })
+					        });
+					    </script>
+						</div>
 					</div>
 				</div>
 			</div>
