@@ -2,3 +2,23 @@
 	margin-left: 20px;
 	margin-right: 30px;
 }
+
+#stu_batch {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#stu_batch label {
+	font-size: 16px;
+}
+
+#stu_sum_score {
+	font-size: 20px;
+	font-weight: bold;
+	color: red;
+}
+
+#stu_sum_score label {
+	font-size: 16px;
+	color: black;
+}

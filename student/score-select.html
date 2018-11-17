@@ -63,14 +63,9 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<select class="form-control custom-select col-xs-2 col-sm-2 select-batch">
-							<option>批次选择</option>
-							<option>2018A01</option>
-							<option>2018A02</option>
-							<option>208B01</option>
-							<option>2018B02</option>
-						</select>
-						<input type="button" name="" class="btn btn-outline-danger" value="查&emsp;询">
+						<div id="stu_batch" class="col-md-3 col-xs-3">实习批次：<label>2018A01</label></div>
+						<span class="col-md-1 col-xs-1"></span>
+						<div id="stu_sum_score" class="col-md-3 col-xs-3">总成绩：<label>优</label></div>
 					</div>
 
 					<br><br>
@@ -78,20 +73,22 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>实习批次</th>
-								<th>工种</th>
-								<th>组数</th>
+								<th>打分项</th>
 								<th>分数</th>
-								<th>学分</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>2018A01</td>
 								<td>钳工</td>
-								<td>A</td>
 								<td>98</td>
-								<td>1</td>
+							</tr>
+							<tr>
+								<td>车工</td>
+								<td>98</td>
+							</tr>
+							<tr>
+								<td>上机测试</td>
+								<td>90</td>
 							</tr>
 						</tbody>
 					</table>
