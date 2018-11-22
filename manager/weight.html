@@ -76,8 +76,8 @@
 					<h5>权重设置</h5>
 				</div>
 				<div class="card-body">
-					<div class="select-module">
-						<input type="button" class="btn btn-success col-xs-3" data-toggle="modal" data-target="#weight-plan-add" value="添加新权重方案">
+					<div class="row">
+						<input type="button" class="btn btn-success col-xs-2 col-md-2" id="add-new-plan" data-toggle="modal" data-target="#weight-plan-add" value="添加新权重方案">
 						<div class="modal fade" id="weight-plan-add" tabindex="-1" role="dialog" aria-labelledby="weight-plan-addTitle" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
@@ -136,11 +136,11 @@
 						<button class="btn btn-outline-danger">删除</button>
 					</div>
 
-					<div class="col-xs-6 col-md-6 ">
-						<table class="table">
+					<div>
+						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>工种</th>
+									<th>打分项</th>
 									<th>权重</th>
 								</tr>
 							</thead>
@@ -195,6 +195,13 @@
 						<span class="col-xs-1 col-sm-3"></span>
 						<button class="btn btn-success">绑&emsp;定</button>
 					</div>
+					<div class="tips">
+						<span>注意：</span>
+						<br>
+						<span>1、如若绑定之后欲对某批次权重方案进行修改，只能修改母模版后再次绑定；</span>
+						<br>
+						<span>2、两次绑定仅限于在学生成绩发布之前进行操作。</span>
+					</div>
 				</div>
 			</div>
 
@@ -213,11 +220,11 @@
 					</select>
 
 					<h4>成绩权重</h4>
-					<div class="col-xs-6 col-sm-6">
-						<table class="table">
+					<div>
+						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>工种</th>
+									<th>打分项</th>
 									<th>权重</th>
 								</tr>
 							</thead>

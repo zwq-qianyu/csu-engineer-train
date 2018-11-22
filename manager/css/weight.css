@@ -24,3 +24,11 @@ td,th {
 h4 {
 	margin-top: 50px;
 }
+
+#add-new-plan {
+	margin-left: 15px;
+}
+
+.tips {
+	color: green;
+}

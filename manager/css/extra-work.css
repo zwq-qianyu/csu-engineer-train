@@ -3,7 +3,7 @@
 }
 
 .time-last {
-	border: none; 
+	border: none;
 	text-align: center;
 }
 
@@ -29,4 +29,8 @@ th, td {
 
 .last-time {
 	margin-left: 50px;
+}
+
+.tips {
+	color: green;
 }

@@ -92,7 +92,7 @@ th, td {
 }
 
 .group-divide {
-    margin: 30px 0 50px 0;
+    margin-top: 30px;
 }
 
 .student-select {
@@ -114,4 +114,34 @@ th, td {
 #divide_course_select_batch {
   border: solid 2px;
   padding: 10px;
+}
+
+.tips {
+  color: green;
+  font-size: 12px;
+  margin-left: 50px;
+}
+
+.specialStudentList {
+  margin-top: 100px;
+}
+
+.specialStudentList {
+  margin-top: 50px;
+}
+
+.modal-body2 {
+  margin: 50px 0 80px 0;
+}
+
+table {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.fa-trash-o:hover {
+  color: black;
 }
