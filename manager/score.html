@@ -107,6 +107,7 @@
 						<input type="text" name="stu-num" placeholder="学生学号" class="form-control col-xs-3 col-sm-3">
 						<input type="text" name="stu-name" placeholder="学生姓名" class="form-control col-xs-3 col-sm-3">
 						<button  class="btn btn-sm btn-success ">查&emsp;询</button>
+						<button  class="btn btn-sm btn-primary ">核算总成绩</button>
 						<button  class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#score-grade-test">等级评定</button>
 						<div class="modal fade" id="score-grade-test" tabindex="-1" role="dialog" aria-labelledby="score-grade-testTitle" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">
@@ -183,6 +184,7 @@
 								<th scope="col">小车设计</th>
 								<th scope="col">总成绩</th>
 								<th scope="col">等级</th>
+								<th scope="col">发布情况</th>
 								<th scope="col">操作</th>
 							</tr>
 						</thead>
@@ -200,6 +202,7 @@
 								<td>90</td>
 								<td>90</td>
 								<td>优</td>
+								<td>未发布</td>
 								<td>
 									<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#scorelistEditModal">修改</button>
 								</td>
@@ -217,6 +220,7 @@
 								<td>90</td>
 								<td>80</td>
 								<td>良</td>
+								<td>已发布</td>
 								<td>
 									<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#scorelistEditModal">修改</button>
 									<div class="modal fade" id="scorelistEditModal" tabindex="-1" role="dialog" aria-labelledby="scorelistEditModalTitle" aria-hidden="true">
@@ -244,6 +248,7 @@
 																	<th scope="col">小车设计</th>
 																	<th scope="col">总成绩</th>
 																	<th scope="col">等级</th>
+																	<th scope="col">发布情况</th>
 																</tr>
 															</thead>
 															<tbody>
@@ -260,6 +265,7 @@
 																	<td><input type="text" name="" value="90"></td>
 																	<td>90</td>
 																	<td><input type="text" name=""  value="优"></td>
+																	<td>未发布</td>
 																</tr>
 															</tbody>
 														</table>
@@ -456,6 +462,7 @@
 					<table class="table table-striped score-list-table">
 						<thead class="thead-dark">
 							<tr>
+								<th scope="col">选择</th>
 								<th scope="col">批次/组</th>
 								<th scope="col">姓名</th>
 								<th scope="col">车工</th>
@@ -468,11 +475,13 @@
 								<th scope="col">小车设计</th>
 								<th scope="col">总成绩</th>
 								<th scope="col">等级</th>
+								<th scope="col">发布情况</th>
 								<th scope="col">操作</th>
 							</tr>
 						</thead>
 						<tbody class="score-table">
 							<tr>
+								<td><input type="checkbox" name=""></td>
 								<td>2018A01/A</td>
 								<td>王琳</td>
 								<td>90</td>
@@ -484,6 +493,7 @@
 								<td>90</td>
 								<td>90</td>
 								<td>80</td>
+								<td>已发布</td>
 								<td>良</td>
 								<td>
 									<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#specialListEditModal">修改</button>
@@ -512,6 +522,7 @@
 																	<th scope="col">小车设计</th>
 																	<th scope="col">总成绩</th>
 																	<th scope="col">等级</th>
+																	<th scope="col">发布情况</th>
 																</tr>
 															</thead>
 															<tbody>
@@ -528,6 +539,7 @@
 																	<td><input type="text" name="" value="90"></td>
 																	<td>90</td>
 																	<td><input type="text" name=""  value="优"></td>
+																	<td>已发布</td>
 																</tr>
 															</tbody>
 														</table>

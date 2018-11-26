@@ -1,4 +1,4 @@
-.select-area, .input-select {
+.select-area {
 	width: 80%;
 	display: flex;
 	justify-content: space-around;
@@ -6,7 +6,16 @@
 }
 
 .input-select {
+	width: 80%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
 	margin-top: 20px;
+}
+
+.input-select>input {
+	margin-left: 25px;
+	margin-right: 25px;
 }
 
 .score-table tr td input {

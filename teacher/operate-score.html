@@ -82,55 +82,51 @@
 							<input type="text" name="" class="form-control col-sm-2 col-xs-2 stu-divide-search" placeholder="请输入姓名">
 							<input type="button" name="" value="查&emsp;询" class="btn btn-outline-success stu-divide-search">
 					</div>
-				</div>
-			</div>
-			<div class="card">
-				<div class="card-header">
+					<div class="card-body">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>框选</th>
+									<th>学号</th>
+									<th>姓名</th>
+									<th>班级</th>
+									<th>实习批次</th>
+									<th>工种</th>
+									<th>组数</th>
+									<th>分数</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" name=""></td>
+									<td>123456</td>
+									<td>李华</td>
+									<td>机械1909班</td>
+									<td>2018A01</td>
+									<td>钳工</td>
+									<td>A</td>
+									<td><input type="text" value="98" size="8px;" style="text-align: center;"></td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+						<div>
+							<input type="button" name="" value="提交" class="btn btn-danger float-right">
+						</div>
+						<br>
+					</div>
 					<div class="row input-score">
-						<div class="col-xs-2 col-sm-2 inline-block"><h6>输入成绩：<h6></div>
+						<div class="col-xs-2 col-sm-2 inline-block"></div>
 						<input type="text" name="" class="col-sm-2 col-xs-2 form-control" placeholder="请输入成绩">
 						<input type="button" name="" value="确认" class="btn btn-outline-danger">
 					</div>
-				</div>
-				<div class="card-body">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>框选</th>
-								<th>学号</th>
-								<th>姓名</th>
-								<th>班级</th>
-								<th>实习批次</th>
-								<th>工种</th>
-								<th>组数</th>
-								<th>分数</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><input type="checkbox" name=""></td>
-								<td>123456</td>
-								<td>李华</td>
-								<td>机械1909班</td>
-								<td>2018A01</td>
-								<td>钳工</td>
-								<td>A</td>
-								<td>98</td>
-							</tr>
-						</tbody>
-					</table>
-					<br>
-					<div>
-						<input type="button" name="" value="提交" class="btn btn-danger float-right">
-					</div>
-					<br>
 				</div>
 			</div>
 			<!-- 给学生评分结束 -->
 
 			<!-- 成绩批量导入 -->
 			<div class="card input-socre-excel">
-			  <h5 class="card-header">学生信息导入</h5>
+			  <h5 class="card-header">成绩批量导入</h5>
 			  <div class="card-body">
 			    <h5 class="card-title">从Excel文件导入：<small class="download-excel"><a href="#" class="btn btn-outline-success">标准模版下载</a></small></h5>
 			    <div class="row choose-line">

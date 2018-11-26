@@ -88,7 +88,7 @@
 			                </ul>
 			                <!-- Tab panes -->
 			                <div class="tab-content tabs">
-
+													<!-- 课时分配 -->
 			                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">课时分配</div>
@@ -228,6 +228,7 @@
 			                    	</div>
 			                    </div>
 
+													<!-- 批次、工序排课查询 -->
 													<div role="tabpanel" class="tab-pane fade" id="Section2">
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">批次工序排课查询</div>
@@ -324,6 +325,7 @@
 			                    	</div>
 			                    </div>
 
+													<!-- 学生分组 -->
 													<div role="tabpanel" class="tab-pane fade" id="Section3">
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">学生分组</div>
@@ -377,7 +379,6 @@
 			                    				</div>
 
 			                    				<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印名单">
-			                    				<button class="btn btn-default pull-right btn-sm" id="add"><i class="fa fa-plus"></i> 添加</button>
 			                    			</div>
 
 			                    			<!-- 学生列表表格 -->
@@ -385,7 +386,6 @@
 				                    			<table class="table" id="mytable">
 				                    				<thead>
 												      <tr>
-												        <th>选择</th>
 												        <th>学号</th>
 												        <th>姓名</th>
 												        <th>班级</th>
@@ -396,54 +396,68 @@
 												    </thead>
 												    <tbody>
 												      <tr>
-												      	<td><input type="checkbox" name=""></td>
 												      	<td>1302160126</td>
 												      	<td>邱梓峰</td>
 												      	<td>信科1601</td>
 												        <td>2019A01</td>
-												        <td>A</td>
 												        <td>
-												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
-												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+																	<select class="form-control custom-select">
+																		<option>A</option>
+																		<option>B</option>
+																		<option>C</option>
+																		<option>D</option>
+																	</select>
+																</td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-info" name="" value="保存">
+												        	<!-- <input type="button" class="btn btn-sm btn-danger" name="" value="删除"> -->
 												        </td>
 												      </tr>
 												      <tr>
-												        <td><input type="checkbox" name=""></td>
 												      	<td>1302160126</td>
 												      	<td>邱梓峰</td>
 												      	<td>信科1601</td>
 												        <td>2019A01</td>
-												        <td>A</td>
 												        <td>
-												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
-												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+																	<select class="form-control custom-select">
+																		<option>A</option>
+																		<option>B</option>
+																		<option>C</option>
+																		<option>D</option>
+																	</select>
+												        </td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-info" name="" value="保存">
+												        	<!-- <input type="button" class="btn btn-sm btn-danger" name="" value="删除"> -->
 												        </td>
 												      </tr>
 												      <tr>
-												        <td><input type="checkbox" name=""></td>
 												      	<td>1302160126</td>
 												      	<td>邱梓峰</td>
 												      	<td>信科1601</td>
 												        <td>2019A01</td>
-												        <td>A</td>
 												        <td>
-												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
-												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+																	<select class="form-control custom-select">
+																		<option>A</option>
+																		<option>B</option>
+																		<option>C</option>
+																		<option>D</option>
+																	</select>
+												        </td>
+												        <td>
+												        	<input type="button" class="btn btn-sm btn-info" name="" value="保存">
+												        	<!-- <input type="button" class="btn btn-sm btn-danger" name="" value="删除"> -->
 												        </td>
 												      </tr>
 												    </tbody>
 				                    			</table>
 				                    		</div>
 
-			                    			<!-- 全体操作 -->
-			                    			<div class="row operate-n">
-																	<input type="checkbox" style="margin-left: 50px;" name=""> 全选
-			                    				<input type="button" class="btn btn-danger pull-right" name="" value="删&emsp;除">
-			                    			</div>
 			                    		</div>
 			                    	</div>
 			                    </div>
 
+													<!-- 学生课表查询 -->
 													<div role="tabpanel" class="tab-pane fade" id="Section4">
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">学生课表查询</div>
@@ -470,61 +484,62 @@
 				                    			<table class="table">
 				                    				<thead>
 												      <tr>
-												        <th>选择</th>
+												        <!-- <th>选择</th> -->
 												        <th>课时</th>
 												        <th>工种</th>
 												        <th>批次</th>
 												        <th>组号</th>
-												        <th>操作</th>
+												        <!-- <th>操作</th> -->
 												      </tr>
 												    </thead>
 												    <tbody>
 												      <tr>
-												      	<td><input type="checkbox" name=""></td>
+												      	<!-- <td><input type="checkbox" name=""></td> -->
 												      	<td>1(2019/03/13/56)</td>
 												      	<td>铣削</td>
 												        <td>2019A01</td>
 												        <td>A</td>
-												        <td>
+												        <!-- <td>
 												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
 												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-												        </td>
+												        </td> -->
 												      </tr>
 												      <tr>
-												        <td><input type="checkbox" name=""></td>
+												        <!-- <td><input type="checkbox" name=""></td> -->
 												      	<td>2(2019/03/13/78)</td>
 												      	<td>车工</td>
 												        <td>2019A01</td>
 												        <td>A</td>
-												        <td>
+												        <!-- <td>
 												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
 												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-												        </td>
+												        </td> -->
 												      </tr>
 												      <tr>
-												        <td><input type="checkbox" name=""></td>
+												        <!-- <td><input type="checkbox" name=""></td> -->
 												      	<td>3(2019/5/12/34)</td>
 												      	<td>钳工</td>
 												        <td>2019A01</td>
 												        <td>A</td>
-												        <td>
+												        <!-- <td>
 												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
 												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-												        </td>
+												        </td> -->
 												      </tr>
 												    </tbody>
 				                    			</table>
 				                    		</div>
 
 			                    			<!-- 全体操作 -->
-			                    			<div class="row operate-n">
+			                    			<!-- <div class="row operate-n">
 																	<input type="checkbox" style="margin-left: 50px;" name=""> 全选
 			                    				<input type="button" class="btn btn-danger pull-right" name="" value="删&emsp;除">
-			                    			</div>
+			                    			</div> -->
 			                    		</div>
 			                    	</div>
 			                    </div>
 
+													<!-- 特殊学生课程分配 -->
 													<div role="tabpanel" class="tab-pane fade" id="Section5">
 			                    	<div class="panel panel-info">
 			                    		<div class="panel-heading">特殊学生课程分配</div>
