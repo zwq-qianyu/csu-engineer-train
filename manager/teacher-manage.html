@@ -2,16 +2,21 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="init-scale=1.0">
+	<meta name="viewport" content="initial-scale=1.0">
 	<title>管理员界面</title>
 	<!-- jquery -->
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<!-- bootstrap -->
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<!-- bootstrap结束 -->
 	<link rel="stylesheet" type="text/css" href="./css/aside.css">
 	<link rel="stylesheet" type="text/css" href="./css/teacher-manage.css">
 	<link rel="stylesheet" type="text/css" href="./css/header.css">
+	<!-- sweetalert2 -->
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
+	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
+	<!-- sweetalert2结束 -->
 </head>
 <body>
 	<header>
@@ -77,12 +82,54 @@
 				<div class="card-header">
 					<div class="card-row">
 						<h5>教师组管理</h5>
-						<button class="btn btn-success">添加分组</button>
+						<button class="btn btn-success" data-toggle="modal" data-target="#add_new_teacher_groupModal">添加新教师组</button>
+
+						<!-- 添加新教师组 Modal -->
+						<div class="modal fade" id="add_new_teacher_groupModal" tabindex="-1" role="dialog" aria-labelledby="add_new_teacher_groupModalTitle" aria-hidden="true">
+						  <div class="modal-dialog modal-dialog-centered" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="add_new_teacher_groupModal">添加新教师组</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+										<form>
+											<div class="form-group row">
+												<label class="col-sm-4 col-form-label" for="new_semester">新教师组名</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" placeholder="学期名" id="new_semester">
+												</div>
+											</div>
+											<!-- <div class="form-group row">
+												<label class="col-sm-2 col-form-label" for="new_semester_batch">批次名</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" placeholder="批次名" id="new_semester_batch">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-2 col-form-label" for="new_semester_credit">学分</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" placeholder="学分" id="new_semester_credit">
+												</div>
+											</div> -->
+										</form>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+						        <button type="button" class="btn btn-primary" onclick="addNewTeacherGroup()" data-dismiss="modal">确定</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						<!-- /.modal -->
+
 						<span class="clearfix"></span>
 					</div>
 				</div>
-				<div class="card-body">
-					<p>
+				<div class="card-body allTeacherGroupManage">
+					<!-- <p>
 			  		<button class="btn btn-outline-primary" data-toggle="collapse" href="#chexiao" type="button" aria-expanded="false" aria-controls="chexiao">车&emsp;&emsp;&emsp;削</button>
 			  		<a class="btn btn-sm btn-default" href="#"><img class="add-icon" src="./img/add.svg"></a>
 			  		<a class="btn btn-sm btn-default" href="#"><img class="edit-icon" src="./img/edit.svg"></a>
@@ -99,7 +146,8 @@
 			    		</ul>
 			    	</div>
 			    </div>
-			    <p>
+
+					<p>
 			  		<button class="btn btn-outline-primary" data-toggle="collapse" href="#xianxiao" type="button" aria-expanded="false" aria-controls="xianxiao">铣&emsp;&emsp;&emsp;削</button>
 			  		<a class="btn btn-sm btn-default" href="#"><img class="add-icon" src="./img/add.svg"></a>
 			  		<a class="btn btn-sm btn-default" href="#"><img class="edit-icon" src="./img/edit.svg"></a>
@@ -116,7 +164,8 @@
 			    		</ul>
 			    	</div>
 			    </div>
-			    <p>
+
+					<p>
 			  		<button class="btn btn-outline-primary" data-toggle="collapse" href="#teachers" type="button" aria-expanded="false" aria-controls="teachers">管理教师组</button>
 			  		<a class="btn btn-sm btn-default" href="#"><img class="add-icon" src="./img/add.svg"></a>
 			  		<a class="btn btn-sm btn-default" href="#"><img class="edit-icon" src="./img/edit.svg"></a>
@@ -147,8 +196,119 @@
 			    			</li>
 			    		</ul>
 			    	</div>
-			    </div>
+			    </div> -->
 				</div>
+
+				<!-- 添加新工序 Modal -->
+				<div class="modal fade" id="add_teacher_group_processModal" tabindex="-1" role="dialog" aria-labelledby="add_teacher_group_processModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="add_teacher_group_processModalTitle">添加新工序</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label" for="addProcedToGroup_TeacherGroup">教师组</label>
+										<div class="col-sm-8">
+											<input type="text" disabled class="form-control" id="addProcedToGroup_TeacherGroup">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label" for="addProcedToGroup_Process">新工序名</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" placeholder="新工序名" id="addProcedToGroup_Process">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+								<button type="button" class="btn btn-primary" onclick="addNewProcedToGroup()" data-dismiss="modal">确定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.modal -->
+
+				<!-- 编辑工序 Modal -->
+				<div class="modal fade" id="editOneProcessModal" tabindex="-1" role="dialog" aria-labelledby="editOneProcessModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="editOneProcessModalTitle">修改工序名</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label" for="editOneProcessTeacherGroupName">教师组名</label>
+										<div class="col-sm-9">
+											<input type="text" disabled class="form-control" id="editOneProcessTeacherGroupName">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label" for="editOneProcessOldName">原工序名</label>
+										<div class="col-sm-9">
+											<input type="text" disabled class="form-control" id="editOneProcessOldName">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label" for="editOneProcessName">工序名</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="editOneProcessName">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+								<button type="button" class="btn btn-primary" onclick="editOneProcess()" data-dismiss="modal">确定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.modal -->
+
+				<!-- 修改教师组 Modal -->
+				<div class="modal fade" id="editTeacherGroupModal" tabindex="-1" role="dialog" aria-labelledby="editTeacherGroupModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="editTeacherGroupModalTitle">修改教师组</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label" for="editTeacherGroupName_old">原教师组名</label>
+										<div class="col-sm-8">
+											<input type="text" disabled class="form-control" id="editTeacherGroupName_old">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label" for="editTeacherGroupName_new">新教师组名</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" placeholder="新教师组名" id="editTeacherGroupName_new">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+								<button type="button" class="btn btn-primary" onclick="editTeacherGroupName()" data-dismiss="modal">确定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.modal -->
 			</div>
 			<!-- 教师组管理结束 -->
 
@@ -157,30 +317,34 @@
 				<h5 class="card-header">教师列表</h5>
 				<div class="card-body">
 					<div class="row teacher-list">
-				  		<select class="form-control custom-select col-xs-2 col-sm-2">
+				  		<select class="form-control custom-select col-xs-2 col-sm-2" id="teacher_list_teacher_groups">
 			    			<option>选择教师组</option>
 			    			<option>车  削</option>
 			    			<option>铣   削</option>
 			    			<option>管理教师组</option>
 			    		</select>
-			    		<select class="form-control custom-select col-xs-2 col-sm-2">
+			    		<select class="form-control custom-select col-xs-2 col-sm-2" id="teacher_list_role">
 			    			<option>选择角色</option>
 			    			<option>管理员</option>
 			    			<option>实训教师</option>
 			    		</select>
-							<select class="form-control custom-select col-xs-2 col-sm-2">
-			    			<option>物料筛选</option>
+							<select class="form-control custom-select col-xs-2 col-sm-2" id="teacher_list_material_privilege">
+			    			<option>物料权限</option>
 			    			<option>无</option>
-			    			<option>物料管理</option>
+			    			<option>物料申购</option>
 								<option>物料登记</option>
 			    		</select>
-							<select class="form-control custom-select col-xs-1 col-sm-1">
-			    			<option>加班管理</option>
+							<select class="form-control custom-select col-xs-2 col-sm-2" id="teacher_list_overwork_privilege">
+			    			<option>加班权限</option>
 			    			<option>无</option>
-			    			<option>加班</option>
+			    			<option>加班管理</option>
 			    		</select>
-			    		<button class="btn btn-default query">查   询</button>
-			    		<button class="add btn btn-cyan" data-toggle="modal" data-target="#teacherManage-button-addModal" style="float: right;">添   加</button>
+			    		<button class="btn btn-outline-primary query">查   询</button>
+				  	</div>
+						<div class="row float-right teacher-list-add">
+							<button class="add btn btn-cyan " data-toggle="modal" data-target="#teacherManage-button-addModal" style="float: right;">添   加</button>
+
+							<!-- 添加教师 modal -->
 							<div class="modal fade" id="teacherManage-button-addModal" tabindex="-1" role="dialog" aria-labelledby="teacherManage-button-addModalTitle" aria-hidden="true">
 							  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 							    <div class="modal-content">
@@ -234,8 +398,10 @@
 							      </div>
 							    </div>
 							  </div>
-							</div><!-- /.modal -->
-				  	</div>
+							</div>
+							<!-- /.modal -->
+						</div>
+
 				  	<div class="container clearfix">
 				  		<table class="table">
 				  			<thead>
@@ -264,6 +430,8 @@
 				  					<td>
 				  						<a class="btn btn-danger btn-sm" href="#">删除</a>
 				  						<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#teacherManage-button-editModal">编辑</a>
+
+											<!-- 编辑教师信息 modal -->
 											<div class="modal fade" id="teacherManage-button-editModal" tabindex="-1" role="dialog" aria-labelledby="teacherManage-button-editModalTitle" aria-hidden="true">
 											  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 											    <div class="modal-content">
@@ -317,7 +485,9 @@
 											      </div>
 											    </div>
 											  </div>
-											</div><!-- /.modal -->
+											</div>
+											<!-- /.modal -->
+
 				  					</td>
 				  				</tr>
 				  			</tbody>
@@ -329,8 +499,10 @@
 				  	</div>
 				</div>
 			</div>
+			<!-- 教师列表结束 -->
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
+	<script type="text/javascript" src="./js/teacher-manage.js"></script>
 </body>
 </html>

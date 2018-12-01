@@ -147,6 +147,7 @@ function delSemester(obj){
 	  confirmButtonColor: '#d33',
 	  cancelButtonColor: '#3085d6',
 	  confirmButtonText: '确定删除！',
+    cancelButtonText: '取消',
 	}).then(result => {
 	  if (result.value) {
       $.ajax({
@@ -159,16 +160,16 @@ function delSemester(obj){
         success: function(data){
           if(data.status === 0){
             // console.log(data);
+            swal(
+        			'删除！',
+        			'"' + semester_name + '学期"已经被删除。',
+        			'success'
+      			);
             // 刷新实习批次信息
             getAllSemesterName();
           }
         }
       });
-	    swal(
-			'删除！',
-			'"' + semester_name + '学期"已经被删除。',
-			'success'
-			);
 	    console.log(result.value)
 	  } else {
 	    // handle dismiss, result.dismiss can be 'cancel', 'overlay', 'close', and 'timer'
@@ -255,37 +256,36 @@ function editOneBatch(){
 
 // 删除某个批次
 function delOneBatch(obj){
-  let batch_name = obj.getAttribute('name');
+  let batch_name = obj.getAttribute('batch_name');
   swal({
 	  title: '确定删除吗？',
-	  text: '确定删除"' + semester_name + '学期"吗？你将无法恢复它！',
+	  text: '确定删除"' + batch_name + '批次"吗？你将无法恢复它！',
 	  type: 'warning',
 	  showCancelButton: true,
 	  confirmButtonColor: '#d33',
 	  cancelButtonColor: '#3085d6',
 	  confirmButtonText: '确定删除！',
+    cancelButtonText: '取消',
 	}).then(result => {
 	  if (result.value) {
       $.ajax({
         type: 'post',
-        url: base_url + '/batch/deleteSemester',
+        url: base_url + '/batch/deleteBatch/' + batch_name,
         datatype: 'json',
-        data: {
-          'semesterName': semester_name
-        },
+        data: {},
         success: function(data){
           if(data.status === 0){
             // console.log(data);
+            swal(
+        			'删除！',
+        			'"' + batch_name + '批次"已经被删除。',
+        			'success'
+      			);
             // 刷新实习批次信息
             getAllSemesterName();
           }
         }
       });
-	    swal(
-			'删除！',
-			'"' + semester_name + '学期"已经被删除。',
-			'success'
-			);
 	    console.log(result.value)
 	  } else {
 	    // handle dismiss, result.dismiss can be 'cancel', 'overlay', 'close', and 'timer'
@@ -298,6 +298,7 @@ function delOneBatch(obj){
 // 2、学生信息导入部分
 
 // 下载标准模版
+
 
 // 上传文件导入学生信息
 

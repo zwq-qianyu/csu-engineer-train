@@ -46,3 +46,14 @@ tr th,td {
 	justify-content: space-around;
 	margin: 20px;
 }
+
+.teacher-list-add {
+	margin: 10px 95px 30px 20px;
+}
+
+.container-fluid .row {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	margin: 20px;
+}

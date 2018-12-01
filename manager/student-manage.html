@@ -82,6 +82,7 @@
 					<div class="card-row">
 						<h5>实习批次管理<small class="tips">注意：删除某一批次，将会删除此批次内的所有学生信息</small></h5>
 						<button class="btn btn-success" data-toggle="modal" data-target="#add_new_batchModal">添加新学期</button>
+
 						<!-- 添加新学期 Modal -->
 						<div class="modal fade" id="add_new_batchModal" tabindex="-1" role="dialog" aria-labelledby="sadd_new_batchModalTitle" aria-hidden="true">
 						  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -122,7 +123,9 @@
 						      </div>
 						    </div>
 						  </div>
-						</div><!-- /.modal -->
+						</div>
+						<!-- /.modal -->
+
 						<span class="clearfix"></span>
 					</div>
 				</div>
@@ -260,7 +263,7 @@
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label" for="editSemesterName_new">新学期名</label>
 										<div class="col-sm-8">
-											<input type="text" class="form-control" placeholder="批次名" id="editSemesterName_new">
+											<input type="text" class="form-control" placeholder="新学期名" id="editSemesterName_new">
 										</div>
 									</div>
 								</form>
