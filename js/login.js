@@ -1,4 +1,4 @@
-var base_url = 'https://www.easy-mock.com/mock/5bfe54081179673e793f3a64/gxxt';
+var base_url = 'http://134.175.152.210:8084';
 
 $("#login_submit").click(function(){
   let username = $('#username').val();
@@ -12,8 +12,10 @@ $("#login_submit").click(function(){
       'password': password
     },
     success: function(data){
+      console.log(data);
       if(data.status === 0){
         console.log(data);
+        window.location.assign('./manager/student-manage.html');
       }
     }
   });

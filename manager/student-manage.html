@@ -283,24 +283,24 @@
 			<div class="card">
 			  <h5 class="card-header">学生信息导入</h5>
 			  <div class="card-body">
-			    <h5 class="card-title">从Excel文件导入：<small class="download-excel"><a href="#" class="btn btn-outline-danger">标准模版下载</a></small></h5>
+			    <h5 class="card-title">从Excel文件导入：<small class="download-excel"><a href="#" onclick="downloadTemplate()" class="btn btn-outline-danger">标准模版下载</a></small></h5>
 			    <div class="row choose-line">
 			    	<p>学生信息批量导入：</p>
-			    	<form class="form-inline" role="form">
+			    	<form class="form-inline" role="form" id="tf">
 			    		<input type="file" name="choose-file" class="form-control-file">
-			    		<select class="form-control custom-select">
-			    			<option>选择导入至批次</option>
+			    		<select class="form-control custom-select" id='importStudents_select'>
+			    			<!-- <option>选择导入至批次</option>
 			    			<option>2019A01</option>
 			    			<option>2019A02</option>
 			    			<option>2019B01</option>
-			    			<option>2019B02</option>
+			    			<option>2019B02</option> -->
 			    		</select>
 
 			    		<!-- <div class="">
 			    			<span>分组数量：</span>
 			    			<input type="text" name="" class="form-control">
 			    		</div> -->
-			    		<button class="btn btn-danger">开始导入</button>
+			    		<button class="btn btn-danger" onclick="importStudents()">开始导入</button>
 			    	</form>
 			    </div>
 
@@ -320,7 +320,7 @@
 		    		</select>
 		    		<button class="btn btn-outline-primary query" onclick="getStudentByBatchName()">查   询</button>
 		    		<button class="add btn btn-cyan" data-toggle="modal" data-target="#studentManage-button-addModal" style="float: right;">添   加</button>
-						<!-- Modal -->
+						<!-- 添加学生 Modal -->
 						<div class="modal fade" id="studentManage-button-addModal" tabindex="-1" role="dialog" aria-labelledby="studentManage-button-addModalTitle" aria-hidden="true">
 						  <div class="modal-dialog modal-dialog-centered" role="document">
 						    <div class="modal-content">
@@ -341,21 +341,21 @@
 											</div>
 											<br>
 											<div class="row">
-												<input type="text" class="form-control col-md-5" id="stu-class-add" placeholder="班级">
+												<input type="text" class="form-control col-md-5" id="stu-classes-add" placeholder="班级">
 												<span class="col-md-2"></span>
-												<select class="form-control custom-select col-md-5">
-								    			<option>选择批次</option>
+												<select class="form-control custom-select col-md-5" id="addStudentSelecetBatch">
+								    			<!-- <option>选择批次</option>
 								    			<option>2019A01</option>
 								    			<option>2019A02</option>
 								    			<option>2019B01</option>
-								    			<option>2019B02</option>
+								    			<option>2019B02</option> -->
 								    		</select>
 											</div>
 										</div>
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-						        <button type="button" class="btn btn-primary">确定</button>
+						        <button type="button" class="btn btn-primary" onclick="addOneStudent()" data-dismiss="modal">确定</button>
 						      </div>
 						    </div>
 						  </div>
@@ -399,7 +399,7 @@
 											<div class="modal-body">
 												<div class="container-fluid">
 													<div class="row">
-														<input type="text" class="form-control col-md-5" id="stu-number-edit" placeholder="学号">
+														<input type="text" class="form-control col-md-5" disabled id="stu-number-edit" placeholder="学号">
 														<span class="col-md-2"></span>
 														<input type="text" class="form-control col-md-5" id="stu-name-edit" placeholder="姓名">
 														<!-- <span class="col-md-1"></span>
@@ -409,26 +409,26 @@
 													<div class="row">
 														<input type="text" class="form-control col-md-5" id="stu-class-add" placeholder="班级">
 														<span class="col-md-2"></span>
-														<select class="form-control custom-select col-md-5">
-															<option>选择批次</option>
+														<select class="form-control custom-select col-md-5" id="stu-batch-edit">
+															<!-- <option>选择批次</option>
 															<option>2019A01</option>
 															<option>2019A02</option>
 															<option>2019B01</option>
-															<option>2019B02</option>
+															<option>2019B02</option> -->
 														</select>
 													</div>
 												</div>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-												<button type="button" class="btn btn-primary">确定</button>
+												<button type="button" class="btn btn-primary" onclick="editOneStudent()" data-dismiss="modal">确定</button>
 											</div>
 										</div>
 									</div>
 								</div><!-- /.modal -->
 			  		</table>
 			  		<div class="operaten">
-			  			<button class="btn btn-danger deleten">删&emsp;除</button>
+			  			<button class="btn btn-danger deleten" onclick="deleteSomeStudent()">删&emsp;除</button>
 			  			<span class="clearfix"></span>
 			  		</div>
 			  	</div>
