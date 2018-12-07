@@ -15,6 +15,10 @@
 	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
 	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<!-- sweetalert2 -->
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
+	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
+	<!-- sweetalert2结束 -->
 </head>
 <body>
 	<header>
@@ -91,15 +95,15 @@
 										<th>存量</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
+								<tbody id="materal_record_list">
+									<!-- <tr>
 										<td>铝棒（根x2m）</td>
 										<td>20</td>
 									</tr>
 									<tr>
 										<td>轴承23（个）</td>
 										<td>2</td>
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
 						</div>
@@ -110,15 +114,15 @@
 									派出数
 								</div>
 								<div class="card-body">
-									<input type="text" class="form-control col-md-11 col-xs-11" placeholder="输入领取学生学号">
-									<input type="text" class="form-control col-md-11 col-xs-11" placeholder="输入领取学生姓名">
-									<select class="form-control custom-select col-md-11 col-xs-11">
-										<option>选择物料种类</option>
+									<input type="text" class="form-control col-md-11 col-xs-11" placeholder="输入领取学生学号" id="distribute_stu_id">
+									<input type="text" class="form-control col-md-11 col-xs-11" placeholder="输入领取学生姓名" id="distribute_stu_name">
+									<select class="form-control custom-select col-md-11 col-xs-11" id='select_meterial'>
+										<!-- <option>选择物料种类</option>
 										<option>铝棒</option>
-										<option>轴承</option>
+										<option>轴承</option> -->
 									</select>
-									<input type="text" class="form-control col-md-11 col-xs-11" placeholder="输入领取数量">
-									<a href="#" class="btn btn-primary float-right">确定</a>
+									<input type="text" class="form-control col-md-11 col-xs-11" placeholder="输入领取数量" id="distribute_num">
+									<a href="#" class="btn btn-primary float-right" onclick="decrMaterialNum()">确定</a>
 								</div>
 							</div>
 						</div>
@@ -137,16 +141,16 @@
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期">
 						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间">
-						<select class="form-control custom-select col-xs-2 col-sm-2 select-person">
-							<option>物料种类</option>
+						<select class="form-control custom-select col-xs-2 col-sm-2 select-person" id="record_history_selset_meterail">
+							<!-- <option>物料种类</option>
 							<option>铝棒</option>
-							<option>轴承</option>
+							<option>轴承</option> -->
 						</select>
 					</div>
 					<div class="row record-search2">
 						<input type="text" class="form-control col-xs-2 col-sm-2" placeholder="学号">
 						<input type="text" class="form-control col-xs-2 col-sm-2" placeholder="姓名">
-						<input type="button" class="btn btn-success float-right" value="查询">
+						<input type="button" class="btn btn-success float-right" onclick="getSelectedPurchase()" value="查询">
 					</div>
 
 					<table class="table table-striped">
@@ -160,7 +164,7 @@
 								<th>登记人</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="record_history_body">
 							<tr>
 								<td>2018-10-05 12:12</td>
 								<td>张三</td>
@@ -189,5 +193,6 @@
 	<script type="text/javascript">
 		$(".mycalendar").flatpickr();
 	</script>
+	<script type="text/javascript" src="./js/materal-record.js"></script>
 </body>
 </html>

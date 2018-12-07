@@ -14,7 +14,7 @@ function init_data(){
 }
 
 
-// 1、实习批次管理部分
+// 1、实习批次管理部分(OK)
 
 // 查询所有学期及每个学期对应的批次---完成学期与批次的初始化工作
 function getAllSemesterName(){
@@ -298,7 +298,7 @@ function delOneBatch(obj){
 
 
 
-// 2、学生信息导入部分
+// 2、学生信息导入部分【有问题！！！】
 
 // 下载标准模版【有问题！！！】
 function downloadTemplate(){
@@ -346,7 +346,7 @@ function importStudents(){
 
 
 
-// 3、学生列表部分
+// 3、学生列表部分(OK)
 
 // 获取所有批次 + 根据批次名获取学生列表
 function getAllBatch_StuList(){
@@ -411,8 +411,10 @@ function getStudentByBatchName(){
 // 删除一个学生
 function deleteOneStudent(obj){
   // console.log(obj);
-  sid = obj.getAttribute('sid');
-  // console.log(sid);
+  let sid = obj.getAttribute('sid');
+  var sid_arr = new Array();
+  sid_arr.push(sid);
+  var sid_arr = JSON.stringify(sid_arr);
   swal({
 	  title: '确定删除吗？',
 	  text: '确定删除吗？你将无法恢复它！',
@@ -428,10 +430,10 @@ function deleteOneStudent(obj){
         type: 'post',
         url: base_url + '/student/deleteStudent',
         datatype: 'json',
-        data: {
-          'ids': sid
-        },
+        contentType: "application/json",
+        data: sid_arr,
         success: function(data){
+          console.log(data);
           if(data.status === 0){
             // console.log(data);
             swal(
@@ -458,7 +460,7 @@ function deleteOneStudent(obj){
   })
 }
 
-// 批量删除学生【有问题！！！】
+// 批量删除学生
 function deleteSomeStudent(){
   var id_array = new Array();
   let checked_stu_ids = $('#stu_list_tbody input[name="stu_list_checkbox"]:checked');
@@ -467,10 +469,50 @@ function deleteSomeStudent(){
     id_array.push($(this)[0].id);
   })
   console.log(id_array);
-  // for(let i=0; i<checked_stu.length; i++){
-  //
-  // }
-
+  var sid_arr = JSON.stringify(id_array);
+  swal({
+	  title: '确定删除吗？',
+	  text: '确定删除吗？你将无法恢复它！',
+	  type: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#d33',
+	  cancelButtonColor: '#3085d6',
+	  confirmButtonText: '确定删除！',
+    cancelButtonText: '取消',
+	}).then(result => {
+	  if (result.value) {
+      $.ajax({
+        type: 'post',
+        url: base_url + '/student/deleteStudent',
+        datatype: 'json',
+        contentType: "application/json",
+        data: sid_arr,
+        success: function(data){
+          console.log(data);
+          if(data.status === 0){
+            // console.log(data);
+            swal(
+              '删除成功',
+              '删除学生信息成功',
+              'success'
+            );
+            getAllBatch_StuList();
+          }
+          else{
+            swal(
+              '删除失败',
+              '删除学生信息失败，请重试！',
+              'error'
+            );
+          }
+        }
+      });
+	    console.log(result.value)
+	  } else {
+	    // handle dismiss, result.dismiss can be 'cancel', 'overlay', 'close', and 'timer'
+	    console.log(result.dismiss)
+	  }
+  })
 }
 
 // 添加一个学生
@@ -525,22 +567,44 @@ function editOneStudent_init(obj){
   $('#stu-batch-edit').val(batch);
   // console.log(batch);
 }
-// 修改一个学生的信息【有问题！！！】
+// 修改一个学生的信息
 function editOneStudent(){
   let sid = $('#stu-number-edit').val();
   let batch_name = $('#stu-batch-edit').val();
   let sname = $('#stu-name-edit').val();
   let clazz = $('#stu-class-add').val();
-  console.log(sid);
-  var data = JSON.stringify({'sid': sid, 'batch_name': batch_name, 'sname': sname, 'clazz': clazz});
+  // console.log(sid);
+  // var data = {'sid': sid, 'batch_name': batch_name, 'sname': sname, 'clazz': clazz};
   $.ajax({
     type: 'post',
     url: base_url + '/student/updateStudent',
-    data : data,
+    data: JSON.stringify({
+      'sid': sid,
+      'batch_name': batch_name,
+      'sname': sname,
+      'clazz': clazz
+    }),
     contentType : "application/json",              //发送至服务器的类型
     dataType : "json",
     success: function(data){
-      console.log(data);
+      // console.log(data);
+      if(data.status === 0){
+        // console.log(data);
+        swal(
+          '修改成功',
+          '修改学生信息成功',
+          'success'
+        );
+        getAllBatch_StuList();
+      }
+      else{
+        swal(
+          '修改失败',
+          '修改学生信息失败，请重试！',
+          'error'
+        );
+      }
+
     }
   });
 }

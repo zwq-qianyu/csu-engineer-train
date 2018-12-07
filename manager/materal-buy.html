@@ -11,10 +11,15 @@
 	<link rel="stylesheet" type="text/css" href="./css/aside.css">
 	<link rel="stylesheet" type="text/css" href="./css/header.css">
 	<link rel="stylesheet" type="text/css" href="./css/materal.css">
+	<link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
 	<!-- 日期时间插件 flatpickr.js -->
 	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
 	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<!-- sweetalert2 -->
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
+	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
+	<!-- sweetalert2结束 -->
 </head>
 <body>
 	<header>
@@ -75,6 +80,7 @@
 			</div>
 		</aside>
 		<div class="right col-xs-10 col-sm-10">
+
 			<!-- 物料申购 -->
 			<div class="card">
 				<div class="card-header">
@@ -85,36 +91,67 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>物料种类</th>
+								<th>物料种类&emsp;<a class="fa fa-plus-square-o" data-toggle="modal" data-target="#add_meterialModel"></th>
+
+									<!-- 添加物料 Modal -->
+									<div class="modal fade" id="add_meterialModel" tabindex="-1" role="dialog" aria-labelledby="add_meterialModelTitle" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="add_meterialModelTitle">添加物料种类</h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">&times;</span>
+									        </button>
+									      </div>
+									      <div class="modal-body">
+													<form>
+														<div class="form-group row">
+															<label class="col-sm-3 col-form-label" for="new_semester">新物料名：</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" placeholder="新物料名" id="new_semester">
+															</div>
+														</div>
+													</form>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+									        <button type="button" class="btn btn-primary" onclick="" data-dismiss="modal">确定</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									<!-- /.modal -->
+
 								<th>存量</th>
+								<th>操作</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
+						<tbody id="materal_buy_list">
+							<!-- <tr>
 								<td>铝棒(根x2m)</td>
 								<td>20</td>
 							</tr>
 							<tr>
 								<td>轴承23(个)</td>
 								<td>2</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 					<hr>
 
 					<div class="row fill-in">
 
-						<select class="form-control custom-select col-xs-2 col-sm-2">
-							<option>选择物料种类</option>
+						<select class="form-control custom-select col-xs-2 col-sm-2" id="select_meterial">
+							<!-- <option>选择物料种类</option>
 							<option>铝棒(根x2m)</option>
-							<option>轴承23(个)</option>
+							<option>轴承23(个)</option> -->
 						</select>
 						<span class="col-xs-1 col-sm-1"></span>
 						<label class="my-1 mr-2">申购数：</label>
-						<input type="text" name="" class="form-control col-xs-2 col-sm-2" placeholder="单行输入">
+						<input type="text" name="" class="form-control col-xs-2 col-sm-2" placeholder="单行输入" id="meteral_buy_num">
 					</div>
 					<div class="row fill-check float-right">
-						<input type="button" class="btn btn-outline-success" value="确&emsp;认">
+						<input type="button" class="btn btn-outline-success" onclick="addPurchase()" value="确&emsp;认">
 					</div>
 				</div>
 			</div>
@@ -130,10 +167,10 @@
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期">
 						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间">
-						<select class="form-control custom-select col-xs-2 col-sm-2 select-person">
-							<option>物料种类</option>
+						<select class="form-control custom-select col-xs-2 col-sm-2 select-person" id="buy_history_selset_meterail">
+							<!-- <option>物料种类</option>
 							<option>铝棒(根x2m)</option>
-							<option>轴承23(个)</option>
+							<option>轴承23(个)</option> -->
 						</select>
 						<select class="form-control custom-select col-xs-2 col-sm-2 select-person">
 							<option>申购人</option>
@@ -171,11 +208,13 @@
 				</div>
 			</div>
 			<!-- 申购记录结束 -->
+
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
 	<script type="text/javascript">
 		$(".mycalendar").flatpickr();
 	</script>
+	<script type="text/javascript" src="./js/meteral-buy.js"></script>
 </body>
 </html>

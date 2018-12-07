@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="../manager/css/aside.css">
 	<link rel="stylesheet" type="text/css" href="../manager/css/header.css">
 	<link rel="stylesheet" type="text/css" href="../manager/css/materal.css">
+	<link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
 	<!-- 日期时间插件 flatpickr.js -->
 	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
@@ -77,19 +78,50 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>物料种类</th>
+								<th>物料种类&emsp;<a class="fa fa-plus-square-o" data-toggle="modal" data-target="#add_meterialModel"></th>
+
+									<!-- 添加物料 Modal -->
+									<div class="modal fade" id="add_meterialModel" tabindex="-1" role="dialog" aria-labelledby="add_meterialModelTitle" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="add_meterialModelTitle">添加物料种类</h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">&times;</span>
+									        </button>
+									      </div>
+									      <div class="modal-body">
+													<form>
+														<div class="form-group row">
+															<label class="col-sm-3 col-form-label" for="new_semester">新物料名：</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" placeholder="新物料名" id="new_semester">
+															</div>
+														</div>
+													</form>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+									        <button type="button" class="btn btn-primary" onclick="" data-dismiss="modal">确定</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									<!-- /.modal -->
+
 								<th>存量</th>
+								<th>操作</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
+						<tbody id="materal_buy_list"> 
+							<!-- <tr>
 								<td>铝棒(根x2m)</td>
 								<td>20</td>
 							</tr>
 							<tr>
 								<td>轴承23(个)</td>
 								<td>2</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 					<hr>
@@ -169,5 +201,6 @@
 	<script type="text/javascript">
 		$(".mycalendar").flatpickr();
 	</script>
+	<script type="text/javascript" src="./js/material-buy.js"></script>
 </body>
 </html>
