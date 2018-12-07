@@ -20,8 +20,8 @@ $("#login_submit").click(function(){
         window.location = './manager/student-manage.html';
       }
     },
-    xhrFields: {
-        withCredentials: true
-    }
+    // xhrFields: {
+    //     withCredentials: true
+    // }
   });
 });

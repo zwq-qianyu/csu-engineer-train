@@ -37,7 +37,10 @@ function getAllMaterial(){
         $('#select_meterial').html(html2);
         $('#buy_history_selset_meterail').html(html2);
       }
-    }
+    },
+    xhrFields:{
+        withCredentials:true
+    },
   });
 }
 
@@ -45,15 +48,16 @@ function getAllMaterial(){
 function addPurchase(){
   let num = $('#meteral_buy_num').val();
   let clazz = $('#select_meterial').val();
+
   $.ajax({
     type: 'post',
     url: base_url + '/purchase/addPurchase',
     datatype: 'json',
-    contentType: 'application/json;charset=UTF-8',
-    data: JSON.stringify({
+    // contentType: 'application/json;charset=UTF-8',
+    data: {
       'num': num,
       'clazz': clazz,
-    }),
+    },
     success: function(data){
       console.log(data);
       if(data.status === 0){
