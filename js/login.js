@@ -13,6 +13,10 @@ $("#login_submit").click(function(){
       'name': username,
       'password': password
     },
+    xhrFields: {
+        withCredentials: true // 携带跨域cookie
+    },
+    processData: false,
     success: function(data){
       console.log(data);
       if(data.status === 0){
@@ -20,8 +24,5 @@ $("#login_submit").click(function(){
         window.location = './manager/student-manage.html';
       }
     },
-    // xhrFields: {
-    //     withCredentials: true
-    // }
   });
 });

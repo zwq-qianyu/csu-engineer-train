@@ -38,9 +38,6 @@ function getAllMaterial(){
         $('#buy_history_selset_meterail').html(html2);
       }
     },
-    xhrFields:{
-        withCredentials:true
-    },
   });
 }
 
@@ -58,6 +55,10 @@ function addPurchase(){
       'num': num,
       'clazz': clazz,
     },
+    xhrFields: {
+        withCredentials: true // 携带跨域cookie
+    },
+    processData: false,
     success: function(data){
       console.log(data);
       if(data.status === 0){
