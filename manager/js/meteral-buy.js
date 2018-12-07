@@ -45,15 +45,15 @@ function getAllMaterial(){
 function addPurchase(){
   let num = $('#meteral_buy_num').val();
   let clazz = $('#select_meterial').val();
-
   $.ajax({
     type: 'post',
     url: base_url + '/purchase/addPurchase',
     datatype: 'json',
-    data: {
+    contentType: 'application/json;charset=UTF-8',
+    data: JSON.stringify({
       'num': num,
       'clazz': clazz,
-    },
+    }),
     success: function(data){
       console.log(data);
       if(data.status === 0){
@@ -73,6 +73,9 @@ function addPurchase(){
           'error'
         );
       }
+    },
+    error: function(data){
+      console.log(data);
     }
   });
 }

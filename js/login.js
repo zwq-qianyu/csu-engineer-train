@@ -19,6 +19,9 @@ $("#login_submit").click(function(){
         console.log(data);
         window.location = './manager/student-manage.html';
       }
+    },
+    xhrFields: {
+        withCredentials: true
     }
   });
 });
