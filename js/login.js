@@ -1,4 +1,4 @@
-var base_url = 'http://134.175.152.210:8084';
+var base_url = 'https://134.175.152.210:8084';
 
 $("#login_submit").click(function(){
   let username = $('#username').val();

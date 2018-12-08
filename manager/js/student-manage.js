@@ -2,7 +2,7 @@ window.onload = function(){
   init_data();
 }
 
-var base_url = 'http://134.175.152.210:8084';
+var base_url = 'https://134.175.152.210:8084';
 
 // 初始化页面数据
 function init_data(){
