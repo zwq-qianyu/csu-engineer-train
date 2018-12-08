@@ -22,7 +22,7 @@ $("#login_submit").click(function(){
       // console.log(data);
       if(data.status === 0){
         console.log(data);
-        // window.location = './manager/student-manage.html';
+        window.location = './manager/student-manage.html';
       }
     },
   });
