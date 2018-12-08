@@ -7,16 +7,17 @@ $("#login_submit").click(function(){
   console.log(password);
   $.ajax({
     type: 'post',
+    async: false,
     url: base_url + '/login',
     datatype: 'json',
     data: {
       'name': username,
       'password': password
     },
-    xhrFields: {
-        withCredentials: true // 携带跨域cookie
+    beforeSend: function(xhr) {
+      xhr.withCredentials = true;
     },
-    processData: false,
+    crossDomain:true,
     success: function(data){
       console.log(data);
       if(data.status === 0){

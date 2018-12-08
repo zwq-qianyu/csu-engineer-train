@@ -95,10 +95,10 @@ function getSelectedPurchase(){
 
     },
     //加上这句话
-    xhrFields: {
-        withCredentials: true
-    },
-    crossDomain: true,
+    // xhrFields: {
+    //     withCredentials: true
+    // },
+    // crossDomain: true,
     success: function(data){
       if(data.status === 0){
         console.log(data);
