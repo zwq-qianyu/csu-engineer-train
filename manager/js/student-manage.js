@@ -24,6 +24,10 @@ function getAllSemesterName(){
     url: base_url + '/batch/getAllSemesterName',
     data: {},
     datatype: 'json',
+    beforeSend: function(xhr) {
+      xhr.withCredentials = true;
+    },
+    crossDomain:true,
     success: function(data){
       if(data.status === 0){
         semesters_obj = data.data;
@@ -50,6 +54,10 @@ function getAllSemesterName(){
               url: base_url + '/batch/getBatchBySemesterName',
               data: {'semester_name': semesters_obj[i].semester_name},
               datatype: 'json',
+              beforeSend: function(xhr) {
+                xhr.withCredentials = true;
+              },
+              crossDomain:true,
               success: function(data){
                 if(data.status === 0){
                   let batchs = data.data;
@@ -354,6 +362,10 @@ function getAllBatch_StuList(){
     url: base_url + '/batch/getAllBatch',
     datatype: 'json',
     data: {},
+    beforeSend: function(xhr) {
+      xhr.withCredentials = true;
+    },
+    crossDomain:true,
     success: function(data){
       if(data.status === 0){
         // console.log(data);

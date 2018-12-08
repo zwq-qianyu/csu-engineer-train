@@ -19,10 +19,10 @@ $("#login_submit").click(function(){
     },
     crossDomain:true,
     success: function(data){
-      console.log(data);
+      // console.log(data);
       if(data.status === 0){
         console.log(data);
-        window.location = './manager/student-manage.html';
+        // window.location = './manager/student-manage.html';
       }
     },
   });
