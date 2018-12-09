@@ -16,6 +16,10 @@
 	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
 	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<!-- sweetalert2 -->
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
+	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
+	<!-- sweetalert2结束 -->
 </head>
 <body>
 	<header>
@@ -67,7 +71,8 @@
 				</ul>
 			</div>
 		</aside>
-		<div class="main-right clearfix col-xs-10 col-sm-10">
+		<div class="right col-xs-10 col-sm-10">
+
 			<!-- 物料申购 -->
 			<div class="card">
 				<div class="card-header">
@@ -102,7 +107,7 @@
 									      </div>
 									      <div class="modal-footer">
 									        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-									        <button type="button" class="btn btn-primary" onclick="" data-dismiss="modal">确定</button>
+									        <button type="button" class="btn btn-primary" onclick="addOneMateral()" data-dismiss="modal">确定</button>
 									      </div>
 									    </div>
 									  </div>
@@ -113,7 +118,7 @@
 								<th>操作</th>
 							</tr>
 						</thead>
-						<tbody id="materal_buy_list"> 
+						<tbody id="materal_buy_list">
 							<!-- <tr>
 								<td>铝棒(根x2m)</td>
 								<td>20</td>
@@ -128,17 +133,17 @@
 
 					<div class="row fill-in">
 
-						<select class="form-control custom-select col-xs-2 col-sm-2">
-							<option>选择物料种类</option>
+						<select class="form-control custom-select col-xs-2 col-sm-2" id="select_meterial">
+							<!-- <option>选择物料种类</option>
 							<option>铝棒(根x2m)</option>
-							<option>轴承23(个)</option>
+							<option>轴承23(个)</option> -->
 						</select>
 						<span class="col-xs-1 col-sm-1"></span>
 						<label class="my-1 mr-2">申购数：</label>
-						<input type="text" name="" class="form-control col-xs-2 col-sm-2" placeholder="单行输入">
+						<input type="text" name="" class="form-control col-xs-2 col-sm-2" placeholder="单行输入" id="meteral_buy_num">
 					</div>
 					<div class="row fill-check float-right">
-						<input type="button" class="btn btn-outline-success" value="确&emsp;认">
+						<input type="button" class="btn btn-outline-success" onclick="addPurchase()" value="确&emsp;认">
 					</div>
 				</div>
 			</div>
@@ -151,21 +156,21 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开始日期" id="star_time">
 						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间">
-						<select class="form-control custom-select col-xs-2 col-sm-2 select-person">
-							<option>物料种类</option>
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="结束时间" id="end_time">
+						<select class="form-control custom-select col-xs-2 col-sm-2 select-person" id="buy_history_selset_meterail">
+							<!-- <option>物料种类</option>
 							<option>铝棒(根x2m)</option>
-							<option>轴承23(个)</option>
+							<option>轴承23(个)</option> -->
 						</select>
-						<select class="form-control custom-select col-xs-2 col-sm-2 select-person">
+						<select class="form-control custom-select col-xs-2 col-sm-2 select-person" id="buy_history_selset_person">
 							<option>申购人</option>
-							<option>张三</option>
+							<!-- <option>张三</option>
 							<option>李四</option>
-							<option>王五</option>
+							<option>王五</option> -->
 						</select>
-						<input type="button" name=""class="btn btn-success float-right" value="查询">
+						<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedPurchase()">
 					</div>
 
 					<table class="table table-striped">
@@ -177,8 +182,8 @@
 								<th>物料数量</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
+						<tbody id="buy_history_body">
+							<!-- <tr>
 								<td>2018-10-05 12:12</td>
 								<td>张三</td>
 								<td>铝棒(根x2m)</td>
@@ -189,18 +194,19 @@
 								<td>王五</td>
 								<td>轴承23(个)</td>
 								<td>18</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 				</div>
 			</div>
 			<!-- 申购记录结束 -->
+
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
 	<script type="text/javascript">
 		$(".mycalendar").flatpickr();
 	</script>
-	<script type="text/javascript" src="./js/material-buy.js"></script>
+	<script type="text/javascript" src="./js/meteral-buy.js"></script>
 </body>
 </html>
