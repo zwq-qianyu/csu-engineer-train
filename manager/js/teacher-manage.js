@@ -93,7 +93,7 @@ function addNewTeacherGroup(){
           '添加新教师组成功',
           'success'
         );
-        getAllTeacherGroup();
+        init_data();
       }
     }
   });
@@ -126,7 +126,7 @@ function editTeacherGroupName(){
           '修改教师组名成功，你的新教师组名为：'+new_teacher_group_name,
           'success'
         );
-        getAllTeacherGroup();
+        init_data();
       }
     }
   });
@@ -162,7 +162,7 @@ function delTeacherGroup(obj){
         			'success'
       			);
             // 刷新实习批次信息
-            getAllTeacherGroup();
+            init_data();
           }
         }
       });
@@ -202,7 +202,7 @@ function addNewProcedToGroup(){
           '添加新工序成功',
           'success'
         );
-        getAllTeacherGroup();
+        init_data();
       }
     }
   });
@@ -238,7 +238,7 @@ function editOneProcess(){
           '修改工序名成功',
           'success'
         );
-        getAllTeacherGroup();
+        init_data();
       }
     }
   });
@@ -276,7 +276,7 @@ function delOneProcess(obj){
         			'success'
       			);
             // 刷新实习批次信息
-            getAllTeacherGroup();
+            init_data();
           }
         }
       });
@@ -334,11 +334,11 @@ function findTeachers(){
   }
   //如果未选择物料权限，设置为无
   if(teacher_list_material_privilege === "物料权限"){
-    teacher_list_material_privilege = "无";
+    teacher_list_material_privilege = "all";
   }
   //如果未选择加班权限，设置为无
   if(teacher_list_overwork_privilege === "加班权限"){
-    teacher_list_overwork_privilege = "无";
+    teacher_list_overwork_privilege = "all";
   }
 
   $.ajax({
@@ -462,7 +462,12 @@ function addOneTeacher(){
 // 删除一个教师
 function deleteOneTeacher(obj){
   // console.log(obj);
-  tid = obj.getAttribute('tid');
+  let sid = obj.getAttribute('sid');
+  var tid_arr = new Array();
+  tid_arr.push(sid);
+  var tid_arr = JSON.stringify(tid_arr);
+
+  // tid = obj.getAttribute('tid');
   // console.log(sid);
   swal({
 	  title: '确定删除吗？',
@@ -480,7 +485,7 @@ function deleteOneTeacher(obj){
         url: base_url + '/teacher/deleteTeacher',
         datatype: 'json',
         data: {
-          'ids': tid
+          'ids': tid_arr
         },
         success: function(data){
           if(data.status === 0){
@@ -518,10 +523,50 @@ function deleteSomeTeachers(){
     id_array.push($(this)[0].id);
   })
   console.log(id_array);
-  // for(let i=0; i<checked_stu.length; i++){
-  //
-  // }
-
+  var tid_arr = JSON.stringify(id_array);
+  swal({
+	  title: '确定删除吗？',
+	  text: '确定删除吗？你将无法恢复它！',
+	  type: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#d33',
+	  cancelButtonColor: '#3085d6',
+	  confirmButtonText: '确定删除！',
+    cancelButtonText: '取消',
+	}).then(result => {
+	  if (result.value) {
+      $.ajax({
+        type: 'post',
+        url: base_url + '/teacher/deleteTeacher',
+        datatype: 'json',
+        contentType: "application/json",
+        data: tid_arr,
+        success: function(data){
+          console.log(data);
+          if(data.status === 0){
+            // console.log(data);
+            swal(
+              '删除成功',
+              '删除教师信息成功',
+              'success'
+            );
+            getAllBatch_StuList();
+          }
+          else{
+            swal(
+              '删除失败',
+              '删除教师信息失败，请重试！',
+              'error'
+            );
+          }
+        }
+      });
+	    console.log(result.value)
+	  } else {
+	    // handle dismiss, result.dismiss can be 'cancel', 'overlay', 'close', and 'timer'
+	    console.log(result.dismiss)
+	  }
+  })
 }
 
 // 修改一个教师--初始化
