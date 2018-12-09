@@ -462,13 +462,13 @@ function addOneTeacher(){
 // 删除一个教师
 function deleteOneTeacher(obj){
   // console.log(obj);
-  let sid = obj.getAttribute('sid');
-  var tid_arr = new Array();
-  tid_arr.push(sid);
-  var tid_arr = JSON.stringify(tid_arr);
+  let tid = obj.getAttribute('tid');
+  var id_arr = new Array();
+  id_arr.push(tid);
+  var tid_arr = JSON.stringify(id_arr);
 
   // tid = obj.getAttribute('tid');
-  // console.log(sid);
+  console.log(tid);
   swal({
 	  title: '确定删除吗？',
 	  text: '确定删除吗？你将无法恢复它！',
@@ -484,10 +484,10 @@ function deleteOneTeacher(obj){
         type: 'post',
         url: base_url + '/teacher/deleteTeacher',
         datatype: 'json',
-        data: {
-          'ids': tid_arr
-        },
+        contentType: "application/json",
+        data: tid_arr,
         success: function(data){
+          console.log(data);
           if(data.status === 0){
             // console.log(data);
             swal(
@@ -495,7 +495,7 @@ function deleteOneTeacher(obj){
               '删除教师信息成功',
               'success'
             );
-            findTeachers();
+            getAllGroup_StuList();
           }
           else{
             swal(
@@ -514,7 +514,7 @@ function deleteOneTeacher(obj){
   })
 }
 
-// 批量删除教师【接口有问题！！！】
+// 批量删除教师
 function deleteSomeTeachers(){
   var id_array = new Array();
   let checked_teacher_ids = $('#teacher_list_tbody input[name="teach_list_checkbox"]:checked');
@@ -550,7 +550,7 @@ function deleteSomeTeachers(){
               '删除教师信息成功',
               'success'
             );
-            getAllBatch_StuList();
+            getAllGroup_StuList();
           }
           else{
             swal(
@@ -578,12 +578,6 @@ function editOneTeacher_init(obj){
   let material_privilege = obj.getAttribute('material_privilege');
   let overtime_privilege = obj.getAttribute('overtime_privilege');
   // let all_group = obj.getAttribute('all_group');
-  console.log(tid);
-  console.log(tname);
-  // console.log(all_group);
-  console.log(role);
-  console.log(material_privilege);
-  console.log(overtime_privilege);
 
   $('#teach_nickname_add').val(tid);
   $('#teach_name_add').val(tname);
@@ -622,7 +616,31 @@ function editOneTeacher(){
   let role = $('#teach_role_add').val();
   let material_privilege = $('#teach_material_privilege_add').val();
   let overtime_privilege = $('#teach_overwork_privilege_add').val();
-  console.log(tid);
+  // 判断物料权限
+  if(material_privilege === "无"){
+    material_privilege = "0";
+  }
+  else if(material_privilege === "物料登记"){
+    material_privilege = "1";
+  }
+  else if(material_privilege === "物料申购"){
+    material_privilege = "2";
+  }
+  else {
+    material_privilege = "";
+  }
+
+  // 判断加班权限
+  if(overtime_privilege === "无"){
+    overtime_privilege = "0";
+  }
+  else if(overtime_privilege === "加班管理"){
+    overtime_privilege = "1";
+  }
+  else {
+    overtime_privilege = "";
+  }
+  // console.log(tid);
   var data = JSON.stringify({'tid': tid, 'tname': tname, 'role': role, 'material_privilege': material_privilege, 'overtime_privilege': overtime_privilege});
   $.ajax({
     type: 'post',
@@ -631,7 +649,24 @@ function editOneTeacher(){
     contentType : "application/json",              //发送至服务器的类型
     dataType : "json",
     success: function(data){
-      console.log(data);
+      // console.log(data);
+      if(data.status === 0){
+        // console.log(data);
+        swal(
+          '更新成功',
+          '更新教师信息成功',
+          'success'
+        );
+        getAllGroup_StuList();
+      }
+      else{
+        swal(
+          '更新失败',
+          '更新教师信息失败，请重试！',
+          'error'
+        );
+      }
+      getAllGroup_StuList
     }
   });
 }

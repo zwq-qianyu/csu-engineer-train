@@ -130,7 +130,41 @@ function getSelectedPurchase(){
 function deleteOneMateral(obj){
   let clazz = obj.getAttribute('id');
   console.log(clazz);
-
+  $.ajax({
+    type: 'post',
+    url: base_url + '/material/deleteMaterial',
+    datatype: 'json',
+    data: {
+      'clazz': clazz
+    },
+    success: function(data){
+      if(data.status === 0){
+        console.log(data);
+        swal(
+          '删除成功',
+          '删除物料成功',
+          'success'
+        );
+        init_data();
+      }
+      else{
+        console.log(data);
+        swal(
+          '删除失败',
+          '删除物料失败，请重试！',
+          'error'
+        );
+      }
+    },
+    error: function(data){
+      console.log(data);
+      swal(
+        '删除失败',
+        String(data.message),
+        'error'
+      );
+    }
+  });
 }
 
 // 添加一种新的物料
