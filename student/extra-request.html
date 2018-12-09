@@ -18,6 +18,10 @@
 	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
 	<!-- 日期时间插件 flatpickr.js 结束 -->
 	<link rel="stylesheet" type="text/css" href="./css/extra-select.css">
+	<!-- sweetalert2 -->
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
+	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
+	<!-- sweetalert2结束 -->
 </head>
 <body>
 	<header>
@@ -64,38 +68,41 @@
 			</div>
 		</aside>
 		<div class="main-right clearfix col-xs-10 col-sm-10">
+
+			<!-- 新增加班申请 -->
 			<div class="card">
 				<div class="card-header">
 					<strong>新增申请</strong>
 				</div>
 				<div class="card-body">
 					<div class="row">
+						<!-- 新增申请输入框 -->
 						<div class="left-cardBody col-md-6 col-xs-6">
 							<div class="row">
-								<input class="flatpickr mycalendar form-control col-xs-3 col-sm-3 left-flatpickr" name="start-time" placeholder="开始日期" data-enable-time=true data-time_24hr=true>
-								<select class="form-control custom-select col-xs-3 col-sm-3 select-worktype">
+								<input class="flatpickr mycalendar form-control col-xs-3 col-sm-3 left-flatpickr" name="start-time" placeholder="开始日期" data-enable-time=true data-time_24hr=true id="request_start_time">
+								<select class="form-control custom-select col-xs-3 col-sm-3 select-worktype" id="request_select_process">
 									<option>选择工种</option>
 									<option>车工</option>
 									<option>钳工</option>
 									<option>铣削</option>
 								</select>
-								<input type="text" name="" class="form-control col-xs-3 col-sm-3 input-times" placeholder="输入时长">
+								<input type="text" name="" class="form-control col-xs-3 col-sm-3 input-times" placeholder="输入时长" id="request_extra_last_time">
 							</div>
 							<br>
 							<div class="form-group">
 								<label>加班事由：</label>
-								<textarea class="form-control" rows="3"></textarea>
+								<textarea class="form-control" rows="3" id="request_extra_reason"></textarea>
 							</div>
 							<div class="float-right">
-								<input type="button" name=""class="btn btn-outline-danger float-right" value="确认">
+								<input type="button" name=""class="btn btn-outline-danger float-right" value="确认" onclick="addOverworkApply()">
 							</div>
 						</div>
 
-
+						<!-- 近期值班公示 -->
 						<div class="right-cardBody col-md-6 col-xs-6">
 							<div class="bcon">
 					      <div class="title"><b>近期值班公示</b><a href="#">更多 ></a></div>
-					      <div class="list_lh">
+					      <div class="list_lh" id="zhiban_info">
 					        <ul>
 					            <li><p><a href="#">2018-09-10 20:00-22:00&emsp;&emsp;钳工&emsp;&emsp;A老师</a></p></li>
 					            <li><p><a href="#">2018-09-10 20:00-22:00&emsp;&emsp;车工&emsp;&emsp;B老师</a></p></li>
@@ -133,7 +140,7 @@
 			</div>
 
 			<br><br>
-
+			<!-- 申请记录 -->
 			<div class="card">
 				<div class="card-header">
 					<strong>我的申请记录</strong>
@@ -148,7 +155,7 @@
 								<th>加班事由</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="request_history_tbody">
 							<tr>
 								<td>2018-09-10 12:00-14:00</td>
 								<td>钳工</td>
@@ -163,6 +170,7 @@
 					</table>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
@@ -170,5 +178,6 @@
 	<script type="text/javascript">
 		$(".mycalendar").flatpickr();
 	</script>
+	<script type="text/javascript" src="./js/extra-request.js"></script>
 </body>
 </html>
