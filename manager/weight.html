@@ -12,6 +12,10 @@
 	<link rel="stylesheet" type="text/css" href="./css/header.css">
 	<link rel="stylesheet" type="text/css" href="./css/weight.css">
 	<link rel="shortcut icon" href="../img/fav.png" />
+	<!-- sweetalert2 -->
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
+	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
+	<!-- sweetalert2结束 -->
 </head>
 <body>
 	<header>
@@ -72,6 +76,7 @@
 			</div>
 		</aside>
 		<div class="right col-xs-10 col-sm-10">
+
 			<!-- 权重设置模块 -->
 			<div class="card">
 				<div class="card-header">
@@ -102,15 +107,15 @@
 											<tbody>
 												<tr>
 													<td>钳工</td>
-													<td><input type="text" name="" value="30"> %</td>
+													<td><input type="text" name=""> %</td>
 												</tr>
 												<tr>
 													<td>钳工</td>
-													<td><input type="text" name="" value="30"> %</td>
+													<td><input type="text" name=""> %</td>
 												</tr>
 												<tr>
 													<td>钳工</td>
-													<td><input type="text" name="" value="30"> %</td>
+													<td><input type="text" name=""> %</td>
 												</tr>
 												<tr>
 											</tbody>
@@ -128,14 +133,14 @@
 					</div>
 					<br>
 					<div class="row select-module">
-						<select class="form-control custom-select col-xs-5 col-sm-5" id="weight_select_templates">
-							<option>权重模版选择</option>
+						<select class="form-control custom-select col-xs-5 col-sm-5" id="weight_select_templates1">
+							<!-- <option>权重模版选择</option>
 							<option>权重模版1</option>
-							<option>权重模版2</option>
+							<option>权重模版2</option> -->
 						</select>
-						<button class="btn btn-outline-primary">编辑</button>
-						<button class="btn btn-outline-success">保存</button>
-						<button class="btn btn-outline-danger">删除</button>
+						<button class="btn btn-outline-primary" onclick="editWeight()">编辑</button>
+						<button class="btn btn-outline-success" onclick="submitWeight()">保存</button>
+						<button class="btn btn-outline-danger" onclick="deleteTemplate()">删除</button>
 					</div>
 
 					<div>
@@ -161,21 +166,21 @@
 					</div>
 
 					<div>
-						<select class="form-control custom-select col-xs-3 col-sm-3">
-							<option>批次选择</option>
+						<select class="form-control custom-select col-xs-3 col-sm-3" id="weight_select_batch1">
+							<!-- <option>批次选择</option>
 							<option>2018A01</option>
 							<option>2018A02</option>
 							<option>2018B01</option>
-							<option>2018B02</option>
+							<option>2018B02</option> -->
 						</select>
 						<span class="col-xs-1 col-sm-3"></span>
-						<select class="form-control custom-select col-xs-3 col-sm-3">
-							<option>权重模版选择</option>
+						<select class="form-control custom-select col-xs-3 col-sm-3" id="weight_select_templates2">
+							<!-- <option>权重模版选择</option>
 							<option>权重模版1</option>
-							<option>权重模版2</option>
+							<option>权重模版2</option> -->
 						</select>
 						<span class="col-xs-1 col-sm-3"></span>
-						<button class="btn btn-success">绑&emsp;定</button>
+						<button class="btn btn-success" onclick="band()">绑&emsp;定</button>
 					</div>
 					<div class="tips">
 						<span>注意：</span>
@@ -194,12 +199,12 @@
 					<h5>批次权重、评级规则查询</h5>
 				</div>
 				<div class="card-body">
-					<select class="form-control custom-select col-xs-3 col-sm-3">
-						<option>批次选择</option>
+					<select class="form-control custom-select col-xs-3 col-sm-3" id="weight_select_batch2">
+						<!-- <option>批次选择</option>
 						<option>2018A01</option>
 						<option>2018A02</option>
 						<option>2018B01</option>
-						<option>2018B02</option>
+						<option>2018B02</option> -->
 					</select>
 
 					<h4>成绩权重</h4>
@@ -211,8 +216,8 @@
 									<th>权重</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
+							<tbody id="show_weight_list_tbody">
+								<!-- <tr>
 									<td>钳工</td>
 									<td>30%</td>
 								</tr>
@@ -223,7 +228,7 @@
 								<tr>
 									<td>钳工</td>
 									<td>40%</td>
-								</tr>
+								</tr> -->
 								<tr>
 							</tbody>
 						</table>
@@ -231,6 +236,7 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<!-- 主体部分结束 -->

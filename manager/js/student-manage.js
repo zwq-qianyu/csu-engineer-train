@@ -615,7 +615,6 @@ function editOneStudent(){
           'error'
         );
       }
-
     }
   });
 }
