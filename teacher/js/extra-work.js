@@ -6,6 +6,10 @@ var base_url = 'http://134.175.152.210:8084';
 
 // 初始化数据
 function init_data(){
+  // 获取所有工种
+  getAllProced();
+  // 获取所有可以有加班管理权限的老师
+  findOverworkPrivilegeTeachers();
   // 学生加班申请查询
   getOverworkApplyByTime();
   // 查询教师值班记录
@@ -13,10 +17,51 @@ function init_data(){
 }
 
 // 获取所有工种
+function getAllProced(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/proced/getAllProced',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        let html = '<option>选择工种</option>';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<option>'+data_arr[i]+'</option>';
+        }
+        $('#stu_extra_select_process').html(html);
+        $('#teacher_overwork_select_process').html(html);
+        $('#history_select_process').html(html);
+      }
+    }
+  });
+}
 
-
-// 获取所有可以加班的老师
-
+// 获取所有可以有加班管理权限的老师
+function findOverworkPrivilegeTeachers(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/admin/findTeachers',
+    datatype: 'json',
+    data: {
+      'tClass': 'all',
+      'role': 'all',
+      'material_privilege': 'all',
+      'overwork_privilege': '加班管理'
+    },
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        let html = '<option>选择教师</option>';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<option>'+data_arr[i].tname+'</option>';
+        }
+        $('#teacher_overwork_select_teacher').html(html);
+      }
+    }
+  });
+}
 
 // 学生加班申请查询
 function getOverworkApplyByTime(){
@@ -47,7 +92,7 @@ function getOverworkApplyByTime(){
         let data_arr = data.data;
         html = '';
         for(let i=0; i<data_arr.length; i++){
-          html +=  '<tr><td>'+data_arr[i].apply_time+'</td><td>'+'姓名'+'</td><td>'+'班级'+'</td><td>'+data_arr[i].pro_name+'</td><td>'+data_arr[i].overwork_time+'</td><td>'+'时长'+'</td><td>'+data_arr[i].reason+'</td>';
+          html +=  '<tr><td>'+chGMT(data_arr[i].apply_time)+'</td><td>'+data_arr[i].sname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].pro_name+'</td><td>'+chGMT(data_arr[i].overwork_time)+'</td><td>'+(getGMThour(data_arr[i].overwork_time_end) - getGMThour(data_arr[i].overwork_time))+'h</td><td>'+data_arr[i].reason+'</td>';
           html += '</tr>'
         }
         $('#stu_extra_work_tbody').html(html);
@@ -63,7 +108,7 @@ function addTeacherOverwork(){
   let tname = $('#teacher_overwork_select_teacher').val();
   let last_time = $('#teacher_overwork_last_time').val();
   let reason = $('#extraWork-reason').val();
-
+  start_time += ':00';
   $.ajax({
     type: 'post',
     url: base_url + '/overwork/addTeacherOverwork',
@@ -73,6 +118,7 @@ function addTeacherOverwork(){
       'duration': last_time,
       'pro_name': process,
       't_name': tname,
+      'reason': reason
     },
     success: function(data){
       if(data.status === 0){
@@ -84,6 +130,10 @@ function addTeacherOverwork(){
         );
         // 刷新教师值班记录
         getOverworkByTimeOrProName();
+        // 去除新增教师值班框中的内容
+        $('#teacher_overwork_start_time').val("");
+        $('#teacher_overwork_last_time').val("");
+        $('#extraWork-reason').val("");
       }
       else{
         console.log(data);
@@ -125,7 +175,7 @@ function getOverworkByTimeOrProName(){
         let data_arr = data.data;
         html = '';
         for(let i=0; i<data_arr.length; i++){
-          html +=  '<tr><td>'+data_arr[i].overwork_time+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].pro_name+'</td><td>2h</td><td>'+data_arr[i].reason+'</td>';
+          html +=  '<tr><td>'+chGMT(data_arr[i].overwork_time)+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].pro_name+'</td><td>2h</td><td>'+data_arr[i].reason+'</td>';
           // 编辑按钮
           html += '<td><button class="btn btn-primary btn-sm" id="'+data_arr[i].overwork_id+'" tname='+data_arr[i].tname+' reason='+data_arr[i].reason+' begin='+data_arr[i].overwork_time+' pro_name='+data_arr[i].pro_name+' data-toggle="modal" data-target="#editTeacherHistoryModal" onclick="updateTeacherOverwork_init(this)">编辑</button>&emsp;';
           // 删除按钮
@@ -247,4 +297,37 @@ function deleteOverwork(obj){
 	  }
   })
 
+}
+
+// 格林威治时间的转换
+Date.prototype.format = function(format){
+	var o = {
+            "M+" : this.getMonth()+1, //month
+            "d+" : this.getDate(), //day
+            "h+" : this.getHours(), //hour
+            "m+" : this.getMinutes(), //minute
+            "s+" : this.getSeconds(), //second
+            "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+            "S" : this.getMilliseconds() //millisecond
+        }
+    if(/(y+)/.test(format))
+    format=format.replace(RegExp.$1,(this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for(var k in o)
+    if(new RegExp("("+ k +")").test(format))
+    format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+    return format;
+}
+// 获取标准时间格式
+function chGMT(gmtDate){
+	var mydate = new Date(gmtDate);
+	mydate.setHours(mydate.getHours() + 8);
+	// return mydate.format("yyyy-MM-dd hh:mm:ss");
+  return mydate.format("yyyy-MM-dd hh:mm");
+}
+// 获取小时
+function getGMThour(gmtDate){
+  var mydate = new Date(gmtDate);
+	mydate.setHours(mydate.getHours() + 8);
+	// return mydate.format("yyyy-MM-dd hh:mm:ss");
+  return Number(mydate.format("hh"));
 }

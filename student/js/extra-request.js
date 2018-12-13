@@ -5,11 +5,33 @@ window.onload = function(){
 var base_url = 'http://134.175.152.210:8084';
 
 function init_data(){
+  // 获取所有工种
+  getAllProced();
   // 展示值班信息初始化
   getTeacherOverworkFromStudent();
 }
 
-// 新增加班申请【接口有问题】
+// 获取所有工种
+function getAllProced(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/proced/getAllProced',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        let html = '<option>选择工种</option>';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<option>'+data_arr[i]+'</option>';
+        }
+        $('#request_select_process').html(html);
+      }
+    }
+  });
+}
+
+// 新增加班申请【接口有问题，需要登录后测试】
 function addOverworkApply(){
   let begin = $('#request_start_time').val();
   let pro_name = $('#request_select_process').val();
@@ -70,7 +92,7 @@ function getTeacherOverworkFromStudent(){
   });
 }
 
-// 获取“我的申请”记录【接口有问题】
+// 获取“我的申请”记录【接口有问题，需要登录后测试】
 function getMyOverworkApply(){
   $.ajax({
     type: 'post',

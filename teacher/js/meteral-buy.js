@@ -8,6 +8,8 @@ var base_url = 'http://134.175.152.210:8084';
 function init_data(){
   // 刷新库存列表
   getAllMaterial();
+  // 获取所有有购权限的人的信息
+  getPurchaser();
 }
 
 // 刷新库存列表
@@ -40,6 +42,28 @@ function getAllMaterial(){
         $('#buy_history_selset_meterail').html(html2);
       }
     },
+  });
+}
+
+// 获取所有申购人信息
+function getPurchaser(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/purchase/getPurchaser',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      // console.log(data);
+      if(data.status === 0){
+        let data_arr = data.data;
+        let html = '<option>申购人</option>';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<option>'+data_arr[i]+'</option>';
+        }
+        // console.log(html);
+        $('#buy_history_selset_person').html(html);
+      }
+    }
   });
 }
 
