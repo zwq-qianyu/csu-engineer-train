@@ -69,7 +69,7 @@ function addOverworkApply(){
   });
 }
 
-// 展示值班信息【接口有问题】
+// 展示值班信息
 function getTeacherOverworkFromStudent(){
   $.ajax({
     type: 'post',
@@ -84,9 +84,9 @@ function getTeacherOverworkFromStudent(){
         let data_arr = data.data;
         html = '';
         for(let i=0; i<data_arr.length; i++){
-          html += '<li><p><a href="#">'+data_arr[i].overwork_time+'&emsp;&emsp;'+data_arr[i].pro_name+'&emsp;&emsp;'+data_arr[i].tname+'</a></p></li>'
+          html += '<li><p><a href="#">'+chGMT(data_arr[i].overwork_time)+'&emsp;&emsp;'+data_arr[i].pro_name+'&emsp;&emsp;'+data_arr[i].tname+'</a></p></li>'
         }
-        // $('#zhiban_info ul').html(html);   //有数据了再打开这一行
+        $('#zhiban_info ul').html(html);   //有数据了再打开这一行
       }
     }
   });
@@ -104,9 +104,9 @@ function getMyOverworkApply(){
         let data_arr = data.data;
         html = '';
         for(let i=0; i<data_arr; i++){
-          html += '<tr><td>'+data_arr[i].overwork_time+'</td><td>'+data_arr[i].pro_name+'</td><td>'+data_arr[i].reason+'</td></tr>';
+          html += '<tr><td>'+chGMT(data_arr[i].overwork_time)+'</td><td>'+data_arr[i].pro_name+'</td><td>'+data_arr[i].reason+'</td></tr>';
         }
-        // $('#request_history_tbody').html(html);   //有数据了再打开这一行
+        $('#request_history_tbody').html(html);   //有数据了再打开这一行
       }
     }
   });

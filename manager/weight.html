@@ -39,7 +39,7 @@
 			<!-- <iframe src="./aside.html" width="100%" height="700px;" frameborder="no"></iframe> -->
 			<div id="aside">
 				<ul class="list-group">
-					<li class="list-group-item"><img class="icon" src="./img/student-manage.svg"> 用户管理
+					<li class="list-group-item"><img class="icon" src="./img/user-manage.svg"> 用户管理
 						<ul>
 							<li><a href="./student-manage.html">学生管理</a></li>
 							<li><a href="./teacher-manage.html">教师管理</a></li>
@@ -72,6 +72,7 @@
 			</div>
 		</aside>
 		<div class="right col-xs-10 col-sm-10">
+			<!-- 权重设置模块 -->
 			<div class="card">
 				<div class="card-header">
 					<h5>权重设置</h5>
@@ -127,7 +128,7 @@
 					</div>
 					<br>
 					<div class="row select-module">
-						<select class="form-control custom-select col-xs-5 col-sm-5">
+						<select class="form-control custom-select col-xs-5 col-sm-5" id="weight_select_templates">
 							<option>权重模版选择</option>
 							<option>权重模版1</option>
 							<option>权重模版2</option>
@@ -139,41 +140,21 @@
 
 					<div>
 						<table class="table table-striped">
-							<thead>
+							<thead class="table-dark">
 								<tr>
 									<th>打分项</th>
 									<th>权重</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
+							<tbody id="weight_edit_list">
+								<!-- <tr>
 									<td>钳工</td>
 									<td><input type="text" name="" value="30"> %</td>
 								</tr>
 								<tr>
 									<td>钳工</td>
 									<td><input type="text" name="" value="30"> %</td>
-								</tr>
-								<tr>
-									<td>钳工</td>
-									<td><input type="text" name="" value="30"> %</td>
-								</tr>
-								<tr>
-									<td>钳工</td>
-									<td><input type="text" name="" value="30"> %</td>
-								</tr>
-								<tr>
-									<td>钳工</td>
-									<td><input type="text" name="" value="30"> %</td>
-								</tr>
-								<tr>
-									<td>钳工</td>
-									<td><input type="text" name="" value="30"> %</td>
-								</tr>
-								<tr>
-									<td>钳工</td>
-									<td><input type="text" name="" value="30"> %</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 						<br>
@@ -207,6 +188,7 @@
 			</div>
 
 			<br><br>
+			<!-- 批次权重、评级规则查询模块 -->
 			<div class="card">
 				<div class="card-header">
 					<h5>批次权重、评级规则查询</h5>
@@ -232,15 +214,15 @@
 							<tbody>
 								<tr>
 									<td>钳工</td>
-									<td><input type="text" name="" value="30"> %</td>
+									<td>30%</td>
 								</tr>
 								<tr>
 									<td>钳工</td>
-									<td><input type="text" name="" value="30"> %</td>
+									<td>30%</td>
 								</tr>
 								<tr>
 									<td>钳工</td>
-									<td><input type="text" name="" value="30"> %</td>
+									<td>40%</td>
 								</tr>
 								<tr>
 							</tbody>
@@ -252,5 +234,6 @@
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
+	<script type="text/javascript" src="./js/weight.js"></script>
 </body>
 </html>
