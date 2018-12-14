@@ -558,7 +558,7 @@
 			                    					<input type="text" name="" class="form-control" placeholder="学生姓名">
 			                    				</div>
 
-			                    				<button class="btn btn-default btn-sm" id="add" ><i class="fa fa-plus"></i> 添加至列表</button>
+			                    				<button class="btn btn-default" id="special_stu_search_stu" >查询</button>
 
 																</div>
 			                    			<!-- 学生列表表格 -->
@@ -566,54 +566,31 @@
 				                    			<table class="table" id="mytable">
 				                    				<thead>
 																      <tr>
-																        <th>选择</th>
+																        <!-- <th>选择</th> -->
 																        <th>学号</th>
 																        <th>姓名</th>
 																        <th>班级</th>
 																        <th>批次</th>
-																        <th>操作</th>
+																        <!-- <th>操作</th> -->
 																      </tr>
 																    </thead>
 																    <tbody>
 																      <tr>
-																      	<td><input type="checkbox" name=""></td>
+																      	<!-- <td><input type="checkbox" name=""></td> -->
 																      	<td>1302160126</td>
 																      	<td>邱梓峰</td>
 																      	<td>信科1601</td>
 																        <td>A</td>
-																        <td>
+																        <!-- <td>
 																        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-																        </td>
-																      </tr>
-																      <tr>
-																        <td><input type="checkbox" name=""></td>
-																      	<td>1302160126</td>
-																      	<td>邱梓峰</td>
-																      	<td>信科1601</td>
-																        <td>A</td>
-																        <td>
-																        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-																        </td>
-																      </tr>
-																      <tr>
-																        <td><input type="checkbox" name=""></td>
-																      	<td>1302160126</td>
-																      	<td>邱梓峰</td>
-																      	<td>信科1601</td>
-																        <td>A</td>
-																        <td>
-																        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-																        </td>
+																        </td> -->
 																      </tr>
 																    </tbody>
 				                    			</table>
 				                    		</div>
-			                    			<!-- 全体操作 -->
-			                    			<div class="row operate-n">
-																	<input type="checkbox" style="margin-left: 50px;" name=""> 全选
-			                    				<input type="button" class="btn btn-danger pull-right" name="" value="删&emsp;除">
-			                    			</div>
+
 																<br>
+																<!-- 绑定模版 -->
 																<div class="row">
 																	<div class="col-md-7 col-xs-7">
 																	</div>
@@ -667,7 +644,7 @@
 																	        <td>1学分学生权重</td>
 																	        <td>
 																	        	<input type="button" class="btn btn-sm btn-primary" name="" value="查询课表">
-																						<input type="button" class="btn btn-sm btn-success" name="" value="编辑">
+																						<input type="button" class="btn btn-sm btn-success" name="" value="编辑" data-toggle="modal" data-target="#edit-specialStudentSchedule">
 																						<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
 																	        </td>
 																	      </tr>
@@ -675,12 +652,11 @@
 					                    			</table>
 					                    		</div>
 																	<br>
-																	<div class="tips">
-																		<p>注意：选中多个特殊学生进行编辑排课操作将默认删除其已有信息，避免不同学生课程信息冲突！</p>
-																	</div>
+
 																	<div class="row pull-right">
-																		<input type="button" class="btn btn-default" value="删除学生信息">
-																		<input type="button" class="btn btn-default" value="编辑排课" data-toggle="modal" data-target="#edit-specialStudentSchedule">
+																		<input type="button" class="btn btn-danger" value="删&emsp;除">
+																		<!-- <input type="button" class="btn btn-default" value="编辑排课" data-toggle="modal" data-target="#edit-specialStudentSchedule"> -->
+																		<!-- 编辑 modal -->
 																		<div class="modal fade" id="edit-specialStudentSchedule" tabindex="-1" role="dialog" aria-labelledby="edit-specialStudentScheduleTitle" aria-hidden="true">
 																			  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 																			    <div class="modal-content">

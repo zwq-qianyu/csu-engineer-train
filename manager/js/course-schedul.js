@@ -1,3 +1,16 @@
+window.onload = function(){
+  init_data();
+}
+
+var base_url = 'http://134.175.152.210:8084';
+
+// 初始化页面数据
+function init_data(){
+
+  // 获取所有模版并渲染
+  getAllTemplates();
+}
+
 // 添加新模版弹窗上动态生成 table
 $("#schedule-add").click(function(){
   $("#schedule-add-panel").empty();   // 关闭“添加新模版弹窗”时清除弹窗上添加的元素
@@ -35,3 +48,23 @@ $("#addNewPlan-close").click(function(){
 $("#addNewPlan-close").click(function(){
   $("#schedule-add-panel").empty();
 });
+
+// 获取所有模版
+function getAllTemplates(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/experiment/getAllTemplate',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        let html = '';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<option>'+data_arr[i]+'</option>';
+        }
+        $('#allTemplates').html(html);
+      }
+    }
+  });
+}
