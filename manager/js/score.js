@@ -14,8 +14,10 @@ function init_data(){
   // getScoreList();
   // 查询教师提交成绩记录--初始化
   getScoreRecord();
+  // 特殊学生成绩查询
+  getSpScore();
 }
-
+// ========================================================================
 // 1、 成绩列表
 
 // 获取所有批次
@@ -90,16 +92,49 @@ function getAllSGroupByBatch(){
     }
   });
 }
+// 改变批次时做成响应
 $('#score_list_select_batch').change(function(){
-  // 根据批次获取对应的分组号--成绩列表
-  getAllSGroupByBatch();
   // 根据条件查询成绩列表
   getScoreList();
+  // 根据批次名获取工序
+  getBatchProced();
+  // 根据批次获取对应的分组号--成绩列表部分
+  getAllSGroupByBatchScoreLists();
 })
 
-// 根据批次获取对应的分组号--成绩提交记录
-function getAllSGroupByBatch(){
-  let batch_name = $('#score_submit_select_batch').val();
+var processes = new Array();
+// 根据批次名获取工序
+function getBatchProced(){
+  let batch_name = $('#score_list_select_batch').val();
+  // console.log(batch_name);
+  if(batch_name !== "实习批次选择"){
+    $.ajax({
+      type: 'post',
+      url: base_url + '/proced/getBatchProced/'+batch_name,
+      datatype: 'json',
+      data: {},
+      success: function(data){
+        if(data.status === 0){
+          processes = []
+          let data_arr = data.data;
+          let thead_html = '<tr><th scope="col">批次/组</th><th scope="col">姓名</th>';
+          for(let i=0; i<data_arr.length; i++){
+            thead_html += '<th scope="col">'+data_arr[i].proid.pro_name+'</th>';
+            processes.push(data_arr[i].proid.pro_name);
+          }
+          thead_html += '<th scope="col">总成绩</th><th scope="col">等级</th><th scope="col">发布情况</th><th scope="col">操作</th></tr>';
+          $('#score_list_thead').html(thead_html);
+          // console.log(processes);
+        }
+
+      }
+    });
+  }
+}
+
+// 根据批次获取对应的分组号--成绩列表部分
+function getAllSGroupByBatchScoreLists(){
+  let batch_name = $('#score_list_select_batch').val();
   $.ajax({
     type: 'post',
     url: base_url + '/batch/getAllSGroup',
@@ -115,18 +150,13 @@ function getAllSGroupByBatch(){
         for(let i=0; i<data_arr.length; i++){
           html += '<option>'+data_arr[i]+'</option>'
         }
-        $('#score_submit_select_groupid').html(html);
+        $('#score_list_select_group_number').html(html);
       }
     }
   });
 }
-$('#score_submit_select_batch').change(function(){
-  // 根据批次获取对应的分组号--成绩提交记录
-  getAllSGroupByBatch();
-})
 
-
-// 根据条件查询成绩列表【接口有问题】
+// 根据条件查询成绩列表
 function getScoreList(){
   let batch_name = $('#score_list_select_batch').val();
   let s_group_id = $('#score_list_select_group_number').val();
@@ -134,43 +164,61 @@ function getScoreList(){
   let sId = $('#score_list_stu_number').val();
   let sName = $('#score_list_stu_name').val();
   if(batch_name === "实习批次选择"){
-    batch_name = null;
+    swal(
+      '请先选择批次',
+      '请选择对应批次后查询成绩！',
+      'warning'
+    );
   }
-  if(s_group_id === "组号"){
-    s_group_id = null;
-  }
-  if(pro_name === "选择工种"){
-    pro_name = null;
-  }
-  if(sId === ""){
-    sId = null;
-  }
-  if(sName === ""){
-    sName = null;
-  }
-  console.log(batch_name);
-  console.log(s_group_id);
-  console.log(pro_name);
-  console.log(sId);
-  console.log(sName);
-  $.ajax({
-    type: 'post',
-    url: base_url + '/score/getScore',
-    datatype: 'json',
-    data: {
-      'batch_name': batch_name,
-      's_group_id': s_group_id,
-      'pro_name': pro_name,
-      'sId': sId,
-      'sName': sName
-    },
-    success: function(data){
-      if(data.status === 0){
-        // console.log(data);
-
-      }
+  else{
+    if(s_group_id === "组号"){
+      s_group_id = "all";
     }
-  });
+    if(pro_name === "选择工种"){
+      pro_name = "all";
+    }
+    if(sId === ""){
+      sId = "all";
+    }
+    if(sName === ""){
+      sName = "all";
+    }
+    $.ajax({
+      type: 'post',
+      url: base_url + '/score/getScore',
+      datatype: 'json',
+      data: {
+        'batch_name': batch_name,
+        's_group_id': s_group_id,
+        'pro_name': pro_name,
+        'sId': sId,
+        'sName': sName
+      },
+      success: function(data){
+        if(data.status === 0){
+          console.log(processes);
+          console.log(data);
+          let data_arr = data.data;
+          let thead_html = ''
+          for(let i=0; i<data_arr.length; i++){
+            thead_html += '<tr><td>'+data_arr[i].batch_name+'/'+data_arr[i].s_group_id+'</td><td>'+data_arr[i].sname+'</td>';
+            for(let j=0; j<processes.length; j++){
+              if(data_arr[i][processes[j]] !== undefined){
+                thead_html += '<td>'+data_arr[i][processes[j]]+'</td>'
+              }
+              else{
+                thead_html += '<td> </td>'
+              }
+            }
+            thead_html += '<td>'+data_arr[i].total_score+'</td><td>'+data_arr[i].degree+'</td><td>'+data_arr[i].release+'</td>';
+            thead_html += '<td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#scorelistEditModal">修改</button></td>';
+          }
+
+          $('#score_list_tbody').html(thead_html);
+        }
+      }
+    });
+  }
 }
 
 // 核算总成绩
@@ -308,6 +356,7 @@ function publishScore(){
 }
 
 
+// ========================================================================
 // 2、成绩批量导入
 
 // 下载标准模版【有问题！！！】
@@ -347,7 +396,7 @@ function importStudentsScore(){
           // window.clearInterval(timer);
           console.log("over..");
           $('#tf').empty();
-          init_data();
+          // init_data();
       },
       error:function(e){
           alert("错误！！");
@@ -357,7 +406,38 @@ function importStudentsScore(){
 }
 
 
+// ========================================================================
 // 3、成绩提交记录
+
+// 根据批次获取对应的分组号--成绩提交记录
+function getAllSGroupByBatch(){
+  let batch_name = $('#score_submit_select_batch').val();
+  $.ajax({
+    type: 'post',
+    url: base_url + '/batch/getAllSGroup',
+    datatype: 'json',
+    data: {
+      'batch_name': batch_name
+    },
+    success: function(data){
+      if(data.status === 0){
+        console.log(data);
+        let data_arr = data.data;
+        let html = '<option>组号</option>';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<option>'+data_arr[i]+'</option>'
+        }
+        $('#score_submit_select_groupid').html(html);
+      }
+    }
+  });
+}
+$('#score_submit_select_batch').change(function(){
+  // 根据批次获取对应的分组号--成绩提交记录
+  getAllSGroupByBatch();
+  // 查询教师提交成绩记录
+  getScoreRecord();
+})
 
 // 查询教师提交成绩记录
 function getScoreRecord(){
@@ -374,7 +454,7 @@ function getScoreRecord(){
   if(s_group_id !== "组号" & s_group_id !== null){
     send_data.s_group_id = s_group_id;
   }
-  console.log(send_data);
+  // console.log(send_data);
   $.ajax({
     type: 'post',
     url: base_url + '/score/getScoreRecord',
@@ -382,7 +462,7 @@ function getScoreRecord(){
     data: send_data,
     success: function(data){
       if(data.status === 0){
-        console.log(data);
+        // console.log(data);
         let data_arr = data.data;
         let html = '';
         for(let i=0; i<data_arr.length; i++){
@@ -395,12 +475,14 @@ function getScoreRecord(){
 }
 
 
+// ========================================================================
 // 4、成绩修改记录【暂无接口】
 function searchUpdateHistory(){
 
 }
 
 
+// ========================================================================
 // 5、特殊学生成绩列表
 
 // 特殊学生成绩查询【接口缺少数据】
@@ -414,7 +496,7 @@ function getSpScore(){
   if(sname !== null){
     send_data.sname = sname;
   }
-  console.log(send_data);
+  // console.log(send_data);
   $.ajax({
     type: 'post',
     url: base_url + '/score/getSpScore',
@@ -448,6 +530,7 @@ function releaseSpScore(){
 }
 
 
+// ========================================================================
 // 6、其他函数
 
 // 格林威治时间的转换

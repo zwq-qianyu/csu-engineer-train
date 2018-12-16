@@ -174,8 +174,8 @@
 					</div>
 					<br><br>
 					<table class="table table-striped score-list-table">
-						<thead class="thead-dark">
-							<tr>
+						<thead class="thead-dark" id="score_list_thead">
+							<!-- <tr>
 								<th scope="col">批次/组</th>
 								<th scope="col">姓名</th>
 								<th scope="col">车工</th>
@@ -190,10 +190,10 @@
 								<th scope="col">等级</th>
 								<th scope="col">发布情况</th>
 								<th scope="col">操作</th>
-							</tr>
+							</tr> -->
 						</thead>
-						<tbody class="score-table">
-							<tr>
+						<tbody class="score-table" id="score_list_tbody">
+							<!-- <tr>
 								<td>2018A01/A</td>
 								<td>刘淇欣</td>
 								<td>90</td>
@@ -210,85 +210,70 @@
 								<td>
 									<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#scorelistEditModal">修改</button>
 								</td>
-							</tr>
-							<tr>
-								<td>2018A01/A</td>
-								<td>王琳</td>
-								<td>90</td>
-								<td>90</td>
-								<td>90</td>
-								<td>-2</td>
-								<td>90</td>
-								<td>90</td>
-								<td>90</td>
-								<td>90</td>
-								<td>80</td>
-								<td>良</td>
-								<td>已发布</td>
-								<td>
-									<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#scorelistEditModal">修改</button>
-									<div class="modal fade" id="scorelistEditModal" tabindex="-1" role="dialog" aria-labelledby="scorelistEditModalTitle" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="scorelistEditModalTitle">学生信息修改</h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<table class="table">
-															<thead>
-																<tr>
-																	<th scope="col">批次/组</th>
-																	<th scope="col">姓名</th>
-																	<th scope="col">车工</th>
-																	<th scope="col">钳工</th>
-																	<th scope="col">铣削</th>
-																	<th scope="col">上机</th>
-																	<th scope="col">考勤</th>
-																	<th scope="col">实习报告</th>
-																	<th scope="col">小车制造</th>
-																	<th scope="col">小车设计</th>
-																	<th scope="col">总成绩</th>
-																	<th scope="col">等级</th>
-																	<th scope="col">发布情况</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>2018A01/A</td>
-																	<td>刘淇欣</td>
-																	<td><input type="text" name="" value="90"></td>
-																	<td><input type="text" name="" value="90"></td>
-																	<td><input type="text" name="" value="90"></td>
-																	<td><input type="text" name="" value="-2"></td>
-																	<td><input type="text" name="" value="90"></td>
-																	<td><input type="text" name="" value="90"></td>
-																	<td><input type="text" name="" value="90"></td>
-																	<td><input type="text" name="" value="90"></td>
-																	<td>90</td>
-																	<td><input type="text" name=""  value="优"></td>
-																	<td>未发布</td>
-																</tr>
-															</tbody>
-														</table>
-														<div>
-															<label for="edit-state">成绩修改备注</label>
-															<textarea id="edit-state" rows="2" class="form-control"></textarea>
-														</div>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-														<button type="button" class="btn btn-primary">确定</button>
-													</div>
-												</div>
-											</div>
-										</div><!-- /.modal -->
-								</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
+
+					<!-- 成绩列表-修改成绩 modal -->
+					<div class="modal fade" id="scorelistEditModal" tabindex="-1" role="dialog" aria-labelledby="scorelistEditModalTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="scorelistEditModalTitle">学生信息修改</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col">批次/组</th>
+													<th scope="col">姓名</th>
+													<th scope="col">车工</th>
+													<th scope="col">钳工</th>
+													<th scope="col">铣削</th>
+													<th scope="col">上机</th>
+													<th scope="col">考勤</th>
+													<th scope="col">实习报告</th>
+													<th scope="col">小车制造</th>
+													<th scope="col">小车设计</th>
+													<th scope="col">总成绩</th>
+													<th scope="col">等级</th>
+													<th scope="col">发布情况</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>2018A01/A</td>
+													<td>刘淇欣</td>
+													<td><input type="text" name="" value="90"></td>
+													<td><input type="text" name="" value="90"></td>
+													<td><input type="text" name="" value="90"></td>
+													<td><input type="text" name="" value="-2"></td>
+													<td><input type="text" name="" value="90"></td>
+													<td><input type="text" name="" value="90"></td>
+													<td><input type="text" name="" value="90"></td>
+													<td><input type="text" name="" value="90"></td>
+													<td>90</td>
+													<td><input type="text" name=""  value="优"></td>
+													<td>未发布</td>
+												</tr>
+											</tbody>
+										</table>
+										<div>
+											<label for="edit-state">成绩修改备注</label>
+											<textarea id="edit-state" rows="2" class="form-control"></textarea>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+										<button type="button" class="btn btn-primary">确定</button>
+									</div>
+								</div>
+							</div>
+						</div><!-- /.modal -->
+
 					<div class="tips">
 						<span>注意：需要发布之后，学生端才能显示成绩等级</span>
 					</div>
@@ -334,7 +319,7 @@
 			    			<span>分组数量：</span>
 			    			<input type="text" name="" class="form-control">
 			    		</div> -->
-			    		<button class="btn btn-danger">开始导入</button>
+			    		<button class="btn btn-danger" onclick="importStudentsScore()">开始导入</button>
 			    	</form>
 			    </div>
 
@@ -467,7 +452,6 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">选择</th>
-								<th scope="col">批次/组</th>
 								<th scope="col">姓名</th>
 								<th scope="col">车工</th>
 								<th scope="col">钳工</th>
@@ -486,7 +470,6 @@
 						<tbody class="score-table" id="spStu_list_tbody">
 							<tr>
 								<td><input type="checkbox" name=""></td>
-								<td>2018A01/A</td>
 								<td>王琳</td>
 								<td>90</td>
 								<td>90</td>

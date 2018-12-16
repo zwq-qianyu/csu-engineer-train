@@ -68,3 +68,61 @@ function getAllTemplates(){
     }
   });
 }
+
+// 删除一个模版
+function deleteTemplate(){
+  let template = $('#allTemplates').val();
+  swal({
+	  title: '确定删除吗？',
+	  text: '确定删除吗？你将无法恢复它！',
+	  type: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#d33',
+	  cancelButtonColor: '#3085d6',
+	  confirmButtonText: '确定删除！',
+    cancelButtonText: '取消',
+	}).then(result => {
+	  if (result.value) {
+      $.ajax({
+        type: 'post',
+        url: base_url + '/experiment/deleteTemplate',
+        datatype: 'json',
+        data: {
+          'template_id': template
+        },
+        success: function(data){
+          if(data.status === 0){
+            // console.log(data);
+            swal(
+              '删除成功',
+              '删除模版成功',
+              'success'
+            );
+            // 刷新教师值班记录
+            getOverworkByTimeOrProName();
+          }
+          else{
+            console.log(data);
+            swal(
+              '删除失败',
+              String(data.message),
+              'error'
+            );
+          }
+        },
+        error: function(data){
+          console.log(data);
+          swal(
+            '删除失败',
+            '删除失败, 404 Not Found',
+            'error'
+          );
+        }
+      });
+	    console.log(result.value)
+	  } else {
+	    // handle dismiss, result.dismiss can be 'cancel', 'overlay', 'close', and 'timer'
+	    console.log(result.dismiss)
+	  }
+  })
+}

@@ -12,6 +12,10 @@
 	<link rel="stylesheet" type="text/css" href="./css/header.css">
 	<link rel="stylesheet" type="text/css" href="./css/course-schedul.css">
 	<link rel="shortcut icon" href="../img/fav.png" />
+	<!-- sweetalert2 -->
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
+	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
+	<!-- sweetalert2结束 -->
 </head>
 <body>
 	<header>
@@ -125,7 +129,7 @@
 							</select>
 							<button class="btn btn-sm btn-success">编辑</button>
 							<button class="btn btn-sm btn-primary">保存</button>
-							<button class="btn btn-sm btn-danger">删除</button>
+							<button class="btn btn-sm btn-danger" onclick="deleteTemplate()">删除</button>
 						</div>
 					</div>
 					<!-- 操作区域结束 -->
