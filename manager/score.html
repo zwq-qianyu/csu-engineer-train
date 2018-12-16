@@ -16,6 +16,10 @@
 	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
 	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<!-- sweetalert2 -->
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
+	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
+	<!-- sweetalert2结束 -->
 </head>
 <body>
 	<header>
@@ -83,32 +87,32 @@
 				</div>
 				<div class="card-body">
 					<div class="row select-area">
-						<select class="form-control custom-select col-xs-3 col-sm-3">
-							<option>实习批次选择</option>
+						<select class="form-control custom-select col-xs-3 col-sm-3" id="score_list_select_batch">
+							<!-- <option>实习批次选择</option>
 							<option>2018A01</option>
 							<option>2018A02</option>
 							<option>2019A01</option>
-							<option>2019A02</option>
+							<option>2019A02</option> -->
 						</select>
-						<select class="form-control custom-select col-xs-3 col-sm-3">
-							<option>工种</option>
+						<select class="form-control custom-select col-xs-3 col-sm-3" id="score_list_select_process">
+							<!-- <option>工种</option>
 							<option>车削</option>
 							<option>铣削</option>
 							<option>车工</option>
-							<option>钳工</option>
+							<option>钳工</option> -->
 						</select>
-						<select class="form-control custom-select col-xs-3 col-sm-3">
+						<select class="form-control custom-select col-xs-3 col-sm-3" id="score_list_select_group_number">
 							<option>组号</option>
-							<option>A</option>
+							<!-- <option>A</option>
 							<option>B</option>
-							<option>C</option>
+							<option>C</option> -->
 						</select>
 					</div>
 					<div class="row input-select">
-						<input type="text" name="stu-num" placeholder="学生学号" class="form-control col-xs-3 col-sm-3">
-						<input type="text" name="stu-name" placeholder="学生姓名" class="form-control col-xs-3 col-sm-3">
-						<button  class="btn btn-sm btn-success ">查&emsp;询</button>
-						<button  class="btn btn-sm btn-primary ">核算总成绩</button>
+						<input type="text" name="stu-num" placeholder="学生学号" class="form-control col-xs-3 col-sm-3" id="score_list_stu_number">
+						<input type="text" name="stu-name" placeholder="学生姓名" class="form-control col-xs-3 col-sm-3" id="score_list_stu_name">
+						<button  class="btn btn-sm btn-success" onclick="getScoreList()">查&emsp;询</button>
+						<button  class="btn btn-sm btn-primary" onclick="executeScore()">核算总成绩</button>
 						<button  class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#score-grade-test">等级评定</button>
 						<div class="modal fade" id="score-grade-test" tabindex="-1" role="dialog" aria-labelledby="score-grade-testTitle" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">
@@ -120,10 +124,10 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<select class="form-control custom-select col-xs-3">
-											<option>选择评级模式</option>
-											<option>按照成绩总分数划分</option>
+										<select class="form-control custom-select col-xs-3" id="setDegreeModal">
+											<option>选择成绩等级设置方式</option>
 											<option>按照成绩总排名划分</option>
+											<option>按照成绩总分数划分</option>
 										</select>
 
 										<table class="table col-xs-9 addGradeTest-table">
@@ -133,28 +137,27 @@
 													<th>权重</th>
 												</tr>
 											</thead> -->
-											<tbody>
-												<tr>
+											<tbody id="setDegreeTable">
+												<!-- <tr>
 													<td>优秀</td>
-													<td><input type="text" name="" value="30"> %</td>
+													<td><input type="text" name=""> %</td>
 												</tr>
 												<tr>
 													<td>良好</td>
-													<td><input type="text" name="" value="30"> %</td>
+													<td><input type="text" name=""> %</td>
 												</tr>
 												<tr>
 													<td>中等</td>
-													<td><input type="text" name="" value="30"> %</td>
+													<td><input type="text" name=""> %</td>
 												</tr>
 												<tr>
 													<td>及格</td>
-													<td><input type="text" name="" value="30"> %</td>
+													<td><input type="text" name=""> %</td>
 												</tr>
 												<tr>
 													<td>不及格</td>
-													<td><input type="text" name="" value="30"> %</td>
-												</tr>
-												<tr>
+													<td><input type="text" name=""> %</td>
+												</tr> -->
 											</tbody>
 										</table>
 										<br>
@@ -162,7 +165,7 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal" id="addNewPlan-close">关闭</button>
-										<button type="button" class="btn btn-primary" id="addNewPlan-ensure">确定</button>
+										<button type="button" class="btn btn-primary" id="addNewPlan-ensure" onclick="setDegree()" data-dismiss="modal">确定</button>
 									</div>
 								</div>
 							</div>
@@ -205,7 +208,7 @@
 								<td>优</td>
 								<td>未发布</td>
 								<td>
-									<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#scorelistEditModal">修改</button>
+									<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#scorelistEditModal">修改</button>
 								</td>
 							</tr>
 							<tr>
@@ -223,7 +226,7 @@
 								<td>良</td>
 								<td>已发布</td>
 								<td>
-									<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#scorelistEditModal">修改</button>
+									<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#scorelistEditModal">修改</button>
 									<div class="modal fade" id="scorelistEditModal" tabindex="-1" role="dialog" aria-labelledby="scorelistEditModalTitle" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 												<div class="modal-content">
@@ -291,12 +294,12 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-3 col-sm-3">
-							<select class="form-control csutom-select">
-								<option>实习批次选择</option>
+							<select class="form-control csutom-select" id="score_list_select_batch2">
+								<!-- <option>实习批次选择</option>
 								<option>2018A01</option>
 								<option>2018A02</option>
 								<option>2018B01</option>
-								<option>2018B02</option>
+								<option>2018B02</option> -->
 							</select>
 						</div>
 						<button class="btn btn-dark">发布总成绩</button>
@@ -309,23 +312,23 @@
 			<div class="card">
 			  <h5 class="card-header">成绩批量导入</h5>
 			  <div class="card-body">
-			    <h5 class="card-title">从Excel文件导入：<small class="download-excel"><a href="#" class="btn btn-outline-danger">标准模版下载</a></small></h5>
+			    <h5 class="card-title">从Excel文件导入：<small class="download-excel"><a href="#" class="btn btn-outline-danger" onclick="downloadTemplate()">标准模版下载</a></small></h5>
 			    <div class="row choose-line">
 			    	<p>学生信息批量导入：</p>
 			    	<form class="form-inline" role="form">
-			    		<input type="file" name="choose-file" class="form-control-file">
-			    		<select class="form-control custom-select">
-			    			<option>选择导入至批次</option>
+			    		<input type="file" name="choose-file" class="form-control-file" id="tf">
+			    		<select class="form-control custom-select" id="input_score_select_batch">
+			    			<!-- <option>选择导入至批次</option>
 			    			<option>2019A01</option>
 			    			<option>2019A02</option>
 			    			<option>2019B01</option>
-			    			<option>2019B02</option>
+			    			<option>2019B02</option> -->
 			    		</select>
-			    		<select class="form-control custom-select">
-			    			<option>选择打分项</option>
+			    		<select class="form-control custom-select" id="input_score_select_scoreitem">
+			    			<!-- <option>选择打分项</option>
 			    			<option>车削</option>
 			    			<option>考勤</option>
-			    			<option>小车设计</option>
+			    			<option>小车设计</option> -->
 			    		</select>
 			    		<!-- <div class="">
 			    			<span>分组数量：</span>
@@ -346,27 +349,27 @@
 				</div>
 				<div class="card-body">
 					<div class="row select-area">
-						<select class="form-control custom-select col-xs-2 col-sm-2">
-							<option>实习批次选择</option>
+						<select class="form-control custom-select col-xs-2 col-sm-2" id="score_submit_select_batch">
+							<!-- <option>实习批次选择</option>
 							<option>2018A01</option>
 							<option>2018A02</option>
 							<option>2019A01</option>
-							<option>2019A02</option>
+							<option>2019A02</option> -->
 						</select>
-						<select class="form-control custom-select col-xs-2 col-sm-2">
-							<option>工种</option>
+						<select class="form-control custom-select col-xs-2 col-sm-2" id="score_submit_select_process">
+							<!-- <option>工种</option>
 							<option>车削</option>
 							<option>铣削</option>
 							<option>车工</option>
-							<option>钳工</option>
+							<option>钳工</option> -->
 						</select>
-						<select class="form-control custom-select col-xs-2 col-sm-2">
+						<select class="form-control custom-select col-xs-2 col-sm-2" id="score_submit_select_groupid">
 							<option>组号</option>
-							<option>A</option>
+							<!-- <option>A</option>
 							<option>B</option>
-							<option>C</option>
+							<option>C</option> -->
 						</select>
-						<button class="btn btn-success">查&emsp;询</button>
+						<button class="btn btn-success" onclick="getScoreRecord()">查&emsp;询</button>
 					</div>
 					<br><br>
 					<table class="table table-striped">
@@ -379,8 +382,8 @@
 								<th>提交人</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
+						<tbody id="score_submit_list">
+							<!-- <tr>
 								<td>2018-10-05 12:00</td>
 								<td>2019A01</td>
 								<td>A</td>
@@ -393,7 +396,7 @@
 								<td>B</td>
 								<td>铣削</td>
 								<td>王旭</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 				</div>
@@ -407,12 +410,12 @@
 				</div>
 				<div class="card-body">
 					<div class="row select-area">
-						<select class="form-control custom-select col-xs-2 col-sm-2">
-							<option>实习批次选择</option>
+						<select class="form-control custom-select col-xs-2 col-sm-2" id="score_edithistory_select_batch">
+							<!-- <option>实习批次选择</option>
 							<option>2018A01</option>
 							<option>2018A02</option>
 							<option>2019A01</option>
-							<option>2019A02</option>
+							<option>2019A02</option> -->
 						</select>
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="修改开始日期">
 						<span>至</span>
@@ -455,8 +458,8 @@
 				</div>
 				<div class="card-body">
 					<div class="row specialList-select-area">
-						<input type="text" class="form-control col-xs-4 col-md-4" placeholder="学生姓名">
-						<input type="text" class="form-control col-xs-4 col-md-4" placeholder="学号">
+						<input type="text" class="form-control col-xs-4 col-md-4" placeholder="学生姓名" id="spStu_sid">
+						<input type="text" class="form-control col-xs-4 col-md-4" placeholder="学号" id="spStu_sname">
 						<input type="button" class="btn btn-primary" value="查询">
 					</div>
 
@@ -480,7 +483,7 @@
 								<th scope="col">操作</th>
 							</tr>
 						</thead>
-						<tbody class="score-table">
+						<tbody class="score-table" id="spStu_list_tbody">
 							<tr>
 								<td><input type="checkbox" name=""></td>
 								<td>2018A01/A</td>
@@ -577,5 +580,6 @@
 	<script type="text/javascript">
 		$(".mycalendar").flatpickr();
 	</script>
+	<script type="text/javascript" src="./js/score.js"></script>
 </body>
 </html>
