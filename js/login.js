@@ -14,9 +14,9 @@ $("#login_submit").click(function(){
       'name': username,
       'password': password
     },
-    beforeSend: function(xhr) {
-      xhr.withCredentials = true;
-    },
+    // beforeSend: function(xhr) {
+    //   xhr.withCredentials = true;
+    // },
     crossDomain:true,
     success: function(data){
       // console.log(data);
