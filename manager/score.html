@@ -287,7 +287,7 @@
 								<option>2018B02</option> -->
 							</select>
 						</div>
-						<button class="btn btn-dark">发布总成绩</button>
+						<button class="btn btn-dark" onclick="publishScore()">发布总成绩</button>
 					</div>
 				</div>
 			</div>
@@ -402,14 +402,14 @@
 							<option>2019A01</option>
 							<option>2019A02</option> -->
 						</select>
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="修改开始日期">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="修改开始日期" id="score_edithistory_begin_time">
 						<span>至</span>
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="修改结束时间">
-						<input type="button" name=""class="btn btn-success float-right" value="查询">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="修改结束时间" id="score_edithistory_end_time">
+						<input type="button" name="" class="btn btn-success float-right" value="查询" id="score_edithistory_seach">
 					</div>
 					<div class="row changeSore-select">
-						<input type="text" class="form-control col-xs-2 col-sm-2" placeholder="姓名">
-						<input type="text" class="form-control col-xs-2 col-sm-2" placeholder="学号">
+						<input type="text" class="form-control col-xs-2 col-sm-2" placeholder="姓名" id="score_edithistory_sname">
+						<input type="text" class="form-control col-xs-2 col-sm-2" placeholder="学号" id="score_edithistory_sid">
 					</div>
 
 					<table class="table">
@@ -422,14 +422,14 @@
 								<th>备注</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
+						<tbody id="score_edithistory_tbody">
+							<!-- <tr>
 								<td>2018-10-04 20:45</td>
 								<td>张扬帆</td>
 								<td>材料1610班</td>
 								<td>2018A01</td>
 								<td>无碳小车校赛加班</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 				</div>

@@ -204,14 +204,14 @@ function getScoreList(){
             thead_html += '<tr><td>'+data_arr[i].batch_name+'/'+data_arr[i].s_group_id+'</td><td>'+data_arr[i].sname+'</td>';
             for(let j=0; j<processes.length; j++){
               if(data_arr[i][processes[j]] !== undefined){
-                thead_html += '<td>'+data_arr[i][processes[j]]+'</td>'
+                thead_html += '<td> '+data_arr[i][processes[j]]+' </td>'
               }
               else{
                 thead_html += '<td> </td>'
               }
             }
             thead_html += '<td>'+data_arr[i].total_score+'</td><td>'+data_arr[i].degree+'</td><td>'+data_arr[i].release+'</td>';
-            thead_html += '<td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#scorelistEditModal">修改</button></td>';
+            thead_html += '<td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#scorelistEditModal" onclick="editOneStuScore(this)">修改</button></td>';
           }
 
           $('#score_list_tbody').html(thead_html);
@@ -350,9 +350,37 @@ function editOneStuScore(obj){
 
 }
 
-// 发布某个批次的总成绩【还没有接口】
+// 发布某个批次的总成绩
 function publishScore(){
-
+  let batch_name = $('#score_list_select_batch2').val();
+  $.ajax({
+    type: 'post',
+    url: base_url + '/score/release',
+    datatype: 'json',
+    data: {
+      'batch_name': batch_name
+    },
+    success: function(data){
+      if(data.status === 0){
+        console.log(data);
+        swal(
+          '发布成功',
+          '批次'+batch_name+'发布成绩成功！',
+          'success'
+        );
+        // 刷新成绩列表
+        getScoreList();
+      }
+      else{
+        console.log(data);
+        swal(
+          '发布失败',
+          String(data.message),
+          'error'
+        );
+      }
+    }
+  });
 }
 
 
@@ -444,7 +472,7 @@ function getScoreRecord(){
   let batch_name = $('#score_submit_select_batch').val();
   let pro_name = $('#score_submit_select_process').val();
   let s_group_id = $('#score_submit_select_groupid').val();
-  send_data = {};
+  let send_data = {};
   if(batch_name !== "实习批次选择" & batch_name !== null){
     send_data.batch_name = batch_name;
   }
@@ -478,9 +506,53 @@ function getScoreRecord(){
 // ========================================================================
 // 4、成绩修改记录【暂无接口】
 function searchUpdateHistory(){
+  let batch_name = $('#score_edithistory_select_batch').val();
+  let begin = $('#score_edithistory_begin_time').val();
+  let end = $('#score_edithistory_end_time').val();
+  let sname = $('#score_edithistory_sname').val();
+  let sid = $('#score_edithistory_sid').val();
 
+  let send_data = {};
+  // console.log(begin === "");
+  if(batch_name !== "实习批次选择" & batch_name !== null &batch_name !== ""){
+    send_data.batch_name = batch_name;
+  }
+  if(begin !== null & begin !== ""){
+    send_data.begin = begin;
+  }
+  if(end !== null & end !== ""){
+    send_data.end = end;
+  }
+  if(sname !== null & sname !== ""){
+    send_data.sname = sname;
+  }
+  if(sid !== null & sid !== ""){
+    send_data.sid = sid;
+  }
+  console.log(send_data);
+  $.ajax({
+    type: 'post',
+    url: base_url + '/score/getScoreUpdate',
+    datatype: 'json',
+    data: send_data,
+    success: function(data){
+      if(data.status === 0){
+        console.log(data);
+        let data_arr = data.data;
+        let html = '';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<tr><td>'+chGMT(data_arr[i].update_time)+'</td><td>'+data_arr[i].sname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].batch_name+'</td><td>'+data_arr[i].reason+'</td></tr>';
+        }
+        $('#score_edithistory_tbody').html(html);
+      }
+    }
+  });
 }
 
+$('#score_edithistory_seach').click(function(){
+  // 查询成绩修改记录
+  searchUpdateHistory();
+})
 
 // ========================================================================
 // 5、特殊学生成绩列表

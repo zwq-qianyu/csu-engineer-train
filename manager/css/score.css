@@ -83,3 +83,7 @@ th, td {
 	align-items: center;
 	margin-bottom: 30px;
 }
+
+#scorelistEditModal tr td input {
+	width: 30px;
+}
