@@ -24,10 +24,10 @@ function getAllSemesterName(){
     url: base_url + '/batch/getAllSemesterName',
     data: {},
     datatype: 'json',
-    beforeSend: function(xhr) {
-      xhr.withCredentials = true;
-    },
-    crossDomain:true,
+    // beforeSend: function(xhr) {
+    //   xhr.withCredentials = true;
+    // },
+    // crossDomain:true,
     success: function(data){
       if(data.status === 0){
         semesters_obj = data.data;

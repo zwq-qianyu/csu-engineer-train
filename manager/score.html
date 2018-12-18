@@ -443,14 +443,14 @@
 				</div>
 				<div class="card-body">
 					<div class="row specialList-select-area">
-						<input type="text" class="form-control col-xs-4 col-md-4" placeholder="学生姓名" id="spStu_sid">
+						<!-- <input type="text" class="form-control col-xs-4 col-md-4" placeholder="学生姓名" id="spStu_sid"> -->
 						<input type="text" class="form-control col-xs-4 col-md-4" placeholder="学号" id="spStu_sname">
-						<input type="button" class="btn btn-primary" value="查询">
+						<input type="button" class="btn btn-primary" value="查询" onclick="getSpProName()">
 					</div>
 
 					<table class="table table-striped score-list-table">
-						<thead class="thead-dark">
-							<tr>
+						<thead class="thead-dark" id="sp_stu_score_list_thead">
+							<!-- <tr>
 								<th scope="col">选择</th>
 								<th scope="col">姓名</th>
 								<th scope="col">车工</th>
@@ -465,7 +465,7 @@
 								<th scope="col">等级</th>
 								<th scope="col">发布情况</th>
 								<th scope="col">操作</th>
-							</tr>
+							</tr> -->
 						</thead>
 						<tbody class="score-table" id="spStu_list_tbody">
 							<tr>

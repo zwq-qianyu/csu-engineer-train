@@ -504,7 +504,7 @@ function getScoreRecord(){
 
 
 // ========================================================================
-// 4、成绩修改记录【暂无接口】
+// 4、成绩修改记录
 function searchUpdateHistory(){
   let batch_name = $('#score_edithistory_select_batch').val();
   let begin = $('#score_edithistory_begin_time').val();
@@ -557,7 +557,30 @@ $('#score_edithistory_seach').click(function(){
 // ========================================================================
 // 5、特殊学生成绩列表
 
-// 特殊学生成绩查询【接口缺少数据】
+// 根据学号查询该学生需要做的工序
+function getSpProName(){
+  let send_data = {
+    "sid": $('#spStu_sname').val()
+  }
+  $.ajax({
+    type: 'post',
+    url: base_url + '/student/getSpProName',
+    datatype: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify(send_data),
+    success: function(data){
+      // console.log(data);
+      let head_html = '<tr><th scope="col">选择</th><th scope="col">姓名</th>';
+      for (var i = 0; i < data.data.length; i++) {
+        head_html += '<th scope="col">'+data.data[i]+'</th>';
+      }
+      head_html += '<th scope="col">总成绩</th><th scope="col">等级</th><th scope="col">发布情况</th><th scope="col">操作</th></tr>';
+      $('#sp_stu_score_list_thead').html(head_html);
+    }
+  });
+}
+
+// 特殊学生成绩查询【接口有问题】
 function getSpScore(){
   let sid = $('#spStu_sid').val();
   let sname = $('#spStu_sname').val();
@@ -576,7 +599,7 @@ function getSpScore(){
     data: send_data,
     success: function(data){
       if(data.status === 0){
-        console.log(data);
+        // console.log(data);
         let data_arr = data.data;
         let html = '';
         for(let i=0; i<data_arr.length; i++){
@@ -629,11 +652,4 @@ function chGMT(gmtDate){
 	mydate.setHours(mydate.getHours() + 8);
 	// return mydate.format("yyyy-MM-dd hh:mm:ss");
   return mydate.format("yyyy-MM-dd hh:mm");
-}
-// 获取小时
-function getGMThour(gmtDate){
-  var mydate = new Date(gmtDate);
-	mydate.setHours(mydate.getHours() + 8);
-	// return mydate.format("yyyy-MM-dd hh:mm:ss");
-  return Number(mydate.format("hh"));
 }
