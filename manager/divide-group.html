@@ -466,14 +466,14 @@
 			                    			<!-- 筛选区域 -->
 			                    			<div class="row student-select">
 			                    				<div class="col-xs-2 col-sm-2">
-			                    					<input type="text" name="" class="form-control" placeholder="学生学号">
+			                    					<input type="text" name="" class="form-control" placeholder="学生学号" id="search_stu_by_number">
 			                    				</div>
-			                    				<div class="col-xs-2 col-sm-2">
+			                    				<!-- <div class="col-xs-2 col-sm-2">
 			                    					<input type="text" name="" class="form-control" placeholder="学生姓名">
-			                    				</div>
+			                    				</div> -->
 
 			                    				<div class="col-xs-1 col-sm-1">
-			                    					<input type="button" name="" class="btn btn-sm btn-default" value="查询排课表">
+			                    					<input type="button" name="" class="btn btn-sm btn-default" value="查询排课表" onclick="getStuClassByNum()">
 			                    				</div>
 
 			                    				<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印排课表">
@@ -484,50 +484,28 @@
 			                    			<div class="table-responsive">
 				                    			<table class="table">
 				                    				<thead>
-												      <tr>
-												        <!-- <th>选择</th> -->
-												        <th>课时</th>
-												        <th>工种</th>
-												        <th>批次</th>
-												        <th>组号</th>
-												        <!-- <th>操作</th> -->
-												      </tr>
-												    </thead>
-												    <tbody>
-												      <tr>
-												      	<!-- <td><input type="checkbox" name=""></td> -->
-												      	<td>1(2019/03/13/56)</td>
-												      	<td>铣削</td>
-												        <td>2019A01</td>
-												        <td>A</td>
-												        <!-- <td>
-												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
-												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-												        </td> -->
-												      </tr>
-												      <tr>
-												        <!-- <td><input type="checkbox" name=""></td> -->
-												      	<td>2(2019/03/13/78)</td>
-												      	<td>车工</td>
-												        <td>2019A01</td>
-												        <td>A</td>
-												        <!-- <td>
-												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
-												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-												        </td> -->
-												      </tr>
-												      <tr>
-												        <!-- <td><input type="checkbox" name=""></td> -->
-												      	<td>3(2019/5/12/34)</td>
-												      	<td>钳工</td>
-												        <td>2019A01</td>
-												        <td>A</td>
-												        <!-- <td>
-												        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
-												        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-												        </td> -->
-												      </tr>
-												    </tbody>
+																      <tr>
+																        <!-- <th>选择</th> -->
+																        <th>课时</th>
+																        <th>工种</th>
+																        <th>批次</th>
+																        <th>组号</th>
+																        <!-- <th>操作</th> -->
+																      </tr>
+																    </thead>
+																    <tbody id="search_stu_tbody">
+																      <!-- <tr>
+																      	<td><input type="checkbox" name=""></td>
+																      	<td>1(2019/03/13/56)</td>
+																      	<td>铣削</td>
+																        <td>2019A01</td>
+																        <td>A</td>
+																        <td>
+																        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
+																        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+																        </td>
+																      </tr> -->
+																    </tbody>
 				                    			</table>
 				                    		</div>
 

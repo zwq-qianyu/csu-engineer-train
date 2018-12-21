@@ -99,7 +99,7 @@ $('#score_list_select_batch').change(function(){
   // 根据批次名获取工序
   getBatchProced();
   // 根据批次获取对应的分组号--成绩列表部分
-  getAllSGroupByBatchScoreLists();
+  getAllSGroupByBatch();
 })
 
 var processes = new Array();
