@@ -308,23 +308,23 @@ function delOneBatch(obj){
 // 2、学生信息导入部分【有问题！！！】
 
 // 下载标准模版【有问题！！！】
-function downloadTemplate(){
-  $.ajax({
-    type: 'post',
-    url: base_url + '/admin/download',
-    // datatype: 'json',
-    // data: {},
-    success: function(result){
-      // 创建a标签，设置属性，并触发点击下载
-      var $a = $("<a>");
-      $a.attr("href", result.data.file);
-      $a.attr("download", result.data.filename);
-      $("body").append($a);
-      $a[0].click();
-      $a.remove();
-    }
-  });
-}
+// function downloadTemplate(){
+//   $.ajax({
+//     type: 'get',
+//     url: base_url + '/admin/download',
+//     // datatype: 'json',
+//     // data: {},
+//     success: function(result){
+//       // 创建a标签，设置属性，并触发点击下载
+//       var $a = $("<a>");
+//       $a.attr("href", result.data.file);
+//       $a.attr("download", result.data.filename);
+//       $("body").append($a);
+//       $a[0].click();
+//       $a.remove();
+//     }
+//   });
+// }
 
 // 上传文件导入学生信息【有问题！！！】
 function importStudents(){

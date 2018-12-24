@@ -9,6 +9,8 @@ function init_data(){
 
   // 获取所有模版并渲染
   getAllTemplates();
+  // 查询指定模板的所有学生分组
+  getSGroupByTemplate();
 }
 
 // 添加新模版弹窗上动态生成 table
@@ -126,3 +128,40 @@ function deleteTemplate(){
 	  }
   })
 }
+
+// 查询指定模板的所有学生分组
+function getSGroupByTemplate(){
+  let temp = $('#allTemplates').val();
+  $.ajax({
+    type: 'post',
+    url: base_url + '/experiment/getSGroupByTemplate',
+    datatype: 'json',
+    data: {
+      'template_id': temp
+    },
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        let html = '<tr><th>课时</th>';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<td>'+data_arr[i]+'</td>';
+        }
+        html += '</td>';
+        $('#courseSchedul_thead').html(html);
+      }
+    }
+  });
+}
+
+// 切换模版时
+$('#allTemplates').change(function(){
+  getSGroupByTemplate();
+})
+
+// 获取tbody中的排课方案数据
+
+
+// 添加新方案
+
+
+// 修改模版
