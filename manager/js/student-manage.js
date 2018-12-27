@@ -388,7 +388,7 @@ function getAllBatch_StuList(){
 // 根据批次名获取学生列表
 function getStudentByBatchName(){
   let batch_name = $('#stu_list_batch_name').val();
-  let stu_list_tbody = document.getElementById('stu_list_tbody');
+  let stu_list_tbody = document.getElementById('adminTbody');
   // console.log(batch_name);
   $.ajax({
     type: 'post',
@@ -414,6 +414,8 @@ function getStudentByBatchName(){
           html += '<input type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#studentManage-button-editModal" value="编辑" sid='+data_arr[i].sid+' onclick="editOneStudent_init(this)" sname='+data_arr[i].sname+' clazz='+data_arr[i].clazz+' batch='+data_arr[i].batch_name+' /></td></tr>';
         }
         stu_list_tbody.innerHTML = html;
+        // 初始化分页
+        goPage(1,10);   // 当前页数为1，每页10条数据
       }
     }
   });
@@ -474,7 +476,7 @@ function deleteOneStudent(obj){
 // 批量删除学生
 function deleteSomeStudent(){
   var id_array = new Array();
-  let checked_stu_ids = $('#stu_list_tbody input[name="stu_list_checkbox"]:checked');
+  let checked_stu_ids = $('#adminTbody input[name="stu_list_checkbox"]:checked');
   console.log(checked_stu_ids);
   checked_stu_ids.each(function(){
     id_array.push($(this)[0].id);

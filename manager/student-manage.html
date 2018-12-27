@@ -62,9 +62,9 @@
 							<li><a href="./score.html">成绩列表</a></li>
 						</ul>
 					</li>
-					<li class="list-group-item"><img class="icon" src="./img/extra-work.svg"> 加班情况
+					<li class="list-group-item"><img class="icon" src="./img/extra-work.svg"> 开放情况
 						<ul>
-							<li><a href="./extra-work.html">加班记录</a></li>
+							<li><a href="./extra-work.html">开放记录</a></li>
 						</ul>
 					</li>
 					<li class="list-group-item"><img class="icon" src="./img/materal-manage.svg"> 物料管理
@@ -374,7 +374,7 @@
 			  					<th>操作</th>
 			  				</tr>
 			  			</thead>
-			  			<tbody id="stu_list_tbody">
+			  			<tbody id="adminTbody">
 			  				<!-- <tr>
 			  					<td><input type="checkbox" name=""></td>
 			  					<td>0903161009</td>
@@ -387,6 +387,7 @@
 			  					</td>
 			  				</tr> -->
 			  			</tbody>
+
 							<!-- stu_list_tbody中编辑的 modal  -->
 							<div class="modal fade" id="studentManage-button-editModal" tabindex="-1" role="dialog" aria-labelledby="studentManage-button-editModalTitle" aria-hidden="true">
 									<div class="modal-dialog modal-dialog-centered" role="document">
@@ -428,6 +429,29 @@
 									</div>
 								</div><!-- /.modal -->
 			  		</table>
+
+						<!-- 分页功能部分 -->
+						<div id="barcon" class="barcon">
+							<div id="barcon1" class="barcon1"></div>
+							<div id="barcon2" class="barcon2">
+								<ul>
+									<li>
+										<a href="###" id="firstPage" class="btn btn-sm">首页</a></li>
+									<li>
+										<a href="###" id="prePage" class="btn btn-sm">上一页</a></li>
+									<li>
+										<a href="###" id="nextPage" class="btn btn-sm">下一页</a></li>
+									<li>
+										<a href="###" id="lastPage" class="btn btn-sm">尾页</a></li>
+									<li>
+										<!-- <select id="jumpWhere"></select> -->
+										<input type="text" id="jumpWhere">
+									</li>
+									<li><a href="###" id="jumpPage" onclick="jumpPage()" class="btn btn-sm btn-primary">跳转</a></li>
+								</ul>
+							</div>
+						</div>
+
 			  		<div class="operaten">
 			  			<button class="btn btn-danger deleten" onclick="deleteSomeStudent()">删&emsp;除</button>
 			  			<span class="clearfix"></span>
@@ -440,5 +464,9 @@
 	</div>
 	<!-- 主体部分结束 -->
 	<script type="text/javascript" src="./js/student-manage.js"></script>
+	<!-- 分页开始 -->
+	<script type="text/javascript" src="../js/cut_page.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/cut_page.css">
+	<!-- 分页结束 -->
 </body>
 </html>

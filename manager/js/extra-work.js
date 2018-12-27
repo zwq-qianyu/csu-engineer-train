@@ -93,10 +93,12 @@ function getOverworkApplyByTime(){
         html = '';
         for(let i=0; i<data_arr.length; i++){
           html +=  '<tr><td>'+chGMT(data_arr[i].apply_time)+'</td><td>'+data_arr[i].sname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].pro_name+'</td><td>'+chGMT(data_arr[i].overwork_time)+'</td><td>'+(getGMThour(data_arr[i].overwork_time_end) - getGMThour(data_arr[i].overwork_time))+'h</td><td>'+data_arr[i].reason+'</td>';
-          html += '</tr>'
+          html += '</tr>';
         }
         $('#stu_extra_work_tbody').html(html);
-      }
+      };
+      // 分页初始化
+      kgoPage(1,10);
     }
   });
 }
@@ -181,8 +183,10 @@ function getOverworkByTimeOrProName(){
           // 删除按钮
           html += '<button class="btn btn-danger btn-sm" id="'+data_arr[i].overwork_id+'" onclick="deleteOverwork(this)">删除</button></td></tr>';
         }
-        $('#history_tbody').html(html);
-      }
+        $('#adminTbody').html(html);
+      };
+      // 教师值班记录分页初始化
+      goPage(1,10);
     }
   });
 }

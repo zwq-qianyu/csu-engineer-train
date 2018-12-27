@@ -391,7 +391,9 @@ function findTeachers(){
           // 编辑按钮
           html += '<input type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#teacherManage-button-editModal" value="编辑" tid='+data_arr[i].tid+' onclick="editOneTeacher_init(this)" tname='+data_arr[i].tname+' all_group='+data_arr[i].all_group+' role='+data_arr[i].role+' material_privilege='+data_arr[i].material_privilege+' overtime_privilege='+data_arr[i].overtime_privilege+' /></td></tr>';
         }
-        $('#teacher_list_tbody').html(html);
+        $('#adminTbody').html(html);
+        // 初始化分页
+        goPage(1,10);   // 当前页数为1，每页10条数据
       }
     }
   });
@@ -517,7 +519,7 @@ function deleteOneTeacher(obj){
 // 批量删除教师
 function deleteSomeTeachers(){
   var id_array = new Array();
-  let checked_teacher_ids = $('#teacher_list_tbody input[name="teach_list_checkbox"]:checked');
+  let checked_teacher_ids = $('#adminTbody input[name="teach_list_checkbox"]:checked');
   console.log(checked_teacher_ids);
   checked_teacher_ids.each(function(){
     id_array.push($(this)[0].id);

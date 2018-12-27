@@ -63,9 +63,9 @@
 							<li><a href="./score.html">成绩列表</a></li>
 						</ul>
 					</li>
-					<li class="list-group-item"><img class="icon" src="./img/extra-work.svg"> 加班情况
+					<li class="list-group-item"><img class="icon" src="./img/extra-work.svg"> 开放情况
 						<ul>
-							<li><a href="./extra-work.html">加班记录</a></li>
+							<li><a href="./extra-work.html">开放记录</a></li>
 						</ul>
 					</li>
 					<li class="list-group-item"><img class="icon" src="./img/materal-manage.svg"> 物料管理
@@ -336,9 +336,9 @@
 								<option>物料登记</option>
 			    		</select>
 							<select class="form-control custom-select col-xs-2 col-sm-2" id="teacher_list_overwork_privilege">
-			    			<option>加班权限</option>
+			    			<option>开放权限</option>
 			    			<option>无</option>
-			    			<option>加班管理</option>
+			    			<option>开放管理</option>
 			    		</select>
 			    		<button class="btn btn-outline-primary query" onclick="findTeachers()">查   询</button>
 				  	</div>
@@ -376,7 +376,7 @@
 														<option>无</option>
 									    		</select>
 													<select class="form-control custom-select col-md-3" id="teach-overtime_privilege-add">
-									    			<option>加班管理</option>
+									    			<option>开放管理</option>
 									    			<option>无</option>
 									    		</select>
 												</div>
@@ -402,11 +402,11 @@
 				  					<th>教师组</th>
 				  					<th>角色</th>
 				  					<th>物料</th>
-				  					<th>加班</th>
+				  					<th>开放</th>
 				  					<th>操作</th>
 				  				</tr>
 				  			</thead>
-				  			<tbody id="teacher_list_tbody">
+				  			<tbody id="adminTbody">
 
 				  			</tbody>
 
@@ -458,9 +458,9 @@
 															</select>
 														</div>
 														<div class="form-group  col-md-3">
-															<label for="teach_overwork_privilege_add">加班权限：</label>
+															<label for="teach_overwork_privilege_add">开放权限：</label>
 															<select class="form-control custom-select" id="teach_overwork_privilege_add">
-																<option>加班管理</option>
+																<option>开放管理</option>
 																<option>无</option>
 															</select>
 														</div>
@@ -476,6 +476,29 @@
 								</div>
 								<!-- /.modal -->
 				  		</table>
+
+							<!-- 分页功能部分 -->
+							<div id="barcon" class="barcon">
+								<div id="barcon1" class="barcon1"></div>
+								<div id="barcon2" class="barcon2">
+									<ul>
+										<li>
+											<a href="###" id="firstPage" class="btn btn-sm">首页</a></li>
+										<li>
+											<a href="###" id="prePage" class="btn btn-sm">上一页</a></li>
+										<li>
+											<a href="###" id="nextPage" class="btn btn-sm">下一页</a></li>
+										<li>
+											<a href="###" id="lastPage" class="btn btn-sm">尾页</a></li>
+										<li>
+											<!-- <select id="jumpWhere"></select> -->
+											<input type="text" id="jumpWhere">
+										</li>
+										<li><a href="###" id="jumpPage" onclick="jumpPage()" class="btn btn-sm btn-primary">跳转</a></li>
+									</ul>
+								</div>
+							</div>
+
 				  		<div class="operaten">
 				  			<button class="btn btn-danger deleten" onclick="deleteSomeTeachers()">删&emsp;除</button>
 				  			<span class="clearfix"></span>
@@ -488,5 +511,9 @@
 	</div>
 	<!-- 主体部分结束 -->
 	<script type="text/javascript" src="./js/teacher-manage.js"></script>
+	<!-- 分页开始 -->
+	<script type="text/javascript" src="../js/cut_page.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/cut_page.css">
+	<!-- 分页结束 -->
 </body>
 </html>

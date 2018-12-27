@@ -1,0 +1,113 @@
+.barcon {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.barcon1 {
+  font-size: 17px;
+  float: right;
+  margin-top: 20px;
+}
+
+.barcon2 {
+	float: left;
+}
+
+.barcon2 ul {
+	margin: 20px 0;
+	padding-left: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.barcon2 li {
+  display: inline;
+}
+
+.barcon2 a {
+	border: 1px solid #ddd;
+  margin: 0 3px;
+}
+
+/* .barcon2 a {
+	font-size: 16px;
+	font-weight: normal;
+	display: inline-block;
+	padding: 5px;
+	color: black;
+	border: 1px solid #ddd;
+	background-color: #fff;
+  margin: 0 5px;
+} */
+
+/* .barcon2 a:hover{
+	background-color: #eee;
+} */
+
+.ban {
+  opacity: .4;
+}
+
+#jumpWhere {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.kbarcon {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.kbarcon1 {
+  font-size: 17px;
+  float: right;
+  margin-top: 20px;
+}
+
+.kbarcon2 {
+	float: left;
+}
+
+.kbarcon2 ul {
+	margin: 20px 0;
+	padding-left: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.kbarcon2 li {
+  display: inline;
+}
+
+.kbarcon2 a {
+	border: 1px solid #ddd;
+  margin: 0 3px;
+}
+
+/* .barcon2 a {
+	font-size: 16px;
+	font-weight: normal;
+	display: inline-block;
+	padding: 5px;
+	color: black;
+	border: 1px solid #ddd;
+	background-color: #fff;
+  margin: 0 5px;
+} */
+
+/* .barcon2 a:hover{
+	background-color: #eee;
+} */
+
+.ban {
+  opacity: .4;
+}
+
+#kjumpWhere {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+}

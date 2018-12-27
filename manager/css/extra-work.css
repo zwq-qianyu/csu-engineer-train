@@ -32,5 +32,6 @@ th, td {
 }
 
 .tips {
+	clear: both;
 	color: green;
 }
