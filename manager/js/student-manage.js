@@ -341,8 +341,8 @@ function importStudents(){
       success:function(data){
           // window.clearInterval(timer);
           console.log("over..");
-          $('#tf').empty();
-          getAllBatch_StuList();
+          // $('#tf').empty();
+          // getAllBatch_StuList();
       },
       error:function(e){
           alert("错误！！");
@@ -410,6 +410,8 @@ function getStudentByBatchName(){
           html += '<td>'+data_arr[i].sid+'</td><td>'+data_arr[i].sname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].batch_name+'</td>';
           // 删除按钮
           html += '<td><input type="button" class="btn btn-danger btn-sm" value="删除" sid='+data_arr[i].sid+' onclick="deleteOneStudent(this)" />&emsp;';
+          // 重置密码按钮
+          html += '<input type="button" class="btn btn-primary btn-sm" value="重置密码" sid='+data_arr[i].sid+' onclick="#" />&emsp;';
           // 编辑按钮
           html += '<input type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#studentManage-button-editModal" value="编辑" sid='+data_arr[i].sid+' onclick="editOneStudent_init(this)" sname='+data_arr[i].sname+' clazz='+data_arr[i].clazz+' batch='+data_arr[i].batch_name+' /></td></tr>';
         }

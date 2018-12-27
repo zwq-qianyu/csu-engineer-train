@@ -388,6 +388,8 @@ function findTeachers(){
 
           // 删除按钮
           html += '<td><input type="button" class="btn btn-danger btn-sm" value="删除" tid='+data_arr[i].tid+' onclick="deleteOneTeacher(this)" />&emsp;';
+          // 重置密码按钮
+          html += '<input type="button" class="btn btn-danger btn-sm" value="重置密码" tid='+data_arr[i].tid+' onclick="#" />&emsp;';
           // 编辑按钮
           html += '<input type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#teacherManage-button-editModal" value="编辑" tid='+data_arr[i].tid+' onclick="editOneTeacher_init(this)" tname='+data_arr[i].tname+' all_group='+data_arr[i].all_group+' role='+data_arr[i].role+' material_privilege='+data_arr[i].material_privilege+' overtime_privilege='+data_arr[i].overtime_privilege+' /></td></tr>';
         }
