@@ -3,6 +3,7 @@ var base_url = 'http://134.175.152.210:8084';
 $("#login_submit").click(function(){
   let username = $('#username').val();
   let password = $('#password').val();
+  password = hex_md5(password);
   console.log(username);
   console.log(password);
   $.ajax({
