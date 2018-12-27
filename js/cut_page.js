@@ -40,8 +40,8 @@ function goPage(pno,psize){
 
   	// ================================================= tbody 部分
   $("#adminTbody tr").hide();
-  console.log(startRow);
-  console.log(endRow);
+  // console.log(startRow);
+  // console.log(endRow);
   for(var i=startRow-1;i<endRow;i++){
   	// ================================================= tbody 部分
   	$("#adminTbody tr").eq(i).show();

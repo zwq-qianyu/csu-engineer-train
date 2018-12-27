@@ -107,6 +107,29 @@
 									</tr> -->
 								</tbody>
 							</table>
+
+							<!-- 分页功能部分 -->
+							<div id="kbarcon" class="kbarcon">
+								<div id="kbarcon1" class="kbarcon1"></div>
+								<div id="kbarcon2" class="kbarcon2">
+									<ul>
+										<li>
+											<a href="###" id="kfirstPage" class="btn btn-sm">首页</a></li>
+										<li>
+											<a href="###" id="kprePage" class="btn btn-sm">上一页</a></li>
+										<li>
+											<a href="###" id="knextPage" class="btn btn-sm">下一页</a></li>
+										<li>
+											<a href="###" id="klastPage" class="btn btn-sm">尾页</a></li>
+										<li>
+											<!-- <select id="jumpWhere"></select> -->
+											<input type="text" id="kjumpWhere">
+										</li>
+										<li><a href="###" id="kjumpPage" onclick="kjumpPage()" class="btn btn-sm btn-primary">跳转</a></li>
+									</ul>
+								</div>
+							</div>
+
 						</div>
 						<span class="col-md-1 col-xs-1"></span>
 						<div class="col-md-4 col-xs-4 materal-out-number float-right">
@@ -165,8 +188,8 @@
 								<th>登记人</th>
 							</tr>
 						</thead>
-						<tbody id="record_history_body">
-							<tr>
+						<tbody id="adminTbody">
+							<!-- <tr>
 								<td>2018-10-05 12:12</td>
 								<td>张三</td>
 								<td>0906160204</td>
@@ -181,9 +204,32 @@
 								<td>轴承23(个)</td>
 								<td>18</td>
 								<td>刘忻</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
+
+					<!-- 分页功能部分 -->
+					<div id="barcon" class="barcon">
+						<div id="barcon1" class="barcon1"></div>
+						<div id="barcon2" class="barcon2">
+							<ul>
+								<li>
+									<a href="###" id="firstPage" class="btn btn-sm">首页</a></li>
+								<li>
+									<a href="###" id="prePage" class="btn btn-sm">上一页</a></li>
+								<li>
+									<a href="###" id="nextPage" class="btn btn-sm">下一页</a></li>
+								<li>
+									<a href="###" id="lastPage" class="btn btn-sm">尾页</a></li>
+								<li>
+									<!-- <select id="jumpWhere"></select> -->
+									<input type="text" id="jumpWhere">
+								</li>
+								<li><a href="###" id="jumpPage" onclick="jumpPage()" class="btn btn-sm btn-primary">跳转</a></li>
+							</ul>
+						</div>
+					</div>
+
 				</div>
 			</div>
 			<!-- 物料登记记录结束 -->
@@ -193,7 +239,98 @@
 	<!-- 主体部分结束 -->
 	<script type="text/javascript">
 		$(".mycalendar").flatpickr();
+
+		/**
+		* 分页函数
+		* pno--页数
+		* psize--每页显示记录数
+		* 分页部分是从真实数据行开始，因而存在加减某个常数，以确定真正的记录数
+		* 纯js分页实质是数据行全部加载，通过是否显示属性完成分页功能
+		**/
+
+		var kpageSize=0;		//每页显示行数
+		var kcurrentPage_=1;	//当前页全局变量，用于跳转时判断是否在相同页，在就不跳，否则跳转。
+		var ktotalPage;		//总页数
+
+		function kgoPage(pno,psize){
+			console.log(pno);
+			console.log(psize);
+			// ================================================= tbody 部分
+			var itable = document.getElementById("materal_record_list");
+			var num = itable.rows.length;	//未分页表格数据所有行数(所有记录数)
+
+			kpageSize = psize;				//每页显示行数
+
+			//总共分几页
+			if(num/kpageSize > parseInt(num/kpageSize)){
+				ktotalPage=parseInt(num/kpageSize)+1;
+			}else{
+				ktotalPage=parseInt(num/kpageSize);
+			}
+			var currentPage = pno;	//当前页数
+			currentPage_=currentPage;
+			var startRow = (currentPage - 1) * kpageSize+1;
+			var endRow = currentPage * kpageSize;
+			endRow = (endRow > num)? num : endRow;
+				 //遍历显示数据实现分页
+			/*for(var i=1;i<(num+1);i++){
+					var irow = itable.rows[i-1];
+					if(i>=startRow && i<=endRow){
+							irow.style.display = "";
+					}else{
+							irow.style.display = "none";
+					}
+			}*/
+
+			// ================================================= tbody 部分
+			$("#materal_record_list tr").hide();
+			for(var i=startRow-1;i<endRow;i++){
+				// ================================================= tbody 部分
+				$("#materal_record_list tr").eq(i).show();
+			}
+			// var tempStr = "共"+num+"条记录 | "+currentPage+"/"+ktotalPage+"页";
+			var tempStr = "第"+currentPage+"/"+ktotalPage+"页";
+			// ================================================= barcon1 部分
+			document.getElementById("kbarcon1").innerHTML = tempStr;
+
+			if(currentPage>1){
+				$("#kfirstPage").on("click",function(){
+					kgoPage(1,psize);
+				}).removeClass("ban");
+				$("#kprePage").on("click",function(){
+					kgoPage(currentPage-1,psize);
+				}).removeClass("ban");
+			}else{
+				$("#kfirstPage").off("click").addClass("ban");
+				$("#kprePage").off("click").addClass("ban");
+			}
+
+			if(currentPage<ktotalPage){
+				$("#knextPage").on("click",function(){
+					kgoPage(currentPage+1,psize);
+				}).removeClass("ban")
+				$("#klastPage").on("click",function(){
+					kgoPage(ktotalPage,psize);
+				}).removeClass("ban")
+			}else{
+				$("#knextPage").off("click").addClass("ban");    // 添加 ban class属性，用于设置透明度，不可点击等
+				$("#klastPage").off("click").addClass("ban");
+			}
+
+			$("#kjumpWhere").val(currentPage);       // 设置“跳转”按钮的值
+		}
+
+		function kjumpPage(){
+			var num=parseInt($("#kjumpWhere").val());
+			if(num!=kcurrentPage_){
+				kgoPage(num,kpageSize);
+			}
+		}
 	</script>
 	<script type="text/javascript" src="./js/materal-record.js"></script>
+	<!-- 分页开始 -->
+	<script type="text/javascript" src="../js/cut_page.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/cut_page.css">
+	<!-- 分页结束 -->
 </body>
 </html>

@@ -25,6 +25,13 @@ $("#login_submit").click(function(){
         console.log(data);
         window.location = './manager/student-manage.html';
       }
+      else{
+        swal(
+          '登录失败',
+          String(data.message),
+          'error'
+        );
+      }
     },
   });
 });

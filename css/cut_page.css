@@ -4,9 +4,11 @@
 }
 
 .barcon1 {
-  font-size: 17px;
+  font-size: 16px;
   float: right;
   margin-top: 20px;
+	height: 20px;
+	line-height: 20px;
 }
 
 .barcon2 {
@@ -55,15 +57,23 @@
   border-radius: 3px;
 }
 
+
+
+
+
+
+
 .kbarcon {
 	margin: 0 auto;
 	text-align: center;
 }
 
 .kbarcon1 {
-  font-size: 17px;
+  font-size: 16px;
   float: right;
   margin-top: 20px;
+	height: 20px;
+	line-height: 20px;
 }
 
 .kbarcon2 {

@@ -372,10 +372,10 @@
 
 		  if(currentPage>1){
 		  	$("#kfirstPage").on("click",function(){
-		  		goPage(1,psize);
+		  		kgoPage(1,psize);
 		  	}).removeClass("ban");
 		  	$("#kprePage").on("click",function(){
-		  		goPage(currentPage-1,psize);
+		  		kgoPage(currentPage-1,psize);
 		  	}).removeClass("ban");
 		  }else{
 		  	$("#kfirstPage").off("click").addClass("ban");
@@ -384,10 +384,10 @@
 
 		  if(currentPage<ktotalPage){
 		  	$("#knextPage").on("click",function(){
-		  		goPage(currentPage+1,psize);
+		  		kgoPage(currentPage+1,psize);
 		  	}).removeClass("ban")
 		  	$("#klastPage").on("click",function(){
-		  		goPage(ktotalPage,psize);
+		  		kgoPage(ktotalPage,psize);
 		  	}).removeClass("ban")
 		  }else{
 		  	$("#knextPage").off("click").addClass("ban");    // 添加 ban class属性，用于设置透明度，不可点击等
@@ -399,8 +399,8 @@
 
 		function kjumpPage(){
 		  var num=parseInt($("#kjumpWhere").val());
-		  if(num!=currentPage_){
-		  	kgoPage(num,pageSize);
+		  if(num!=kcurrentPage_){
+		  	kgoPage(num,kpageSize);
 		  }
 		}
 
