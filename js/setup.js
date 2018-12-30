@@ -14,7 +14,8 @@ function changePassword(){
       'old': old_password,
       'pwd': new_password
     },
-    success: function(){
+    success: function(data){
+      console.log(data);
       if(data.status === 0){
         console.log(data);
         swal(

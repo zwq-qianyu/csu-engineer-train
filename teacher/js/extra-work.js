@@ -31,12 +31,38 @@ function getAllProced(){
           html += '<option>'+data_arr[i]+'</option>';
         }
         $('#stu_extra_select_process').html(html);
+        // $('#teacher_overwork_select_process').html(html);
+        // $('#history_select_process').html(html);
+      }
+    }
+  });
+}
+
+// 获取所有教师组
+function getAllGroup(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/group/getAllGroup',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        let html = '<option>选择教师组</option>';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<option>'+data_arr[i].t_group_id+'</option>';
+        }
         $('#teacher_overwork_select_process').html(html);
         $('#history_select_process').html(html);
       }
     }
   });
 }
+
+// 根据教师组获取管理权限
+$('#teacher_overwork_select_process').change(function(){
+  findOverworkPrivilegeTeachers();
+})
 
 // 获取所有可以有开放管理权限的老师
 function findOverworkPrivilegeTeachers(){

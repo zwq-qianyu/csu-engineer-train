@@ -33,8 +33,8 @@ function getAllProced(){
           html += '<option>'+data_arr[i]+'</option>';
         }
         $('#stu_extra_select_process').html(html);
-        $('#teacher_overwork_select_process').html(html);
-        $('#history_select_process').html(html);
+        // $('#teacher_overwork_select_process').html(html);
+        // $('#history_select_process').html(html);
       }
     }
   });
@@ -55,6 +55,7 @@ function getAllGroup(){
           html += '<option>'+data_arr[i].t_group_id+'</option>';
         }
         $('#teacher_overwork_select_process').html(html);
+        $('#history_select_process').html(html);
       }
     }
   });
@@ -193,7 +194,7 @@ function getOverworkByTimeOrProName(){
   if(end_time === ""){
     end_time = "2999";
   }
-  if(process === "选择工种"){
+  if(process === "选择教师组"){
     process = "%";
   }
   $.ajax({
