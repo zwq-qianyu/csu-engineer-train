@@ -21,7 +21,7 @@ function changePassword(){
         swal(
           '修改成功',
           '修改密码成功！',
-          'error'
+          'success'
         );
       }else{
         swal(

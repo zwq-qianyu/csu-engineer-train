@@ -11,6 +11,8 @@ function init_data(){
   getAllSemesterName();
   // 学生列表初始化批次 + 初始化学生列表
   getAllBatch_StuList();
+  let materal = $.session.get('materal');
+  console.log(materal);
 }
 
 
