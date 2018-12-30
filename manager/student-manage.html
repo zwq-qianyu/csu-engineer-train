@@ -292,17 +292,18 @@
 			  <h5 class="card-header">学生信息导入</h5>
 			  <div class="card-body">
 			    <h5 class="card-title">从Excel文件导入：<small class="download-excel"><a href="http://134.175.152.210:8084/admin/download" class="btn btn-outline-danger">标准模版下载</a></small></h5>
-			    <div class="row choose-line row">
+			    <div class="row choose-line">
 			    	<p>学生信息批量导入：</p>
-			    	<form class="form" enctype="multipart/form-data" role="form">
-			    		<input type="file" name="file" class="form-control-file" id="tf">
-			    		<select class="form-control custom-select" name="batchName" id='importStudents_select'>
+			    	<form class="form row" enctype="multipart/form-data" role="form" id="tf">
+			    		<input type="file" name="file" class="form-control-file" id="uploadfiles">
+			    		<select class="form-control custom-select col-xs-3 col-sm-3" name="batchName" id='importStudents_select'>
 			    			<!-- <option>选择导入至批次</option>
 			    			<option>2019A01</option>
 			    			<option>2019A02</option>
 			    			<option>2019B01</option>
 			    			<option>2019B02</option> -->
 			    		</select>
+							<span class="col-xs-3 col-sm-3">
 
 			    		<!-- <div class="">
 			    			<span>分组数量：</span>
@@ -310,7 +311,7 @@
 			    		</div> -->
 							<!-- <input type="submit" class="btn btn-danger" value="开始导入"> -->
 			    	</form>
-						<button class="btn btn-danger" onclick="importStudents()">开始导入</button>
+						<input type="button" class="btn btn-primary row" onclick="importStudents()" value="开始导入">
 			    </div>
 
 			  </div>

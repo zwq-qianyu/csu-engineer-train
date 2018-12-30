@@ -11,8 +11,6 @@ function init_data(){
   getAllSemesterName();
   // 学生列表初始化批次 + 初始化学生列表
   getAllBatch_StuList();
-  let materal = $.session.get('materal');
-  console.log(materal);
 }
 
 
@@ -330,21 +328,23 @@ function delOneBatch(obj){
 
 // 上传文件导入学生信息
 function importStudents(){
-  var myform = new FormData($("#tf")[0].files[0]);
-  // let myfile = document.getElementById("tf");
+  // console.log($("#uploadfiles").val());
+  var formdata = new FormData();
+  formdata.append("file",  $("#uploadfiles")[0].files[0]);
   let batchName = $('#importStudents_select').val();
-  myform.append("batchName", batchName);
-  console.log(myform);
+  formdata.append("batchName", batchName);
+  console.log(formdata.getAll("file"));
+  console.log(formdata.getAll("batchName"));
   $.ajax({
       url: base_url + "/admin/importStudents",
       type: "post",
-      data: myform,
+      data: formdata,
+      cache : false,
       processData: false,
       contentType: false,
       success:function(data){
           // window.clearInterval(timer);
           console.log("over..");
-          // alert("成功！！");
           swal(
             '导入成功！',
             '导入学生信息成功！',
