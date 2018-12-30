@@ -328,8 +328,10 @@ function delOneBatch(obj){
 
 // 上传文件导入学生信息
 function importStudents(){
-  var form = new FormData(document.getElementById("tf"));
-  console.log(document.getElementById("tf"));
+  var form = new FormData();
+  let myfile = document.getElementById("tf");
+  console.log(this);
+  form.append("file", );
   let batchName = $('#importStudents_select').val();
   form.append("batchName", batchName);
   console.log(form);
@@ -630,6 +632,7 @@ function editOneStudent(){
 function initOneStudentPassword(obj){
   let sid = obj.getAttribute('sid');
   let spwd = hex_md5("123456");
+  let senddata = JSON.stringify([{'id': sid,'pwd': spwd}]);
   swal({
 	  title: '确定重置密码吗？',
 	  text: '确定重置该学生的密码吗？你将无法撤回此操作！',
@@ -646,10 +649,7 @@ function initOneStudentPassword(obj){
         url: base_url + '/user/changePwd',
         datatype: 'json',
         contentType: "application/json",
-        data: {
-          'id': sid,
-          'pwd': spwd
-        },
+        data: senddata,
         success: function(data){
           console.log(data);
           if(data.status === 0){

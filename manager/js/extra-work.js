@@ -8,6 +8,8 @@ var base_url = 'http://134.175.152.210:8084';
 function init_data(){
   // 获取所有工种
   getAllProced();
+  // 获取所有教师组
+  getAllGroup();
   // 获取所有可以有加班管理权限的老师
   findOverworkPrivilegeTeachers();
   // 学生加班申请查询
@@ -38,14 +40,43 @@ function getAllProced(){
   });
 }
 
-// 获取所有可以有加班管理权限的老师
+// 获取所有教师组
+function getAllGroup(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/group/getAllGroup',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        let html = '<option>选择教师组</option>';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<option>'+data_arr[i].t_group_id+'</option>';
+        }
+        $('#teacher_overwork_select_process').html(html);
+      }
+    }
+  });
+}
+
+// 根据教师组获取管理权限
+$('#teacher_overwork_select_process').change(function(){
+  findOverworkPrivilegeTeachers();
+})
+
+// 根据教师组获取所有可以有加班管理权限的老师
 function findOverworkPrivilegeTeachers(){
+  let teacherGroup = $('#teacher_overwork_select_process').val();
+  if(teacherGroup === "选择教师组"){
+    teacherGroup = "all";
+  }
   $.ajax({
     type: 'post',
     url: base_url + '/admin/findTeachers',
     datatype: 'json',
     data: {
-      'tClass': 'all',
+      'tClass': teacherGroup,
       'role': 'all',
       'material_privilege': 'all',
       'overwork_privilege': '加班管理'
