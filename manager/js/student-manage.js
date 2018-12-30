@@ -328,29 +328,36 @@ function delOneBatch(obj){
 
 // 上传文件导入学生信息
 function importStudents(){
-  var form = new FormData();
-  let myfile = document.getElementById("tf");
-  console.log(this);
-  form.append("file", );
+  var myform = new FormData($("#tf")[0].files[0]);
+  // let myfile = document.getElementById("tf");
   let batchName = $('#importStudents_select').val();
-  form.append("batchName", batchName);
-  console.log(form);
+  myform.append("batchName", batchName);
+  console.log(myform);
   $.ajax({
       url: base_url + "/admin/importStudents",
       type: "post",
-      data: form,
+      data: myform,
       processData: false,
       contentType: false,
       success:function(data){
           // window.clearInterval(timer);
           console.log("over..");
-          alert("成功！！");
+          // alert("成功！！");
+          swal(
+            '导入成功！',
+            '导入学生信息成功！',
+            'success'
+          );
           // $('#tf').empty();
           // getAllBatch_StuList();
           // window.location.href = "./student-manage.js";
       },
       error:function(e){
-          alert("错误！！");
+        swal(
+          '导入失败！',
+          '导入学生信息失败！',
+          'success'
+        );
           // window.clearInterval(timer);
       }
   });
