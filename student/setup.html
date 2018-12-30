@@ -6,6 +6,8 @@
 	<!-- jquery -->
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/logout.js"></script>
+	<script type="text/javascript" src="../js/md5.js"></script>
+	<script type="text/javascript" src="../js/setup.js"></script>
 	<!-- bootstrap -->
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
@@ -84,7 +86,7 @@
 						<label class="col-sm-3 col-form-label">新密码：</label>
 						<input type="password" name="new_password" id="new_password" class="form-control col-sm-8" placeholder="新密码">
 					</div>
-					<button type="submit" class="btn btn-danger" id="change_password_submit">确定</button>
+					<button type="submit" class="btn btn-danger" id="change_password_submit" onclick="changePassword()">确定</button>
 				</div>
 			</div>
 
