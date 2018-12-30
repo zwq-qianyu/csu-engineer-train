@@ -16,7 +16,7 @@ function logout(){
       // console.log(data);
       if(data.status === 0){
         console.log(data);
-        // window.location.href = './login.html';
+        window.location.href = './login.html';
       }
       else{
         console.log(data);
