@@ -1,0 +1,7 @@
+.edit_password {
+  border: solid 1px black;
+  text-align: center;
+  margin: 50px auto;
+  width: 40%;
+  /* margin: auto; */
+}
