@@ -10,6 +10,8 @@ function init_data(){
   getAllMaterial();
   // 获取所有有购权限的人的信息
   getPurchaser();
+  // 获取所有物料申购记录
+  getSelectedPurchase();
 }
 
 // 刷新库存列表
@@ -34,7 +36,7 @@ function getAllMaterial(){
         $('#materal_buy_list').html(html);
         // console.log(material_class);
         // 导入所有物料种类
-        let html2 = '';
+        let html2 = '<option>选择物料种类</option>';
         for(let j=0; j<material_class.length; j++){
           html2 += '<option>'+material_class[j]+'</option>';
         }
@@ -73,47 +75,55 @@ function getPurchaser(){
 function addPurchase(){
   let num = $('#meteral_buy_num').val();
   let clazz = $('#select_meterial').val();
-
-  $.ajax({
-    type: 'post',
-    url: base_url + '/purchase/addPurchase',
-    datatype: 'json',
-    // contentType: 'application/json;charset=UTF-8',
-    data: {
-      'num': num,
-      'clazz': clazz,
-    },
-    beforeSend: function(xhr) {
-      xhr.withCredentials = true;
-    },
-    crossDomain:true,
-    success: function(data){
-      console.log(data);
-      if(data.status === 0){
+  if(clazz === "选择物料种类" | num === ""){
+    swal(
+      '无物料种类或数量',
+      '请先选择物料种类，并填写申购数量！',
+      'info'
+    );
+  }
+  else{
+    $.ajax({
+      type: 'post',
+      url: base_url + '/purchase/addPurchase',
+      datatype: 'json',
+      // contentType: 'application/json;charset=UTF-8',
+      data: {
+        'num': num,
+        'clazz': clazz,
+      },
+      beforeSend: function(xhr) {
+        xhr.withCredentials = true;
+      },
+      crossDomain:true,
+      success: function(data){
         console.log(data);
-        swal(
-          '申购成功',
-          '申购物料记录成功',
-          'success'
-        );
-        init_data();
-      }
-      else{
+        if(data.status === 0){
+          console.log(data);
+          swal(
+            '申购成功',
+            '申购物料记录成功',
+            'success'
+          );
+          init_data();
+        }
+        else{
+          console.log(data);
+          swal(
+            '申购失败',
+            '申购物料失败，请重试！',
+            'error'
+          );
+        }
+      },
+      error: function(data){
         console.log(data);
-        swal(
-          '申购失败',
-          '申购物料失败，请重试！',
-          'error'
-        );
       }
-    },
-    error: function(data){
-      console.log(data);
-    }
-  });
+    });
+  }
 }
 
-// 根据条件显示物料申购记录【接口有问题！！！】
+// 根据条件显示物料申购记录
 function getSelectedPurchase(){
   let clazz = $('#buy_history_selset_meterail').val();
   let tname = $('#buy_history_selset_person').val();
@@ -121,6 +131,9 @@ function getSelectedPurchase(){
   let endTime = $('#end_time').val();
   if(tname === "申购人"){
     tname = "";
+  }
+  if(clazz === "选择物料种类"){
+    clazz = "";
   }
   $.ajax({
     type: 'post',
@@ -137,13 +150,13 @@ function getSelectedPurchase(){
     },
     crossDomain:true,
     success: function(data){
-      console.log(data);
+      // console.log(data);
       if(data.status === 0){
         console.log(data);
         let data_arr = data.data;
         let html = '';
         for(let i=0; i<data_arr.length; i++){
-          html += '<tr><td>'+data_arr[i].pur_time+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].num+'</td>';
+          html += '<tr><td>'+data_arr[i].pur_time+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].pur_num+'</td>';
         }
         $('#adminTbody').html(html);
         // console.log(material_class);
@@ -154,7 +167,7 @@ function getSelectedPurchase(){
   });
 }
 
-// 删除一种物料【还没有接口】
+// 删除一种物料
 function deleteOneMateral(obj){
   let clazz = obj.getAttribute('id');
   console.log(clazz);

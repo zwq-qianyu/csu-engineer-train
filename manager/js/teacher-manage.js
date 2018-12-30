@@ -334,11 +334,11 @@ function findTeachers(){
   }
   //如果未选择物料权限，设置为无
   if(teacher_list_material_privilege === "物料权限"){
-    teacher_list_material_privilege = "all";
+    teacher_list_material_privilege = "无";
   }
   //如果未选择加班权限，设置为无
-  if(teacher_list_overwork_privilege === "加班权限"){
-    teacher_list_overwork_privilege = "all";
+  if(teacher_list_overwork_privilege === "开放权限"){
+    teacher_list_overwork_privilege = "无";
   }
 
   $.ajax({
@@ -380,7 +380,7 @@ function findTeachers(){
             html += '<td>无</td>';
           }
           else if(data_arr[i].overtime_privilege === 1){
-            html += '<td>加班管理</td>';
+            html += '<td>开放管理</td>';
           }
           else {
             html += '<td> </td>';
@@ -425,7 +425,7 @@ function addOneTeacher(){
   if(overtime_privilege === "无"){
     overtime_privilege = 0;
   }
-  else if(overtime_privilege === "加班管理"){
+  else if(overtime_privilege === "开放管理"){
     overtime_privilege = 1;
   }
 
@@ -606,7 +606,7 @@ function editOneTeacher_init(obj){
     $('#teach_overwork_privilege_add').val("无");
   }
   else if(overtime_privilege === "1"){
-    $('#teach_overwork_privilege_add').val("加班管理");
+    $('#teach_overwork_privilege_add').val("开放管理");
   }
   else {
     $('#teach_overwork_privilege_add').val("");
@@ -638,7 +638,7 @@ function editOneTeacher(){
   if(overtime_privilege === "无"){
     overtime_privilege = "0";
   }
-  else if(overtime_privilege === "加班管理"){
+  else if(overtime_privilege === "开放管理"){
     overtime_privilege = "1";
   }
   else {

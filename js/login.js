@@ -26,6 +26,7 @@ $("#login_submit").click(function(){
         window.location = './manager/student-manage.html';
       }
       else{
+        console.log(data);
         swal(
           '登录失败',
           String(data.message),

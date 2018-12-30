@@ -54,7 +54,9 @@ function findOverworkPrivilegeTeachers(){
       if(data.status === 0){
         let data_arr = data.data;
         let html = '<option>选择教师</option>';
+        let process = $('#teacher_overwork_select_process').val();
         for(let i=0; i<data_arr.length; i++){
+          // if(data_arr[i].)
           html += '<option>'+data_arr[i].tname+'</option>';
         }
         $('#teacher_overwork_select_teacher').html(html);

@@ -287,9 +287,9 @@
 			    <h5 class="card-title">从Excel文件导入：<small class="download-excel"><a href="http://134.175.152.210:8084/admin/download" class="btn btn-outline-danger">标准模版下载</a></small></h5>
 			    <div class="row choose-line">
 			    	<p>学生信息批量导入：</p>
-			    	<form class="form-inline" role="form" id="tf">
-			    		<input type="file" name="choose-file" class="form-control-file">
-			    		<select class="form-control custom-select" id='importStudents_select'>
+			    	<form class="form" enctype="multipart/form-data" role="form">
+			    		<input type="file" name="file" class="form-control-file" id="tf">
+			    		<select class="form-control custom-select" name="batchName" id='importStudents_select'>
 			    			<!-- <option>选择导入至批次</option>
 			    			<option>2019A01</option>
 			    			<option>2019A02</option>
@@ -301,8 +301,9 @@
 			    			<span>分组数量：</span>
 			    			<input type="text" name="" class="form-control">
 			    		</div> -->
-			    		<button class="btn btn-danger" onclick="importStudents()">开始导入</button>
+							<!-- <input type="submit" class="btn btn-danger" value="开始导入"> -->
 			    	</form>
+						<button class="btn btn-danger" onclick="importStudents()">开始导入</button>
 			    </div>
 
 			  </div>
@@ -321,6 +322,7 @@
 		    		</select>
 		    		<button class="btn btn-outline-primary query" onclick="getStudentByBatchName()">查   询</button>
 		    		<button class="add btn btn-cyan" data-toggle="modal" data-target="#studentManage-button-addModal" style="float: right;">添   加</button>
+						<span class="tips" style="color: green;">注意：重置密码后密码为 123456 </span>
 						<!-- 添加学生 Modal -->
 						<div class="modal fade" id="studentManage-button-addModal" tabindex="-1" role="dialog" aria-labelledby="studentManage-button-addModalTitle" aria-hidden="true">
 						  <div class="modal-dialog modal-dialog-centered" role="document">

@@ -326,9 +326,10 @@ function delOneBatch(obj){
 //   });
 // }
 
-// 上传文件导入学生信息【有问题！！！】
+// 上传文件导入学生信息
 function importStudents(){
   var form = new FormData(document.getElementById("tf"));
+  console.log(document.getElementById("tf"));
   let batchName = $('#importStudents_select').val();
   form.append("batchName", batchName);
   console.log(form);
@@ -341,8 +342,10 @@ function importStudents(){
       success:function(data){
           // window.clearInterval(timer);
           console.log("over..");
+          alert("成功！！");
           // $('#tf').empty();
           // getAllBatch_StuList();
+          // window.location.href = "./student-manage.js";
       },
       error:function(e){
           alert("错误！！");
@@ -411,7 +414,7 @@ function getStudentByBatchName(){
           // 删除按钮
           html += '<td><input type="button" class="btn btn-danger btn-sm" value="删除" sid='+data_arr[i].sid+' onclick="deleteOneStudent(this)" />&emsp;';
           // 重置密码按钮
-          html += '<input type="button" class="btn btn-primary btn-sm" value="重置密码" sid='+data_arr[i].sid+' onclick="#" />&emsp;';
+          html += '<input type="button" class="btn btn-primary btn-sm" value="重置密码" sid='+data_arr[i].sid+' onclick="initOneStudentPassword(this)" />&emsp;';
           // 编辑按钮
           html += '<input type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#studentManage-button-editModal" value="编辑" sid='+data_arr[i].sid+' onclick="editOneStudent_init(this)" sname='+data_arr[i].sname+' clazz='+data_arr[i].clazz+' batch='+data_arr[i].batch_name+' /></td></tr>';
         }
@@ -621,4 +624,52 @@ function editOneStudent(){
       }
     }
   });
+}
+
+// 重置一个学生的密码【等接口】
+function initOneStudentPassword(obj){
+  let sid = obj.getAttribute('sid');
+  swal({
+	  title: '确定重置密码吗？',
+	  text: '确定重置该学生的密码吗？你将无法撤回此操作！',
+	  type: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#d33',
+	  cancelButtonColor: '#3085d6',
+	  confirmButtonText: '确定重置！',
+    cancelButtonText: '取消',
+	}).then(result => {
+	  if (result.value) {
+      $.ajax({
+        type: 'post',
+        url: base_url + '',
+        datatype: 'json',
+        contentType: "application/json",
+        data: sid_arr,
+        success: function(data){
+          console.log(data);
+          if(data.status === 0){
+            // console.log(data);
+            swal(
+              '重置密码成功',
+              '重置密码成功，该学生的密码已经回复初始密码：123456',
+              'success'
+            );
+            getAllBatch_StuList();
+          }
+          else{
+            swal(
+              '重置密码失败',
+              '重置密码失败，请重试！',
+              'error'
+            );
+          }
+        }
+      });
+	    console.log(result.value)
+	  } else {
+	    // handle dismiss, result.dismiss can be 'cancel', 'overlay', 'close', and 'timer'
+	    console.log(result.dismiss)
+	  }
+  })
 }
