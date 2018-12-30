@@ -38,8 +38,8 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#">教师端</a></li>
-			<li class="breadcrumb-item"><a href="#">加班情况</a></li>
-			<li class="breadcrumb-item active">加班记录</li>
+			<li class="breadcrumb-item"><a href="#">开放情况</a></li>
+			<li class="breadcrumb-item active">开放记录</li>
 		</ol>
 	</nav>
 	<!-- 面包屑导航结束 -->
@@ -59,9 +59,9 @@
 							<li><a href="./operate-score.html">操作评分</a></li>
 						</ul>
 					</li>
-					<li class="list-group-item"><img class="icon" src="../manager/img/extra-work.svg"> 加班情况
+					<li class="list-group-item"><img class="icon" src="../manager/img/extra-work.svg"> 开放情况
 						<ul>
-							<li class="left-active"><a href="./extra-record.html">加班记录</a></li>
+							<li class="left-active"><a href="./extra-record.html">开放记录</a></li>
 						</ul>
 					</li>
 					<li class="list-group-item"><img class="icon" src="../manager/img/materal-manage.svg"> 物料管理
@@ -80,17 +80,17 @@
 		</aside>
 		<div class="right col-xs-10 col-sm-10">
 
-			<!-- 学生加班申请 -->
+			<!-- 学生开放申请 -->
 			<div class="card" shiro:hasPermission="user:overwork">
 				<div class="card-header">
-					<h5>学生加班申请</h5>
+					<h5>学生开放申请</h5>
 				</div>
 				<div class="card-body">
 					<div class="row">
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="submit-time" placeholder="提交日期" id="stu_submit_time">
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="加班开始日期" id="stu_extra_work_start_time">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开放开始日期" id="stu_extra_work_start_time">
 						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
-						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="加班结束时间" id="stu_extra_work_end_time">
+						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="开放结束时间" id="stu_extra_work_end_time">
 						<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype" id="stu_extra_select_process">
 							<option>选择工种</option>
 							<option>车工</option>
@@ -107,9 +107,9 @@
 								<th>姓名</th>
 								<th>班级</th>
 								<th>工种</th>
-								<th>加班时间</th>
+								<th>开放时间</th>
 								<th>时长</th>
-								<th>加班事由</th>
+								<th>开放事由</th>
 							</tr>
 						</thead>
 						<tbody id="stu_extra_work_tbody">
@@ -120,13 +120,13 @@
 								<td>钳工</td>
 								<td>2018-10-05 20:00-22:00</td>
 								<td>2h</td>
-								<td>无碳小车校赛加班</td>
+								<td>无碳小车校赛开放</td>
 							</tr> -->
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<!-- 学生加班申请结束 -->
+			<!-- 学生开放申请结束 -->
 
 			<!-- 新增教师值班 -->
 			<div class="card" shiro:hasPermission="user:overwork">
@@ -155,7 +155,7 @@
 
 					<form>
 						<div class="form-group">
-					    <label for="extraWork-reason">加班事由：</label>
+					    <label for="extraWork-reason">开放事由：</label>
 					    <textarea class="form-control" id="extraWork-reason" rows="3"></textarea>
 					  </div>
 					</form>
@@ -192,7 +192,7 @@
 								<th>姓名</th>
 								<th>工种</th>
 								<th>时长</th>
-								<th>加班事由</th>
+								<th>开放事由</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -202,7 +202,7 @@
 								<td>夏丽君</td>
 								<td>钳工</td>
 								<td>2h</td>
-								<td>无碳小车校赛加班</td>
+								<td>无碳小车校赛开放</td>
 								<td>
 									<button class="btn btn-primary btn-sm">编辑</button>
 									<button class="btn btn-danger btn-sm">删除</button>
@@ -211,12 +211,12 @@
 						</tbody>
 					</table>
 
-					<!-- 编辑教师加班记录 Modal -->
+					<!-- 编辑教师开放记录 Modal -->
 					<div class="modal fade" id="editTeacherHistoryModal" tabindex="-1" role="dialog" aria-labelledby="editTeacherHistoryModalTitle" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="editTeacherHistoryModalTitle">修改教师加班记录</h5>
+									<h5 class="modal-title" id="editTeacherHistoryModalTitle">修改教师开放记录</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
@@ -244,7 +244,7 @@
 
 									<form>
 										<div class="form-group">
-									    <label for="edit_history_extraWork_reason">加班事由：</label>
+									    <label for="edit_history_extraWork_reason">开放事由：</label>
 									    <textarea class="form-control" id="edit_history_extraWork_reason" rows="3"></textarea>
 									  </div>
 									</form>

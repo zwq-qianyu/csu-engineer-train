@@ -31,7 +31,7 @@ function getAllProced(){
   });
 }
 
-// 新增加班申请【接口有问题，需要登录后测试】
+// 新增开放申请【接口有问题，需要登录后测试】
 function addOverworkApply(){
   let begin = $('#request_start_time').val();
   let pro_name = $('#request_select_process').val();
@@ -53,7 +53,7 @@ function addOverworkApply(){
         // console.log(data);
         swal(
           '新增成功',
-          '新增加班申请成功',
+          '新增开放申请成功',
           'success'
         );
       }
@@ -61,7 +61,7 @@ function addOverworkApply(){
         console.log(data);
         swal(
           '新增失败',
-          '新增加班申请失败',
+          '新增开放申请失败',
           'error'
         );
       }

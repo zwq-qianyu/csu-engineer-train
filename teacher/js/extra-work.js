@@ -8,9 +8,9 @@ var base_url = 'http://134.175.152.210:8084';
 function init_data(){
   // 获取所有工种
   getAllProced();
-  // 获取所有可以有加班管理权限的老师
+  // 获取所有可以有开放管理权限的老师
   findOverworkPrivilegeTeachers();
-  // 学生加班申请查询
+  // 学生开放申请查询
   getOverworkApplyByTime();
   // 查询教师值班记录
   getOverworkByTimeOrProName();
@@ -38,7 +38,7 @@ function getAllProced(){
   });
 }
 
-// 获取所有可以有加班管理权限的老师
+// 获取所有可以有开放管理权限的老师
 function findOverworkPrivilegeTeachers(){
   $.ajax({
     type: 'post',
@@ -48,7 +48,7 @@ function findOverworkPrivilegeTeachers(){
       'tClass': 'all',
       'role': 'all',
       'material_privilege': 'all',
-      'overwork_privilege': '加班管理'
+      'overwork_privilege': '开放管理'
     },
     success: function(data){
       if(data.status === 0){
@@ -63,7 +63,7 @@ function findOverworkPrivilegeTeachers(){
   });
 }
 
-// 学生加班申请查询
+// 学生开放申请查询
 function getOverworkApplyByTime(){
   let submit_time = $('#stu_submit_time').val();
   let start_time = $('#stu_extra_work_start_time').val();
@@ -125,7 +125,7 @@ function addTeacherOverwork(){
         // console.log(data);
         swal(
           '新增成功',
-          '新增教师加班成功',
+          '新增教师开放成功',
           'success'
         );
         // 刷新教师值班记录
@@ -229,7 +229,7 @@ function updateTeacherOverwork(){
         // console.log(data);
         swal(
           '修改成功',
-          '修改教师加班记录成功',
+          '修改教师开放记录成功',
           'success'
         );
         // 刷新教师值班记录
@@ -239,7 +239,7 @@ function updateTeacherOverwork(){
         console.log(data);
         swal(
           '修改失败',
-          '修改教师加班记录失败',
+          '修改教师开放记录失败',
           'error'
         );
       }
@@ -274,7 +274,7 @@ function deleteOverwork(obj){
             // console.log(data);
             swal(
               '删除成功',
-              '删除加班记录成功',
+              '删除开放记录成功',
               'success'
             );
             // 刷新教师值班记录
@@ -284,7 +284,7 @@ function deleteOverwork(obj){
             console.log(data);
             swal(
               '删除失败',
-              '删除加班记录失败',
+              '删除开放记录失败',
               'error'
             );
           }
