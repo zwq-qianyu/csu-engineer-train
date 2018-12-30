@@ -6,10 +6,30 @@ var base_url = 'http://134.175.152.210:8084';
 
 // 初始化页面数据
 function init_data(){
+  // 判断物料和加班权限
+  judge_matera_record_power();
   // 刷新库存列表
   getAllMaterial();
   // 根据条件显示物料登记记录
   getSelectedPurchase();
+}
+
+// 判断物料登记权限
+function judge_matera_record_power(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/user/getInfo',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        if(data_arr['物料权限'] === 1){
+          $('#applymaterial').hide();
+        }
+      }
+    },
+  });
 }
 
 // 刷新库存列表

@@ -12,6 +12,24 @@ function init_data(){
   getPurchaser();
 }
 
+// 判断物料申购权限
+function judge_matera_buy_power(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/user/getInfo',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        if(data_arr['物料权限'] === 2){
+          $('#purchase_material').hide();
+        }
+      }
+    },
+  });
+}
+
 // 刷新库存列表
 function getAllMaterial(){
   let material_class = new Array;

@@ -6,6 +6,8 @@ var base_url = 'http://134.175.152.210:8084';
 
 // 初始化数据
 function init_data(){
+  // 判断物料和加班权限
+  judge_extrawork_power();
   // 获取所有工种
   getAllProced();
   // 获取所有可以有开放管理权限的老师
@@ -14,6 +16,25 @@ function init_data(){
   getOverworkApplyByTime();
   // 查询教师值班记录
   getOverworkByTimeOrProName();
+}
+
+// 判断加班权限
+function judge_extrawork_power(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/user/getInfo',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        if(data_arr['加班权限'] === "0"){
+          $('#student_apply_extra_work').hide();
+          $('#add_teacher_extra_work').hide();
+        }
+      }
+    },
+  });
 }
 
 // 获取所有工种

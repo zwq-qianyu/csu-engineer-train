@@ -64,7 +64,7 @@
 							<li class="left-active"><a href="./extra-record.html">开放记录</a></li>
 						</ul>
 					</li>
-					<li class="list-group-item"><img class="icon" src="../manager/img/materal-manage.svg"> 物料管理
+					<li id="apply_and_purchase_material" class="list-group-item"><img class="icon" src="../manager/img/materal-manage.svg"> 物料管理
 						<ul>
 							<li><a href="./materal-record.html">物料登记</a></li>
 							<li><a href="./materal-buy.html">物料申购</a></li>
@@ -81,7 +81,7 @@
 		<div class="right col-xs-10 col-sm-10">
 
 			<!-- 学生开放申请 -->
-			<div class="card" shiro:hasPermission="user:overwork">
+			<div class="card" id="student_apply_extra_work">
 				<div class="card-header">
 					<h5>学生开放申请</h5>
 				</div>
@@ -129,7 +129,7 @@
 			<!-- 学生开放申请结束 -->
 
 			<!-- 新增教师值班 -->
-			<div class="card" shiro:hasPermission="user:overwork">
+			<div class="card" id="add_teacher_extra_work">
 				<div class="card-header">
 					<h5>新增教师值班</h5>
 				</div>
