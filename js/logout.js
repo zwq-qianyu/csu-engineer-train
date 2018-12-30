@@ -1,7 +1,6 @@
 var base_url = 'http://134.175.152.210:8084';
 
 function logout(){
-  console.log("dfg");
   $.ajax({
     type: 'post',
     // async: false,
