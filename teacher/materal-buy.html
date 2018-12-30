@@ -85,8 +85,8 @@
 				<div class="card-header">
 					<h5>物料申购</h5>
 				</div>
-				<div class="card-body">
-					<h3 class="text-center">库存</h3>
+				<div class="card-body" shiro:hasPermission="user:purchasematerial">
+					<h3 class="text-center" shiro:hasPermission="user:purchasematerial">库存</h3>
 					<table class="table table-striped">
 						<thead>
 							<tr>
