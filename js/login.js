@@ -23,7 +23,15 @@ $("#login_submit").click(function(){
       // console.log(data);
       if(data.status === 0){
         console.log(data);
-        window.location = './manager/student-manage.html';
+        if(data.data["身份"] === "admin") {
+          window.location.href = './manager/student-manage.html';
+        }
+        else if (data.data["身份"] === "teacher") {
+          window.location.href = './teacher/teach-schedule.html';
+        }
+        else if (data.data["身份"] === "student") {
+          window.location.href = './student/courses.html';
+        }
       }
       else{
         console.log(data);
