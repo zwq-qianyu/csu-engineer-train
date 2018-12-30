@@ -629,6 +629,7 @@ function editOneStudent(){
 // 重置一个学生的密码【等接口】
 function initOneStudentPassword(obj){
   let sid = obj.getAttribute('sid');
+  let spwd = hex_md5("123456");
   swal({
 	  title: '确定重置密码吗？',
 	  text: '确定重置该学生的密码吗？你将无法撤回此操作！',
@@ -642,10 +643,13 @@ function initOneStudentPassword(obj){
 	  if (result.value) {
       $.ajax({
         type: 'post',
-        url: base_url + '',
+        url: base_url + '/user/changePwd',
         datatype: 'json',
         contentType: "application/json",
-        data: sid_arr,
+        data: {
+          'id': sid,
+          'pwd': spwd
+        },
         success: function(data){
           console.log(data);
           if(data.status === 0){

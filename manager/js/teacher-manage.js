@@ -389,7 +389,7 @@ function findTeachers(){
           // 删除按钮
           html += '<td><input type="button" class="btn btn-danger btn-sm" value="删除" tid='+data_arr[i].tid+' onclick="deleteOneTeacher(this)" />&emsp;';
           // 重置密码按钮
-          html += '<input type="button" class="btn btn-danger btn-sm" value="重置密码" tid='+data_arr[i].tid+' onclick="#" />&emsp;';
+          html += '<input type="button" class="btn btn-primary btn-sm" value="重置密码" tid='+data_arr[i].tid+' onclick="#" />&emsp;';
           // 编辑按钮
           html += '<input type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#teacherManage-button-editModal" value="编辑" tid='+data_arr[i].tid+' onclick="editOneTeacher_init(this)" tname='+data_arr[i].tname+' all_group='+data_arr[i].all_group+' role='+data_arr[i].role+' material_privilege='+data_arr[i].material_privilege+' overtime_privilege='+data_arr[i].overtime_privilege+' /></td></tr>';
         }
@@ -673,4 +673,56 @@ function editOneTeacher(){
       getAllGroup_StuList
     }
   });
+}
+
+// 重置一个学生的密码
+function initOneStudentPassword(obj){
+  let sid = obj.getAttribute('tid');
+  let spwd = hex_md5("123456");
+  swal({
+	  title: '确定重置密码吗？',
+	  text: '确定重置该学生的密码吗？你将无法撤回此操作！',
+	  type: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#d33',
+	  cancelButtonColor: '#3085d6',
+	  confirmButtonText: '确定重置！',
+    cancelButtonText: '取消',
+	}).then(result => {
+	  if (result.value) {
+      $.ajax({
+        type: 'post',
+        url: base_url + '/user/changePwd',
+        datatype: 'json',
+        contentType: "application/json",
+        data: {
+          'id': sid,
+          'pwd': spwd
+        },
+        success: function(data){
+          console.log(data);
+          if(data.status === 0){
+            // console.log(data);
+            swal(
+              '重置密码成功',
+              '重置密码成功，该学生的密码已经回复初始密码：123456',
+              'success'
+            );
+            getAllBatch_StuList();
+          }
+          else{
+            swal(
+              '重置密码失败',
+              '重置密码失败，请重试！',
+              'error'
+            );
+          }
+        }
+      });
+	    console.log(result.value)
+	  } else {
+	    // handle dismiss, result.dismiss can be 'cancel', 'overlay', 'close', and 'timer'
+	    console.log(result.dismiss)
+	  }
+  })
 }
