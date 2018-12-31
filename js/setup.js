@@ -1,5 +1,11 @@
+window.onload = function(){
+  // 查询基本信息并显示
+  getBasicInfo();
+}
+
 var base_url = 'http://134.175.152.210:8084';
 
+// 修改密码
 function changePassword(){
   let old_password =  $('#old_password').val();
   old_password = hex_md5(old_password);
@@ -29,6 +35,29 @@ function changePassword(){
           String(data.message),
           'error'
         );
+      }
+    }
+  });
+}
+
+// 查询基本信息并显示
+function getBasicInfo(){
+  $.ajax({
+    url: base_url + '/user/getInfo',
+    type: 'post',
+    datatype: 'json',
+    data: {},
+    success: function(data){
+      if(data.status === 0){
+        var teacherGroupOrClass;
+        if(data.data["教师组"]){
+          teacherGroupOrClass = data.data["教师组"];
+        }else{
+          teacherGroupOrClass = data.data["班级"];
+        }
+        let name = data.data["姓名"];
+        $('#teacherGroupInfo').val(teacherGroupOrClass);
+        $('#teacherNameInfo').val(name);
       }
     }
   });

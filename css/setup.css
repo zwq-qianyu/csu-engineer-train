@@ -1,7 +1,13 @@
 .edit_password {
   border: solid 1px black;
   text-align: center;
-  margin: 50px auto;
+  margin: auto;
+  padding: 25px;
   width: 40%;
   /* margin: auto; */
+}
+
+.basic_info {
+  text-align: center;
+  margin: auto 0px;
 }
