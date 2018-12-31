@@ -60,8 +60,8 @@ function getBasicInfo(){
         let name = data.data["姓名"];
         console.log(teacherGroupOrClass);
         console.log(name);
-        $('#teacherGroupInfo').val(teacherGroupOrClass);
-        $('#teacherNameInfo').val(name);
+        $('.teacherGroupInfo').val(teacherGroupOrClass);
+        $('.teacherNameInfo').val(name);
       }
     }
   });
