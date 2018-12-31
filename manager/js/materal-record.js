@@ -90,7 +90,7 @@ function decrMaterialNum(){
   });
 }
 
-// 根据条件显示物料登记记录【接口有问题！！！】
+// 根据条件显示物料登记记录
 function getSelectedPurchase(){
   let start_time = $('#start_time').val();
   let end_time = $('#end_time').val();

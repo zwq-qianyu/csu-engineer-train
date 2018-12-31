@@ -60,6 +60,8 @@ function getAllMaterial(){
         html2 = '<option>选择物料种类</option>' + html2;
         $('#record_history_selset_meterail').html(html2);
       }
+      // 分页初始化
+      kgoPage(1,5);
     }
   });
 }
@@ -108,7 +110,7 @@ function decrMaterialNum(){
   });
 }
 
-// 根据条件显示物料登记记录【接口有问题！！！】
+// 根据条件显示物料登记记录
 function getSelectedPurchase(){
   let start_time = $('#start_time').val();
   let end_time = $('#end_time').val();
@@ -141,6 +143,8 @@ function getSelectedPurchase(){
         $('#adminTbody').html(html);
         // console.log(material_class);
       }
+      // 分页初始化
+      goPage(1,10);
     }
   });
 }

@@ -152,6 +152,8 @@ function getOverworkApplyByTime(){
         }
         $('#stu_extra_work_tbody').html(html);
       }
+      // 分页初始化
+      kgoPage(1,10);
     }
   });
 }
@@ -238,6 +240,8 @@ function getOverworkByTimeOrProName(){
         }
         $('#adminTbody').html(html);
       }
+      // 教师值班记录分页初始化
+      goPage(1,10);
     }
   });
 }

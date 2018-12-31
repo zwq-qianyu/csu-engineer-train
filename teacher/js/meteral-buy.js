@@ -63,6 +63,8 @@ function getAllMaterial(){
         $('#select_meterial').html(html2);
         $('#buy_history_selset_meterail').html(html2);
       }
+      // 分页初始化
+      kgoPage(1,5);
     },
   });
 }
@@ -189,11 +191,13 @@ function getSelectedPurchase(){
         let data_arr = data.data;
         let html = '';
         for(let i=0; i<data_arr.length; i++){
-          html += '<tr><td>'+data_arr[i].pur_time+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].num+'</td>';
+          html += '<tr><td>'+data_arr[i].pur_time+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].pur_num+'</td>';
         }
         $('#adminTbody').html(html);
         // console.log(material_class);
       }
+      // 分页初始化
+      goPage(1,10);
     }
   });
 }

@@ -92,7 +92,7 @@ function getTeacherOverworkFromStudent(){
   });
 }
 
-// 获取“我的申请”记录【接口有问题，需要登录后测试】
+// 获取“我的申请”记录
 function getMyOverworkApply(){
   $.ajax({
     type: 'post',
@@ -106,8 +106,10 @@ function getMyOverworkApply(){
         for(let i=0; i<data_arr; i++){
           html += '<tr><td>'+chGMT(data_arr[i].overwork_time)+'</td><td>'+data_arr[i].pro_name+'</td><td>'+data_arr[i].reason+'</td></tr>';
         }
-        $('#request_history_tbody').html(html);   //有数据了再打开这一行
+        $('#adminTbody').html(html);   //有数据了再打开这一行
       }
+      // 教师值班记录分页初始化
+      goPage(1,10);
     }
   });
 }
