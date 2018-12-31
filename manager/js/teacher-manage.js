@@ -334,11 +334,11 @@ function findTeachers(){
   }
   //如果未选择物料权限，设置为无
   if(teacher_list_material_privilege === "物料权限"){
-    teacher_list_material_privilege = "无";
+    teacher_list_material_privilege = "all";
   }
   //如果未选择加班权限，设置为无
   if(teacher_list_overwork_privilege === "开放权限"){
-    teacher_list_overwork_privilege = "无";
+    teacher_list_overwork_privilege = "all";
   }
 
   $.ajax({
@@ -683,7 +683,7 @@ function initOneTeacherPassword(obj){
   let senddata = JSON.stringify([{'id': tid,'pwd': spwd}]);
   swal({
 	  title: '确定重置密码吗？',
-	  text: '确定重置该学生的密码吗？你将无法撤回此操作！',
+	  text: '确定重置该教师的密码吗？你将无法撤回此操作！',
 	  type: 'warning',
 	  showCancelButton: true,
 	  confirmButtonColor: '#d33',
@@ -704,7 +704,7 @@ function initOneTeacherPassword(obj){
             // console.log(data);
             swal(
               '重置密码成功',
-              '重置密码成功，该学生的密码已经回复初始密码：123456',
+              '重置密码成功，该教师的密码已经恢复初始密码：123456',
               'success'
             );
           }

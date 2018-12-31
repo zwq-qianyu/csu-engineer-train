@@ -26,5 +26,12 @@ function logout(){
         );
       }
     },
+    error: function(){
+      swal(
+        '退出失败',
+        String(data.message),
+        'error'
+      );
+    }
   });
 }

@@ -5,17 +5,17 @@ window.onload = function(){
 var base_url = 'http://134.175.152.210:8084';
 
 function init_data(){
-  // 获取所有工种
-  getAllProced();
+  // 获取所有教师组
+  getAllGroup();
   // 展示值班信息初始化
   getTeacherOverworkFromStudent();
 }
 
-// 获取所有工种
-function getAllProced(){
+// 获取所有教师组
+function getAllGroup(){
   $.ajax({
     type: 'post',
-    url: base_url + '/proced/getAllProced',
+    url: base_url + '/group/getAllGroup',
     datatype: 'json',
     data: {},
     success: function(data){
@@ -23,7 +23,7 @@ function getAllProced(){
         let data_arr = data.data;
         let html = '<option>选择工种</option>';
         for(let i=0; i<data_arr.length; i++){
-          html += '<option>'+data_arr[i]+'</option>';
+          html += '<option>'+data_arr[i].t_group_id+'</option>';
         }
         $('#request_select_process').html(html);
       }
@@ -37,7 +37,7 @@ function addOverworkApply(){
   let pro_name = $('#request_select_process').val();
   let duration = $('#request_extra_last_time').val();
   let reason = $('#request_extra_reason').val();
-
+  begin += ":00";
   $.ajax({
     type: 'post',
     url: base_url + '/overwork/addOverworkApply',
@@ -84,7 +84,7 @@ function getTeacherOverworkFromStudent(){
         let data_arr = data.data;
         html = '';
         for(let i=0; i<data_arr.length; i++){
-          html += '<li><p><a href="#">'+chGMT(data_arr[i].overwork_time)+'&emsp;&emsp;'+data_arr[i].pro_name+'&emsp;&emsp;'+data_arr[i].tname+'</a></p></li>'
+          html += '<li><p><a href="#">'+chGMT(data_arr[i].overwork_time)+'&emsp;&emsp;'+data_arr[i].pro_name+'&emsp;&emsp;'+data_arr[i].tname+'&emsp;&emsp;'+(chGMT(data_arr[i].overwork_time_end) - chGMT(data_arr[i].overwork_time))+'h </a></p></li>'
         }
         $('#zhiban_info ul').html(html);   //有数据了再打开这一行
       }

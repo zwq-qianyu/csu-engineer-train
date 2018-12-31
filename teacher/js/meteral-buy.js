@@ -22,7 +22,7 @@ function judge_matera_buy_power(){
     success: function(data){
       if(data.status === 0){
         let data_arr = data.data;
-        if(data_arr['物料权限'] === 2){
+        if(data_arr['物料权限'] !== "2"){
           $('#purchase_material').hide();
         }
       }

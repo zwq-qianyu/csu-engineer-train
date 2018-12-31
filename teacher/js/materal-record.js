@@ -24,7 +24,7 @@ function judge_matera_record_power(){
     success: function(data){
       if(data.status === 0){
         let data_arr = data.data;
-        if(data_arr['物料权限'] === 1){
+        if(data_arr['物料权限'] !== "1"){
           $('#applymaterial').hide();
         }
       }
