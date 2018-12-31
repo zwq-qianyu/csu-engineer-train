@@ -158,6 +158,8 @@ function getSelectedPurchase_init(){
         $('#adminTbody').html(html);
         // console.log(material_class);
       }
+      // 分页初始化
+      goPage(1,10);
     }
   });
 }

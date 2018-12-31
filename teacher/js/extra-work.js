@@ -12,8 +12,6 @@ function init_data(){
   getAllProced();
   // 获取所有教师组
   getAllGroup();
-  // 获取所有可以有开放管理权限的老师
-  findOverworkPrivilegeTeachers();
   // 学生开放申请查询
   getOverworkApplyByTime();
 }
@@ -75,6 +73,8 @@ function getAllGroup(){
         }
         $('#teacher_overwork_select_process').html(html);
         $('#history_select_process').html(html);
+        // 获取所有可以有开放管理权限的老师
+        findOverworkPrivilegeTeachers();
         // 查询教师值班记录
         getOverworkByTimeOrProName();
       }
