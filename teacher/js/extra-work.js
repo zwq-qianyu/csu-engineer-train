@@ -10,6 +10,8 @@ function init_data(){
   judge_extrawork_power();
   // 获取所有工种
   getAllProced();
+  // 获取所有教师组
+  getAllGroup();
   // 获取所有可以有开放管理权限的老师
   findOverworkPrivilegeTeachers();
   // 学生开放申请查询

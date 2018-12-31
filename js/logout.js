@@ -7,31 +7,5 @@ function logout(){
     url: base_url + '/logout',
     datatype: 'json',
     data: {},
-    // beforeSend: function(xhr) {
-    //   xhr.withCredentials = true;
-    // },
-    // crossDomain:true,
-    success: function(data){
-      // console.log(data);
-      if(data.status === 0){
-        console.log(data);
-        window.location.href = '../login.html';
-      }
-      else{
-        console.log(data);
-        swal(
-          '退出失败',
-          String(data.message),
-          'error'
-        );
-      }
-    },
-    error: function(){
-      swal(
-        '退出失败',
-        String(data.message),
-        'error'
-      );
-    }
   });
 }
