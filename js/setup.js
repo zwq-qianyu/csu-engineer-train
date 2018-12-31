@@ -48,7 +48,9 @@ function getBasicInfo(){
     datatype: 'json',
     data: {},
     success: function(data){
+      console.log(data);
       if(data.status === 0){
+        console.log(data);
         var teacherGroupOrClass;
         if(data.data["教师组"]){
           teacherGroupOrClass = data.data["教师组"];
@@ -56,6 +58,8 @@ function getBasicInfo(){
           teacherGroupOrClass = data.data["班级"];
         }
         let name = data.data["姓名"];
+        console.log(teacherGroupOrClass);
+        console.log(name);
         $('#teacherGroupInfo').val(teacherGroupOrClass);
         $('#teacherNameInfo').val(name);
       }
