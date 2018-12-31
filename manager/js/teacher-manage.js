@@ -309,6 +309,7 @@ function getAllGroup_StuList(){
         // console.log(html);
         $('#teacher_list_teacher_groups').html(html);
         $('#add_modal_teacher_group').html(html);
+        $('#teachGroupFormControlSelect').html(html);
         // $('#teach-group-add').html(html);
         // 根据条件获取教师列表
         findTeachers();
@@ -620,6 +621,7 @@ function editOneTeacher(){
   let role = $('#teach_role_add').val();
   let material_privilege = $('#teach_material_privilege_add').val();
   let overtime_privilege = $('#teach_overwork_privilege_add').val();
+  let clazz = $('#teachGroupFormControlSelect').val();
   // 判断物料权限
   if(material_privilege === "无"){
     material_privilege = "0";
@@ -644,8 +646,14 @@ function editOneTeacher(){
   else {
     overtime_privilege = "";
   }
+
+  // 判断教师组
+  if(clazz === "选择教师组"){
+    clazz = "0";
+  }
+
   // console.log(tid);
-  var data = JSON.stringify({'tid': tid, 'tname': tname, 'role': role, 'material_privilege': material_privilege, 'overtime_privilege': overtime_privilege});
+  var data = JSON.stringify({'tid': tid, 'tname': tname, 'role': role, 'material_privilege': material_privilege, 'overtime_privilege': overtime_privilege, 't_group_id': clazz});
   $.ajax({
     type: 'post',
     url: base_url + '/teacher/updateTeacher',

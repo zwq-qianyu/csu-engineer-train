@@ -12,6 +12,8 @@ function init_data(){
   getAllMaterial();
   // 获取所有有购权限的人的信息
   getPurchaser();
+  // 初始时显示物料申购记录
+  getSelectedPurchase_init
 }
 
 // 判断物料申购权限
@@ -131,6 +133,32 @@ function addPurchase(){
   });
 }
 
+// 初始时显示物料申购记录
+function getSelectedPurchase_init(){
+  $.ajax({
+    type: 'post',
+    url: base_url + '/purchase/getSelectedPurchase',
+    datatype: 'json',
+    data: {},
+    beforeSend: function(xhr) {
+      xhr.withCredentials = true;
+    },
+    crossDomain:true,
+    success: function(data){
+      console.log(data);
+      if(data.status === 0){
+        console.log(data);
+        let data_arr = data.data;
+        let html = '';
+        for(let i=0; i<data_arr.length; i++){
+          html += '<tr><td>'+data_arr[i].pur_time+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].num+'</td>';
+        }
+        $('#adminTbody').html(html);
+        // console.log(material_class);
+      }
+    }
+  });
+}
 // 根据条件显示物料申购记录【接口有问题！！！】
 function getSelectedPurchase(){
   let clazz = $('#buy_history_selset_meterail').val();
