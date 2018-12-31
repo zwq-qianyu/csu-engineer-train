@@ -14,8 +14,6 @@ function init_data(){
   findOverworkPrivilegeTeachers();
   // 学生加班申请查询
   getOverworkApplyByTime();
-  // 查询教师值班记录
-  getOverworkByTimeOrProName();
 }
 
 // 获取所有工种
@@ -56,6 +54,8 @@ function getAllGroup(){
         }
         $('#teacher_overwork_select_process').html(html);
         $('#history_select_process').html(html);
+        // 查询教师值班记录
+        getOverworkByTimeOrProName();
       }
     }
   });
