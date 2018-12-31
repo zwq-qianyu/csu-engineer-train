@@ -13,7 +13,7 @@ function init_data(){
   // 获取所有有购权限的人的信息
   getPurchaser();
   // 初始时显示物料申购记录
-  getSelectedPurchase_init
+  getSelectedPurchase_init();
 }
 
 // 判断物料申购权限
@@ -159,7 +159,7 @@ function getSelectedPurchase_init(){
     }
   });
 }
-// 根据条件显示物料申购记录【接口有问题！！！】
+// 根据条件显示物料申购记录
 function getSelectedPurchase(){
   let clazz = $('#buy_history_selset_meterail').val();
   let tname = $('#buy_history_selset_person').val();
@@ -198,11 +198,45 @@ function getSelectedPurchase(){
   });
 }
 
-// 删除一种物料【还没有接口】
+// 删除一种物料
 function deleteOneMateral(obj){
   let clazz = obj.getAttribute('id');
   console.log(clazz);
-
+  $.ajax({
+    type: 'post',
+    url: base_url + '/material/deleteMaterial',
+    datatype: 'json',
+    data: {
+      'clazz': clazz
+    },
+    success: function(data){
+      if(data.status === 0){
+        console.log(data);
+        swal(
+          '删除成功',
+          '删除物料成功',
+          'success'
+        );
+        init_data();
+      }
+      else{
+        console.log(data);
+        swal(
+          '删除失败',
+          '删除物料失败，请重试！',
+          'error'
+        );
+      }
+    },
+    error: function(data){
+      console.log(data);
+      swal(
+        '删除失败',
+        String(data.message),
+        'error'
+      );
+    }
+  });
 }
 
 // 添加一种新的物料

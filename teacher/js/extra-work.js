@@ -89,21 +89,27 @@ $('#teacher_overwork_select_process').change(function(){
 
 // 获取所有可以有开放管理权限的老师
 function findOverworkPrivilegeTeachers(){
+  let teacherGroup = $('#teacher_overwork_select_process').val();
+  if(teacherGroup === "选择教师组"){
+    teacherGroup = "all";
+  }
   $.ajax({
     type: 'post',
     url: base_url + '/admin/findTeachers',
     datatype: 'json',
     data: {
-      'tClass': 'all',
+      'tClass': teacherGroup,
       'role': 'all',
       'material_privilege': 'all',
-      'overwork_privilege': '开放管理'
+      'overwork_privilege': '加班管理'
     },
     success: function(data){
       if(data.status === 0){
         let data_arr = data.data;
         let html = '<option>选择教师</option>';
+        let process = $('#teacher_overwork_select_process').val();
         for(let i=0; i<data_arr.length; i++){
+          // if(data_arr[i].)
           html += '<option>'+data_arr[i].tname+'</option>';
         }
         $('#teacher_overwork_select_teacher').html(html);
@@ -207,7 +213,7 @@ function getOverworkByTimeOrProName(){
   if(end_time === ""){
     end_time = "2999";
   }
-  if(process === "选择工种"){
+  if(process === "选择教师组"){
     process = "%";
   }
   $.ajax({
