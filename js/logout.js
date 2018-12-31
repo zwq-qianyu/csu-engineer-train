@@ -7,5 +7,11 @@ function logout(){
     url: base_url + '/logout',
     datatype: 'json',
     data: {},
+    success: function(){
+      window.location.href = "../login.html";
+    },
+    error: function(){
+      window.location.href = "../login.html";
+    }
   });
 }

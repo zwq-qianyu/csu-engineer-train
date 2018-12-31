@@ -6,6 +6,8 @@ var base_url = 'http://134.175.152.210:8084';
 
 // 初始化页面数据
 function init_data(){
+  // 判断物料申购权限
+  judge_matera_buy_power();
   // 刷新库存列表
   getAllMaterial();
   // 获取所有有购权限的人的信息
