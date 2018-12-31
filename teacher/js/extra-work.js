@@ -230,7 +230,7 @@ function getOverworkByTimeOrProName(){
           // 删除按钮
           html += '<button class="btn btn-danger btn-sm" id="'+data_arr[i].overwork_id+'" onclick="deleteOverwork(this)">删除</button></td></tr>';
         }
-        $('#history_tbody').html(html);
+        $('#adminTbody').html(html);
       }
     }
   });

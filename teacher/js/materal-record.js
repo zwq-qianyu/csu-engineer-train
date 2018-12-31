@@ -138,7 +138,7 @@ function getSelectedPurchase(){
         for(let i=0; i<data_arr.length; i++){
           html += '<tr><td>'+data_arr[i].apply_time+'</td><td>'+data_arr[i].sname+'</td><td>'+data_arr[i].sid+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].num+'</td><td>'+data_arr[i].tid+'</td></tr>';
         }
-        $('#record_history_body').html(html);
+        $('#adminTbody').html(html);
         // console.log(material_class);
       }
     }
