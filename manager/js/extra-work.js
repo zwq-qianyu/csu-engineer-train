@@ -288,6 +288,7 @@ function updateTeacherOverwork(){
   let duration = $('#edit_history_last_time').val();
   let reason = $('#edit_history_extraWork_reason').val();
   let end_time = chGMTAdd(begin,parseInt(duration));
+  begin += ":00";
   console.log(reason);
   $.ajax({
     type: 'post',
@@ -315,11 +316,19 @@ function updateTeacherOverwork(){
       }
       else{
         console.log(data);
-        swal(
-          '修改失败',
-          '修改教师加班记录失败',
-          'error'
-        );
+        if(data.message === "Timestamp format must be yyyy-mm-dd hh:mm:ss[.fffffffff]"){
+          swal(
+            '修改失败',
+            '请选择开始时间！',
+            'info'
+          );
+        }else{
+          swal(
+            '修改失败',
+            '修改教师开放记录失败',
+            'error'
+          );
+        }
       }
     }
   });
