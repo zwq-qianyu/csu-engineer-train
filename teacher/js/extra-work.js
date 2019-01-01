@@ -265,8 +265,10 @@ function getOverworkByTimeOrProName(){
     success: function(data) {
       if(data.status === 0){
         let data_arr = data.data;
+        var last_time;
         html = '';
         for(let i=0; i<data_arr.length; i++){
+          last_time = getGMThour(data_arr[i].overwork_time_end) - getGMThour(data_arr[i].overwork_time);
           html +=  '<tr><td>'+chGMT(data_arr[i].overwork_time)+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].pro_name+'</td><td>2h</td><td>'+data_arr[i].reason+'</td>';
           // 编辑按钮
           html += '<td><button class="btn btn-primary btn-sm" id="'+data_arr[i].overwork_id+'" tname='+data_arr[i].tname+' reason='+data_arr[i].reason+' begin='+chGMT(data_arr[i].overwork_time)+' pro_name='+data_arr[i].pro_name+' last_time='+last_time+' data-toggle="modal" data-target="#editTeacherHistoryModal" onclick="updateTeacherOverwork_init(this)">编辑</button>&emsp;';
