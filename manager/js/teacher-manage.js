@@ -681,7 +681,7 @@ function editOneTeacher(){
       else{
         swal(
           '更新失败',
-          String(message),
+          String(data.message),
           'error'
         );
       }
