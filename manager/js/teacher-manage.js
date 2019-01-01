@@ -681,7 +681,7 @@ function editOneTeacher(){
       else{
         swal(
           '更新失败',
-          '更新教师信息失败，请重试！',
+          String(message),
           'error'
         );
       }
