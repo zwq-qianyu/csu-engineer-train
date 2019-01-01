@@ -621,7 +621,7 @@ function editOneTeacher(){
   let role = $('#teach_role_add').val();
   let material_privilege = $('#teach_material_privilege_add').val();
   let overtime_privilege = $('#teach_overwork_privilege_add').val();
-  let clazz = $('#teachGroupFormControlSelect').val();
+  let t_group_id = $('#teachGroupFormControlSelect').val();
   // 判断物料权限
   if(material_privilege === "无"){
     material_privilege = "0";
@@ -648,16 +648,23 @@ function editOneTeacher(){
   }
 
   // 判断教师组
-  if(clazz === "选择教师组"){
-    clazz = "0";
+  if(t_group_id === "选择教师组"){
+    t_group_id = "0";
   }
 
   // console.log(tid);
-  var data = JSON.stringify({'tid': tid, 'tname': tname, 'role': role, 'material_privilege': material_privilege, 'overtime_privilege': overtime_privilege, 't_group_id': clazz});
+  // var data = JSON.stringify({'tid': tid, 'tname': tname, 'role': role, 'material_privilege': material_privilege, 'overtime_privilege': overtime_privilege, 't_group_id': t_group_id});
   $.ajax({
     type: 'post',
     url: base_url + '/teacher/updateTeacher',
-    data : data,
+    data : {
+      'tid': tid,
+      'tname': tname,
+      't_group_id': t_group_id,
+      'role': role,
+      'material_privilege': material_privilege,
+      'overtime_privilege': overtime_privilege
+    },
     contentType : "application/json",              //发送至服务器的类型
     dataType : "json",
     success: function(data){
