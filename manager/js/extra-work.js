@@ -55,6 +55,7 @@ function getAllGroup(){
         $('#edit_history_select_process').html(html);
         // 获取所有可以有加班管理权限的老师
         findOverworkPrivilegeTeachers();
+        findOverworkPrivilegeTeachersEdit();
         // 查询教师值班记录
         getOverworkByTimeOrProName();
       }
@@ -65,6 +66,10 @@ function getAllGroup(){
 // 根据教师组获取管理权限
 $('#teacher_overwork_select_process').change(function(){
   findOverworkPrivilegeTeachers();
+})
+
+$('#edit_history_select_process').change(function(){
+  findOverworkPrivilegeTeachersEdit();
 })
 
 // 根据教师组获取所有可以有加班管理权限的老师
@@ -93,6 +98,35 @@ function findOverworkPrivilegeTeachers(){
           html += '<option>'+data_arr[i].tname+'</option>';
         }
         $('#teacher_overwork_select_teacher').html(html);
+      }
+    }
+  });
+}
+// 根据教师组获取所有可以有加班管理权限的老师---编辑
+function findOverworkPrivilegeTeachersEdit(){
+  let teacherGroup = $('#edit_history_select_process').val();
+  if(teacherGroup === "选择教师组"){
+    teacherGroup = "all";
+  }
+  $.ajax({
+    type: 'post',
+    url: base_url + '/admin/findTeachers',
+    datatype: 'json',
+    data: {
+      'tClass': teacherGroup,
+      'role': 'all',
+      'material_privilege': 'all',
+      'overwork_privilege': '加班管理'
+    },
+    success: function(data){
+      if(data.status === 0){
+        let data_arr = data.data;
+        let html = '<option>选择教师</option>';
+        let process = $('#teacher_overwork_select_process').val();
+        for(let i=0; i<data_arr.length; i++){
+          // if(data_arr[i].)
+          html += '<option>'+data_arr[i].tname+'</option>';
+        }
         $('#edit_history_select_teacher').html(html);
       }
     }
