@@ -180,7 +180,7 @@ function addTeacherOverwork(){
   let tname = $('#teacher_overwork_select_teacher').val();
   let last_time = $('#teacher_overwork_last_time').val();
   let reason = $('#extraWork-reason').val();
-  start_time += ':00';
+  // start_time += ':00';
   $.ajax({
     type: 'post',
     url: base_url + '/overwork/addTeacherOverwork',
@@ -287,6 +287,7 @@ function updateTeacherOverwork(){
   let tname = $('#edit_history_select_teacher').val();
   let duration = $('#edit_history_last_time').val();
   let reason = $('#edit_history_extraWork_reason').val();
+  let end_time = chGMTAdd(begin,parseInt(duration));
   console.log(reason);
   $.ajax({
     type: 'post',
@@ -297,7 +298,7 @@ function updateTeacherOverwork(){
       'reason': reason,
       'begin': begin,
       'overworkId': overworkId,
-      'end': "",
+      'end': end_time,
       'pro_name': pro_name
     },
     success: function(data){
@@ -399,7 +400,7 @@ function chGMT(gmtDate){
 	var mydate = new Date(gmtDate);
 	mydate.setHours(mydate.getHours() + 8);
 	// return mydate.format("yyyy-MM-dd hh:mm:ss");
-  return mydate.format("yyyy-MM-dd hh:mm");
+  return mydate.format("yyyy-MM-dd hh:mm:ss");
 }
 // 获取小时
 function getGMThour(gmtDate){
@@ -407,4 +408,11 @@ function getGMThour(gmtDate){
 	mydate.setHours(mydate.getHours() + 8);
 	// return mydate.format("yyyy-MM-dd hh:mm:ss");
   return Number(mydate.format("hh"));
+}
+// 加上一个数获得标准时间格式
+function chGMTAdd(gmtDate,k){
+	var mydate = new Date(gmtDate);
+	mydate.setHours(mydate.getHours() + k;
+	// return mydate.format("yyyy-MM-dd hh:mm:ss");
+  return mydate.format("yyyy-MM-dd hh:mm:ss");
 }
