@@ -614,7 +614,7 @@ function editOneTeacher_init(obj){
   }
   // console.log(batch);
 }
-// 修改一个教师【有问题！！！】
+// 修改一个教师
 function editOneTeacher(){
   let tid = $('#teach_nickname_add').val();
   let tname = $('#teach_name_add').val();
@@ -665,7 +665,7 @@ function editOneTeacher(){
       'material_privilege': material_privilege,
       'overtime_privilege': overtime_privilege
     },
-    contentType : "application/json",              //发送至服务器的类型
+    // contentType : "application/json",              //发送至服务器的类型
     dataType : "json",
     success: function(data){
       // console.log(data);
