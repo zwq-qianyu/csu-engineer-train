@@ -412,7 +412,7 @@ function getGMThour(gmtDate){
 // 加上一个数获得标准时间格式
 function chGMTAdd(gmtDate,k){
 	var mydate = new Date(gmtDate);
-	mydate.setHours(mydate.getHours() + k;
+	mydate.setHours(mydate.getHours() + k);
 	// return mydate.format("yyyy-MM-dd hh:mm:ss");
   return mydate.format("yyyy-MM-dd hh:mm:ss");
 }
