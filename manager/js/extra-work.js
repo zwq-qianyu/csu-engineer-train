@@ -245,11 +245,12 @@ function getOverworkByTimeOrProName(){
     success: function(data) {
       if(data.status === 0){
         let data_arr = data.data;
+        var last_time = getGMThour(data_arr[i].overwork_time_end) - getGMThour(data_arr[i].overwork_time);
         html = '';
         for(let i=0; i<data_arr.length; i++){
-          html +=  '<tr><td>'+chGMT(data_arr[i].overwork_time)+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].pro_name+'</td><td>2h</td><td>'+data_arr[i].reason+'</td>';
+          html +=  '<tr><td>'+chGMT(data_arr[i].overwork_time)+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].pro_name+'</td><td>'+last_time+'</td><td>'+data_arr[i].reason+'</td>';
           // 编辑按钮
-          html += '<td><button class="btn btn-primary btn-sm" id="'+data_arr[i].overwork_id+'" tname='+data_arr[i].tname+' reason='+data_arr[i].reason+' begin='+data_arr[i].overwork_time+' pro_name='+data_arr[i].pro_name+' data-toggle="modal" data-target="#editTeacherHistoryModal" onclick="updateTeacherOverwork_init(this)">编辑</button>&emsp;';
+          html += '<td><button class="btn btn-primary btn-sm" id="'+data_arr[i].overwork_id+'" tname='+data_arr[i].tname+' reason='+data_arr[i].reason+' begin='+chGMT(data_arr[i].overwork_time)+' pro_name='+data_arr[i].pro_name+' last_time='+last_time+' data-toggle="modal" data-target="#editTeacherHistoryModal" onclick="updateTeacherOverwork_init(this)">编辑</button>&emsp;';
           // 删除按钮
           html += '<button class="btn btn-danger btn-sm" id="'+data_arr[i].overwork_id+'" onclick="deleteOverwork(this)">删除</button></td></tr>';
         }
@@ -268,12 +269,13 @@ function updateTeacherOverwork_init(obj){
   let tname = obj.getAttribute('tname');
   let reason = obj.getAttribute('reason');
   let pro_name = obj.getAttribute('pro_name');
+  let last_time = obj.getAttribute('last_time');
 
   $('#edit_history_overworkId').val(overworkId);
   $('#edit_history_start_time').val(begin);
   $('#edit_history_select_process').val(pro_name);
   $('#edit_history_select_teacher').val(tname);
-  $('#edit_history_last_time').val();
+  $('#edit_history_last_time').val(last_time);
   $('#edit_history_extraWork_reason').val(reason);
 }
 // 修改教师值班记录
