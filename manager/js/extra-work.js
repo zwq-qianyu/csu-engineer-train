@@ -52,6 +52,7 @@ function getAllGroup(){
         }
         $('#teacher_overwork_select_process').html(html);
         $('#history_select_process').html(html);
+        $('#edit_history_select_process').html(html);
         // 获取所有可以有加班管理权限的老师
         findOverworkPrivilegeTeachers();
         // 查询教师值班记录
@@ -92,6 +93,7 @@ function findOverworkPrivilegeTeachers(){
           html += '<option>'+data_arr[i].tname+'</option>';
         }
         $('#teacher_overwork_select_teacher').html(html);
+        $('#edit_history_select_teacher').html(html);
       }
     }
   });
