@@ -82,9 +82,11 @@ function getTeacherOverworkFromStudent(){
       console.log(data);
       if(data.status === 0){
         let data_arr = data.data;
+        var delta_time;
         html = '';
         for(let i=0; i<data_arr.length; i++){
-          html += '<li><p><a href="#">'+chGMT(data_arr[i].overwork_time)+'&emsp;&emsp;'+data_arr[i].pro_name+'&emsp;&emsp;'+data_arr[i].tname+'&emsp;&emsp;'+(chGMT(data_arr[i].overwork_time_end) - chGMT(data_arr[i].overwork_time))+'h </a></p></li>'
+          delta_time = getGMThour(data_arr[i].overwork_time_end) - getGMThour(data_arr[i].overwork_time)
+          html += '<li><p><a href="#">'+chGMT(data_arr[i].overwork_time)+'&emsp;&emsp;'+data_arr[i].pro_name+'&emsp;&emsp;'+data_arr[i].tname+'&emsp;&emsp;'+delta_time+'h </a></p></li>'
         }
         $('#zhiban_info ul').html(html);   //有数据了再打开这一行
       }
