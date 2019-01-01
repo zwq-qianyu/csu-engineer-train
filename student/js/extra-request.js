@@ -9,6 +9,8 @@ function init_data(){
   getAllGroup();
   // 展示值班信息初始化
   getTeacherOverworkFromStudent();
+  // 获取“我的申请”记录
+  getMyOverworkApply();
 }
 
 // 获取所有教师组
@@ -31,7 +33,7 @@ function getAllGroup(){
   });
 }
 
-// 新增开放申请【接口有问题，需要登录后测试】
+// 新增开放申请
 function addOverworkApply(){
   let begin = $('#request_start_time').val();
   let pro_name = $('#request_select_process').val();

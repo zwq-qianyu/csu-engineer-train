@@ -7,7 +7,7 @@ var base_url = 'http://134.175.152.210:8084';
 // 初始化数据
 function init_data(){
   // 获取所有工种
-  getAllProced();
+  // getAllProced();
   // 获取所有教师组
   getAllGroup();
   // 学生加班申请查询
@@ -28,7 +28,7 @@ function getAllProced(){
         for(let i=0; i<data_arr.length; i++){
           html += '<option>'+data_arr[i]+'</option>';
         }
-        $('#stu_extra_select_process').html(html);
+        // $('#stu_extra_select_process').html(html);
         // $('#teacher_overwork_select_process').html(html);
         // $('#history_select_process').html(html);
       }
@@ -53,6 +53,7 @@ function getAllGroup(){
         $('#teacher_overwork_select_process').html(html);
         $('#history_select_process').html(html);
         $('#edit_history_select_process').html(html);
+        $('#stu_extra_select_process').html(html);
         // 获取所有可以有加班管理权限的老师
         findOverworkPrivilegeTeachers();
         findOverworkPrivilegeTeachersEdit();
@@ -67,7 +68,6 @@ function getAllGroup(){
 $('#teacher_overwork_select_process').change(function(){
   findOverworkPrivilegeTeachers();
 })
-
 $('#edit_history_select_process').change(function(){
   findOverworkPrivilegeTeachersEdit();
 })
@@ -145,7 +145,7 @@ function getOverworkApplyByTime(){
   if(end_time === ""){
     end_time = "2999";
   }
-  if(process === "选择工种"){
+  if(process === "选择教师组"){
     process = "%";
   }
   $.ajax({

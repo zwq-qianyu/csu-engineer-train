@@ -9,7 +9,7 @@ function init_data(){
   // 判断物料和加班权限
   judge_extrawork_power();
   // 获取所有工种
-  getAllProced();
+  // getAllProced();
   // 获取所有教师组
   getAllGroup();
   // 学生开放申请查询
@@ -74,6 +74,7 @@ function getAllGroup(){
         $('#teacher_overwork_select_process').html(html);
         $('#history_select_process').html(html);
         $('#edit_history_select_process').html(html);
+        $('#stu_extra_select_process').html(html);
         // 获取所有可以有开放管理权限的老师
         findOverworkPrivilegeTeachers();
         findOverworkPrivilegeTeachersEdit();
@@ -165,7 +166,7 @@ function getOverworkApplyByTime(){
   if(end_time === ""){
     end_time = "2999";
   }
-  if(process === "选择工种"){
+  if(process === "选择教师组"){
     process = "%";
   }
   $.ajax({
