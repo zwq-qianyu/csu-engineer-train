@@ -100,6 +100,11 @@ function editWeight() {
 function createNewWeightTemp() {
     let name = $('#new_weight_temp_name').val();
 
+    if (name===''){
+        swal('请设置模板名字');
+        return;
+    }
+
     let weights = [];
     let names = [];
     let row_names = $('#new_weight_list_tbody tr').each(function () {
@@ -112,12 +117,23 @@ function createNewWeightTemp() {
 
     let postData = {};
 
+    let sumWeight=0;
     for (let i = 0; i < names.length; i++) {
-        postData[names[i]] = weights[i];
+        let weight=Number(weights[i]);
+        if(weight>0){
+            postData[names[i]] = weight/100;
+            sumWeight+=weight;
+        }
     }
 
-    // console.log(postData);
-
+    if(sumWeight!==100){
+        swal(
+            '权重设置错误',
+            '权重和不等于100%',
+            'error'
+        );
+        return;
+    }
 
     $.ajax({
         type: 'post',
@@ -127,6 +143,8 @@ function createNewWeightTemp() {
         contentType: 'application/json',
         success: function (data) {
             if (data.status === 0) {
+                //重新初始化权重模板选择
+                findAllTemplate();
                 swal(
                     '创建成功',
                     '创建权重模板成功',
@@ -135,7 +153,7 @@ function createNewWeightTemp() {
             } else {
                 swal(
                     '创建失败',
-                    '创建排课模版权重失败，请重试！',
+                    data.message,
                     'error'
                 );
             }
@@ -167,10 +185,21 @@ function submitWeight() {
     // console.log(weights);
     let template_name = $('#weight_select_templates1').val(); // 排课模版名
     var form_arr = {};
+    let sumWeight=0;
     for (let i = 0; i < names.length; i++) {
-        form_arr[names[i]] = Number(weights[i]) / 100;
+        let weight=Number(weights[i]);
+        form_arr[names[i]] = weight/ 100;
     }
-    console.log(form_arr);
+
+    if(sumWeight!==100){
+        swal(
+            '权重设置错误',
+            '权重和不等于100%',
+            'error'
+        );
+        return;
+    }
+
     $.ajax({
         type: 'post',
         url: base_url + '/proced/addTemplate?templateName=' + template_name,
@@ -272,6 +301,8 @@ function deleteTemplate() {
                                 '删除排课模版成功',
                                 'success'
                             );
+                            //清空表格
+                            $('#weight_edit_list').html('');
                             init_data();
                         } else {
                             swal(
