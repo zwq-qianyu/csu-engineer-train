@@ -90,7 +90,9 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<input type="button" class="btn btn-success col-xs-2 col-md-2" id="add-new-plan" data-toggle="modal" data-target="#weight-plan-add" value="添加新权重方案">
+						<input type="button" class="btn btn-success col-xs-2 col-md-2" id="add-new-plan"
+							   data-toggle="modal" data-target="#weight-plan-add" value="添加新权重方案"
+							   onclick="addTemplate()">
 						<div class="modal fade" id="weight-plan-add" tabindex="-1" role="dialog" aria-labelledby="weight-plan-addTitle" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
@@ -102,7 +104,8 @@
 									</div>
 									<div class="modal-body">
 
-										<input type="text" class="form-control col-xs-3" placeholder="请输入新权重方案名称">
+										<input type="text" id="new_weight_temp_name" class="form-control col-xs-3"
+											   placeholder="请输入新权重方案名称">
 										<table class="table col-xs-9">
 											<thead>
 												<tr>
@@ -110,27 +113,28 @@
 													<th>权重</th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody id="new_weight_list_tbody">
 												<tr>
 													<td>钳工</td>
-													<td><input type="text" name=""> %</td>
+													<td><input type="text" value="10"> %</td>
 												</tr>
 												<tr>
-													<td>钳工</td>
-													<td><input type="text" name=""> %</td>
+													<td>电工</td>
+													<td><input type="text" value="10"> %</td>
 												</tr>
 												<tr>
-													<td>钳工</td>
-													<td><input type="text" name=""> %</td>
+													<td>木工</td>
+													<td><input type="text" value="10"> %</td>
 												</tr>
-												<tr>
 											</tbody>
 										</table>
 										<br>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal" id="addNewPlan-close">关闭</button>
-										<button type="button" class="btn btn-primary" id="addNewPlan-ensure">确定</button>
+										<button type="button" class="btn btn-primary" id="addNewPlan-ensure"
+												onclick="createNewWeightTemp()">确定
+										</button>
 									</div>
 								</div>
 							</div>
