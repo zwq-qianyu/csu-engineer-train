@@ -100,12 +100,12 @@
 						<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
 						<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="开放结束时间" id="stu_extra_work_end_time">
 						<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype" id="stu_extra_select_process">
-							<option>选择工种</option>
-							<option>车工</option>
+							<option>选择教师组</option>
+							<!-- <option>车工</option>
 							<option>钳工</option>
-							<option>铣削</option>
+							<option>铣削</option> -->
 						</select>
-						<input type="button" name=""class="btn btn-success float-right" value="查询">
+                        <input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getOverworkApplyByTime();">
 					</div>
 
 					<table class="table">
