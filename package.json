@@ -1,0 +1,23 @@
+{
+  "name": "csu-engineer-train-front",
+  "version": "1.0.0",
+  "description": "### [教师端](http://gxxt.runtofuture.cn/teacher/teach-schedule.html)",
+  "main": "index.js",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zwq-qianyu/csu-engineer-train-front.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zwq-qianyu/csu-engineer-train-front/issues"
+  },
+  "homepage": "https://github.com/zwq-qianyu/csu-engineer-train-front#readme"
+}
