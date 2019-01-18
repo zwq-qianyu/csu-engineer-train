@@ -20,3 +20,7 @@ table {
 	justify-content: space-around;
 	align-items: center;
 }
+
+#template-tbody td:hover{
+	background-color: #eeeeee;
+}
