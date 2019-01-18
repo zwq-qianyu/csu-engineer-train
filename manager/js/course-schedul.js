@@ -15,10 +15,25 @@ function init_data() {
   updateTemplateSelector()
 }
 
-function addTemplates(data, callback) {
+function addTemplate(data, callback) {
   $.ajax({
     type: 'post',
     url: base_url + '/experiment/addTemplate',
+    dataType: 'json',
+    data: JSON.stringify(data),
+    contentType: "application/json; charset=utf-8",
+    success: function (data) {
+      if (data.status === 0) {
+        callback(data)
+      }
+    }
+  });
+}
+
+function modifyTemplate(data, callback) {
+  $.ajax({
+    type: 'post',
+    url: base_url + '/experiment/modifyTemplate',
     dataType: 'json',
     data: JSON.stringify(data),
     contentType: "application/json; charset=utf-8",
@@ -129,7 +144,7 @@ function set_template_head() {
   var $tr = $('<tr></tr>')
   $("<th></th>").appendTo($tr)
   for (var g of student_groups) {
-    $("<th></th>").text(g).appendTo($tr)
+    $("<th></th>").attr('s_group_id', g).text(g).appendTo($tr)
   }
   $tr.appendTo($head)
 }
@@ -161,10 +176,10 @@ function set_template_tbody() {
   for (var i = 1; i < modelData.length; i++) {
     var row = modelData[i]
     var $tr = $('<tr></tr>')
-    $('<td></td>').text(i).appendTo($tr)
+    $('<th></th>').attr('class-time-header', i).text(i).appendTo($tr)
     for (var j = 1; j < cols; j++) {
       var $td = $('<td></td>').attr('group', j).attr('class-time', i)
-      if (row[j] !== undefined)
+      if (row && row[j])
         $td.text('<' + row[j].t_group_id + ',' + row[j].pro_name + '>')
       $td.appendTo($tr)
     }
@@ -176,9 +191,11 @@ function sortSGroup() {
   console.log('sortSGroup')
   student_groups = []
   for (var g in currentTemplate) {
-    if (g === null) { }
-    else
+    if (g)
       student_groups.push(g)
+    // if (g === null) { }
+    // else
+    //   student_groups.push(g)
   }
   student_groups.sort()
   return student_groups
@@ -208,19 +225,17 @@ $('#new-template').click(function () {
       name = name.trim();
       if (name) {
         var data = [{ "template_id": name }]
-        addTemplates(data, function (data) {
+        addTemplate(data, function (data) {
           // console.log(data)
           swal('消息', '添加模板成功,请在下方编辑模板', 'success')
-          fetchAndUpdateTemplateTable()
+          updateTemplateSelector()
+          // fetchAndUpdateTemplateTable()
         })
       }
     } else
       console.log('cancel')
   });
 })
-
-
-
 
 
 
@@ -325,9 +340,9 @@ $('#add-student-group').click(function () {
 
 var clicktime = new Date()
 $('#template-tbody').on('click', 'td', function () {
-  console.log('#template-tbody : clicked')
+  console.log('#template-tbody td : clicked')
   if (!edit_mode) return;
-  var $td = $($(this)[0]);
+  var $td = $(this);
   var newClickTime = new Date();
 
   var $tempName = $('#template-selector').val();
@@ -359,6 +374,55 @@ $('#template-tbody').on('click', 'td', function () {
     }
     $td.text('<' + t_group_id + ',' + pro_name + '>')
   }
+});
+
+
+$('#template-table').on('click', 'th', function () {
+  console.log('#template-table th : clicked')
+
+  var newClickTime = new Date();
+  if (!edit_mode) return;
+  if (newClickTime - clicktime < 200) {
+    var s_group_id = $(this).attr('s_group_id')
+    var class_time_head = $(this).attr('class-time-header')
+    if (s_group_id) {
+      // console.log(s_group_id)
+      swal({
+        title: '删除学生分组' + s_group_id,
+        buttons: true,
+        dangerMode: true
+      }).then(function (ifTrue) {
+        if (ifTrue) {
+          delete currentTemplate[s_group_id]
+          modelData = []
+          setTimeout(() => {
+            updateTemplateTable()
+          }, 100);
+        }
+      });
+    } else if (class_time_head) {
+      // console.log(class_time_head)
+      swal({
+        title: '删除课时' + class_time_head,
+        buttons: true,
+        dangerMode: true
+      }).then(function (ifTrue) {
+        if (ifTrue) {
+          class_time_head = parseInt(class_time_head)
+          if (!_.isInteger(class_time_head)) return;
+          for (var g in currentTemplate) {
+            delete currentTemplate[g][class_time_head]
+          }
+          modelData = []
+          setTimeout(() => {
+            updateTemplateTable()
+          }, 100);
+        }
+      });
+    }
+  }
+
+  clicktime = newClickTime;
 });
 
 
@@ -438,10 +502,12 @@ function saveTemplate() {
             data.push(val)
         })
       })
-      console.log(data)
-      // addTemplates(data,function(res){ //todo 与后端调试 
-      //   console.log(res)
-      // })
+      modifyTemplate(data, function (res) { //todo 与后端调试 
+        console.log(res)
+        setTimeout(() => {
+          updateTemplateSelector()
+        }, 100);
+      })
     })
   }
 }
