@@ -95,60 +95,67 @@ $('#template-selector').change(function () {
 })
 
 var currentTemplate = {}
+var data_vector = []
 
 function fillCurrentTemplate(data) {
   currentTemplate = {}
   for (var i = 0; i < data.length; i++) {
     var d = data[i]
     if (d.s_group_id === null) continue;
-    if (currentTemplate[d.s_group_id] === undefined)
+    if (!currentTemplate[d.s_group_id])
       currentTemplate[d.s_group_id] = []
     currentTemplate[d.s_group_id][d.class_time] = d
   }
 }
 
-function set_template_head(group) {
+
+
+
+var student_groups = []
+
+function set_template_head() {
   var $head = $("#template-thead").empty();
   var content = []
   var $tr = $('<tr></tr>')
   $("<th></th>").appendTo($tr)
-  for (var g of group) {
+  for (var g of student_groups) {
     $("<th></th>").text(g).appendTo($tr)
   }
   $tr.appendTo($head)
 }
 
-function toMatrix(currentTemplate, group) {
-  var _groupMap = {}
-  var _data = []
+var modelData = []
 
-  group.forEach(function (elem, ind) {
+function toMatrix() {
+  var _groupMap = {}
+  modelData = _.map(modelData, function () { return [] })
+  student_groups.forEach(function (elem, ind) {
     _groupMap[elem] = ind + 1
   })
   for (var g in currentTemplate) {
     var a = currentTemplate[g]
     var gi = _groupMap[g]
     a.forEach(function (val, ind) {
-      if (_data[ind] === undefined) _data[ind] = []
-      _data[ind][gi] = val
+      if (modelData[ind] === undefined) modelData[ind] = []
+      modelData[ind][gi] = val
     })
   }
-  return _data
+  return modelData
 }
 
-function set_template_tbody(data) {
+function set_template_tbody() {
+  console.log('set_template_tbody')
   var $tbody = $("#template-tbody").empty();
-  if (data.length == 0) return;
-  var cols = _.maxBy(data, _.length).length
-
-  for (var i = 1; i < data.length; i++) {
-    var row = data[i]
+  if (modelData.length == 0) return;
+  var cols = student_groups.length + 1
+  for (var i = 1; i < modelData.length; i++) {
+    var row = modelData[i]
     var $tr = $('<tr></tr>')
     $('<td></td>').text(i).appendTo($tr)
     for (var j = 1; j < cols; j++) {
-      var $td = $('<td></td>')
+      var $td = $('<td></td>').attr('group', j).attr('class-time', i)
       if (row[j] !== undefined)
-        $td.text(row[j].pro_name)
+        $td.text('<' + row[j].t_group_id + ',' + row[j].pro_name + '>')
       $td.appendTo($tr)
     }
     $tr.appendTo($tbody)
@@ -156,24 +163,22 @@ function set_template_tbody(data) {
 }
 
 function sortSGroup() {
-  var groups = []
+  student_groups = []
   // console.log(currentTemplate)
   for (var g in currentTemplate) {
     if (g === null) { }
     else
-      groups.push(g)
+      student_groups.push(g)
   }
-  groups.sort()
-  return groups
+  student_groups.sort()
+  return student_groups
 }
 
-var modelData;
-
 function updateTemplateTable() {
-  groups = sortSGroup()
-  set_template_head(groups)
-  modelData = toMatrix(currentTemplate, groups)
-  set_template_tbody(modelData)
+  sortSGroup()
+  set_template_head()
+  toMatrix()
+  set_template_tbody()
 }
 
 // 新建模板
@@ -191,11 +196,11 @@ $('#new-template').click(function () {
     if (name) {
       // console.log(name)
       name = name.trim();
-      if(name){
+      if (name) {
         var data = [{ "template_id": name }]
-        addTemplates(data,function(data){
+        addTemplates(data, function (data) {
           // console.log(data)
-          swal('消息','添加模板成功,请在下方编辑模板','success')
+          swal('消息', '添加模板成功,请在下方编辑模板', 'success')
           fetchAndUpdateTemplateTable()
         })
       }
@@ -204,8 +209,11 @@ $('#new-template').click(function () {
   });
 })
 
+var edit_mode = false;
+
 $('#edit-template').click(function () {
-  update_selectors() // todo 点击表格项，对数据模型进行修改
+  edit_mode = true;
+  update_selectors()
   $('#edit-tool').show()
 })
 
@@ -220,8 +228,8 @@ function teacher_groups_change_handler() {
     return;
   if (!teacher_groups_proced[$teacher_group])
     setTimeout(teacher_groups_change_handler, 100)
-  _.forEach(teacher_groups_proced[$teacher_group], function (val) {
-    $('<option></option>').text(val).appendTo($procedSelector)
+  _.forEach(teacher_groups_proced[$teacher_group], function (val, i) {
+    $('<option></option>').text(val).attr('i_proced', i).appendTo($procedSelector)
   })
 }
 
@@ -232,8 +240,8 @@ function update_selectors() {
   $('#teacher-selector').empty();
   getAllTeacherGroup(function (datas) {
     // console.log(datas)
-    _.forEach(datas, function (data) {
-      $('<option></option>').text(data.t_group_id).appendTo($teacherGroupSelector)
+    _.forEach(datas, function (data, i) {
+      $('<option></option>').text(data.t_group_id).attr('i_teachergroup', i).appendTo($teacherGroupSelector)
       getProcedByGroup(data.t_group_id, function (datas) {
         teacher_groups_proced[data.t_group_id] = datas
       })
@@ -273,30 +281,97 @@ function getProcedByGroup(t_group_id, callback) {
   });
 }
 
-$('#add-student-group').click(function () { // todo
+$('#add-student-group').click(function () {
+  console.log("$('#add-student-group').click")
   // currentTemplate.push
+  swal({
+    content: {
+      element: "input",
+      attributes: {
+        placeholder: "输入新分组名",
+      },
+    },
+    buttons: true
+  }).then(function (name) {
+    if (name) {
+      console.log(name)
+      name = name.trim();
+      if (name) {
+        if (!currentTemplate[name]) {
+          currentTemplate[name] = []
+        }
+        updateTemplateTable()
+      }
+    } else
+      console.log('cancel')
+  });
 })
 
+
+var clicktime = new Date()
+$('#template-tbody').on('click', 'td', function () {
+  console.log('#template-tbody : clicked')
+  if (!edit_mode) return;
+  var $td = $($(this)[0]);
+  var newClickTime = new Date();
+
+  var $tempName = $('#template-selector').val();
+  var i_t_group_id = parseInt($('#teacher-selector option:selected').attr('i_teachergroup'));
+  var t_group_id = teacher_groups[i_t_group_id].t_group_id;
+  var i_pro_name = parseInt($('#proced-selector option:selected').attr('i_proced'));
+  console.log(i_pro_name)
+  var pro_name = teacher_groups_proced[t_group_id][i_pro_name]
+  console.log(pro_name)
+  if (!t_group_id || !$tempName || !pro_name) return;
+  var i_group = parseInt($td.attr('group'))
+  var i_class_time = parseInt($td.attr('class-time'))
+  if (!i_group || !i_class_time) return;
+  var s_group_id = student_groups[i_group - 1]
+
+  if (newClickTime - clicktime < 200) {
+    $td.empty();
+    clicktime = newClickTime;
+    currentTemplate[s_group_id][i_class_time] = null;
+    return;
+  } else {
+    clicktime = newClickTime;
+    currentTemplate[s_group_id][i_class_time] = {
+      template_id: $tempName,
+      t_group_id: t_group_id,
+      s_group_id: s_group_id,
+      pro_name: pro_name
+    }
+    $td.text('<' + t_group_id + ',' + pro_name + '>')
+  }
+});
+
 $('#add-class-time').click(function () {
+  console.log()
+  var new_class_time = modelData.length;
   swal({
-    title: "Are you sure?",
-    text: "Once deleted, you will not be able to recover this imaginary file!",
-    icon: "warning",
+    title: "请确认?",
+    text: "将添加课时" + new_class_time + "，确定吗?",
+    icon: "info",
     buttons: true,
     dangerMode: true,
-  })
-    .then((willDelete) => {
-      console.log(willDelete)
-    });
-  // modelData.
+  }).then((ifAdd) => {
+    console.log(ifAdd)
+    if (ifAdd) {
+      modelData.push([])
+      updateTemplateTable()
+    } else
+      console.log('cancel')
+  });
 })
 
 $('#save-template').click(saveTemplate)
 
 function saveTemplate() { // todo 将数据模型打包给 addTemplate
   // addTemplate()
+  edit_mode = false;
   $('#edit-tool').hide()
 }
+
 
 $('#delete-template').click(deleteTemplate)
 
@@ -307,8 +382,8 @@ function deleteTemplate() {
     title: '确定删除吗？',
     text: '确定删除吗？你将无法恢复它！',
     icon: 'warning',
-    buttons:true,
-    dangerMode:true
+    buttons: true,
+    dangerMode: true
   }).then(ifTrue => {
     if (ifTrue) {
       console.log(ifTrue)

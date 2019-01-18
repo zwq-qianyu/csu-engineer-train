@@ -11,9 +11,10 @@
 	margin-left: 0px;
 }
 
-table {
+/* .table {
+	max-width: 95%;
 	margin: 30px;
-}
+} */
 
 .new-scheduleName-row {
 	display: flex;

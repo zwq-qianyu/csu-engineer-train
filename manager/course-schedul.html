@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
+
 <head>
 	<meta charset="utf-8">
 	<title>管理员界面</title>
@@ -12,13 +13,14 @@
 	<link rel="stylesheet" type="text/css" href="./css/aside.css">
 	<link rel="stylesheet" type="text/css" href="./css/header.css">
 	<link rel="stylesheet" type="text/css" href="./css/course-schedul.css">
-	<link rel="shortcut icon" href="../img/fav.png"/>
+	<link rel="shortcut icon" href="../img/fav.png" />
 	<!-- sweetalert2 -->
 	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
 	<!-- <script async type="text/javascript" src="../js/sweetalert2.js"></script> -->
 	<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 	<!-- sweetalert2结束 -->
 </head>
+
 <body>
 	<header>
 		<!-- <iframe src="./header.html" width="100%" height="120px;" frameborder="no"></iframe> -->
@@ -27,7 +29,7 @@
 				<a href=""><img src="../img/logo.svg" alt="图标" id="main-icon"></a>
 				<span id="nav-name">中南大学工程训练中心教学管理系统--管理端</span>
 			</div>
-			<a class="btn btn-default get-out" onclick="logout()"><img src="./img/out.svg" class="out-icon">退  出</a>
+			<a class="btn btn-default get-out" onclick="logout()"><img src="./img/out.svg" class="out-icon">退 出</a>
 		</nav>
 	</header>
 	<!-- 面包屑导航 -->
@@ -138,8 +140,10 @@
 						<div>&nbsp;</div>
 
 						<div class="row operate" id="edit-tool" style="display:none">
+							<span class="">教师组：</span>
 							<select class="form-control custom-select col-3" id="teacher-selector">
 							</select>
+							<span class="">工序：</span>
 							<select class="form-control custom-select col-3" id="proced-selector">
 							</select>
 							<button class="btn btn-sm btn-success" id="add-student-group">添加组</button>
@@ -147,36 +151,43 @@
 						</div>
 					</div>
 					<!-- 操作区域结束 -->
-					
+
 					<!-- table区域 -->
-					<table class="table" id="template-table">
-						<thead id="template-thead">
-							<!-- <tr>
-								<th></th>
-								<th>A</th>
-								<th>B</th>
-								<th>C</th>
-								<th>D</th>
-							</tr> -->
-						</thead>
-						<tbody id="template-tbody">
-							<!-- <tr>
-								<td>1</td>
-								<td>钳工</td>
-								<td>车工</td>
-								<td>铣削</td>
-								<td>磨砂</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>车工</td>
-								<td>铣削</td>
-								<td>磨砂</td>
-								<td>钳工</td>
-							</tr> -->
-						</tbody>
-					</table>
-					<!-- table区域结束 -->
+					<div>
+						<table class="table table-bordered" id="template-table">
+							<thead id="template-thead">
+								<!-- <tr>
+									<th></th>
+									<th>A</th>
+									<th>B</th>
+									<th>C</th>
+									<th>D</th>
+								</tr> -->
+							</thead>
+							<tbody id="template-tbody">
+								<!-- <tr>
+									<td>1</td>
+									<td>钳工</td>
+									<td>车工</td>
+									<td>铣削</td>
+									<td>磨砂</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>车工</td>
+									<td>铣削</td>
+									<td>磨砂</td>
+									<td>钳工</td>
+								</tr> -->
+							</tbody>
+						</table>
+						<!-- table区域结束 -->
+						<ul class="list-group border">
+							<li class="list-group-item active">编辑说明</li>
+							<li class="list-group-item">选择教师组和工序，点击表格项即可填入，双击可以删除</li>
+						</ul>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -184,7 +195,9 @@
 	<!-- 主体部分结束 -->
 
 	<script src="../js/lodash.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+	<script src="../js/sweetalert.min.js"></script>
 	<script type="text/javascript" src="./js/course-schedul.js"></script>
 </body>
+
 </html>
