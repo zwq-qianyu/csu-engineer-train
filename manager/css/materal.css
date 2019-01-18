@@ -17,13 +17,13 @@
 	text-align: center;
 }
 
-.select-person {
-	margin-left: 25px;
-}
+/*.select-person {*/
+	/*margin-left: 25px;*/
+/*}*/
 
-.float-right {
-	margin-left: 100px;
-}
+/*.float-right {*/
+	/*margin-left: 100px;*/
+/*}*/
 
 .left-flatpickr {
 	margin-left: 20px;
@@ -63,4 +63,11 @@ th, td {
 
 .fa-plus-square-o {
 	cursor: pointer;
+}
+
+.clearfix{
+	clear: both;
+}
+.right{
+	float: right;
 }
