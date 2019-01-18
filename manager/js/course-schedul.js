@@ -30,12 +30,16 @@ function addTemplates(data, callback) {
   });
 }
 
+var templates = []
+
 function updateTemplateSelector() {
   console.log('updateTemplateSelector')
   getAllTemplates(function (data) {
     var $alltemplates = $('#template-selector').empty()
-    _.forEach(data, function (d) {
-      $("<option></option>").text(d).appendTo($alltemplates)
+    // console.log(data)
+    templates = data;
+    _.forEach(data, function (d, i) {
+      $("<option></option>").text(d).attr('i_template', i).appendTo($alltemplates)
     })
     fetchAndUpdateTemplateTable()
   })
@@ -59,9 +63,8 @@ function getAllTemplates(callback) {
 }
 
 // 获取模板数据
-function getTemplate(callback) {
+function getTemplate(temp_id, callback) {
   console.log('getTemplate')
-  var temp_id = $('#template-selector').val()
   if (temp_id === null) return
   // console.log(temp_id)
   var data = { template_id: temp_id };
@@ -82,7 +85,11 @@ function getTemplate(callback) {
 
 function fetchAndUpdateTemplateTable() {
   console.log('updateTemplateTable')
-  getTemplate(function (data) {
+  var i_temp = parseInt($('#template-selector :selected').attr('i_template'))
+  console.log(i_temp)
+  var temp_id = templates[i_temp]
+  console.log(temp_id)
+  getTemplate(temp_id, function (data) {
     fillCurrentTemplate(data)
     updateTemplateTable(data)
   })
@@ -91,11 +98,19 @@ function fetchAndUpdateTemplateTable() {
 // 切换模版时
 $('#template-selector').change(function () {
   console.log('allTemplates change')
+  modelData = []
   fetchAndUpdateTemplateTable()
 })
 
+
+
 var currentTemplate = {}
-var data_vector = []
+// var data_vector = []
+var modelData = []
+var student_groups = []
+
+
+
 
 function fillCurrentTemplate(data) {
   currentTemplate = {}
@@ -109,13 +124,8 @@ function fillCurrentTemplate(data) {
 }
 
 
-
-
-var student_groups = []
-
 function set_template_head() {
   var $head = $("#template-thead").empty();
-  var content = []
   var $tr = $('<tr></tr>')
   $("<th></th>").appendTo($tr)
   for (var g of student_groups) {
@@ -124,7 +134,7 @@ function set_template_head() {
   $tr.appendTo($head)
 }
 
-var modelData = []
+
 
 function toMatrix() {
   var _groupMap = {}
@@ -136,7 +146,7 @@ function toMatrix() {
     var a = currentTemplate[g]
     var gi = _groupMap[g]
     a.forEach(function (val, ind) {
-      if (modelData[ind] === undefined) modelData[ind] = []
+      if (!modelData[ind]) modelData[ind] = []
       modelData[ind][gi] = val
     })
   }
@@ -163,8 +173,8 @@ function set_template_tbody() {
 }
 
 function sortSGroup() {
+  console.log('sortSGroup')
   student_groups = []
-  // console.log(currentTemplate)
   for (var g in currentTemplate) {
     if (g === null) { }
     else
@@ -208,6 +218,11 @@ $('#new-template').click(function () {
       console.log('cancel')
   });
 })
+
+
+
+
+
 
 var edit_mode = false;
 
@@ -339,21 +354,59 @@ $('#template-tbody').on('click', 'td', function () {
       template_id: $tempName,
       t_group_id: t_group_id,
       s_group_id: s_group_id,
-      pro_name: pro_name
+      pro_name: pro_name,
+      class_time: i_class_time
     }
     $td.text('<' + t_group_id + ',' + pro_name + '>')
   }
 });
 
+
+
+$(document).keydown(function (event) {
+  if (edit_mode) {
+    var key = event.originalEvent.key;
+    // console.log(key)
+    var teacher_selector = $('#teacher-selector')
+    var proced_selector = $('#proced-selector')
+
+    var teacher_selector_raw = teacher_selector.get(0);
+    var proced_selector_raw = proced_selector.get(0);
+    var p_indx = proced_selector_raw.selectedIndex;
+    var t_ind = teacher_selector_raw.selectedIndex;
+    console.log(p_indx + ',' + t_ind)
+    var t_maxindx = teacher_selector.children().length - 1;
+    var p_maxindx = proced_selector.children().length - 1;
+    if (key == 'q' || key == 'Q') {
+      teacher_selector_raw.selectedIndex = t_ind - 1 < 0 ? t_maxindx : t_ind - 1;
+      teacher_selector.change()
+    } else if (key == 'e' || key == 'E') {
+      teacher_selector_raw.selectedIndex = t_ind + 1 > t_maxindx ? 0 : t_ind + 1;
+      teacher_selector.change()
+    } else if (key == 'a' || key == 'A') {
+      proced_selector_raw.selectedIndex = p_indx - 1 < 0 ? p_maxindx : p_indx - 1;
+    } else if (key == 'D' || key == 'd') {
+      proced_selector_raw.selectedIndex = p_indx + 1 > p_maxindx ? 0 : p_indx + 1;
+    }
+  } else return;
+})
+
+
+
+
+
 $('#add-class-time').click(function () {
   console.log()
   var new_class_time = modelData.length;
+  if (new_class_time == 0) {
+    modelData.push([])
+    new_class_time++;
+  }
   swal({
     title: "请确认?",
     text: "将添加课时" + new_class_time + "，确定吗?",
     icon: "info",
     buttons: true,
-    dangerMode: true,
   }).then((ifAdd) => {
     console.log(ifAdd)
     if (ifAdd) {
@@ -366,12 +419,32 @@ $('#add-class-time').click(function () {
 
 $('#save-template').click(saveTemplate)
 
-function saveTemplate() { // todo 将数据模型打包给 addTemplate
-  // addTemplate()
-  edit_mode = false;
-  $('#edit-tool').hide()
-}
+function saveTemplate() {
+  if (edit_mode) {
+    edit_mode = false;
+    swal({
+      title: '确定保存吗？',
+      // text: '确定删除吗？你将无法恢复它！',
+      icon: 'info',
+      buttons: true,
+      dangerMode: true
+    }).then(ifTrue => {
 
+      $('#edit-tool').hide()
+      var data = []
+      _.each(currentTemplate, function (group_data, i, arr) {
+        _.each(group_data, function (val) {
+          if (val)
+            data.push(val)
+        })
+      })
+      console.log(data)
+      // addTemplates(data,function(res){ //todo 与后端调试 
+      //   console.log(res)
+      // })
+    })
+  }
+}
 
 $('#delete-template').click(deleteTemplate)
 
@@ -424,9 +497,7 @@ function deleteTemplate() {
           );
         }
       });
-      console.log(result.value)
     } else {
-      console.log(result.dismiss)
     }
   })
 }
