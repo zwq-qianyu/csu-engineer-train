@@ -10,8 +10,8 @@ function init_data(){
   // getAllProced();
   // 获取所有教师组
   getAllGroup();
-  // 学生加班申请查询
-  getOverworkApplyByTime();
+  // // 学生加班申请查询
+  // getOverworkApplyByTime();
 }
 
 // 获取所有工种
@@ -59,6 +59,8 @@ function getAllGroup(){
         findOverworkPrivilegeTeachersEdit();
         // 查询教师值班记录
         getOverworkByTimeOrProName();
+        // 学生加班申请查询
+        getOverworkApplyByTime();
       }
     }
   });

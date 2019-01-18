@@ -12,8 +12,8 @@ function init_data(){
   // getAllProced();
   // 获取所有教师组
   getAllGroup();
-  // 学生开放申请查询
-  getOverworkApplyByTime();
+  // // 学生开放申请查询
+  // getOverworkApplyByTime();
 }
 
 // 判断加班权限
@@ -36,26 +36,26 @@ function judge_extrawork_power(){
 }
 
 // 获取所有工种
-function getAllProced(){
-  $.ajax({
-    type: 'post',
-    url: base_url + '/proced/getAllProced',
-    datatype: 'json',
-    data: {},
-    success: function(data){
-      if(data.status === 0){
-        let data_arr = data.data;
-        let html = '<option>选择工种</option>';
-        for(let i=0; i<data_arr.length; i++){
-          html += '<option>'+data_arr[i]+'</option>';
-        }
-        $('#stu_extra_select_process').html(html);
-        // $('#teacher_overwork_select_process').html(html);
-        // $('#history_select_process').html(html);
-      }
-    }
-  });
-}
+// function getAllProced(){
+//   $.ajax({
+//     type: 'post',
+//     url: base_url + '/proced/getAllProced',
+//     datatype: 'json',
+//     data: {},
+//     success: function(data){
+//       if(data.status === 0){
+//         let data_arr = data.data;
+//         let html = '<option>选择工种</option>';
+//         for(let i=0; i<data_arr.length; i++){
+//           html += '<option>'+data_arr[i]+'</option>';
+//         }
+//         // $('#stu_extra_select_process').html(html);
+//         // $('#teacher_overwork_select_process').html(html);
+//         // $('#history_select_process').html(html);
+//       }
+//     }
+//   });
+// }
 
 // 获取所有教师组
 function getAllGroup(){
@@ -80,6 +80,8 @@ function getAllGroup(){
         findOverworkPrivilegeTeachersEdit();
         // 查询教师值班记录
         getOverworkByTimeOrProName();
+        // 学生开放申请查询
+        getOverworkApplyByTime();
       }
     }
   });

@@ -188,8 +188,11 @@ function submitWeight() {
     let sumWeight=0;
     for (let i = 0; i < names.length; i++) {
         let weight=Number(weights[i]);
+        sumWeight+=weight;
         form_arr[names[i]] = weight/ 100;
     }
+
+    console.log(sumWeight);
 
     if(sumWeight!==100){
         swal(
