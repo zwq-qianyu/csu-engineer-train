@@ -16,8 +16,6 @@
 	<link rel="shortcut icon" href="../img/fav.png" />
 	<!-- sweetalert2 -->
 	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
-	<!-- <script async type="text/javascript" src="../js/sweetalert2.js"></script> -->
-	<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 	<!-- sweetalert2结束 -->
 </head>
 
@@ -126,16 +124,17 @@
 							</div>
 						</div> -->
 						<div class="row operate">
-							<select class="form-control custom-select col-xs-5 col-sm-5" id="template-selector">
+							<span>选择模板:</span>
+							 <select class="form-control custom-select col-4" id="template-selector">
 								<!-- <option>排课模版A</option>
 								<option>排课模版B</option>
 								<option>排课模版C</option>
 								<option>排课模版D</option> -->
 							</select>
-							<button class="btn btn-sm btn-info" id="new-template">新建</button>
-							<button class="btn btn-sm btn-success" id="edit-template">编辑</button>
-							<button class="btn btn-sm btn-primary" id="save-template">保存</button>
-							<button class="btn btn-sm btn-danger" id="delete-template">删除</button>
+							<button class="btn  btn-info" id="new-template">新建</button>
+							<button class="btn  btn-success" id="edit-template">编辑</button>
+							<button class="btn  btn-primary" id="save-template">保存</button>
+							<button class="btn  btn-danger" id="delete-template">删除</button>
 						</div>
 						<div>&nbsp;</div>
 
@@ -146,8 +145,8 @@
 							<span class="">工序：</span>
 							<select class="form-control custom-select col-3" id="proced-selector">
 							</select>
-							<button class="btn btn-sm btn-success" id="add-student-group">添加组</button>
-							<button class="btn btn-sm btn-primary" id="add-class-time">添加课时</button>
+							<button class="btn  btn-success" id="add-student-group">添加组</button>
+							<button class="btn  btn-primary" id="add-class-time">添加课时</button>
 						</div>
 					</div>
 					<!-- 操作区域结束 -->
@@ -185,7 +184,7 @@
 						<!-- table区域结束 -->
 						<ul class="list-group border">
 							<li class="list-group-item active">编辑说明</li>
-							<li class="list-group-item">选择教师组和工序，点击表格项即可填入，双击可以删除</li>
+							<li class="list-group-item">选择教师组和工序，点击表格项即可填入，双击表格项可以删除，双击表头可以删除整行整列</li>
 							<li class="list-group-item">更进一步，你可以使用快捷键 <key>q</key> 和 <key>e</key> 更改教师组，使用 <key>a</key> 和 <key>d</key> 更改工序</li>
 						</ul>
 					</div>
@@ -196,9 +195,12 @@
 	</div>
 	<!-- 主体部分结束 -->
 
+	<script src="../config/common_config.js"></script>
 	<script src="../js/lodash.min.js"></script>
 	<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 	<script src="../js/sweetalert.min.js"></script>
+	<script src="./js/api/api_template.js"></script>
+	<script src="./js/api/api_teacher.js"></script>
 	<script type="text/javascript" src="./js/course-schedul.js"></script>
 </body>
 

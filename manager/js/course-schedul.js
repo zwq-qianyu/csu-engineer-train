@@ -1,57 +1,121 @@
-// window.onload = function(){
-//   init_data();
-// };
 $(document).ready(function () {
   init_data()
 })
 
-
-var base_url = 'http://134.175.152.210:8084';
+// var base_url = 'http://134.175.152.210:8084';
 
 // 初始化页面数据
 function init_data() {
   // 获取所有模版并渲染
-  console.log('init')
+  // console.log('init')
   updateTemplateSelector()
 }
 
-function addTemplate(data, callback) {
-  $.ajax({
-    type: 'post',
-    url: base_url + '/experiment/addTemplate',
-    dataType: 'json',
-    data: JSON.stringify(data),
-    contentType: "application/json; charset=utf-8",
-    success: function (data) {
-      if (data.status === 0) {
-        callback(data)
-      }
-    }
-  });
-}
+// function addTemplate(data, callback) {
+//   $.ajax({
+//     type: 'post',
+//     url: base_url + '/experiment/addTemplate',
+//     dataType: 'json',
+//     data: JSON.stringify(data),
+//     contentType: "application/json; charset=utf-8",
+//     success: function (data) {
+//       if (data.status === 0) {
+//         callback(data)
+//       }
+//     }
+//   });
+// }
 
-function modifyTemplate(data, callback) {
-  $.ajax({
-    type: 'post',
-    url: base_url + '/experiment/modifyTemplate',
-    dataType: 'json',
-    data: JSON.stringify(data),
-    contentType: "application/json; charset=utf-8",
-    success: function (data) {
-      if (data.status === 0) {
-        callback(data)
-      }
-    }
-  });
-}
+// function modifyTemplate(data, callback) {
+//   $.ajax({
+//     type: 'post',
+//     url: base_url + '/experiment/modifyTemplate',
+//     dataType: 'json',
+//     data: JSON.stringify(data),
+//     contentType: "application/json; charset=utf-8",
+//     success: function (data) {
+//       if (data.status === 0) {
+//         callback(data)
+//       }
+//     }
+//   });
+// }
+
+
+// // 获取所有模版名
+// function getAllTemplates(callback) {
+//('getAllTemplates')
+//   $.ajax({
+//     type: 'post',
+//     url: base_url + '/experiment/getAllTemplate',
+//     dataType: 'json',
+//     contentType: "application/json; charset=utf-8",
+//     data: {},
+//     success: function (data) {
+//       if (data.status === 0) {
+//         callback(data.data)
+//       }
+//     }
+//   });
+// }
+
+// // 获取模板数据
+// function getTemplate(temp_id, callback) {
+//('getTemplate')
+//   if (temp_id === null) return
+//(temp_id)
+//   var data = { template_id: temp_id };
+//   $.ajax({
+//     type: 'post',
+//     url: base_url + '/experiment/getTemplate',
+//     dataType: 'json',
+//     data: data,
+//     success: function (data) {
+//       if (data.status === 0) {
+//(data)
+//         callback(data)
+//       }
+//     }
+//   });
+// }
+
+// function getAllTeacherGroup(callback) {
+//   $.ajax({
+//     type: 'post',
+//     url: base_url + '/group/getAllGroup',
+//     data: {},
+//     datatype: 'json',
+//     success: function (data) {
+//       if (data.status === 0) {
+//(data.data)
+//         callback(data) 
+//       }
+//     }
+//   });
+// }
+
+// function getProcedByGroup(t_group_id, callback) {
+//   $.ajax({
+//     type: 'post',
+//     url: base_url + '/group/getProcedByGroup',
+//     data: { 'groupName': t_group_id },
+//     datatype: 'json',
+//     success: function (data) {
+//       if (data.status === 0) {
+//(data)
+//         callback(data);
+//       }
+//     }
+//   });
+// }
 
 var templates = []
 
 function updateTemplateSelector() {
-  console.log('updateTemplateSelector')
-  getAllTemplates(function (data) {
+  // console.log('updateTemplateSelector')
+  api_template.getAllTemplates(function (data) {
     var $alltemplates = $('#template-selector').empty()
-    // console.log(data)
+    //(data)
     templates = data;
     _.forEach(data, function (d, i) {
       $("<option></option>").text(d).attr('i_template', i).appendTo($alltemplates)
@@ -60,51 +124,15 @@ function updateTemplateSelector() {
   })
 }
 
-// 获取所有模版名
-function getAllTemplates(callback) {
-  console.log('getAllTemplates')
-  $.ajax({
-    type: 'post',
-    url: base_url + '/experiment/getAllTemplate',
-    dataType: 'json',
-    contentType: "application/json; charset=utf-8",
-    data: {},
-    success: function (data) {
-      if (data.status === 0) {
-        callback(data.data)
-      }
-    }
-  });
-}
-
-// 获取模板数据
-function getTemplate(temp_id, callback) {
-  console.log('getTemplate')
-  if (temp_id === null) return
-  // console.log(temp_id)
-  var data = { template_id: temp_id };
-  $.ajax({
-    type: 'post',
-    url: base_url + '/experiment/getTemplate',
-    dataType: 'json',
-    data: data,
-    success: function (data) {
-      if (data.status === 0) {
-        // console.log(data)
-        callback(data.data)
-      }
-    }
-  });
-}
-
 
 function fetchAndUpdateTemplateTable() {
-  console.log('updateTemplateTable')
+  // console.log('updateTemplateTable')
   var i_temp = parseInt($('#template-selector :selected').attr('i_template'))
-  console.log(i_temp)
+  // console.log(i_temp)
   var temp_id = templates[i_temp]
-  console.log(temp_id)
-  getTemplate(temp_id, function (data) {
+  // console.log(temp_id)
+  api_template.getTemplate(temp_id, function (data) {
+    data = data.data
     fillCurrentTemplate(data)
     updateTemplateTable(data)
   })
@@ -112,7 +140,7 @@ function fetchAndUpdateTemplateTable() {
 
 // 切换模版时
 $('#template-selector').change(function () {
-  console.log('allTemplates change')
+  // console.log('allTemplates change')
   modelData = []
   fetchAndUpdateTemplateTable()
 })
@@ -120,7 +148,6 @@ $('#template-selector').change(function () {
 
 
 var currentTemplate = {}
-// var data_vector = []
 var modelData = []
 var student_groups = []
 
@@ -149,8 +176,6 @@ function set_template_head() {
   $tr.appendTo($head)
 }
 
-
-
 function toMatrix() {
   var _groupMap = {}
   modelData = _.map(modelData, function () { return [] })
@@ -169,7 +194,7 @@ function toMatrix() {
 }
 
 function set_template_tbody() {
-  console.log('set_template_tbody')
+  // console.log('set_template_tbody')
   var $tbody = $("#template-tbody").empty();
   if (modelData.length == 0) return;
   var cols = student_groups.length + 1
@@ -188,7 +213,7 @@ function set_template_tbody() {
 }
 
 function sortSGroup() {
-  console.log('sortSGroup')
+  // console.log('sortSGroup')
   student_groups = []
   for (var g in currentTemplate) {
     if (g)
@@ -219,32 +244,40 @@ $('#new-template').click(function () {
     },
     buttons: true
   }).then(function (name) {
-    // console.log(w)
+    //(w)
     if (name) {
-      // console.log(name)
+      //(name)
       name = name.trim();
       if (name) {
         var data = [{ "template_id": name }]
-        addTemplate(data, function (data) {
-          // console.log(data)
+        api_template.addTemplate(data, function (data) {
+          //(data)
           swal('消息', '添加模板成功,请在下方编辑模板', 'success')
           updateTemplateSelector()
           // fetchAndUpdateTemplateTable()
         })
       }
-    } else
-      console.log('cancel')
+    } else {
+      // console.log('cancel')
+    }
   });
 })
 
 
-
 var edit_mode = false;
-
-$('#edit-template').click(function () {
-  edit_mode = true;
-  update_selectors()
-  $('#edit-tool').show()
+var $edit_template_button = $('#edit-template')
+$edit_template_button.text('编辑off')
+$edit_template_button.click(function () {
+  if (edit_mode) {
+    edit_mode = false;
+    $edit_template_button.text('编辑off')
+    $('#edit-tool').hide()
+  } else {
+    edit_mode = true;
+    $edit_template_button.text('编辑on')
+    update_edit_selectors()
+    $('#edit-tool').show()
+  }
 })
 
 var teacher_groups = []
@@ -263,56 +296,27 @@ function teacher_groups_change_handler() {
   })
 }
 
-function update_selectors() {
+function update_edit_selectors() {
   teacher_groups = []
   teacher_groups_proced = {}
   var $teacherGroupSelector = $('#teacher-selector').empty();
   $('#teacher-selector').empty();
-  getAllTeacherGroup(function (datas) {
-    // console.log(datas)
-    _.forEach(datas, function (data, i) {
-      $('<option></option>').text(data.t_group_id).attr('i_teachergroup', i).appendTo($teacherGroupSelector)
-      getProcedByGroup(data.t_group_id, function (datas) {
-        teacher_groups_proced[data.t_group_id] = datas
+  api_teacher.getAllTeacherGroup(function (data) {
+    //(datas)
+    teacher_groups = data.data
+    _.forEach(teacher_groups, function (val, i) {
+      $('<option></option>').text(val.t_group_id).attr('i_teachergroup', i).appendTo($teacherGroupSelector)
+      api_teacher.getProcedByGroup(val.t_group_id, function (data) {
+        teacher_groups_proced[val.t_group_id] = data.data
       })
     });
     teacher_groups_change_handler();
   });
 }
 
-function getAllTeacherGroup(callback) {
-  $.ajax({
-    type: 'post',
-    url: base_url + '/group/getAllGroup',
-    data: {},
-    datatype: 'json',
-    success: function (data) {
-      if (data.status === 0) {
-        // console.log(data.data)
-        teacher_groups = data.data || [];
-        callback(teacher_groups)
-      }
-    }
-  });
-}
-
-function getProcedByGroup(t_group_id, callback) {
-  $.ajax({
-    type: 'post',
-    url: base_url + '/group/getProcedByGroup',
-    data: { 'groupName': t_group_id },
-    datatype: 'json',
-    success: function (data) {
-      if (data.status === 0) {
-        // console.log(data)
-        callback(data.data);
-      }
-    }
-  });
-}
 
 $('#add-student-group').click(function () {
-  console.log("$('#add-student-group').click")
+  // console.log("$('#add-student-group').click")
   // currentTemplate.push
   swal({
     content: {
@@ -324,7 +328,7 @@ $('#add-student-group').click(function () {
     buttons: true
   }).then(function (name) {
     if (name) {
-      console.log(name)
+      // console.log(name)
       name = name.trim();
       if (name) {
         if (!currentTemplate[name]) {
@@ -332,15 +336,16 @@ $('#add-student-group').click(function () {
         }
         updateTemplateTable()
       }
-    } else
-      console.log('cancel')
+    } else {
+      // console.log('cancel')
+    }
   });
 })
 
 
 var clicktime = new Date()
 $('#template-tbody').on('click', 'td', function () {
-  console.log('#template-tbody td : clicked')
+  // console.log('#template-tbody td : clicked')
   if (!edit_mode) return;
   var $td = $(this);
   var newClickTime = new Date();
@@ -349,9 +354,9 @@ $('#template-tbody').on('click', 'td', function () {
   var i_t_group_id = parseInt($('#teacher-selector option:selected').attr('i_teachergroup'));
   var t_group_id = teacher_groups[i_t_group_id].t_group_id;
   var i_pro_name = parseInt($('#proced-selector option:selected').attr('i_proced'));
-  console.log(i_pro_name)
+  // console.log(i_pro_name)
   var pro_name = teacher_groups_proced[t_group_id][i_pro_name]
-  console.log(pro_name)
+  // console.log(pro_name)
   if (!t_group_id || !$tempName || !pro_name) return;
   var i_group = parseInt($td.attr('group'))
   var i_class_time = parseInt($td.attr('class-time'))
@@ -378,7 +383,7 @@ $('#template-tbody').on('click', 'td', function () {
 
 
 $('#template-table').on('click', 'th', function () {
-  console.log('#template-table th : clicked')
+  // console.log('#template-table th : clicked')
 
   var newClickTime = new Date();
   if (!edit_mode) return;
@@ -386,7 +391,7 @@ $('#template-table').on('click', 'th', function () {
     var s_group_id = $(this).attr('s_group_id')
     var class_time_head = $(this).attr('class-time-header')
     if (s_group_id) {
-      // console.log(s_group_id)
+      //(s_group_id)
       swal({
         title: '删除学生分组' + s_group_id,
         buttons: true,
@@ -401,7 +406,7 @@ $('#template-table').on('click', 'th', function () {
         }
       });
     } else if (class_time_head) {
-      // console.log(class_time_head)
+      //(class_time_head)
       swal({
         title: '删除课时' + class_time_head,
         buttons: true,
@@ -430,7 +435,7 @@ $('#template-table').on('click', 'th', function () {
 $(document).keydown(function (event) {
   if (edit_mode) {
     var key = event.originalEvent.key;
-    // console.log(key)
+    //(key)
     var teacher_selector = $('#teacher-selector')
     var proced_selector = $('#proced-selector')
 
@@ -438,7 +443,7 @@ $(document).keydown(function (event) {
     var proced_selector_raw = proced_selector.get(0);
     var p_indx = proced_selector_raw.selectedIndex;
     var t_ind = teacher_selector_raw.selectedIndex;
-    console.log(p_indx + ',' + t_ind)
+    // console.log(p_indx + ',' + t_ind)
     var t_maxindx = teacher_selector.children().length - 1;
     var p_maxindx = proced_selector.children().length - 1;
     if (key == 'q' || key == 'Q') {
@@ -456,11 +461,8 @@ $(document).keydown(function (event) {
 })
 
 
-
-
-
 $('#add-class-time').click(function () {
-  console.log()
+  // console.log()
   var new_class_time = modelData.length;
   if (new_class_time == 0) {
     modelData.push([])
@@ -472,12 +474,13 @@ $('#add-class-time').click(function () {
     icon: "info",
     buttons: true,
   }).then((ifAdd) => {
-    console.log(ifAdd)
+    // console.log(ifAdd)
     if (ifAdd) {
       modelData.push([])
       updateTemplateTable()
-    } else
-      console.log('cancel')
+    } else {
+      // console.log('cancel')
+    }
   });
 })
 
@@ -485,85 +488,89 @@ $('#save-template').click(saveTemplate)
 
 function saveTemplate() {
   if (edit_mode) {
-    edit_mode = false;
+    // edit_mode = false;
     swal({
-      title: '确定保存吗？',
-      // text: '确定删除吗？你将无法恢复它！',
+      title: 'Are you sure?',
+      text: '真的要保存了哦……',
       icon: 'info',
       buttons: true,
       dangerMode: true
     }).then(ifTrue => {
-
-      $('#edit-tool').hide()
-      var data = []
-      _.each(currentTemplate, function (group_data, i, arr) {
-        _.each(group_data, function (val) {
-          if (val)
-            data.push(val)
+      if (ifTrue) {
+        $('#edit-tool').hide()
+        var data = []
+        _.each(currentTemplate, function (group_data, i, arr) {
+          _.each(group_data, function (val) {
+            if (val)
+              data.push(val)
+          })
         })
-      })
-      modifyTemplate(data, function (res) { //todo 与后端调试 
-        console.log(res)
-        setTimeout(() => {
-          updateTemplateSelector()
-        }, 100);
-      })
+        api_template.modifyTemplate(data, function (res) {
+          // console.log(res)
+          $edit_template_button.click();
+        });
+      }
+      else {
+        // console.log('cancel')
+      }
+    });
+  } else {
+    swal({
+      title: '这样可不行!',
+      text: "请在编辑模式下保存!",
+      icon: 'warning'
     })
   }
 }
 
-$('#delete-template').click(deleteTemplate)
+$('#delete-template').click(doDeleteTemplate)
 
 // 删除一个模版
-function deleteTemplate() {
-  let template = $('#template-selector').val();
-  swal({
-    title: '确定删除吗？',
-    text: '确定删除吗？你将无法恢复它！',
-    icon: 'warning',
-    buttons: true,
-    dangerMode: true
-  }).then(ifTrue => {
-    if (ifTrue) {
-      console.log(ifTrue)
-      $.ajax({
-        type: 'post',
-        url: base_url + '/experiment/deleteTemplate',
-        datatype: 'json',
-        data: {
-          'template_id': template
+function doDeleteTemplate() {
+  if (edit_mode) {
+    swal({
+      title: '这样可不行!',
+      text: "请先退出编辑模式!",
+      icon: 'warning'
+    })
+  } else {
+    var i_template = parseInt($('#template-selector option:selected').attr('i_template'));
+    var temp_id
+    //(i_template)
+    if (_.isInteger(i_template)) {
+      temp_id = templates[i_template]
+    }
+    // console.log(temp_id)
+    if (!temp_id) return;
+    swal({
+      title: '确定删除吗？',
+      text: '确定删除吗？你将无法恢复它！',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true
+    }).then(ifTrue => {
+      if (ifTrue) {
+        api_template.deleteTemplate(temp_id, function success(data) {
+          swal(
+            '删除成功',
+            '删除模版成功',
+            'success'
+          );
+          updateTemplateSelector()
+          // 刷新教师值班记录
+          // getOverworkByTimeOrProName(); // todo 这是什么东西
         },
-        success: function (data) {
-          if (data.status === 0) {
+          function fail(data) {
             // console.log(data);
-            swal(
-              '删除成功',
-              '删除模版成功',
-              'success'
-            );
-            updateTemplateSelector()
-            // 刷新教师值班记录
-            // getOverworkByTimeOrProName(); // todo 这是什么东西
-          }
-          else {
-            console.log(data);
             swal(
               '删除失败',
               String(data.message),
               'error'
             );
-          }
-        },
-        error: function (data) {
-          console.log(data);
-          swal(
-            '删除失败',
-            '删除失败, 404 Not Found',
-            'error'
-          );
-        }
-      });
-    } else {
-    }
-  })
+          });
+      } else {
+        // console.log('cancel')
+      }
+    });
+  }
 }
