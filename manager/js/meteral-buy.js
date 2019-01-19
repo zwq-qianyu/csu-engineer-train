@@ -33,6 +33,7 @@ function getAllMaterial(){
         // console.log(data);
         let data_arr = data.data;
         let html = '';
+
         for(let i=0; i<data_arr.length; i++){
           html += '<tr><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].num+'</td>';
           html += '<td><button class="btn btn-danger btn-sm" id="'+data_arr[i].clazz+'" onclick="deleteOneMateral(this)">删除</button></td></tr>';
@@ -47,7 +48,8 @@ function getAllMaterial(){
         }
         // $('#kelect_meterial').html(html2);
         for(let k=0;k<6;k++)
-        $('#'+string_array[k]+'material').html(html2);
+          $('#'+string_array[k]+'material').html(html2);
+        $("#add_apply_material").html(html2);
       }
       // 分页初始化
       goPage("k",1,5);
@@ -349,4 +351,42 @@ function addOneMateral(){
       console.log(data);
     }
   });
+}
+
+// 新增申购记录
+function addOneApply(){
+  let newApply = {};
+  newApply.material = $("#add_apply_material").val();
+  newApply.number = $("#add_apply_number").val();
+  newApply.note = $("#add_apply_note").val();
+  console.log(newApply)
+}
+
+// 新增采购记录
+function addOnePurchase() {
+  let newPurchase = {};
+  newPurchase.num = $("#add_purchase_num").val();
+  newPurchase.date = $("#add_purchase_date").val();
+  newPurchase.number = $("#add_purchase_number").val();
+  newPurchase.note = $("#add_purchase_note").val();
+  console.log(newPurchase)
+}
+
+// 新增报账记录
+function addOneReimburse() {
+  let newReimburse = {};
+  newReimburse.num = $("#add_reimburse_num").val();
+  newReimburse.number = $("#add_reimburse_number").val();
+  newReimburse.note = $("#add_reimburse_note").val();
+  console.log(newReimburse)
+}
+
+// 新增入库记录
+function addOneStore() {
+  let newStore = {};
+  newStore.num = $("#add_store_num").val();
+  newStore.date = $("#add_store_date").val();
+  newStore.number = $("#add_store_number").val();
+  newStore.note = $("#add_store_note").val();
+  console.log(newStore)
 }

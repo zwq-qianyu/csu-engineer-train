@@ -189,10 +189,10 @@
 								<div role="tabpanel" class="tab-pane fade" id="Section2">
 									<div class="panel panel-info">
 										<div class="panel-heading">物料申购</div>
-										<div class="panel-body">
+										<div class="panel-body  no-padding">
 											<!-- 申购记录 jadminTbody-->
-											<div class="panel panel-default">
-												<div class="panel-heading">
+											<div class="panel panel-default no-border">
+												<div class="panel-heading no-background">
 													<h5>申购记录</h5>
 												</div>
 												<div class="panel-body">
@@ -220,8 +220,10 @@
 																<option>王五</option> -->
 															</select>
 														</div>
-														<div class="col-xs-offset-4 col-sm-offset-4 col-xs-2 col-sm-2">
-															<select class="form-control custom-select select-person" id="jmaterial">
+													</div>
+													<div class="row">
+														<div class="col-xs-2 col-sm-2">
+															<select class="form-control custom-select select-person left-flatpickr" id="jmaterial">
 																<option>物料种类</option>
 																<!-- <option>铝棒(根x2m)</option>
 																<option>轴承23(个)</option> -->
@@ -284,7 +286,52 @@
 													<!-- 操作按钮组 -->
 													<div class="btn-group-vertical right" role="group" aria-label="...">
 														<button type="button" class="btn btn-default">生成申购单</button>
-														<button type="button" class="btn btn-default">新增申购申请</button>
+														<button type="button" class="btn btn-default" data-toggle="modal" data-target="#add_apply">新增申购申请</button>
+														<!-- 新增申购申请 Modal -->
+														<div class="modal fade" id="add_apply" tabindex="-1" role="dialog" aria-labelledby="add_applyTitle" aria-hidden="true">
+															<div class="modal-dialog modal-dialog-centered" role="document">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h5 class="modal-title" id="add_applyTitle">新增物料申购</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">
+																		<form>
+																			<div class="form-group padding">
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_apply_material">物料种类</label>
+																					<div class="col-sm-9">
+																						<select class="form-control" id="add_apply_material">
+
+																						</select>
+																						<!--<input type="text" class="form-control" placeholder="新物料名" id="new_semester">-->
+																					</div>
+																				</div>
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_apply_number">申购数量</label>
+																					<div class="col-sm-9">
+																						<input class="form-control" type="number" id="add_apply_number">
+																					</div>
+																				</div>
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_apply_note">申购备注</label>
+																					<div class="col-sm-9">
+																						<input class="form-control" type="text" id="add_apply_note">
+																					</div>
+																				</div>
+																			</div>
+																		</form>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+																		<button type="button" class="btn btn-primary" onclick="addOneApply()" data-dismiss="modal">确定</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- /.modal -->
 														<button type="button" class="btn btn-danger">导出EXCEL</button>
 													</div>
 
@@ -294,7 +341,7 @@
 											<!--申购记录结束-->
 
 											<!-- 申购审核 sadminTbody -->
-											<div class="panel panel-default">
+											<div class="panel panel-default no-border">
 												<div class="panel-heading">申购审核</div>
 												<div class="panel-body">
 													<!-- 筛选条件部分 -->
@@ -384,283 +431,373 @@
 								<div role="tabpanel" class="tab-pane fade" id="Section3">
 									<div class="panel panel-info">
 										<div class="panel-heading">物料采购</div>
-										<div class="panel-body">
-											<div class="panel-body">
+										<div class="panel-body no-padding">
 
-												<!-- 采购记录 cadminTbody-->
-												<div class="panel panel-default">
-													<div class="panel-heading">														采购记录</div>
-													<div class="panel-body">
-														<!-- 筛选条件部分 -->
-														<div class="row">
-															<div class="col-xs-2 col-sm-2">
-																<input class="flatpickr mycalendar form-control left-flatpickr" name="start-time" placeholder="开始日期" id="cstart_time">
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<input class="flatpickr mycalendar form-control " name="end-time" placeholder="结束时间" id="cend_time">
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<select class="form-control custom-select select-person" id="cpurchase_person">
-																	<!--<option>采购人</option>-->
-																	<!--<option>张三</option>
-                                                                    <option>李四</option>
-                                                                    <option>王五</option> -->
-																</select>
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<select class="form-control custom-select select-person" id="cmaterial">
-																	<!--<option>物料种类</option>-->
-																	<!-- <option>铝棒(根x2m)</option>
-                                                                    <option>轴承23(个)</option> -->
-																</select>
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<input class="form-control" placeholder="申购编号" id="cpurchase_number">
-															</div>
-
-															<div class="col-xs-2 col-sm-2">
-																<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('c')">
-															</div>
+											<!-- 采购记录 cadminTbody-->
+											<div class="panel panel-default no-border">
+												<div class="panel-heading">														采购记录</div>
+												<div class="panel-body">
+													<!-- 筛选条件部分 -->
+													<div class="row">
+														<div class="col-xs-2 col-sm-2">
+															<input class="flatpickr mycalendar form-control left-flatpickr" name="start-time" placeholder="开始日期" id="cstart_time">
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<input class="flatpickr mycalendar form-control " name="end-time" placeholder="结束时间" id="cend_time">
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<select class="form-control custom-select select-person" id="cpurchase_person">
+																<!--<option>采购人</option>-->
+																<!--<option>张三</option>
+																<option>李四</option>
+																<option>王五</option> -->
+															</select>
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<select class="form-control custom-select select-person" id="cmaterial">
+																<!--<option>物料种类</option>-->
+																<!-- <option>铝棒(根x2m)</option>
+																<option>轴承23(个)</option> -->
+															</select>
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<input class="form-control" placeholder="申购编号" id="cpurchase_number">
 														</div>
 
-														<!-- 表格主体部分 -->
-														<table class="table table-striped">
-															<thead>
-															<tr>
-																<th>框选</th>
-																<th>申购编号</th>
-																<th>采购日期</th>
-																<th>采购人</th>
-																<th>物料种类</th>
-																<th>采购数量</th>
-																<th>采购备注</th>
-															</tr>
-															</thead>
-															<tbody id="cadminTbody"></tbody>
-														</table>
-
-														<!-- 分页功能部分 -->
-														<div id="cbarcon" class="barcon">
-															<div id="cbarcon1" class="barcon1"></div>
-															<div id="cbarcon2" class="barcon2">
-																<ul>
-																	<li>
-																		<a href="###" id="cfirstPage" class="btn btn-sm">首页</a></li>
-																	<li>
-																		<a href="###" id="cprePage" class="btn btn-sm">上一页</a></li>
-																	<li>
-																		<a href="###" id="cnextPage" class="btn btn-sm">下一页</a></li>
-																	<li>
-																		<a href="###" id="clastPage" class="btn btn-sm">尾页</a></li>
-																	<li>
-																		<!-- <select id="jumpWhere"></select> -->
-																		<input type="text" id="cjumpWhere">
-																	</li>
-																	<li><a href="###" id="cjumpPage" onclick="jumpPage('c')" class="btn btn-sm btn-primary">跳转</a></li>
-																</ul>
-															</div>
-															<div class="clearfix"></div>
+														<div class="col-xs-2 col-sm-2">
+															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('c')">
 														</div>
+													</div>
 
-														<!-- 操作按钮组 -->
-														<div class="btn-group-vertical right" role="group" aria-label="...">
-															<button type="button" class="btn btn-default">生成采购单</button>
-															<button type="button" class="btn btn-default">新增采购记录</button>
+													<!-- 表格主体部分 -->
+													<table class="table table-striped">
+														<thead>
+														<tr>
+															<th>框选</th>
+															<th>申购编号</th>
+															<th>采购日期</th>
+															<th>采购人</th>
+															<th>物料种类</th>
+															<th>采购数量</th>
+															<th>采购备注</th>
+														</tr>
+														</thead>
+														<tbody id="cadminTbody"></tbody>
+													</table>
+
+													<!-- 分页功能部分 -->
+													<div id="cbarcon" class="barcon">
+														<div id="cbarcon1" class="barcon1"></div>
+														<div id="cbarcon2" class="barcon2">
+															<ul>
+																<li>
+																	<a href="###" id="cfirstPage" class="btn btn-sm">首页</a></li>
+																<li>
+																	<a href="###" id="cprePage" class="btn btn-sm">上一页</a></li>
+																<li>
+																	<a href="###" id="cnextPage" class="btn btn-sm">下一页</a></li>
+																<li>
+																	<a href="###" id="clastPage" class="btn btn-sm">尾页</a></li>
+																<li>
+																	<!-- <select id="jumpWhere"></select> -->
+																	<input type="text" id="cjumpWhere">
+																</li>
+																<li><a href="###" id="cjumpPage" onclick="jumpPage('c')" class="btn btn-sm btn-primary">跳转</a></li>
+															</ul>
 														</div>
-
 														<div class="clearfix"></div>
-
 													</div>
+
+													<!-- 操作按钮组 -->
+													<div class="btn-group-vertical right" role="group" aria-label="...">
+														<button type="button" class="btn btn-default">生成采购单</button>
+														<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#add_purchase">新增采购记录</button>
+														<!-- 新增采购记录 Modal -->
+														<div class="modal fade" id="add_purchase" tabindex="-1" role="dialog" aria-labelledby="add_purchaseTitle" aria-hidden="true">
+															<div class="modal-dialog modal-dialog-centered" role="document">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h5 class="modal-title" id="add_purchaseTitle">新增采购记录</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">
+																		<form>
+																			<div class="form-group padding">
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_purchase_num">申购编号</label>
+																					<div class="col-sm-9">
+																						<input type="text" class="form-control" id="add_purchase_num">
+																					</div>
+																				</div>
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_purchase_date">采购日期</label>
+																					<div class="col-sm-9">
+																						<input class="flatpickr mycalendar form-control" data-allow-input="true" data-enable-time="true" id="add_purchase_date">
+																					</div>
+																				</div>
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_purchase_number">采购数量</label>
+																					<div class="col-sm-9">
+																						<input class="form-control" type="number" id="add_purchase_number">
+																					</div>
+																				</div>
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_purchase_note">采购备注</label>
+																					<div class="col-sm-9">
+																						<input class="form-control" type="text" id="add_purchase_note">
+																					</div>
+																				</div>
+																			</div>
+																		</form>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+																		<button type="button" class="btn btn-primary" onclick="addOnePurchase()" data-dismiss="modal">确定</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- /.modal -->
+													</div>
+
+													<div class="clearfix"></div>
+
 												</div>
-												<!--采购记录结束-->
+											</div>
+											<!--采购记录结束-->
 
-												</hr>
+											</hr>
 
-												<!-- 采购报账记录 badminTbody -->
-												<div class="panel panel-default">
-													<div class="panel-heading">采购报账记录</div>
-													<div class="panel-body">
-														<!-- 筛选条件部分 -->
-														<div class="row">
-															<div class="col-xs-2 col-sm-2">
-																<input class="flatpickr mycalendar form-control left-flatpickr" name="start-time" placeholder="开始日期" id="bstart_time">
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<input class="flatpickr mycalendar form-control " name="end-time" placeholder="结束时间" id="bend_time">
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<select class="form-control custom-select select-person" id="bpurchase_person">
-																	<!--<option>采购人</option>-->
-																	<!-- <option>张三</option>
-                                                                    <option>李四</option>
-                                                                    <option>王五</option> -->
-																</select>
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<select class="form-control custom-select select-person" id="bmaterial">
-																	<!--<option>物料种类</option>-->
-																	<!-- <option>张三</option>
-                                                                    <option>李四</option>
-                                                                    <option>王五</option> -->
-																</select>
-															</div>
-															<div class="col-xs-offset-4 col-sm-offset-4 col-xs-2 col-sm-2">
-																<select class="form-control custom-select select-person" id="breimburse_audit_status">
-																	<option>审核状态</option>
-																	<option>待审核</option>
-																	<option>已审核</option>
-																	<!-- <option>张三</option>
-                                                                    <option>李四</option>
-                                                                    <option>王五</option> -->
-																</select>
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<input class="form-control" placeholder="申购编号" id="bpurchase_number">
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('b')">
-															</div>
+											<!-- 采购报账记录 badminTbody -->
+											<div class="panel panel-default no-border">
+												<div class="panel-heading">采购报账记录</div>
+												<div class="panel-body">
+													<!-- 筛选条件部分 -->
+													<div class="row">
+														<div class="col-xs-2 col-sm-2">
+															<input class="flatpickr mycalendar form-control left-flatpickr" name="start-time" placeholder="开始日期" id="bstart_time">
 														</div>
-
-														<!-- 表格主体部分 -->
-														<table class="table table-striped">
-															<thead>
-															<tr>
-																<th>框选</th>
-																<th>申购编号</th>
-																<th>新增报账申请日期</th>
-																<th>采购人</th>
-																<th>物料种类</th>
-																<th>报账数量</th>
-																<th>审核状态</th>
-																<th>审核人</th>
-																<th>报账备注</th>
-															</tr>
-															</thead>
-															<tbody id="badminTbody"></tbody>
-														</table>
-
-														<!-- 分页功能部分 -->
-														<div id="bbarcon" class="barcon">
-															<div id="bbarcon1" class="barcon1"></div>
-															<div id="bbarcon2" class="barcon2">
-																<ul>
-																	<li>
-																		<a href="###" id="bfirstPage" class="btn btn-sm">首页</a></li>
-																	<li>
-																		<a href="###" id="bprePage" class="btn btn-sm">上一页</a></li>
-																	<li>
-																		<a href="###" id="bnextPage" class="btn btn-sm">下一页</a></li>
-																	<li>
-																		<a href="###" id="blastPage" class="btn btn-sm">尾页</a></li>
-																	<li>
-																		<!-- <select id="jumpWhere"></select> -->
-																		<input type="text" id="bjumpWhere">
-																	</li>
-																	<li><a href="###" id="bjumpPage" onclick="jumpPage('b')" class="btn btn-sm btn-primary">跳转</a></li>
-																</ul>
-															</div>
-															<div class="clearfix"></div>
+														<div class="col-xs-2 col-sm-2">
+															<input class="flatpickr mycalendar form-control " name="end-time" placeholder="结束时间" id="bend_time">
 														</div>
-
-														<!-- 操作按钮组 -->
-														<div class="btn-group-vertical right" role="group" aria-label="...">
-															<button type="button" class="btn btn-default">生成报账单</button>
-															<button type="button" class="btn btn-default">新增报账申请</button>
-															<button type="button" class="btn btn-danger">导出EXCEL</button>
+														<div class="col-xs-2 col-sm-2">
+															<select class="form-control custom-select select-person" id="bpurchase_person">
+																<!--<option>采购人</option>-->
+																<!-- <option>张三</option>
+																<option>李四</option>
+																<option>王五</option> -->
+															</select>
 														</div>
+														<div class="col-xs-2 col-sm-2">
+															<select class="form-control custom-select select-person" id="bmaterial">
+																<!--<option>物料种类</option>-->
+																<!-- <option>张三</option>
+																<option>李四</option>
+																<option>王五</option> -->
+															</select>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-xs-2 col-sm-2">
+															<select class="form-control custom-select select-person  left-flatpickr" id="breimburse_audit_status">
+																<option>审核状态</option>
+																<option>待审核</option>
+																<option>已审核</option>
+																<!-- <option>张三</option>
+																<option>李四</option>
+																<option>王五</option> -->
+															</select>
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<input class="form-control" placeholder="申购编号" id="bpurchase_number">
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('b')">
+														</div>
+													</div>
 
+													<!-- 表格主体部分 -->
+													<table class="table table-striped">
+														<thead>
+														<tr>
+															<th>框选</th>
+															<th>申购编号</th>
+															<th>新增报账申请日期</th>
+															<th>采购人</th>
+															<th>物料种类</th>
+															<th>报账数量</th>
+															<th>审核状态</th>
+															<th>审核人</th>
+															<th>报账备注</th>
+														</tr>
+														</thead>
+														<tbody id="badminTbody"></tbody>
+													</table>
+
+													<!-- 分页功能部分 -->
+													<div id="bbarcon" class="barcon">
+														<div id="bbarcon1" class="barcon1"></div>
+														<div id="bbarcon2" class="barcon2">
+															<ul>
+																<li>
+																	<a href="###" id="bfirstPage" class="btn btn-sm">首页</a></li>
+																<li>
+																	<a href="###" id="bprePage" class="btn btn-sm">上一页</a></li>
+																<li>
+																	<a href="###" id="bnextPage" class="btn btn-sm">下一页</a></li>
+																<li>
+																	<a href="###" id="blastPage" class="btn btn-sm">尾页</a></li>
+																<li>
+																	<!-- <select id="jumpWhere"></select> -->
+																	<input type="text" id="bjumpWhere">
+																</li>
+																<li><a href="###" id="bjumpPage" onclick="jumpPage('b')" class="btn btn-sm btn-primary">跳转</a></li>
+															</ul>
+														</div>
 														<div class="clearfix"></div>
-
 													</div>
 
-												</div>
-												<!--采购报账记录结束-->
-
-												</hr>
-
-												<!-- 采购报账审核 hadminTbody -->
-												<div class="panel panel-default">
-													<div class="panel-heading">采购报账审核</div>
-													<div class="panel-body">
-														<!-- 筛选条件部分 -->
-														<div class="row">
-															<div class="col-xs-2 col-sm-2">
-																<input class="flatpickr mycalendar form-control left-flatpickr" name="start-time" placeholder="开始日期" id="hstart_time">
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<input class="flatpickr mycalendar form-control " name="end-time" placeholder="结束时间" id="hend_time">
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<select class="form-control custom-select select-person" id="hreimburse_audit_status">
-																	<option>审核状态</option>
-																	<option>待审核</option>
-																	<option>已审核</option>
-																	<!-- <option>张三</option>
-                                                                    <option>李四</option>
-                                                                    <option>王五</option> -->
-																</select>
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<select class="form-control custom-select select-person" id="hmaterial">
-																	<option>物料种类</option>
-																	<!-- <option>张三</option>
-                                                                    <option>李四</option>
-                                                                    <option>王五</option> -->
-																</select>
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<input class="form-control" placeholder="申购编号" id="hpurchase_number">
-															</div>
-															<div class="col-xs-2 col-sm-2">
-																<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('h')">
+													<!-- 操作按钮组 -->
+													<div class="btn-group-vertical right" role="group" aria-label="...">
+														<button type="button" class="btn btn-default">生成报账单</button>
+														<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#add_reimburse">新增报账申请</button>
+														<!-- 新增采购记录 Modal -->
+														<div class="modal fade" id="add_reimburse" tabindex="-1" role="dialog" aria-labelledby="add_reimburseTitle" aria-hidden="true">
+															<div class="modal-dialog modal-dialog-centered" role="document">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h5 class="modal-title" id="add_reimburseTitle">新增采购报账</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">
+																		<form>
+																			<div class="form-group padding">
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_reimburse_num">申购编号</label>
+																					<div class="col-sm-9">
+																						<input type="text" placeholder="请输入您所负责采购的申购项目编号" class="form-control" id="add_reimburse_num">
+																					</div>
+																				</div>
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_reimburse_number">报账数量</label>
+																					<div class="col-sm-9">
+																						<input class="form-control" type="number" id="add_reimburse_number">
+																					</div>
+																				</div>
+																				<div class="row">
+																					<label class="col-sm-3 col-form-label" for="add_reimburse_note">报账备注</label>
+																					<div class="col-sm-9">
+																						<input class="form-control" type="text" id="add_reimburse_note">
+																					</div>
+																				</div>
+																			</div>
+																		</form>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+																		<button type="button" class="btn btn-primary" onclick="addOneReimburse()" data-dismiss="modal">确定</button>
+																	</div>
+																</div>
 															</div>
 														</div>
-
-														<!-- 表格主体部分 -->
-														<table class="table table-striped">
-															<thead>
-															<tr>
-																<th>申购日期</th>
-																<th>新增报账申请日期</th>
-																<th>采购人</th>
-																<th>物料种类</th>
-																<th>报账数量</th>
-																<th>审核状态</th>
-																<th>报账备注</th>
-																<th>采购操作</th>
-															</tr>
-															</thead>
-															<tbody id="hadminTbody"></tbody>
-														</table>
-
-														<!-- 分页功能部分 -->
-														<div id="hbarcon" class="barcon">
-															<div id="hbarcon1" class="barcon1"></div>
-															<div id="hbarcon2" class="barcon2">
-																<ul>
-																	<li>
-																		<a href="###" id="hfirstPage" class="btn btn-sm">首页</a></li>
-																	<li>
-																		<a href="###" id="hprePage" class="btn btn-sm">上一页</a></li>
-																	<li>
-																		<a href="###" id="hnextPage" class="btn btn-sm">下一页</a></li>
-																	<li>
-																		<a href="###" id="hlastPage" class="btn btn-sm">尾页</a></li>
-																	<li>
-																		<!-- <select id="jumpWhere"></select> -->
-																		<input type="text" id="hjumpWhere">
-																	</li>
-																	<li><a href="###" id="hjumpPage" onclick="jumpPage('h')" class="btn btn-sm btn-primary">跳转</a></li>
-																</ul>
-															</div>
-															<div class="clearfix"></div>
-														</div>
+														<!-- /.modal -->
+														<button type="button" class="btn btn-danger">导出EXCEL</button>
 													</div>
+
+													<div class="clearfix"></div>
+
 												</div>
-												<!--采购报账审核结束-->
 
 											</div>
+											<!--采购报账记录结束-->
+
+											</hr>
+
+											<!-- 采购报账审核 hadminTbody -->
+											<div class="panel panel-default no-border">
+												<div class="panel-heading">采购报账审核</div>
+												<div class="panel-body">
+													<!-- 筛选条件部分 -->
+													<div class="row">
+														<div class="col-xs-2 col-sm-2">
+															<input class="flatpickr mycalendar form-control left-flatpickr" name="start-time" placeholder="开始日期" id="hstart_time">
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<input class="flatpickr mycalendar form-control " name="end-time" placeholder="结束时间" id="hend_time">
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<select class="form-control custom-select select-person" id="hreimburse_audit_status">
+																<option>审核状态</option>
+																<option>待审核</option>
+																<option>已审核</option>
+																<!-- <option>张三</option>
+																<option>李四</option>
+																<option>王五</option> -->
+															</select>
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<select class="form-control custom-select select-person" id="hmaterial">
+																<option>物料种类</option>
+																<!-- <option>张三</option>
+																<option>李四</option>
+																<option>王五</option> -->
+															</select>
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<input class="form-control" placeholder="申购编号" id="hpurchase_number">
+														</div>
+														<div class="col-xs-2 col-sm-2">
+															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('h')">
+														</div>
+													</div>
+
+													<!-- 表格主体部分 -->
+													<table class="table table-striped">
+														<thead>
+														<tr>
+															<th>申购日期</th>
+															<th>新增报账申请日期</th>
+															<th>采购人</th>
+															<th>物料种类</th>
+															<th>报账数量</th>
+															<th>审核状态</th>
+															<th>报账备注</th>
+															<th>采购操作</th>
+														</tr>
+														</thead>
+														<tbody id="hadminTbody"></tbody>
+													</table>
+
+													<!-- 分页功能部分 -->
+													<div id="hbarcon" class="barcon">
+														<div id="hbarcon1" class="barcon1"></div>
+														<div id="hbarcon2" class="barcon2">
+															<ul>
+																<li>
+																	<a href="###" id="hfirstPage" class="btn btn-sm">首页</a></li>
+																<li>
+																	<a href="###" id="hprePage" class="btn btn-sm">上一页</a></li>
+																<li>
+																	<a href="###" id="hnextPage" class="btn btn-sm">下一页</a></li>
+																<li>
+																	<a href="###" id="hlastPage" class="btn btn-sm">尾页</a></li>
+																<li>
+																	<!-- <select id="jumpWhere"></select> -->
+																	<input type="text" id="hjumpWhere">
+																</li>
+																<li><a href="###" id="hjumpPage" onclick="jumpPage('h')" class="btn btn-sm btn-primary">跳转</a></li>
+															</ul>
+														</div>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+											</div>
+											<!--采购报账审核结束-->
+
 										</div>
 									</div>
 								</div>
@@ -743,7 +880,55 @@
 
 											<!-- 操作按钮组 -->
 											<div class="btn-group-vertical right" role="group" aria-label="...">
-												<button type="button" class="btn btn-default">新增入库记录</button>
+												<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#add_store">新增入库记录</button>
+												<!-- 新增入库记录 Modal -->
+												<div class="modal fade" id="add_store" tabindex="-1" role="dialog" aria-labelledby="add_storeTitle" aria-hidden="true">
+													<div class="modal-dialog modal-dialog-centered" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="add_storeTitle">新增入库记录</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<form>
+																	<div class="form-group padding">
+																		<div class="row">
+																			<label class="col-sm-3 col-form-label" for="add_store_num">申购编号</label>
+																			<div class="col-sm-9">
+																				<input type="text" placeholder="请输入申购项目编号" class="form-control" id="add_store_num">
+																			</div>
+																		</div>
+																		<div class="row">
+																			<label class="col-sm-3 col-form-label" for="add_store_date">入库时间</label>
+																			<div class="col-sm-9">
+																				<input class="flatpickr mycalendar form-control" data-allow-input="true" data-enable-time="true" id="add_store_date">
+																			</div>
+																		</div>
+																		<div class="row">
+																			<label class="col-sm-3 col-form-label" for="add_store_number">入库数量</label>
+																			<div class="col-sm-9">
+																				<input class="form-control" type="number" id="add_store_number">
+																			</div>
+																		</div>
+																		<div class="row">
+																			<label class="col-sm-3 col-form-label" for="add_store_note">入库备注</label>
+																			<div class="col-sm-9">
+																				<input class="form-control" type="text" id="add_store_note">
+																			</div>
+																		</div>
+																	</div>
+																</form>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+																<button type="button" class="btn btn-primary" onclick="addOneStore()" data-dismiss="modal">确定</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- /.modal -->
 											</div>
 
 											<div class="clearfix"></div>

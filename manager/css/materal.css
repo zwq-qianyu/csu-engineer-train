@@ -71,3 +71,20 @@ th, td {
 .right{
 	float: right;
 }
+.no-padding{
+	padding: 0;
+}
+.no-border{
+	border-left: none;
+	border-right: none;
+}
+.no-background{
+	background-color: #ffffff;
+}
+.row{
+	margin-bottom: 10px;
+}
+.padding{
+	padding: 0 20px;
+	box-sizing: border-box;
+}
