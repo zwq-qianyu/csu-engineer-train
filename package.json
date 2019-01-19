@@ -4,7 +4,8 @@
   "description": "### [教师端](http://gxxt.runtofuture.cn/teacher/teach-schedule.html)",
   "main": "index.js",
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {},
   "scripts": {
