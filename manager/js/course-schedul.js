@@ -113,14 +113,16 @@ var templates = []
 
 function updateTemplateSelector() {
   // console.log('updateTemplateSelector')
-  api_template.getAllTemplates(function (data) {
-    var $alltemplates = $('#template-selector').empty()
-    //(data)
-    templates = data;
-    _.forEach(data, function (d, i) {
-      $("<option></option>").text(d).attr('i_template', i).appendTo($alltemplates)
-    })
-    fetchAndUpdateTemplateTable()
+  api_experiment.getAllTemplates(function (data) {
+    if(data.status==0){
+      var $alltemplates = $('#template-selector').empty()
+      //(data)
+      templates = data.data;
+      _.forEach(templates, function (d, i) {
+        $("<option></option>").text(d).attr('i_template', i).appendTo($alltemplates)
+      })
+      fetchAndUpdateTemplateTable()
+    }
   })
 }
 
@@ -131,10 +133,12 @@ function fetchAndUpdateTemplateTable() {
   // console.log(i_temp)
   var temp_id = templates[i_temp]
   // console.log(temp_id)
-  api_template.getTemplate(temp_id, function (data) {
-    data = data.data
-    fillCurrentTemplate(data)
-    updateTemplateTable(data)
+  api_experiment.getTemplate(temp_id, function (data) {
+    if(data.status===0){
+      data = data.data
+      fillCurrentTemplate(data)
+      updateTemplateTable(data)
+    }
   })
 }
 
@@ -244,17 +248,16 @@ $('#new-template').click(function () {
     },
     buttons: true
   }).then(function (name) {
-    //(w)
     if (name) {
-      //(name)
       name = name.trim();
       if (name) {
         var data = [{ "template_id": name }]
-        api_template.addTemplate(data, function (data) {
-          //(data)
-          swal('消息', '添加模板成功,请在下方编辑模板', 'success')
-          updateTemplateSelector()
-          // fetchAndUpdateTemplateTable()
+        api_experiment.addTemplate(data, function (data) {
+          if(data.status===0){
+            swal('消息', '添加模板成功,请在下方编辑模板', 'success')
+            updateTemplateSelector()
+            // fetchAndUpdateTemplateTable()
+          }
         })
       }
     } else {
@@ -301,16 +304,23 @@ function update_edit_selectors() {
   teacher_groups_proced = {}
   var $teacherGroupSelector = $('#teacher-selector').empty();
   $('#teacher-selector').empty();
-  api_teacher.getAllTeacherGroup(function (data) {
-    //(datas)
-    teacher_groups = data.data
-    _.forEach(teacher_groups, function (val, i) {
-      $('<option></option>').text(val.t_group_id).attr('i_teachergroup', i).appendTo($teacherGroupSelector)
-      api_teacher.getProcedByGroup(val.t_group_id, function (data) {
-        teacher_groups_proced[val.t_group_id] = data.data
-      })
-    });
-    teacher_groups_change_handler();
+  api_group.getAllTeacherGroup(function (data) {
+    if(data.status===0){
+      teacher_groups = data.data
+      _.forEach(teacher_groups, function (val, i) {
+        $('<option></option>').text(val.t_group_id).attr('i_teachergroup', i).appendTo($teacherGroupSelector)
+        api_group.getProcedByGroup(val.t_group_id, function (data) {
+          if(data.status===0){
+            teacher_groups_proced[val.t_group_id] = data.data
+          }else {
+            console.log(data)
+          }
+        })
+      });
+      teacher_groups_change_handler();
+    }else {
+      console.log(data)
+    }
   });
 }
 
@@ -505,9 +515,10 @@ function saveTemplate() {
               data.push(val)
           })
         })
-        api_template.modifyTemplate(data, function (res) {
+        api_experiment.modifyTemplate(data, function (res) {
           // console.log(res)
-          $edit_template_button.click();
+          if(res.status==0)
+            $edit_template_button.click();
         });
       }
       else {
@@ -550,15 +561,17 @@ function doDeleteTemplate() {
       dangerMode: true
     }).then(ifTrue => {
       if (ifTrue) {
-        api_template.deleteTemplate(temp_id, function success(data) {
-          swal(
-            '删除成功',
-            '删除模版成功',
-            'success'
-          );
-          updateTemplateSelector()
-          // 刷新教师值班记录
-          // getOverworkByTimeOrProName(); // todo 这是什么东西
+        api_experiment.deleteTemplate(temp_id, function success(data) {
+          if(data.status===0){
+            swal(
+              '删除成功',
+              '删除模版成功',
+              'success'
+            );
+            updateTemplateSelector()
+            // 刷新教师值班记录
+            // getOverworkByTimeOrProName(); // todo 这是什么东西
+          }
         },
           function fail(data) {
             // console.log(data);

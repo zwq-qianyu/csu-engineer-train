@@ -2,7 +2,6 @@ window.onload = function () {
   init_data();
 };
 
-var base_url = 'http://134.175.152.210:8084';
 
 function init_data() {
   
@@ -22,19 +21,19 @@ function init_data() {
 // 1、课时分配
 
 // 获取所有模版
-function getAllTemplates(callback) {
-  $.ajax({
-    type: 'post',
-    url: base_url + '/experiment/getAllTemplate',
-    datatype: 'json',
-    data: {},
-    success: function (data) {
-      if (data.status === 0) {
-        callback(data)
-      }
-    }
-  });
-}
+// function getAllTemplates(callback) {
+//   $.ajax({
+//     type: 'post',
+//     url: base_url + '/experiment/getAllTemplate',
+//     datatype: 'json',
+//     data: {},
+//     success: function (data) {
+//       if (data.status === 0) {
+//         callback(data)
+//       }
+//     }
+//   });
+// }
 
 function bundleTemplateRequest(batch_name, template_id, success_callback, fail_callback) {
   $.ajax({
@@ -91,12 +90,14 @@ function getExperimentByBatch(batch_name, success_callback) {
 
 // 填充模板选项
 function fillTemplateSelectorOptions($select) {
-  getAllTemplates(function (data) {
-    var data_arr = data.data;
-    var $templateSelector = $('#course_divide1_select_temp')
-    $('<option>').text('排课模版选择').appendTo($templateSelector)
-    for (let i = 0; i < data_arr.length; i++) {
-      $('<option>').text(data_arr[i]).appendTo($templateSelector)
+  api_template.getAllTemplates(function (data) {
+    if(data.status===0){
+      var data_arr = data.data;
+      var $templateSelector = $('#course_divide1_select_temp')
+      $('<option>').text('排课模版选择').appendTo($templateSelector)
+      for (let i = 0; i < data_arr.length; i++) {
+        $('<option>').text(data_arr[i]).appendTo($templateSelector)
+      }
     }
   });
 }
@@ -174,10 +175,11 @@ function printExperimentsByBatch(batch_name) {
 
 $('#course_divide1_select_batch2').change(function () {
   console.log(this.length)
+  
 });
 
 
-// config/config-divide-group.js
+// config/config-divide-group.js                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 var weekRange = _.range(1, 21, 1);
 var dayRange = [null, '周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 var timeRangeStep = 2;
@@ -191,8 +193,6 @@ function fillWeekSelectorOptions() {
     $('<option>').text('第' + val + '周').attr('week', val).appendTo($weekselect);
   })
 }
-
-
 
 function drawEmptyClassTable() {
   var $distribution_table_head = $('#distribution-table-head')
@@ -217,6 +217,8 @@ function drawEmptyClassTable() {
 
 
 
+
+
 // 编辑排课表
 var distributeEditMode = false;
 var $edit_distribution = $('#edit-distribution').click(function () {
@@ -229,6 +231,7 @@ var $edit_distribution = $('#edit-distribution').click(function () {
     $edit_distribution.val('编辑on')
   }
 });
+
 
 $('#save-distribution').click(function () { // 获取数据保存
   console.log("$('#save-distribution').click")
