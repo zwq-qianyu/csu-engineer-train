@@ -11,104 +11,6 @@ function init_data() {
   updateTemplateSelector()
 }
 
-// function addTemplate(data, callback) {
-//   $.ajax({
-//     type: 'post',
-//     url: base_url + '/experiment/addTemplate',
-//     dataType: 'json',
-//     data: JSON.stringify(data),
-//     contentType: "application/json; charset=utf-8",
-//     success: function (data) {
-//       if (data.status === 0) {
-//         callback(data)
-//       }
-//     }
-//   });
-// }
-
-// function modifyTemplate(data, callback) {
-//   $.ajax({
-//     type: 'post',
-//     url: base_url + '/experiment/modifyTemplate',
-//     dataType: 'json',
-//     data: JSON.stringify(data),
-//     contentType: "application/json; charset=utf-8",
-//     success: function (data) {
-//       if (data.status === 0) {
-//         callback(data)
-//       }
-//     }
-//   });
-// }
-
-
-// // 获取所有模版名
-// function getAllTemplates(callback) {
-//('getAllTemplates')
-//   $.ajax({
-//     type: 'post',
-//     url: base_url + '/experiment/getAllTemplate',
-//     dataType: 'json',
-//     contentType: "application/json; charset=utf-8",
-//     data: {},
-//     success: function (data) {
-//       if (data.status === 0) {
-//         callback(data.data)
-//       }
-//     }
-//   });
-// }
-
-// // 获取模板数据
-// function getTemplate(temp_id, callback) {
-//('getTemplate')
-//   if (temp_id === null) return
-//(temp_id)
-//   var data = { template_id: temp_id };
-//   $.ajax({
-//     type: 'post',
-//     url: base_url + '/experiment/getTemplate',
-//     dataType: 'json',
-//     data: data,
-//     success: function (data) {
-//       if (data.status === 0) {
-//(data)
-//         callback(data)
-//       }
-//     }
-//   });
-// }
-
-// function getAllTeacherGroup(callback) {
-//   $.ajax({
-//     type: 'post',
-//     url: base_url + '/group/getAllGroup',
-//     data: {},
-//     datatype: 'json',
-//     success: function (data) {
-//       if (data.status === 0) {
-//(data.data)
-//         callback(data) 
-//       }
-//     }
-//   });
-// }
-
-// function getProcedByGroup(t_group_id, callback) {
-//   $.ajax({
-//     type: 'post',
-//     url: base_url + '/group/getProcedByGroup',
-//     data: { 'groupName': t_group_id },
-//     datatype: 'json',
-//     success: function (data) {
-//       if (data.status === 0) {
-//(data)
-//         callback(data);
-//       }
-//     }
-//   });
-// }
-
 var templates = []
 
 function updateTemplateSelector() {
@@ -303,24 +205,27 @@ function update_edit_selectors() {
   teacher_groups_proced = {}
   var $teacherGroupSelector = $('#teacher-selector').empty();
   $('#teacher-selector').empty();
-  api_group.getAllTeacherGroup(function (data) {
-    if (data.status === 0) {
-      teacher_groups = data.data
-      _.forEach(teacher_groups, function (val, i) {
-        $('<option></option>').text(val.t_group_id).attr('i_teachergroup', i).appendTo($teacherGroupSelector)
-        api_group.getProcedByGroup(val.t_group_id, function (data) {
-          if (data.status === 0) {
-            teacher_groups_proced[val.t_group_id] = data.data
-          } else {
-            console.log(data)
-          }
-        })
-      });
-      teacher_groups_change_handler();
-    } else {
-      console.log(data)
-    }
-  });
+  api_group.getAllTeacherGroup()
+    .done(function (data) {
+      if (data.status === 0) {
+        console.log(teacher_groups)
+        teacher_groups = data.data
+        _.forEach(teacher_groups, function (val, i) {
+          $('<option></option>').text(val.t_group_id).attr('i_teachergroup', i).appendTo($teacherGroupSelector)
+          api_group.getProcedByGroup(val.t_group_id)
+            .done(function (data) {
+              if (data.status === 0) {
+                teacher_groups_proced[val.t_group_id] = data.data
+              } else {
+                console.log(data)
+              }
+            })
+        });
+        teacher_groups_change_handler();
+      } else {
+        console.log(data)
+      }
+    });
 }
 
 
@@ -574,13 +479,13 @@ function doDeleteTemplate() {
               // getOverworkByTimeOrProName(); // todo 这是什么东西
             }
           }).fail(function fail(data) {
-              // console.log(data);
-              swal(
-                '删除失败',
-                String(data.message),
-                'error'
-              );
-            });
+            // console.log(data);
+            swal(
+              '删除失败',
+              String(data.message),
+              'error'
+            );
+          });
       } else {
         // console.log('cancel')
       }

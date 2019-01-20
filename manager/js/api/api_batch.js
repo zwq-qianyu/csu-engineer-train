@@ -1,15 +1,15 @@
 var api_batch = {
-     // 查询所有批次
-     getAllBatch: function () {
-    //     $.ajax({
-    //         type: 'post',
-    //         url: base_url + '/batch/getAllBatch',
-    //         datatype: 'json',
-    //         data: {},
-    //     }).done(success_call).fail(fail_call).always(always_call);
+    // 查询所有批次
+    getAllBatch: function () {
         return post_query(
             base_url + '/batch/getAllBatch',
             {}
+        )
+    },
+    getAllSGroup: function (batch_name) {
+        return post_query(
+            base_url + '/batch/getAllSGroup',
+            { 'batch_name': batch_name }
         )
     }
 }
