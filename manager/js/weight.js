@@ -11,35 +11,21 @@ function init_data() {
     getAllBatch();
 }
 
-var base_url = 'http://134.175.152.210:8084';
-//总打分项的数量
-var proceCount=0;
-//添加打分项 弹出表格的 行列
-var tableRow=8;
-var tableColumn=1;
-
 
 // 获取所有批次
 function getAllBatch() {
-    $.ajax({
-        type: 'post',
-        url: base_url + '/batch/getAllBatch',
-        data: {},
-        datatype: 'json',
-        beforeSend: function (xhr) {
-            xhr.withCredentials = true;
-        },
-        crossDomain: true,
-        success: function (data) {
-            if (data.status === 0) {
-                let data_arr = data.data;
-                html = '<option>批次选择</option>';
-                for (let i = 0; i < data_arr.length; i++) {
-                    html += '<option>' + data_arr[i].batch_name + '</option>';
-                }
-                // console.log(html);
-                $('#weight_select_batch1').html(html);
-                $('#weight_select_batch2').html(html);
+    api_common.getAllBatch().done(function (data) {
+        if (data.status === 0) {
+            let data_arr = data.data;
+            let batch1 = $('#weight_select_batch1').empty();
+            let batch2 = $('#weight_select_batch2').empty();
+            batch1.append('<option>批次选择</option>');
+            batch2.append('<option>批次选择</option>');
+            for (let i = 0; i < data_arr.length; i++) {
+                let option = $('<option></option>');
+                option.text(data_arr[i].batch_name);
+                batch1.append(option);
+                batch2.append(option.clone())
             }
         }
     });
@@ -47,20 +33,18 @@ function getAllBatch() {
 
 //  获取所有权重模版名
 function findAllTemplate() {
-    $.ajax({
-        type: 'post',
-        url: base_url + '/proced/findAllTemplate',
-        datatype: 'json',
-        data: {},
-        success: function (data) {
-            if (data.status === 0) {
-                let data_arr = data.data;
-                let html = '<option>权重模版选择</option>';
-                for (let i = 0; i < data_arr.length; i++) {
-                    html += '<option>' + data_arr[i] + '</option>'
-                }
-                $('#weight_select_templates1').html(html);
-                $('#weight_select_templates2').html(html);
+    api_weight.getAllTemplate().done(function (data) {
+        if (data.status === 0) {
+            let data_arr = data.data;
+            let templates1 = $('#weight_select_templates1').empty();
+            let templates2 = $('#weight_select_templates2').empty();
+            templates1.append('<option>权重模版选择</option>');
+            templates2.append('<option>权重模版选择</option>');
+            for (let i = 0; i < data_arr.length; i++) {
+                let option = $('<option></option>');
+                option.text(data_arr[i]);
+                templates1.append(option);
+                templates2.append(option.clone());
             }
         }
     });
@@ -69,28 +53,32 @@ function findAllTemplate() {
 // 权重模版选择内容变动时更新权重设置列表的内容
 $('#weight_select_templates1').change(function () {
     let new_template = $('#weight_select_templates1').val();
-    console.log(new_template);
+
     if (new_template !== "权重模版选择") {
-        $.ajax({
-            type: 'post',
-            url: base_url + '/proced/findTemplateItemByName',
-            datatype: 'json',
-            data: {
+        api_weight.getTemplateItemByName(
+            {
                 'name': new_template
-            },
-            success: function (data) {
-                if (data.status === 0) {
-                    let data_arr = data.data;
-                    let html = '';
-                    for (let i = 0; i < data_arr.length; i++) {
-                        html += '<tr><td class="edit_weight_list_name" value="' + data_arr[i].pro_name + '">' + data_arr[i].pro_name + '</td><td><input type="text" disabled class="edit_weight_list" value="' + parseInt(100 * data_arr[i].weight) + '"> %</td></tr>'
-                    }
-                    $('#weight_edit_list').html(html);
+            }
+        ).done(function (data) {
+            if (data.status === 0) {
+                let data_arr = data.data;
+                let weight_list = $('#weight_edit_list').empty();
+                for (let i = 0; i < data_arr.length; i++) {
+                    let tr = $('<tr></tr>');
+                    let td = $('<td class="edit_weight_list_name"></td>');
+                    let td2 = $('<td></td>');
+                    let input = $('<input type="text" disabled class="edit_weight_list">');
+                    td.text(data_arr[i].pro_name);
+                    input.val(parseInt(100 * data_arr[i].weight));
+                    td2.append(input);
+                    tr.append(td);
+                    tr.append(td2);
+                    weight_list.append(tr);
                 }
             }
         });
     }
-})
+});
 
 // 点击编辑对权重设置表进行编辑
 function editWeight() {
@@ -110,57 +98,41 @@ function submitWeight() {
     // 获取所有打分项
     let edit_weight_list_name = document.getElementsByClassName('edit_weight_list_name');
     for (let i = 0; i < edit_weight_list_name.length; i++) {
-        // console.log(edit_weight_list_name[i].getAttribute("value"));
         names.push(edit_weight_list_name[i].getAttribute("value"));
     }
+    let flag = false;
     // 获取所有权重值
     $('input[class="edit_weight_list"]').each(function () {
-        // console.log(this.value);
-        weights.push(this.value);
+        weights.push(Number(this.value));
     });
-    // console.log(names);
-    // console.log(weights);
+
     let template_name = $('#weight_select_templates1').val(); // 排课模版名
     var form_arr = {};
-    let sumWeight=0;
     for (let i = 0; i < names.length; i++) {
-        let weight=Number(weights[i]);
-        sumWeight+=weight;
-        form_arr[names[i]] = weight/ 100;
+        if (weights[i] < 0) {
+            swal(
+                '权重设置有误',
+                '请勿设置权重为负数！',
+                'error'
+            );
+            return;
+        }
+        form_arr[names[i]] = weights[i] / 100;
     }
 
-    console.log(sumWeight);
-
-    if(sumWeight!==100){
-        swal(
-            '权重设置错误',
-            '权重和不等于100%',
-            'error'
-        );
-        return;
-    }
-
-    $.ajax({
-        type: 'post',
-        url: base_url + '/proced/addTemplate?templateName=' + template_name,
-        datatype: 'json',
-        data: JSON.stringify(form_arr),
-        contentType: "application/json",              //发送至服务器的类型
-        success: function (data) {
-            if (data.status === 0) {
-                // console.log(data);
-                swal(
-                    '修改成功',
-                    '修改排课模版权重成功',
-                    'success'
-                );
-            } else {
-                swal(
-                    '修改失败',
-                    '修改排课模版权重失败，请重试！',
-                    'error'
-                );
-            }
+    api_weight.setTemplate(template_name, form_arr).done(function (data) {
+        if (data.status === 0) {
+            swal(
+                '修改成功',
+                '修改排课模版权重成功',
+                'success'
+            );
+        } else {
+            swal(
+                '修改失败',
+                '修改排课模版权重失败，请重试！',
+                'error'
+            );
         }
     });
 }
@@ -176,17 +148,13 @@ function band() {
             'warning'
         );
     } else {
-        $.ajax({
-            type: 'post',
-            url: base_url + '/proced/band',
-            datatype: 'json',
-            data: {
-                'batch_name': batch_name,
-                'template_name': template_name
-            },
-            success: function (data) {
+        api_weight.bindTemplateAndBatch(
+            {
+                batch_name: batch_name,
+                template_name: template_name
+            }
+        ).done(function (data) {
                 if (data.status === 0) {
-                    // console.log(data);
                     swal(
                         '绑定成功',
                         '绑定批次与排课模版成功！',
@@ -201,7 +169,7 @@ function band() {
                     );
                 }
             }
-        });
+        );
     }
 }
 
@@ -226,14 +194,11 @@ function deleteTemplate() {
             cancelButtonText: '取消',
         }).then(result => {
             if (result.value) {
-                $.ajax({
-                    type: 'post',
-                    url: base_url + '/proced/deleteTemplate',
-                    datatype: 'json',
-                    data: {
-                        'name': name
-                    },
-                    success: function (data) {
+                api_weight.deleteTemplate(
+                    {
+                        name: name
+                    }
+                ).done(function (data) {
                         if (data.status === 0) {
                             console.log(data);
                             swal(
@@ -252,8 +217,7 @@ function deleteTemplate() {
                             );
                         }
                     }
-                });
-                console.log(result.value)
+                )
             } else {
                 // handle dismiss, result.dismiss can be 'cancel', 'overlay', 'close', and 'timer'
                 console.log(result.dismiss)
@@ -262,48 +226,24 @@ function deleteTemplate() {
     }
 }
 
-// 根据批次获取成绩权重列表并展示
-function getBatchProced() {
-    let batch_name = $('#weight_select_batch2').val();
-    $.ajax({
-        type: 'post',
-        url: base_url + '/proced/getBatchProced/' + batch_name,
-        datatype: 'json',
-        data: {},
-        success: function (data) {
-            if (data.status === 0) {
-                // console.log(data);
-                let data_arr = data.data;
-                let html = '';
-                for (let i = 0; i < data_arr.length; i++) {
-                    html += '<tr><td>' + data_arr[i].proid.pro_name + '</td><td>' + parseInt(100 * data_arr[i].weight) + '%</td></tr>';
-                }
-                $('#show_weight_list_tbody').html(html);
-            }
-            weight_select_templates1
-        }
-    });
-}
-
 // 第二部分批次选择变动时更新权重展示列表的内容
 $('#weight_select_batch2').change(function () {
     let batch_name = $('#weight_select_batch2').val();
     // console.log(batch_name);
     if (batch_name !== "批次选择") {
-        $.ajax({
-            type: 'post',
-            url: base_url + '/proced/getBatchProced/' + batch_name,
-            datatype: 'json',
-            data: {},
-            success: function (data) {
-                if (data.status === 0) {
-                    // console.log(data);
-                    let data_arr = data.data;
-                    let html = '';
-                    for (let i = 0; i < data_arr.length; i++) {
-                        html += '<tr><td>' + data_arr[i].proid.pro_name + '</td><td>' + parseInt(100 * data_arr[i].weight) + '%</td></tr>';
-                    }
-                    $('#show_weight_list_tbody').html(html);
+        api_common.getBatchByname(batch_name).done(function (data) {
+            if (data.status === 0) {
+                let data_arr = data.data;
+                let weight_list = $('#show_weight_list_tbody').empty();
+                for (let i = 0; i < data_arr.length; i++) {
+                    let tr = $('<tr></tr>');
+                    let td = $('<td></td>');
+                    let td2 = $('<td></td>');
+                    td.text(data_arr[i].proid.pro_name);
+                    td2.text(parseInt(100 * data_arr[i].weight) + '%');
+                    tr.append(td);
+                    tr.append(td2);
+                    weight_list.append(tr);
                 }
             }
         });
@@ -313,65 +253,55 @@ $('#weight_select_batch2').change(function () {
 
 // 添加新权重方法
 function addTemplate() {
-//获取所有打分项
-    $.ajax({
-        type: 'post',
-        url: base_url + '/proced/getAllProced',
-        data: {},
-        datatype: 'json',
-        beforeSend: function (xhr) {
-            xhr.withCredentials = true;
-        },
-        crossDomain: true,
-        success: function (data) {
-            if (data.status === 0) {
-                let proces = data.data;
-                proceCount=proces.length;
-                tableColumn=Math.ceil(proces.length/tableRow);
-                let lastColumRow=proces.length%tableRow;
-                let talbeHeadTr=$('#new_weight_list_table thead tr').empty();
-                for (let i = 0; i < tableColumn; i++) {
-                    talbeHeadTr.append('<th>打分项</th><th>权重</th>');
-                }
-
-                let tableBody=$('#new_weight_list_table tbody').empty();
-                let index=0;
-                for (let i = 0; i < lastColumRow; i++) {
-                    $tr=$('<tr></tr>');
-                    for (let j = 0; j < tableColumn; j++) {
-                        $td=$('<td></td>');
-                        if(proces[index]!=null){
-                            $td.text(proces[index])
-                        }
-                        $td.appendTo($tr);
-                        $tr.append('<td><input type="number"> %</td>');
-                        ++index;
-                    }
-                    $tr.appendTo(tableBody)
-                }
-                for (let i = 0; i < tableRow - lastColumRow; i++) {
-                    $tr=$('<tr></tr>');
-                    for (let j = 0; j < tableColumn - 1; j++) {
-                        $td=$('<td></td>');
-                        if(proces[index]!=null){
-                            $td.text(proces[index])
-                        }
-                        $td.appendTo($tr);
-                        $tr.append('<td><input type="number"> %</td>');
-                        ++index;
-                    }
-                    $tr.appendTo(tableBody)
-                }
-
-            } else {
-                swal(
-                    '获取打分项失败！',
-                    '请重试',
-                    'error'
-                )
+    //获取所有打分项,生成打分表格
+    api_common.getAllProced().done(function (data) {
+        if (data.status === 0) {
+            let proces = data.data;
+            proceCount = proces.length;
+            tableColumn = Math.ceil(proces.length / tableRow);
+            let lastColumRow = proces.length % tableRow;
+            let talbeHeadTr = $('#new_weight_list_table thead tr').empty();
+            for (let i = 0; i < tableColumn; i++) {
+                talbeHeadTr.append('<th>打分项</th><th>权重</th>');
             }
+
+            let tableBody = $('#new_weight_list_table tbody').empty();
+            let index = 0;
+            for (let i = 0; i < lastColumRow; i++) {
+                $tr = $('<tr></tr>');
+                for (let j = 0; j < tableColumn; j++) {
+                    $td = $('<td></td>');
+                    if (proces[index] != null) {
+                        $td.text(proces[index])
+                    }
+                    $td.appendTo($tr);
+                    $tr.append('<td><input type="number"> %</td>');
+                    ++index;
+                }
+                $tr.appendTo(tableBody)
+            }
+            for (let i = 0; i < tableRow - lastColumRow; i++) {
+                $tr = $('<tr></tr>');
+                for (let j = 0; j < tableColumn - 1; j++) {
+                    $td = $('<td></td>');
+                    if (proces[index] != null) {
+                        $td.text(proces[index])
+                    }
+                    $td.appendTo($tr);
+                    $tr.append('<td><input type="number"> %</td>');
+                    ++index;
+                }
+                $tr.appendTo(tableBody)
+            }
+
+        } else {
+            swal(
+                '获取打分项失败！',
+                '请重试',
+                'error'
+            )
         }
-    })
+    });
 }
 
 //点击确认创建新的权重模板
@@ -379,7 +309,7 @@ function addTemplate() {
 function createNewWeightTemp() {
     let name = $('#new_weight_temp_name').val();
 
-    if (name===''){
+    if (name === '') {
         swal('请设置模板名字');
         return;
     }
@@ -387,9 +317,10 @@ function createNewWeightTemp() {
     let weights = [];
     let names = [];
 
-    $tableBody=$('#new_weight_list_table tbody tr').each(function () {
+    $tableBody = $('#new_weight_list_table tbody tr').each(function () {
         $(this).find('td:odd').each(function () {
-            weights.push($(this).find('input:first').val());
+
+            weights.push(Number($(this).find('input:first').val()));
 
         });
         $(this).find('td:even').each(function () {
@@ -399,46 +330,34 @@ function createNewWeightTemp() {
 
     let postData = {};
 
-    let sumWeight=0;
     for (let i = 0; i < names.length; i++) {
-        let weight=Number(weights[i]);
-        if(weight>0){
-            postData[names[i]] = weight/100;
-            sumWeight+=weight;
+        if (weights[i] < 0) {
+            swal(
+                '权重设置有误',
+                '请勿设置权重为负数！',
+                'error'
+            );
+            return;
+        }
+        if(weights[i]>0){
+            postData[names[i]] = weights[i] / 100;
         }
     }
-
-    if(sumWeight!==100){
-        swal(
-            '权重设置错误',
-            '权重和不等于100%',
-            'error'
-        );
-        return;
-    }
-
-    $.ajax({
-        type: 'post',
-        url: base_url + '/proced/addTemplate?templateName=' + name,
-        datatype: 'json',
-        data: JSON.stringify(postData),
-        contentType: 'application/json',
-        success: function (data) {
-            if (data.status === 0) {
-                //重新初始化权重模板选择
-                findAllTemplate();
-                swal(
-                    '创建成功',
-                    '创建权重模板成功',
-                    'success'
-                )
-            } else {
-                swal(
-                    '创建失败',
-                    data.message,
-                    'error'
-                );
-            }
+    api_weight.setTemplate(name, postData).done(function (data) {
+        if (data.status === 0) {
+            //重新初始化权重模板选择
+            findAllTemplate();
+            swal(
+                '创建成功',
+                '创建权重模板成功',
+                'success'
+            )
+        } else {
+            swal(
+                '创建失败',
+                data.message,
+                'error'
+            );
         }
     }).always(function () {
         $('#weight-plan-add').modal('hide');
