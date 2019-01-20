@@ -9,7 +9,7 @@ var api_experiment = {
         //     contentType: "application/json; charset=utf-8",
         // }).done(success_call).fail(fail_call).always(always_call);
         return post_json(
-            base_url + '/experiment/addTemplate',
+            '/experiment/addTemplate',
             data
         )
     },
@@ -23,7 +23,7 @@ var api_experiment = {
         //     contentType: "application/json; charset=utf-8",
         // }).done(success_call).fail(fail_call).always(always_call);
         return post_json(
-            base_url + '/experiment/modifyTemplate',
+            '/experiment/modifyTemplate',
             data
         )
     },
@@ -39,7 +39,7 @@ var api_experiment = {
         //     data: {},
         // }).done(success_call).fail(fail_call).always(always_call);
         return post_query(
-            base_url + '/experiment/getAllTemplate',
+            '/experiment/getAllTemplate',
             {}
         )
     },
@@ -54,7 +54,7 @@ var api_experiment = {
         //     data: data,
         // }).done(success_call).fail(fail_call).always(always_call);
         return post_query(
-            base_url + '/experiment/getTemplate',
+            '/experiment/getTemplate',
             data
         )
     },
@@ -70,7 +70,7 @@ var api_experiment = {
         // }).done(success_call).fail(fail_call).always(always_call);
         var data = { template_id: template_id }
         return post_query(
-            base_url + '/experiment/deleteTemplate',
+            '/experiment/deleteTemplate',
             data
         )
     },
@@ -90,7 +90,7 @@ var api_experiment = {
             'template_id': template_id
         }
         return post_query(
-            base_url + '/experiment/bundleTemplate',
+            '/experiment/bundleTemplate',
             data
         )
     },
@@ -103,13 +103,13 @@ var api_experiment = {
         //     data: { batch_name: batch_name },
         // }).done(success_call).fail(fail_call).always(always_call);
         return post_query(
-            base_url + '/experiment/getExperimentByBatch',
+            '/experiment/getExperimentByBatch',
             { batch_name: batch_name }
         )
     },
     updateExperiment:function(data){
         return post_json(
-            base_url + '/experiment/updateExperiment',
+            '/experiment/updateExperiment',
             data
         )
     }

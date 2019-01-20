@@ -8,7 +8,7 @@ var api_batch = {
     //         data: {},
     //     }).done(success_call).fail(fail_call).always(always_call);
         return post_query(
-            base_url + '/batch/getAllBatch',
+            '/batch/getAllBatch',
             {}
         )
     }

@@ -7,7 +7,7 @@ var api_group = {
         //     datatype: 'json',
         // }).done(success_call).fail(fail_call).always(always_call);
         return post_query(
-            base_url + '/group/getAllGroup',
+            '/group/getAllGroup',
             {}
         )
     },
@@ -20,7 +20,7 @@ var api_group = {
         //     datatype: 'json',
         // }).done(success_call).fail(fail_call).always(always_call);
         return post_query(
-            base_url + '/group/getProcedByGroup',
+            '/group/getProcedByGroup',
             { 'groupName': t_group_id }
         )
     }
