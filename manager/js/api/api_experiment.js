@@ -2,21 +2,21 @@ var api_experiment = {
     //添加模板
     addTemplate: function (data) {
         return post_json(
-            base_url + '/experiment/addTemplate',
+             '/experiment/addTemplate',
             data
         )
     },
     // 修改模板
     modifyTemplate: function (data) {
         return post_json(
-            base_url + '/experiment/modifyTemplate',
+             '/experiment/modifyTemplate',
             data
         )
     },
     // 获取所有模版名
     getAllTemplates: function () {
         return post_query(
-            base_url + '/experiment/getAllTemplate',
+             '/experiment/getAllTemplate',
             {}
         )
     },
@@ -24,7 +24,7 @@ var api_experiment = {
     getTemplate: function (template_id) {
         var data = { template_id: template_id };
         return post_query(
-            base_url + '/experiment/getTemplate',
+             '/experiment/getTemplate',
             data
         )
     },
@@ -32,7 +32,7 @@ var api_experiment = {
     deleteTemplate: function (template_id) {
         var data = { template_id: template_id }
         return post_query(
-            base_url + '/experiment/deleteTemplate',
+             '/experiment/deleteTemplate',
             data
         )
     },
@@ -43,20 +43,20 @@ var api_experiment = {
             'template_id': template_id
         }
         return post_query(
-            base_url + '/experiment/bundleTemplate',
+             '/experiment/bundleTemplate',
             data
         )
     },
     // 通过批次获取
     getExperimentByBatch: function (batch_name) {
         return post_query(
-            base_url + '/experiment/getExperimentByBatch',
+             '/experiment/getExperimentByBatch',
             { batch_name: batch_name }
         )
     },
     getExperimentByBatchAndProced: function (batch_name, pro_name) {
         return post_query(
-            base_url + '/experiment/getExperimentByProAndBatch',
+             '/experiment/getExperimentByProAndBatch',
             {
                 batch_name: batch_name,
                 pro_name: pro_name
@@ -65,13 +65,13 @@ var api_experiment = {
     },
     updateExperiment: function (data) {
         return post_json(
-            base_url + '/experiment/updateExperiment',
+             '/experiment/updateExperiment',
             data
         )
     },
     getClass: function (sid) {
         return post_query(
-            base_url + '/experiment/getClass',
+             '/experiment/getClass',
             { sid: sid }
         )
     }

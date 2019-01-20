@@ -8,7 +8,7 @@ var api_batch = {
     },
     getAllSGroup: function (batch_name) {
         return post_query(
-            base_url + '/batch/getAllSGroup',
+          '/batch/getAllSGroup',
             { 'batch_name': batch_name }
         )
     }
