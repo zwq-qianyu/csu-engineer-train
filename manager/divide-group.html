@@ -23,11 +23,7 @@
 	<!-- sweetalert2结束 -->
 </head>
 
-<style>
-#distribution-table td:hover{
-	background-color: #eeeeee;
-}
-</style>
+
 
 <body>
 	<header>
@@ -115,12 +111,12 @@
 											<div class="row">
 												<div class="col-xs-3">
 													<select class="form-control custom-select" id="course_divide1_select_batch">
-													 
+
 													</select>
 												</div>
 												<div class="col-xs-3">
 													<select class="form-control custom-select" id="course_divide1_select_temp">
-														 
+
 													</select>
 												</div>
 												<input type="button" name="" class="btn btn-primary" value="绑定" onclick="bundleTemplate()">
@@ -138,11 +134,11 @@
 													<select class="form-control custom-select" id="course_divide1_select_batch2">
 													</select>
 												</div>
-												
+
 												<div class="col-xs-2">
 													<input type="button" name="" class="btn btn-danger" value="编辑off" id="edit-distribution">
 												</div>
-											
+
 												<div class="col-xs-2">
 													<input type="button" name="" class="btn btn-success" value="保存" id="save-distribution">
 												</div>
@@ -154,7 +150,10 @@
 													</select>
 												</div>
 											</div>
-											<br>
+											<table class="table table-bordered" id="class-time-tracer">
+												<tbody id="class-time-container"></tbody>
+											</table>
+
 											<div class="row">
 												<table class="table table-bordered distribute-table" id="distribution-table">
 													<thead id="distribution-table-head">
@@ -162,6 +161,15 @@
 													<tbody id="distribution-table-body">
 													</tbody>
 												</table>
+											</div>
+											<br>
+											<div>
+												<h4 class="text-info">编辑说明</h4>
+												<ol style="font-size:0.8em">
+													<li>选择批次之后，会出现课表</li>
+													<li>点击编辑，进入编辑模式之后，课表上方将出现一个条子，这个条子上的数字代表的就是课时，可以看到有白色、蓝色、绿色三种状态</li>
+													<li>白色是未分配的状态，点击之后变为蓝色选中状态，再点击下方的课时表填入，就会变为绿色的已分配状态，点击绿色课时会自动跳转到其所在的周的课表，双击绿色课时会解除分配状态，回到白色</li>
+												</ol>
 											</div>
 										</div>
 									</div>
@@ -665,11 +673,13 @@
 			$addButton: $('#add')
 		}); -->
 	</script>
+	<script src="../config/common_config.js"></script>
 	<script src="../js/sweetalert.min.js"></script>
 	<script src="../js/lodash.min.js"></script>
-	<script src="../config/common_config.js"></script>
 	<script src="./js/config/config-divide-group.js"></script>
 	<script src="./js/api/api_experiment.js"></script>
+	<script src="./js/api/api_batch.js"></script>
 	<script type="text/javascript" src="./js/divide-group.js"></script>
 </body>
+
 </html>
