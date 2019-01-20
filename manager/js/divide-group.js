@@ -561,7 +561,7 @@ $('#get-student-list-by-batch-and-group').click(function () {
   var batch_name = $('#student_divide_select_batch2').val();
   if (batch_name && batch_name !== '实习批次选择' && sgroup && sgroup !== '组号') {
     post_query(
-      base_url + '/student/getStudent',
+      '/student/getStudent',
       {
         batch_name: batch_name,
         s_group_id: sgroup
