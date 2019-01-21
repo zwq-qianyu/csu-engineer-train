@@ -101,7 +101,7 @@
 								<li role="presentation"><a href="#Section4" aria-controls="messages" role="tab" data-toggle="tab">物料入库</a></li>
 							</ul>
 							<!-- Tab panes -->
-							<div class="tab-content tabs">
+							<div class="tab-content tabs" id="tabContent">
 								<!-- 库存 kadminTbody -->
 								<div role="tabpanel" class="tab-pane fade in active" id="Section1">
 									<div class="panel panel-info">
@@ -168,16 +168,7 @@
                                                     <th>操作</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id="kadminTbody">
-                                                <!-- <tr>
-                                                    <td>铝棒(根x2m)</td>
-                                                    <td>20</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>轴承23(个)</td>
-                                                    <td>2</td>
-                                                </tr> -->
-                                                </tbody>
+                                                <tbody id="kadminTbody"></tbody>
                                             </table>
 
 
@@ -206,27 +197,19 @@
 														</div>
 														<div class="col-xs-2 col-sm-2">
 															<select class="form-control custom-select select-person" id="japply_person">
-																 <option>申购人</option>
-																<!--<option>张三</option>
-																<option>李四</option>
-																<option>王五</option> -->
+																<option>暂无选项</option>
 															</select>
 														</div>
 														<div class="col-xs-2 col-sm-2">
 															<select class="form-control custom-select select-person" id="jpurchase_person">
-																<option>采购人</option>
-																<!--<option>张三</option>
-																<option>李四</option>
-																<option>王五</option> -->
+																<option>暂无选项</option>
 															</select>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-xs-2 col-sm-2">
 															<select class="form-control custom-select select-person left-flatpickr" id="jmaterial">
-																<option>物料种类</option>
-																<!-- <option>铝棒(根x2m)</option>
-																<option>轴承23(个)</option> -->
+																<option>暂无选项</option>
 															</select>
 														</div>
 														<div class="col-xs-2 col-sm-2">
@@ -239,30 +222,31 @@
 													</div>
 
 													<!-- 表格主体部分 -->
-													<div class="table-responsive">
-														<!-- -->
-														<table class="table table-striped" prefix="2" style="min-width: 1200px;overflow-x: scroll">
-															<thead>
-															<tr>
-																<th class="fixed-column w52" style="border-bottom-width: 0;">框选</th>
-																<th class="fixed-column w120" style="border-bottom-width: 0;">申购编号</th>
-																<th class="space"></th>
-																<th>申购日期</th>
-																<th>申购人</th>
-																<th>物料种类</th>
-																<th>申购数量</th>
-																<th>申购备注</th>
-																<th>审核状态</th>
-																<th>审核人</th>
-																<th>采购总数</th>
-																<th>报账总数</th>
-																<th>采购人</th>
-																<th>入库总数</th>
-															</tr>
-															</thead>
-															<tbody id="jadminTbody"></tbody>
-														</table>
-													</div>
+													<!--<div class="table-responsive">-->
+														<!--&lt;!&ndash; &ndash;&gt;-->
+														<!--<table class="table table-striped" prefix="2" style="min-width: 1200px;overflow-x: scroll">-->
+															<!--<thead>-->
+															<!--<tr>-->
+																<!--<th class="fixed-column w52" style="border-bottom-width: 0;">框选</th>-->
+																<!--<th class="fixed-column w120" style="border-bottom-width: 0;">申购编号</th>-->
+																<!--<th class="space"></th>-->
+																<!--<th>申购日期</th>-->
+																<!--<th>申购人</th>-->
+																<!--<th>物料种类</th>-->
+																<!--<th>申购数量</th>-->
+																<!--<th>申购备注</th>-->
+																<!--<th>审核状态</th>-->
+																<!--<th>审核人</th>-->
+																<!--<th>采购总数</th>-->
+																<!--<th>报账总数</th>-->
+																<!--<th>采购人</th>-->
+																<!--<th>入库总数</th>-->
+															<!--</tr>-->
+															<!--</thead>-->
+															<!--&lt;!&ndash;<tbody id="jadminTbody"></tbody>&ndash;&gt;-->
+														<!--</table>-->
+													<!--</div>-->
+													<table id="jadminTbody"></table>
 
 
 													<!-- 分页功能部分 -->
@@ -369,7 +353,7 @@
 														</div>
 														<div class="col-xs-2 col-sm-2">
 															<select class="form-control custom-select select-person" id="smaterial">
-																 <option>物料种类</option>
+																 <option>暂无选项</option>
 																<!--<option>张三</option>
 																<option>李四</option>
 																<option>王五</option> -->
@@ -452,7 +436,7 @@
 														</div>
 														<div class="col-xs-2 col-sm-2">
 															<select class="form-control custom-select select-person" id="cpurchase_person">
-																<!--<option>采购人</option>-->
+																<option>暂无选项</option>
 																<!--<option>张三</option>
 																<option>李四</option>
 																<option>王五</option> -->
@@ -460,7 +444,7 @@
 														</div>
 														<div class="col-xs-2 col-sm-2">
 															<select class="form-control custom-select select-person" id="cmaterial">
-																<!--<option>物料种类</option>-->
+																<option>暂无选项</option>
 																<!-- <option>铝棒(根x2m)</option>
 																<option>轴承23(个)</option> -->
 															</select>
@@ -589,7 +573,7 @@
 														</div>
 														<div class="col-xs-2 col-sm-2">
 															<select class="form-control custom-select select-person" id="bpurchase_person">
-																<!--<option>采购人</option>-->
+																<option>暂无选项</option>
 																<!-- <option>张三</option>
 																<option>李四</option>
 																<option>王五</option> -->
@@ -597,7 +581,7 @@
 														</div>
 														<div class="col-xs-2 col-sm-2">
 															<select class="form-control custom-select select-person" id="bmaterial">
-																<!--<option>物料种类</option>-->
+																<option>暂无选项</option>
 																<!-- <option>张三</option>
 																<option>李四</option>
 																<option>王五</option> -->
@@ -746,7 +730,7 @@
 														</div>
 														<div class="col-xs-2 col-sm-2">
 															<select class="form-control custom-select select-person" id="hmaterial">
-																<option>物料种类</option>
+																<option>暂无选项</option>
 																<!-- <option>张三</option>
 																<option>李四</option>
 																<option>王五</option> -->
@@ -822,14 +806,14 @@
 												</div>
 												<div class="col-xs-2 col-sm-2">
 													<select class="form-control custom-select select-person" id="rmaterial">
-														<!--<option>物料种类</option>-->
+														<option>暂无选项</option>
 														<!-- <option>铝棒(根x2m)</option>
                                                         <option>轴承23(个)</option> -->
 													</select>
 												</div>
 												<div class="col-xs-2 col-sm-2">
 													<select class="form-control custom-select select-person" id="rstore_person">
-														<!--<option>入库人</option>-->
+														<option>暂无选项</option>
 														<!-- <option>张三</option>
                                                         <option>李四</option>
                                                         <option>王五</option> -->
@@ -955,10 +939,15 @@
 	<script type="text/javascript">
 		$(".mycalendar").flatpickr();
 	</script>
-	<script type="text/javascript" src="./js/meteral-buy.js"></script>
+	<script src="../config/common_config.js"></script>
+	<script src="./js/api/api_material.js"></script>
+	<script src="./js/api/api_material_purchase.js"></script>
+	<script src="./js/config/config-material-buy.js"></script>
+	<script src="./js/meteral-buy.js"></script>
 	<!-- 分页开始 -->
 	<script type="text/javascript" src="../js/cut_page2.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/cut_page.css">
 	<!-- 分页结束 -->
+	<script src="../js/bootstable.js"></script>
 </body>
 </html>
