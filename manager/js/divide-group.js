@@ -69,9 +69,9 @@ function fillBatchSelectorOptions() {
 function bundleTemplate() {
   var template_id = $('#course_divide1_select_temp').val();
   var batch_name = $('#course_divide1_select_batch').val();
-  console.log(template_id);
+  // console.log(template_id);
   if (template_id === "排课模版选择" || batch_name === "实习批次选择") {
-    console.log(template_id);
+    // console.log(template_id);
     swal(
       '请先选择批次和模版',
       '请选择批次和模版后再进行绑定操作！',
@@ -88,7 +88,7 @@ function bundleTemplate() {
             'success'
           );
         } else {
-          console.log(data);
+          // console.log(data);
           swal(
             '绑定失败',
             String(data.message),
@@ -100,8 +100,6 @@ function bundleTemplate() {
   }
 }
 
-// console.log(weekRange)
-
 function fillWeekSelectorOptions() {
   var $weekselect = $('#course_divide1_select_week');
   _.each(weekRange, function (val, i) {
@@ -111,7 +109,7 @@ function fillWeekSelectorOptions() {
 
 var $course_divide1_select_batch2 = $('#course_divide1_select_batch2')
 $course_divide1_select_batch2.change(function () {
-  console.log("$course_divide1_select_batch2.change")
+  // console.log("$course_divide1_select_batch2.change")
   batch_name = $course_divide1_select_batch2.val()
   if (batch_name && batch_name !== '实习批次选择') {
     api_experiment.getExperimentByBatch(batch_name)
@@ -143,7 +141,7 @@ function ProcessNewDistributionData(data) {
       data_group_by_ctime[k].time_quant = '';
     }
   });
-  console.log(data_group_by_ctime)
+  // console.log(data_group_by_ctime)
 }
 
 function initDistributionTable() {
@@ -190,9 +188,9 @@ function getGroupInWeek(week) {
 
 function drawDistributionTable() { // 画出指定周的课表
   var week = $('#course_divide1_select_week option:selected').attr('week');
-  console.log('drawDistributionTable week' + week)
+  // console.log('drawDistributionTable week' + week)
   var classInWeek = getGroupInWeek(week)
-  console.log(classInWeek)
+  // console.log(classInWeek)
   var $distribution_table_head = $('#distribution-table-head').empty()
   var $tr = $('<tr>');
   _.each(dayRange, function (val, i) {
@@ -223,7 +221,7 @@ function drawDistributionTable() { // 画出指定周的课表
 // 编辑排课表
 var distributeEditMode = false;
 var $edit_distribution = $('#edit-distribution').click(function () {
-  console.log("$('#edit-template-name').click")
+  // console.log("$('#edit-template-name').click")
   if (distributeEditMode) {
     $class_time_container.hide();
     distributeEditMode = false;
@@ -240,17 +238,17 @@ var $class_time_selected = null;
 var clicktime = new Date();
 var t_id = null;
 $class_time_container.on('click', 'td', function () {
-  console.log("$class_time_container.on('click', 'td')")
+  // console.log("$class_time_container.on('click', 'td')")
   var newClicktime = new Date();
   var elapse = newClicktime - clicktime;
-  console.log('elapse', elapse)
+  // console.log('elapse', elapse)
   var $this = $(this)
   $class_time_selected = null;
   $('.selected', $class_time_container).removeClass('selected');
   if ($this.hasClass('distributed')) { // 
     if (elapse < 200) { // 双击取消分配
       if (t) {
-        console.log(t)
+        // console.log(t)
         clearTimeout(t);
         t = null;
       }
@@ -299,7 +297,7 @@ function jumpToDistributionTableWithClasstime(class_time) {
 // 课时表项点击处理
 var $distribution_table = $('#distribution-table');
 $distribution_table.on('click', 'td', function () {
-  console.log("$distribution_table.on('click', 'td')");
+  // console.log("$distribution_table.on('click', 'td')");
   if (!distributeEditMode) return;
   if (!$class_time_selected) return;
   var $this = $(this);
@@ -324,7 +322,7 @@ $distribution_table.on('click', 'td', function () {
 
 // 课时分配表保存
 $('#save-distribution').click(function () { // 获取数据保存
-  console.log("$('#save-distribution').click")
+  // console.log("$('#save-distribution').click")
   if (distributeEditMode) { // 编辑模式
     swal({
       title: 'Are you sure?',
@@ -344,10 +342,10 @@ $('#save-distribution').click(function () { // 获取数据保存
               data.push(elem);
             })
           });
-          console.log(data);
+          // console.log(data);
           api_experiment.updateExperiment(data)
             .done(function (data) {
-              console.log(data);
+              // console.log(data);
               if (data.status === 0) {
                 swal('修改成功了', '大概……', 'success');
               } else {
@@ -409,19 +407,18 @@ $('#query-by-batch-button').click(function () {
 function parse_time_quant(time_quant_string) {
   var s = time_quant_string;
   if (typeof s != 'string')
-    console.log('time_quant error');
+    throw 'time_quant error'
   var week = s.slice(0, 2);
   if (week[0] === '0') week = week[1]
   var day = s.slice(2, 3);
   var time = s.slice(3, 4);
   var time_quant_arr = [week, day, time];
-  console.log(time_quant_arr);
   return time_quant_arr;
 }
 
 function displayResultByBatch(data) {
-  var grouped_data = _.groupBy(data, 'class_time')
-  var class_times = _.keys(grouped_data)
+  var grouped_data = _.groupBy(data, 'class_time') // 使用class_time分组的数据
+  // var class_times = _.keys(grouped_data) // 如果有出现排序问题就把这个keys排序，然后用来索引
   var s_groups = _.keys(_.groupBy(data, 's_group_id'))
   var s_group_to_i = {}
   _.each(s_groups, function (sg, i) {
@@ -429,7 +426,6 @@ function displayResultByBatch(data) {
   })
 
   var $table_head = $('thead', '#query-by-batch-result').empty();
-  console.log()
 
   var $tr = $('<tr>').html('<th>课时\\组号</th>')
   _.each(s_groups, function (sg, i) {
@@ -439,8 +435,13 @@ function displayResultByBatch(data) {
 
   var $table_body = $('tbody', '#query-by-batch-result').empty();
   _.each(grouped_data, function (group_data, class_time) {
-    $tr = $('<tr>')
-    $('<td>').text(class_time).appendTo($tr)
+    $tr = $('<tr>') // 需要计算出课时对应的时间
+    var time_quant = group_data[0].time_quant;
+    var time_quant_arr = parse_time_quant(time_quant);
+    var week = time_quant_arr[0]
+    var day = time_quant_arr[1]
+    var time = time_quant_arr[2]
+    $('<td>').text('' + class_time + "->" + week + '周' + dayRange[day] + _.range(time * timeRangeStep + 1, time * timeRangeStep + timeRangeStep + 1) + '节').appendTo($tr)
     var td_datas = []
     td_datas.length = s_groups.length;
     _.each(group_data, function (data, i) {
@@ -457,7 +458,7 @@ function displayResultByBatch(data) {
 // 根据工种和实习批次查询课表【数据返回格式需要修改】
 
 $('#query-by-batch-and-proced-button').click(function () {
-  console.log("$('#query-by-batch-and-proced-button').click")
+  // console.log("$('#query-by-batch-and-proced-button').click")
   var batch_name = $('#seach_clazzes_select_batch2').val();
   var pro_name = $('#seach_clazzes_select_process').val();
   if (batch_name && batch_name !== '实习批次选择' && pro_name && pro_name !== '选择工种') {
@@ -465,7 +466,7 @@ $('#query-by-batch-and-proced-button').click(function () {
     api_experiment.getExperimentByBatchAndProced(batch_name, pro_name)
       .done(function (data) {
         if (data.status === 0) {
-          console.log(data.data)
+          // console.log(data.data)
           displayResultByBatchAndProced(data.data)
         }
       })
@@ -473,15 +474,22 @@ $('#query-by-batch-and-proced-button').click(function () {
 });
 
 function displayResultByBatchAndProced(data) {
-
   var $table_body = $('#query-by-batch-and-proced-result')
-  console.log($table_body)
-  _.sortBy(data, 'class_time')
+  // console.log($table_body)
+  data = _.sortBy(data,'time_quant')
 
   _.each(data, function (val, i) {
     var $tr = $('<tr>');
-    console.log(val)
-    $('<td>').text(val.class_time).appendTo($tr)
+
+    var time_quant = val.time_quant;
+    var time_quant_arr = parse_time_quant(time_quant);
+    var week = time_quant_arr[0]
+    var day = time_quant_arr[1]
+    var time = time_quant_arr[2]
+
+    $('<td>').text('' + val.class_time + "->" + week + '周' + dayRange[day] + _.range(time * timeRangeStep + 1, time * timeRangeStep + timeRangeStep + 1) + '节').appendTo($tr)
+
+    // $('<td>').text(val.class_time).appendTo($tr)
     $('<td>').text(val.s_group_id).appendTo($tr)
     $tr.appendTo($table_body)
   });
@@ -504,7 +512,7 @@ function groupStudent() {
     api_studentGroup.groupStudent(batch_name)
       .done(function (data) {
         if (data.status === 0) {
-          console.log(data);
+          // console.log(data);
           swal(
             '分组成功',
             String(data.message),
@@ -512,7 +520,7 @@ function groupStudent() {
           );
         }
         else {
-          console.log(data);
+          // console.log(data);
           swal(
             '分组失败',
             String(data.message),
@@ -541,7 +549,7 @@ function getAllSGroupByBatch() {
     api_batch.getAllSGroup(batch_name)
       .done(function (data) {
         if (data.status === 0) {
-          console.log(data);
+          // console.log(data);
           var data_arr = data.data;
 
           _.each(data_arr, function (val, i) {
@@ -577,9 +585,9 @@ $('#get-student-list-by-batch-and-group').click(function () {
 
 var student_group_data = []
 function displayGroupStudentResult(data) {
-  console.log('displayGroupStudentResult')
+  // console.log('displayGroupStudentResult')
   var $table_body = $('#student-group-result').empty();
-  _.sortBy(data, 'sid');
+  data = _.sortBy(data, 'sid');
   var $student_select_group = $('#student_divide_select_group')
   var selectedindex = $student_select_group.get(0).selectedIndex - 1
 
@@ -608,11 +616,11 @@ function displayGroupStudentResult(data) {
 
 $('#student-group-result').on('click', 'button', function () {
   var $this = $(this);
-  console.log($this);
+  // console.log($this);
   var $ptr = $this.parent().parent()
   var sid = $('.sid', $ptr).text();
   var s_group_id = $('select', $ptr).val();
-  console.log(s_group_id)
+  // console.log(s_group_id)
   api_student.updateGroup(sid, s_group_id)
     .done(function (data) {
       if (data.status === 0) {
@@ -634,17 +642,17 @@ function getStuClassTableByNum() {
     api_experiment.getClass(sid)
       .done(function (data) {
         if (data.status === 0) {
-          console.log(data);
+          // console.log(data);
           var data_arr = data.data;
           var $table_body = $('#search_stu_tbody')
-          _.sortBy(data_arr, 'class_time');
+          data_arr = _.sortBy(data_arr, 'class_time');
           _.each(data_arr, function (val, i) {
             var $tr = $('<tr>');
             var time_quant_arr = parse_time_quant(val.time_quant);
             var week = time_quant_arr[0];
             var day = time_quant_arr[1];
             var time = time_quant_arr[2];
-            $('<td>').text(val.class_time + "->" + week + '周' + dayRange[day] + _.range(time * 2 + 1, time * 2 + 3) + '节').appendTo($tr);
+            $('<td>').text(val.class_time + "->" + week + '周' + dayRange[day] + _.range(time * timeRangeStep + 1, time * timeRangeStep + timeRangeStep + 1) + '节').appendTo($tr);
             $('<td>').text(val.pro_name).appendTo($tr);
             $('<td>').text(val.batch_name).appendTo($tr);
             $('<td>').text(val.s_group_id).appendTo($tr);

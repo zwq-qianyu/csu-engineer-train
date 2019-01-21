@@ -257,42 +257,48 @@ $('#add-student-group').click(function () {
 })
 
 
-var clicktime = new Date()
+var clicktime = new Date();
+var timeoutid = null;
 $('#template-tbody').on('click', 'td', function () {
   // console.log('#template-tbody td : clicked')
   if (!edit_mode) return;
   var $td = $(this);
   var newClickTime = new Date();
 
-  var $tempName = $('#template-selector').val();
+  var tempName = $('#template-selector').val();
   var i_t_group_id = parseInt($('#teacher-selector option:selected').attr('i_teachergroup'));
   var t_group_id = teacher_groups[i_t_group_id].t_group_id;
   var i_pro_name = parseInt($('#proced-selector option:selected').attr('i_proced'));
-  // console.log(i_pro_name)
   var pro_name = teacher_groups_proced[t_group_id][i_pro_name]
-  // console.log(pro_name)
-  if (!t_group_id || !$tempName || !pro_name) return;
+ 
   var i_group = parseInt($td.attr('group'))
   var i_class_time = parseInt($td.attr('class-time'))
   if (!i_group || !i_class_time) return;
   var s_group_id = student_groups[i_group - 1]
 
+  console.log(newClickTime - clicktime)
   if (newClickTime - clicktime < 200) {
+    console.log('double');
+    if (timeoutid)
+      clearTimeout(timeoutid)
     $td.empty();
-    clicktime = newClickTime;
     currentTemplate[s_group_id][i_class_time] = null;
-    return;
-  } else {
     clicktime = newClickTime;
+    return;
+  }
+  clicktime = newClickTime;
+  if (!t_group_id || !tempName || !pro_name) return;
+  console.log('single');
+  timeoutid = setTimeout(() => {
     currentTemplate[s_group_id][i_class_time] = {
-      template_id: $tempName,
+      template_id: tempName,
       t_group_id: t_group_id,
       s_group_id: s_group_id,
       pro_name: pro_name,
       class_time: i_class_time
     }
     $td.text('<' + t_group_id + ',' + pro_name + '>')
-  }
+  }, 200);
 });
 
 
