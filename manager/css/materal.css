@@ -88,3 +88,21 @@ th, td {
 	padding: 0 20px;
 	box-sizing: border-box;
 }
+.fixed-column{
+	position: absolute;
+	display: inline-block;
+	width: auto;
+	background-color: #ffffff;
+
+	height: 39px;
+}
+.w52{
+	width: 52px;
+}
+.w120{
+	width: 120px;
+	margin-left: 52px;
+}
+.space{
+	width: 172px;
+}

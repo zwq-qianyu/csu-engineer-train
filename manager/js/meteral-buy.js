@@ -61,9 +61,9 @@ function getAllMaterial(){
 function getApplyer(){
   $.ajax({
     type: 'post',
-    url: base_url + '/purchase/getPurchaser',
+    url: base_url + 'applyFPchse/getAllNameByAuthType',
     datatype: 'json',
-    data: {},
+    data: {"type":1},
     success: function(data){
       // console.log(data);
       if(data.status === 0){
@@ -85,9 +85,9 @@ function getApplyer(){
 function getPurchaser() {
     $.ajax({
         type: 'post',
-        url: base_url + '/purchase/getPurchaser',
+        url: base_url + '/applyFPchse/getAllNameByAuthType',
         datatype: 'json',
-        data: {},
+        data: {"type":2},
         success: function(data){
             // console.log(data);
             if(data.status === 0){
@@ -110,9 +110,9 @@ function getPurchaser() {
 function getStorer() {
     $.ajax({
         type: 'post',
-        url: base_url + '/purchase/getPurchaser',
+        url: base_url + '/applyFPchse/getAllNameByAuthType',
         datatype: 'json',
-        data: {},
+        data: {"type":3},
         success: function(data){
             // console.log(data);
             if(data.status === 0){
@@ -183,15 +183,20 @@ function addPurchase(){
 
 // 根据条件显示物料申购记录
 function getSelectedPurchase(){
-  let clazz = $('#buy_history_selset_meterail').val();
-  let tname = $('#buy_history_selset_person').val();
-  let startTime = $('#star_time').val();
-  let endTime = $('#end_time').val();
+  let clazz = $('#jmaterial').val();
+  let tname = $('#japply_person').val();
+  let startTime = $('#jstart_time').val();
+  let endTime = $('#jend_time').val();
   if(tname === "申购人"){
     tname = "";
   }
   if(clazz === "选择物料种类"){
     clazz = "";
+  }
+  if(startTime==''){
+    if(endTime==''){
+
+    }
   }
   $.ajax({
     type: 'post',
