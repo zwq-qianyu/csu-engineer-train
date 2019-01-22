@@ -25,8 +25,10 @@ function updateTemplateSelector() {
           $("<option></option>").text(d).attr('i_template', i).appendTo($alltemplates)
         })
         fetchAndUpdateTemplateTable()
+      }else {
+        fetch_err(data)
       }
-    })
+    }).fail(net_err)
 }
 
 
@@ -42,8 +44,10 @@ function fetchAndUpdateTemplateTable() {
         data = data.data
         fillCurrentTemplate(data)
         updateTemplateTable(data)
+      }else {
+        fetch_err(data)
       }
-    })
+    }).fail(net_err)
 }
 
 // 切换模版时
@@ -158,8 +162,10 @@ $('#new-template').click(function () {
             if (data.status === 0) {
               swal('消息', '添加模板成功,请在下方编辑模板', 'success')
               updateTemplateSelector()
+            }else {
+              fetch_err(data)
             }
-          })
+          }).fail(net_err)
       }
     } else {
       // console.log('cancel')
@@ -217,13 +223,13 @@ function update_edit_selectors() {
               if (data.status === 0) {
                 teacher_groups_proced[val.t_group_id] = data.data
               } else {
-                console.log(data)
+                fetch_err(data)
               }
-            })
+            }).fail(net_err)
         });
         teacher_groups_change_handler();
       } else {
-        console.log(data)
+        fetch_err(data)
       }
     });
 }
@@ -484,14 +490,10 @@ function doDeleteTemplate() {
               // 刷新教师值班记录
               // getOverworkByTimeOrProName(); // todo 这是什么东西
             }
-          }).fail(function fail(data) {
-            // console.log(data);
-            swal(
-              '删除失败',
-              String(data.message),
-              'error'
-            );
-          });
+            else {
+              fetch_err(data)
+            }
+          }).fail(net_err);
       } else {
         // console.log('cancel')
       }
