@@ -133,7 +133,7 @@
                                             <table class="table table-striped">
                                                 <thead>
                                                 <tr>
-													<th>物料种类&emsp;<a class="fa fa-plus-square-o" data-toggle="modal" data-target="#add_meterialModel"></a></th>
+													<th>物料种类（名称-型号-材质）&emsp;<a class="fa fa-plus-square-o" data-toggle="modal" data-target="#add_meterialModel"></a></th>
 
                                                     <!-- 添加物料 Modal -->
                                                     <div class="modal fade" id="add_meterialModel" tabindex="-1" role="dialog" aria-labelledby="add_meterialModelTitle" aria-hidden="true">
@@ -222,31 +222,31 @@
 													</div>
 
 													<!-- 表格主体部分 -->
-													<!--<div class="table-responsive">-->
-														<!--&lt;!&ndash; &ndash;&gt;-->
-														<!--<table class="table table-striped" prefix="2" style="min-width: 1200px;overflow-x: scroll">-->
-															<!--<thead>-->
-															<!--<tr>-->
-																<!--<th class="fixed-column w52" style="border-bottom-width: 0;">框选</th>-->
-																<!--<th class="fixed-column w120" style="border-bottom-width: 0;">申购编号</th>-->
-																<!--<th class="space"></th>-->
-																<!--<th>申购日期</th>-->
-																<!--<th>申购人</th>-->
-																<!--<th>物料种类</th>-->
-																<!--<th>申购数量</th>-->
-																<!--<th>申购备注</th>-->
-																<!--<th>审核状态</th>-->
-																<!--<th>审核人</th>-->
-																<!--<th>采购总数</th>-->
-																<!--<th>报账总数</th>-->
-																<!--<th>采购人</th>-->
-																<!--<th>入库总数</th>-->
-															<!--</tr>-->
-															<!--</thead>-->
-															<!--&lt;!&ndash;<tbody id="jadminTbody"></tbody>&ndash;&gt;-->
-														<!--</table>-->
-													<!--</div>-->
-													<table id="jadminTbody"></table>
+													<div class="table-responsive">
+
+														<table class="table table-striped" prefix="2" style="min-width: 1200px;overflow-x: scroll">
+															<thead>
+															<tr>
+																<th class="fixed-column w52" style="border-bottom-width: 0;">框选</th>
+																<th class="fixed-column w120" style="border-bottom-width: 0;">申购编号</th>
+																<th class="space"></th>
+																<th>申购日期</th>
+																<th>申购人</th>
+																<th>物料种类</th>
+																<th>申购数量</th>
+																<th>申购备注</th>
+																<th>审核状态</th>
+																<th>审核人</th>
+																<th>采购总数</th>
+																<th>报账总数</th>
+																<th>采购人</th>
+																<th>入库总数</th>
+															</tr>
+															</thead>
+															<tbody id="jadminTbody"></tbody>
+														</table>
+													</div>
+													<!--<table id="jadminTbody"></table>-->
 
 
 													<!-- 分页功能部分 -->
@@ -942,6 +942,7 @@
 	<script src="../config/common_config.js"></script>
 	<script src="./js/api/api_material.js"></script>
 	<script src="./js/api/api_material_purchase.js"></script>
+	<script src="./js/api/api_material_table.js"></script>
 	<script src="./js/config/config-material-buy.js"></script>
 	<script src="./js/meteral-buy.js"></script>
 	<!-- 分页开始 -->

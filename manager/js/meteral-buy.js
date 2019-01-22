@@ -188,22 +188,22 @@ function getAllApplyFPchse() {
             if(data.status==0){
                 var data_arr = data.data;
                 var html = '';
-                // for(var i=0; i<data_arr.length; i++){
-                //     html += '<tr>' +
-                //                 '<td class="fixed-column w52" style="border-bottom-width: 0;"><input type="checkbox"></td>' +
-                //                 '<td class="fixed-column w120" style="border-bottom-width: 0;">'+data_arr[i].purchase_id+'</td>' +
-                //                 '<td>'+data_arr[i].apply_time+'</td>' +
-                //                 '<td>'+data_arr[i].apply_tname+'</td>' +
-                //                 '<td>'+data_arr[i].clazz+'</td>' +
-                //                 '<td>'+data_arr[i].apply_num+'</td>' +
-                //                 '<td>'+data_arr[i].apply_remark+'</td>' +
-                //                 '<td>'+data_arr[i].apply_vertify+'</td>' +
-                //                 '<td>'+data_arr[i].apply_vert_tname+'</td>' +
-                //                 '<td>'+data_arr[i].apply_remark+'</td>' +
-                //                 '<td>'+data_arr[i].apply_remark+'</td>' +
-                //                 '<td>'+data_arr[i].apply_remark+'</td>' +
-                //                 '<td>'+data_arr[i].apply_remark+'</td></tr>';
-                // }
+                for(var i=0; i<data_arr.length; i++){
+                    html += '<tr>' +
+                                '<td class="fixed-column w52" style="border-bottom-width: 0;"><input type="checkbox"></td>' +
+                                '<td class="fixed-column w120" style="border-bottom-width: 0;">'+data_arr[i].purchase_id+'</td>' +
+                                '<td>'+data_arr[i].apply_time+'</td>' +
+                                '<td>'+data_arr[i].apply_tname+'</td>' +
+                                '<td>'+data_arr[i].clazz+'</td>' +
+                                '<td>'+data_arr[i].apply_num+'</td>' +
+                                '<td>'+data_arr[i].apply_remark+'</td>' +
+                                '<td>'+data_arr[i].apply_vertify+'</td>' +
+                                '<td>'+data_arr[i].apply_vert_tname+'</td>' +
+                                '<td>'+data_arr[i].apply_remark+'</td>' +
+                                '<td>'+data_arr[i].apply_remark+'</td>' +
+                                '<td>'+data_arr[i].apply_remark+'</td>' +
+                                '<td>'+data_arr[i].apply_remark+'</td></tr>';
+                }
                 $('#jadminTbody').html(html);
                 // 分页初始化
                 goPage("j",1,10);
@@ -307,21 +307,55 @@ function getSelectedRecords(kind){
 
 // 新增申购记录
 function addOneApply(){
-  var newApply = {};
-  newApply.material = $("#add_apply_material").val();
-  newApply.number = $("#add_apply_number").val();
-  newApply.note = $("#add_apply_note").val();
-  console.log(newApply)
+  var material = $("#add_apply_material").val();
+  var number = $("#add_apply_number").val();
+  var note = $("#add_apply_note").val();
+    api_material_purchase.addApplyFPchse(material,number,note)
+        .done(function (data) {
+            if(data.status === 0){
+                swal(
+                    '申购成功',
+                    '申购物料成功',
+                    'success'
+                );
+                getAllMaterial();
+            }
+            else{
+                swal(
+                    '申购失败',
+                    '申购物料失败，请重试！',
+                    'error'
+                );
+            }
+        })
 }
 
-// 新增采购记录
+// 新增采购记录 400 Wrong********************
 function addOnePurchase() {
   var newPurchase = {};
-  newPurchase.num = $("#add_purchase_num").val();
-  newPurchase.date = $("#add_purchase_date").val();
-  newPurchase.number = $("#add_purchase_number").val();
-  newPurchase.note = $("#add_purchase_note").val();
+  newPurchase.purchase_id = $("#add_purchase_num").val();
+  newPurchase.pur_time = $("#add_purchase_date").val();
+  newPurchase.pur_num = $("#add_purchase_number").val();
+  newPurchase.pur_remark = $("#add_purchase_note").val();
   console.log(newPurchase)
+    api_material_purchase.addPurchase(newPurchase)
+        .done(function (data) {
+            if(data.status === 0){
+                swal(
+                    '申购成功',
+                    '申购物料成功',
+                    'success'
+                );
+                getAllMaterial();
+            }
+            else{
+                swal(
+                    '申购失败',
+                    '申购物料失败，请重试！',
+                    'error'
+                );
+            }
+        })
 }
 
 // 新增报账记录
