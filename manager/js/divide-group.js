@@ -2,7 +2,6 @@ window.onload = function () {
   init_data();
 };
 
-
 function init_data() {
 
   fillWeekSelectorOptions();
@@ -368,10 +367,6 @@ $('#save-distribution').click(function () { // 获取数据保存
 
 
 
-
-
-
-
 // 2、批次工序排课查询
 
 // 获取所有工种
@@ -399,6 +394,8 @@ $('#query-by-batch-button').click(function () {
       .done(function (data) {
         if (data.status === 0) {
           displayResultByBatch(data.data)
+        } else {
+          swal('获取数据出错', '', '')
         }
       })
   }
@@ -441,7 +438,7 @@ function displayResultByBatch(data) {
     var week = time_quant_arr[0]
     var day = time_quant_arr[1]
     var time = time_quant_arr[2]
-    $('<td>').text('' + class_time + "->" + week + '周' + dayRange[day] + _.range(time * timeRangeStep + 1, time * timeRangeStep + timeRangeStep + 1) + '节').appendTo($tr)
+    $('<td>').text('' + class_time + "->" + '第' + week + '周' + dayRange[day] + _.range(time * timeRangeStep + 1, time * timeRangeStep + timeRangeStep + 1) + '节').appendTo($tr)
     var td_datas = []
     td_datas.length = s_groups.length;
     _.each(group_data, function (data, i) {
@@ -455,52 +452,65 @@ function displayResultByBatch(data) {
 }
 
 
-// 根据工种和实习批次查询课表【数据返回格式需要修改】
-
+// 根据工种和实习批次查询课表 
 $('#query-by-batch-and-proced-button').click(function () {
   // console.log("$('#query-by-batch-and-proced-button').click")
   var batch_name = $('#seach_clazzes_select_batch2').val();
   var pro_name = $('#seach_clazzes_select_process').val();
-  if (batch_name && batch_name !== '实习批次选择' && pro_name && pro_name !== '选择工种') {
-
-    api_experiment.getExperimentByBatchAndProced(batch_name, pro_name)
-      .done(function (data) {
-        if (data.status === 0) {
-          // console.log(data.data)
-          displayResultByBatchAndProced(data.data)
-        }
-      })
+  if (batch_name && batch_name !== '实习批次选择') {
+    var handle = null;
+    if (pro_name && pro_name !== '选择工种') {
+      handle = api_experiment.getExperimentByBatchAndProced(batch_name, pro_name);
+    } else {
+      handle = api_experiment.getExperimentByBatch(batch_name);
+    }
+    handle.done(function (data) {
+      if (data.status === 0) {
+        displayResultByBatchAndProced(data.data)
+      } else {
+        fetch_err(data)
+      }
+    }).fail(net_err);
   }
 });
 
 function displayResultByBatchAndProced(data) {
-  var $table_body = $('#query-by-batch-and-proced-result')
-  // console.log($table_body)
-  data = _.sortBy(data,'time_quant')
+  var $table_body = $('#query-by-batch-and-proced-result').empty();
 
-  _.each(data, function (val, i) {
-    var $tr = $('<tr>');
+  var $table_head = $('#query-by-batch-and-proced-head').empty();
+  var $tr = $('<tr>');
+  $('<th>课时\\工种</th>').appendTo($tr);
+  var proceds = _.keys(_.groupBy(data, 'pro_name')); // 按拿出所有的工序
+  _.each(proceds, function (val, i) {
+    $('<th>').text(val).appendTo($tr);
+  });
+  $tr.appendTo($table_head);
 
-    var time_quant = val.time_quant;
+  data = _.groupBy(data, 'class_time') // 按课时分组
+  console.log(data)
+  _.each(data, function (class_group, class_time) {
+    var time_quant = class_group[0].time_quant;
     var time_quant_arr = parse_time_quant(time_quant);
-    var week = time_quant_arr[0]
-    var day = time_quant_arr[1]
-    var time = time_quant_arr[2]
+    var week = time_quant_arr[0];
+    var day = time_quant_arr[1];
+    var time = time_quant_arr[2];
+    $tr = $('<tr>');
+    $('<td>').text('' + class_time + "->" + '第' + week + '周' + dayRange[day] + _.range(time * timeRangeStep + 1, time * timeRangeStep + timeRangeStep + 1) + '节').appendTo($tr);
 
-    $('<td>').text('' + val.class_time + "->" + week + '周' + dayRange[day] + _.range(time * timeRangeStep + 1, time * timeRangeStep + timeRangeStep + 1) + '节').appendTo($tr)
-
-    // $('<td>').text(val.class_time).appendTo($tr)
-    $('<td>').text(val.s_group_id).appendTo($tr)
-    $tr.appendTo($table_body)
+    var proced_groups = _.groupBy(class_group, 'pro_name');
+    console.log(proced_groups);
+    _.each(proceds, function (proced, i) {
+      var s_groups = proced_groups[proced];
+      var $td = $('<td>');
+      if (s_groups) {
+        var groups = _.map(s_groups, 's_group_id')
+        $td.text(groups.join(','));
+      }
+      $td.appendTo($tr);
+    });
+    $tr.appendTo($table_body);
   });
 }
-
-
-
-
-
-
-
 
 // 3、学生分组
 
@@ -652,7 +662,7 @@ function getStuClassTableByNum() {
             var week = time_quant_arr[0];
             var day = time_quant_arr[1];
             var time = time_quant_arr[2];
-            $('<td>').text(val.class_time + "->" + week + '周' + dayRange[day] + _.range(time * timeRangeStep + 1, time * timeRangeStep + timeRangeStep + 1) + '节').appendTo($tr);
+            $('<td>').text(val.class_time + "->" + "第" + week + '周' + dayRange[day] + _.range(time * timeRangeStep + 1, time * timeRangeStep + timeRangeStep + 1) + '节').appendTo($tr);
             $('<td>').text(val.pro_name).appendTo($tr);
             $('<td>').text(val.batch_name).appendTo($tr);
             $('<td>').text(val.s_group_id).appendTo($tr);
