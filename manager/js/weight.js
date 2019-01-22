@@ -33,7 +33,7 @@ function getAllBatch() {
 
 //  获取所有权重模版名
 function findAllTemplate() {
-    api_weight.getAllTemplate().done(function (data) {
+    api_weight.findAllTemplate().done(function (data) {
         if (data.status === 0) {
             let data_arr = data.data;
             let templates1 = $('#weight_select_templates1').empty();
@@ -55,7 +55,7 @@ $('#weight_select_templates1').change(function () {
     let new_template = $('#weight_select_templates1').val();
 
     if (new_template !== "权重模版选择") {
-        api_weight.getTemplateItemByName(
+        api_weight.findTemplateItemByName(
             {
                 'name': new_template
             }
@@ -120,7 +120,7 @@ function submitWeight() {
         form_arr[names[i]] = weights[i] / 100;
     }
 
-    api_weight.setTemplate(template_name, form_arr).done(function (data) {
+    api_weight.addTemplate(template_name, form_arr).done(function (data) {
         if (data.status === 0) {
             swal(
                 '修改成功',
@@ -148,7 +148,7 @@ function band() {
             'warning'
         );
     } else {
-        api_weight.bindTemplateAndBatch(
+        api_weight.band(
             {
                 batch_name: batch_name,
                 template_name: template_name
@@ -231,7 +231,7 @@ $('#weight_select_batch2').change(function () {
     let batch_name = $('#weight_select_batch2').val();
     // console.log(batch_name);
     if (batch_name !== "批次选择") {
-        api_common.getBatchByname(batch_name).done(function (data) {
+        api_common.getBatchProced(batch_name).done(function (data) {
             if (data.status === 0) {
                 let data_arr = data.data;
                 let weight_list = $('#show_weight_list_tbody').empty();
@@ -343,7 +343,7 @@ function createNewWeightTemp() {
             postData[names[i]] = weights[i] / 100;
         }
     }
-    api_weight.setTemplate(name, postData).done(function (data) {
+    api_weight.addTemplate(name, postData).done(function (data) {
         if (data.status === 0) {
             //重新初始化权重模板选择
             findAllTemplate();
