@@ -112,12 +112,14 @@ function getBatchByProcedName(batch_name = '') {
                 }
             ];
 
+            weights={};
             let score_list = $('#score_list_select_process').empty().append('<option>选择工种</option>');
             for (let i = 0; i < data_arr.length; i++) {
                 tabltHead.push({
                     field: 'process' + i,
                     title: data_arr[i].proid.pro_name
                 });
+                weights[data_arr[i].proid.pro_name]=data_arr[i].weight;
                 processes.push(data_arr[i].proid.pro_name);
                 let option = $('<option></option>');
                 option.text(data_arr[i].proid.pro_name);
@@ -367,15 +369,17 @@ function editOneStuScore(obj) {
         body_tr.append(td);
     }
     for (let i = 3; i <length-4; i++) {
-        let input=$('<input type="number" onchange="onEditSignalScore(this)" value="">');
+        let input=$('<input type="number" onchange="onEditSignalScore(this)" value="" size="3">');
         input.val(select_data[score_list_columns[i].field]);
-        // input.data('field',score_list_columns[i].field);
+        input.data('title',score_list_columns[i].title);
         body_tr.append($('<td></td>').append(input));
     }
     body_tr.append($('<td></td>').text(select_data[score_list_columns[length-4].field]));
     let select=$('<select><option>优秀</option><option>良好</option><option>中等</option><option>及格</option><option>不及格</option></select>').val(select_data[score_list_columns[length-3]]);
     body_tr.append($('<td></td>').append(select));
     body_tr.append($('<td></td>').text(select_data[score_list_columns[length-2].field]));
+    //清空原因
+    $('#edit-state').empty();
 }
 
 //单项成绩改变时总成绩做出响应
@@ -393,7 +397,8 @@ function onEditSignalScore(obj) {
     }
     let score_sum=0;
     $('#edit-score-table tbody tr td input').each(function () {
-        score_sum+=Number($(this).val());
+        let item=$(this);
+        score_sum+=Number(item.val())*weights[item.data('title')];
     });
     let tds=$('#edit-score-table tbody tr td');
     let tds_length=tds.length;
@@ -402,8 +407,32 @@ function onEditSignalScore(obj) {
 
 //修改学生成绩
 function editScore() {
+    let post_data={};
+    let tds=$('#scorelistEditModal table tbody tr td');
+    post_data['sid']=$(tds[2]).text();
+    post_data['reason']=$('#edit-state').val();
+    let score_sum=0;
+    $('#scorelistEditModal table tbody tr td input').each(function () {
+        let item=$(this);
+        let val=item.val();
+        let title=item.data('title');
+        post_data[title]=val;
+        score_sum+=Number(val)*weights[title];
+    });
+    post_data['total_score']=score_sum;
+    post_data['degree']=$('#scorelistEditModal table tbody select').val();
+    api_score.updateScore(post_data).done(function (data) {
+        if(data.status===0){
 
-
+        }else {
+            swal(
+                '更新失败',
+                '更新学生成绩时出现错误',
+                'error'
+            );
+            console.log(data.message);
+        }
+    })
     $('#scorelistEditModal').modal('hide');
 }
 

@@ -26,7 +26,9 @@
     <!-- bootStrap table 插件 -->
     <link rel="stylesheet" type="text/css" href="../css/bootstrap-table.min.css">
     <script type="text/javascript" src="../js/bootstrap-table.min.js"></script>
-
+    <!--固定表的列-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-table-fixed-columns.css">
+    <script type="text/javascript" src="../js/bootstrap-table-fixed-columns.js"></script>
 </head>
 <body>
 <header>
@@ -100,13 +102,16 @@
                 <a class="nav-link" data-toggle="tab" href="#Section2" role="tab">成绩批量提交</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#Section3" role="tab">成绩提交记录</a>
+                <a class="nav-link" data-toggle="tab" href="#Section3" role="tab">成绩录入记录</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#Section4" role="tab">成绩修改记录</a>
+                <a class="nav-link" data-toggle="tab" href="#Section4" role="tab">成绩提交记录</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#Section5" role="tab">特殊学生成绩列表</a>
+                <a class="nav-link" data-toggle="tab" href="#Section5" role="tab">成绩修改记录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#Section6" role="tab">特殊学生成绩列表</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -270,42 +275,44 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <table class="table" id="edit-score-table">
-                                            <thead>
-                                            <tr>
-                                                <th scope="col">批次/组</th>
-                                                <th scope="col">姓名</th>
-                                                <th scope="col">车工</th>
-                                                <th scope="col">钳工</th>
-                                                <th scope="col">铣削</th>
-                                                <th scope="col">上机</th>
-                                                <th scope="col">考勤</th>
-                                                <th scope="col">实习报告</th>
-                                                <th scope="col">小车制造</th>
-                                                <th scope="col">小车设计</th>
-                                                <th scope="col">总成绩</th>
-                                                <th scope="col">等级</th>
-                                                <th scope="col">发布情况</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>2018A01/A</td>
-                                                <td>刘淇欣</td>
-                                                <td><input type="text" name="" value="90"></td>
-                                                <td><input type="text" name="" value="90"></td>
-                                                <td><input type="text" name="" value="90"></td>
-                                                <td><input type="text" name="" value="-2"></td>
-                                                <td><input type="text" name="" value="90"></td>
-                                                <td><input type="text" name="" value="90"></td>
-                                                <td><input type="text" name="" value="90"></td>
-                                                <td><input type="text" name="" value="90"></td>
-                                                <td>90</td>
-                                                <td><input type="text" name="" value="优"></td>
-                                                <td>未发布</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped" id="edit-score-table" style="min-width: 1200px;overflow-x: scroll;">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">批次/组</th>
+                                                    <th scope="col">姓名</th>
+                                                    <th scope="col">车工</th>
+                                                    <th scope="col">钳工</th>
+                                                    <th scope="col">铣削</th>
+                                                    <th scope="col">上机</th>
+                                                    <th scope="col">考勤</th>
+                                                    <th scope="col">实习报告</th>
+                                                    <th scope="col">小车制造</th>
+                                                    <th scope="col">小车设计</th>
+                                                    <th scope="col">总成绩</th>
+                                                    <th scope="col">等级</th>
+                                                    <th scope="col">发布情况</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>2018A01/A</td>
+                                                    <td>刘淇欣</td>
+                                                    <td><input type="text" name="" value="90"></td>
+                                                    <td><input type="text" name="" value="90"></td>
+                                                    <td><input type="text" name="" value="90"></td>
+                                                    <td><input type="text" name="" value="-2"></td>
+                                                    <td><input type="text" name="" value="90"></td>
+                                                    <td><input type="text" name="" value="90"></td>
+                                                    <td><input type="text" name="" value="90"></td>
+                                                    <td><input type="text" name="" value="90"></td>
+                                                    <td>90</td>
+                                                    <td><input type="text" name="" value="优"></td>
+                                                    <td>未发布</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         <div>
                                             <label for="edit-state">成绩修改备注</label>
                                             <textarea id="edit-state" rows="2" class="form-control"></textarea>
@@ -313,7 +320,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                                        <button type="button" class="btn btn-primary">确定</button>
+                                        <button type="button" class="btn btn-primary" onclick="editScore()">确定</button>
                                     </div>
                                 </div>
                             </div>
@@ -374,6 +381,34 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="Section3" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>成绩录入记录</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row select-area">
+                            <select class="form-control custom-select col-xs-3 col-sm-3" id="entry-list-select-batch">
+                                <option>实习批次选择</option>
+                            </select>
+                            <select class="form-control custom-select col-xs-3 col-sm-3" id="entry-list-select-group">
+                                <option>组号</option>
+                            </select>
+                            <select class="form-control custom-select col-xs-3 col-sm-3" id="entry-list-select-process">
+                                <option>打分项</option>
+                            </select>
+                        </div>
+                        <div class="row input-select">
+                            <input type="text" name="stu-num" placeholder="学生学号" class="form-control col-xs-3 col-sm-3"
+                                   id="entry_list_stu_number">
+                            <input type="text" name="stu-name" placeholder="学生姓名" class="form-control col-xs-3 col-sm-3"
+                                   id="entry_list_stu_name">
+                            <button class="btn btn-sm btn-primary">查询</button>
+                        </div>
+                        <table id="entry-list-table"></table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Section4" role="tabpanel">
                 <!-- 成绩提交记录 -->
                 <div class="card commit-history">
                     <div class="card-header">
@@ -436,7 +471,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="Section4" role="tabpanel">
+            <div class="tab-pane fade" id="Section5" role="tabpanel">
                 <!-- 成绩修改记录 -->
                 <div class="card">
                     <div class="card-header">
@@ -489,7 +524,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="Section5" role="tabpanel">
+            <div class="tab-pane fade" id="Section6" role="tabpanel">
                 <!-- 特殊学生成绩列表 -->
                 <div class="card">
                     <div class="card-header">
