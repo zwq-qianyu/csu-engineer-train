@@ -14,5 +14,9 @@ var api_score = {
     //发布某个批次的总成绩
     release: function (post_data) {
         return post_query('/score/release',post_data);
+    },
+    //更新成绩接口
+    updateScore:function (post_data) {
+        return post_json('/score/updateScore',post_data);
     }
 };
