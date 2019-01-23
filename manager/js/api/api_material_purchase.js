@@ -6,6 +6,7 @@ var api_material_purchase = {
             {'type':auth}
         )
     },
+    // 申购***************************************
     // 获取所有申购记录
     getAllApplyFPchse:function () {
         return post_query(
@@ -13,14 +14,18 @@ var api_material_purchase = {
             {}
         )
     },
+    // 根据条件查询申购记录
+    getSelectedPurchase:function (postdata) {
+        return post_query(
+            '/applyFPchse/getSelectedPurchase',
+            postdata
+        )
+    },
     // 新增一条物料申购
-    addApplyFPchse:function (clazz,num,remark) {
+    addApplyFPchse:function (post_data) {
         return post_query(
             '/applyFPchse/addApplyFPchse',
-            {
-                'clazz':clazz,
-                'num':''+num+''
-            }
+            post_data
         )
     },
     // 删除物料申购记录
@@ -53,14 +58,8 @@ var api_material_purchase = {
             }
         )
     },
-    // 根据条件查询申购记录
-    getSelectedPurchase:function (postdata) {
-        return post_query(
-            '/applyFPchse/getSelectedPurchase',
-            postdata
-        )
-    },
 
+    // 采购***************************************
     // 查询采购记录
     getPurchase:function (purchase_id,clazz,pur_tname,begin,end) {
         return post_query(
@@ -74,7 +73,6 @@ var api_material_purchase = {
             }
         )
     },
-
     // 新增一条采购记录 400 Wrong
     addPurchase:function (postdata) {
         console.log(233)
@@ -83,5 +81,10 @@ var api_material_purchase = {
             postdata
         )
     },
+
+    // 采购报账************************************
+
+
+    // 入库***************************************
 
 }

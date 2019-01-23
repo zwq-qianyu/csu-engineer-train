@@ -184,33 +184,131 @@ function getStorer() {
 // 获取所有申购记录
 function getAllApplyFPchse() {
     api_material_purchase.getAllApplyFPchse()
-        .done(function (data) {
-            if(data.status==0){
-                var data_arr = data.data;
-                var html = '';
-                for(var i=0; i<data_arr.length; i++){
-                    html += '<tr>' +
-                                '<td class="fixed-column w52" style="border-bottom-width: 0;"><input type="checkbox"></td>' +
-                                '<td class="fixed-column w120" style="border-bottom-width: 0;">'+data_arr[i].purchase_id+'</td>' +
-                                '<td>'+data_arr[i].apply_time+'</td>' +
-                                '<td>'+data_arr[i].apply_tname+'</td>' +
-                                '<td>'+data_arr[i].clazz+'</td>' +
-                                '<td>'+data_arr[i].apply_num+'</td>' +
-                                '<td>'+data_arr[i].apply_remark+'</td>' +
-                                '<td>'+data_arr[i].apply_vertify+'</td>' +
-                                '<td>'+data_arr[i].apply_vert_tname+'</td>' +
-                                '<td>'+data_arr[i].apply_remark+'</td>' +
-                                '<td>'+data_arr[i].apply_remark+'</td>' +
-                                '<td>'+data_arr[i].apply_remark+'</td>' +
-                                '<td>'+data_arr[i].apply_remark+'</td></tr>';
-                }
-                $('#jadminTbody').html(html);
-                // 分页初始化
-                goPage("j",1,10);
-            }
-        })
+        .done(fillTable)
 }
+// 填充申购表格
+function fillTable(data) {
+    if(data.status==0){
+        var data_arr = data.data;
+        var tableData=[];
 
+        for(var i=0; i<data_arr.length; i++){
+            var tableRow = {
+                purchaseId:data_arr[i].purchase_id,
+                applyTime:data_arr[i].apply_time,
+                applyName:data_arr[i].apply_name,
+                clazz:data_arr[i].clazz,
+                applyNum:data_arr[i].apply_num,
+                applyRemark:data_arr[i].apply_remark==null ? '': data_arr[i].apply_remark,
+                applyVertify:data_arr[i].apply_vertify==null?'待审核':data_arr[i].apply_vertify, //审核状态
+                applyVertTname:data_arr[i].apply_vert_tname==null?'':data_arr[i].apply_vert_tname, //审核人
+                purNum:data_arr[i].pur_num==null?'':data_arr[i].pur_num, //采购总数
+                remibNum:data_arr[i].remib_num==null?'':data_arr[i].remib_num, //报账总数
+                purTname:data_arr[i].pur_tname==null?'':data_arr[i].pur_tname, //采购人
+                saveNum:data_arr[i].save_num==null?'':data_arr[i].save_num //入库总数
+            };
+            // console.log(tableRow)
+            tableData.push(tableRow);
+
+        }
+        console.log(tableData)
+        $("#jadminTbody").bootstrapTable({
+            data:tableData,
+            fixedColumns:true,
+            fixedNumber:2
+
+        })
+        // $("#jadminTbody").bootstrapTable('load',tableData)
+        // $("#jadminTbody").bootstrapTable('destroy').bootstrapTable({
+        //     // pagination:true,
+        //     data:tableData,
+        //     striped:true,
+        //     // rowAttributes:tableData,
+        //     // fixedColumns:true,
+        //     // fixedNumber:2,
+        //     // sidePagination:"server",
+        //     columns:[
+        //         {
+        //             // filed:'state',
+        //             checkbox:true,
+        //             align:'center',
+        //             formatter:function (value,row,index) {
+        //                 console.log(row)
+        //             }
+        //         },
+        //         {
+        //             filed:'purchaseId',
+        //             title:"申购编号"
+        //         },
+        //         {
+        //             filed:'applyTime',
+        //             title:'申购时间'
+        //         },
+        //         {
+        //             filed:'applyName',
+        //             title:'申购人'
+        //         },
+        //         {
+        //             filed:'clazz',
+        //             title:'物料种类'
+        //         },
+        //         {
+        //             filed:'applyNum',
+        //             title:'申购数量'
+        //         },
+        //         {
+        //             filed:'applyRemark',
+        //             title:'申购备注'
+        //         },
+        //         {
+        //             filed:'applyVertify',
+        //             title:'审核状态'
+        //         },
+        //         {
+        //             filed:'applyVertTname',
+        //             title:'审核人'
+        //         },
+        //         {
+        //             filed:'purNum',
+        //             title:'采购总数'
+        //         },
+        //         {
+        //             filed:'remibNum',
+        //             title:'报账总数'
+        //         },
+        //         {
+        //             filed:'purTname',
+        //             title:'采购人'
+        //         },
+        //         {
+        //             filed:'saveNum',
+        //             title:'入库总数'
+        //         }
+        //
+        //     ],
+        //     responseHandler:function (data) {
+        //         console.log(data)
+        //     },
+        //     onLoadSuccess:function (data) {
+        //         console.log('success:'+data.row[0])
+        //     },
+        //     onLoadError:function (data) {
+        //         console.log('error:'+data.row[0])
+        //     }
+        // })
+        // $('#jadminTbody').bootstrapTable({
+        //     data:tableData,
+        //     columns:[{
+        //         filed:'purchaseId',
+        //         title:"申购编号"
+        //     }
+        //     ]
+        // })
+        // $('#jadminTbody').bootstrapTable('load',tableData);
+        // 分页初始化
+        // goPage("j",1,10);
+    }
+}
 // 根据条件显示物料申购记录
 function getSelectedPurchase(){
   var clazz = $('#jmaterial').val();
@@ -307,10 +405,11 @@ function getSelectedRecords(kind){
 
 // 新增申购记录
 function addOneApply(){
-  var material = $("#add_apply_material").val();
-  var number = $("#add_apply_number").val();
-  var note = $("#add_apply_note").val();
-    api_material_purchase.addApplyFPchse(material,number,note)
+    var post_data={};
+    post_data.clazz = $("#add_apply_material").val();
+    post_data.num = ''+$("#add_apply_number").val()+'';
+    post_data.apply_remark = $("#add_apply_note").val();
+    api_material_purchase.addApplyFPchse(post_data)
         .done(function (data) {
             if(data.status === 0){
                 swal(
