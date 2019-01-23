@@ -5,17 +5,24 @@ window.onload = function(){
 
 // 初始化页面数据
 function init_data(){
-  // 刷新库存列表
-  getAllMaterial();
-  // 获取所有申购权限的人的信息
-  getApplyer();
-  // 获取所有采购权限的人的信息
-  getPurchaser();
-  // 获取所有入库权限的人的信息
-  getStorer();
-  // 获取所有物料申购记录
-  getAllApplyFPchse();
-
+    // 刷新库存列表
+    getAllMaterial();
+    // 获取所有申购权限的人的信息
+    getApplyer();
+    // 获取所有采购权限的人的信息
+    getPurchaser();
+    // 获取所有入库权限的人的信息
+    getStorer();
+    // 获取所有物料申购记录
+    getAllApplyFPchse();
+    // 获取所有物料申购记录（审核）
+    getApplyFPchseVerify();
+    // 获取所有物料采购记录
+    getPurchase();
+    // 获取所有采购报账记录
+    getRemi();
+    // 获取所有采购报账记录（审核）
+    getRemiVerify();
     // $('.nav-tabs li').click(function(){
     //     $(this).addClass('active').siblings().removeClass('active');
     //     var _id = $(this).attr('data-id');
@@ -61,7 +68,7 @@ function getAllMaterial(){
             material_class.push(data_arr[i].clazz);
         }
         $('#kadminTbody').html(html);
-        // console.log(material_class);
+
         // 导入所有物料种类
         var html2 = '<option>物料种类</option>';
         for(var j=0; j<material_class.length; j++){
@@ -76,11 +83,9 @@ function getAllMaterial(){
         goPage("k",1,5);
     });
 }
-
 // 删除一种物料
 function devareOneMateral(obj){
     var clazz = obj.getAttribute('id');
-    console.log(clazz);
     api_material.deletePurchase(clazz)
         .done(function (data) {
             if(data.status === 0){
@@ -100,7 +105,6 @@ function devareOneMateral(obj){
             }
         })
 }
-
 // 添加一种新的物料
 function addOneMateral(){
     var clazz = $('#new_semester').val();
@@ -115,7 +119,6 @@ function addOneMateral(){
         api_material.addPurchase("0",clazz)
             .done(function (data) {
                 if(data.status === 0){
-                    console.log(data);
                     swal(
                         '添加成功',
                         '添加新物料成功',
@@ -124,7 +127,6 @@ function addOneMateral(){
                     getAllMaterial();
                 }
                 else{
-                    console.log(data);
                     swal(
                         '添加失败',
                         '添加新物料失败，请重试！',
@@ -134,7 +136,6 @@ function addOneMateral(){
             })
     }
 }
-
 
 // 其他记录页******************************
 // 获取所有申购人信息
@@ -150,23 +151,24 @@ function getApplyer(){
           $('#'+string_array[0]+'apply_person').html(html);
       })
 }
-
 // 获取所有采购人信息
 function getPurchaser() {
     api_material_purchase.getAllNameByAuthType(2)
     .done(function (data) {
+        optionsForPurchaser = ["采购人"];
         var data_arr = data.data;
         var html = '<option>采购人</option>';
+
         for(var i=0; i<data_arr.length; i++){
             html += '<option>'+data_arr[i]+'</option>';
+            optionsForPurchaser.push(data_arr[i])
         }
-        // console.log(html);
+        optionsForPurchaserText = html;
         for(var i=0;i<4;i++){
             $('#'+string_array[i]+'purchase_person').html(html);
         }
     })
 }
-
 // 获取所有入库人信息
 function getStorer() {
     api_material_purchase.getAllNameByAuthType(3)
@@ -176,18 +178,47 @@ function getStorer() {
             for(var i=0; i<data_arr.length; i++){
                 html += '<option>'+data_arr[i]+'</option>';
             }
-            // console.log(html);
+
             $('#'+string_array[5]+'store_person').html(html);
         })
 }
 
+// 物料申购页
 // 获取所有申购记录
-function getAllApplyFPchse() {
+function getAllApplyFPchse(){
     api_material_purchase.getAllApplyFPchse()
-        .done(fillTable)
+        .done(fillApplyTable)
+}
+// 根据条件显示物料申购记录
+function getSelectedApply(){
+    var postData = {};
+    postData.clazz = $('#jmaterial').val();
+    postData.apply_tname = $('#japply_person').val();
+    postData.startTime = $('#jstart_time').val();
+    postData.endTime = $('#jend_time').val();
+    postData.pur_tname = $("#jpurchase_person").val();
+    postData.purchase_id = $("#jpurchase_number").val();
+    if(postData.apply_tname === "申购人"){
+        postData.apply_tname = "";
+    }
+    if(postData.pur_tname === "采购人"){
+        postData.pur_tname = "";
+    }
+    if(postData.clazz === "物料种类"){
+        postData.clazz = "";
+    }
+    if(postData.clazz==""&&postData.apply_tname==""&&postData.startTime==""
+        &&postData.endTime==""&&postData.pur_tname==""&&postData.purchase_id==""){
+        api_material_purchase.getAllApplyFPchse()
+            .done(fillApplyTable)
+    }
+    else{
+        api_material_purchase.getSelectedPurchase(postData)
+            .done(fillApplyTable)
+    }
 }
 // 填充申购表格
-function fillTable(data) {
+function fillApplyTable(data) {
     if(data.status==0){
         var data_arr = data.data;
         var tableData=[];
@@ -200,210 +231,61 @@ function fillTable(data) {
                 clazz:data_arr[i].clazz,
                 applyNum:data_arr[i].apply_num,
                 applyRemark:data_arr[i].apply_remark==null ? '': data_arr[i].apply_remark,
-                applyVertify:data_arr[i].apply_vertify==null?'待审核':data_arr[i].apply_vertify, //审核状态
+                applyVertify:data_arr[i].apply_vertify==null||data_arr[i].apply_vertify==false?'待审核':'已审核', //审核状态
                 applyVertTname:data_arr[i].apply_vert_tname==null?'':data_arr[i].apply_vert_tname, //审核人
                 purNum:data_arr[i].pur_num==null?'':data_arr[i].pur_num, //采购总数
                 remibNum:data_arr[i].remib_num==null?'':data_arr[i].remib_num, //报账总数
                 purTname:data_arr[i].pur_tname==null?'':data_arr[i].pur_tname, //采购人
                 saveNum:data_arr[i].save_num==null?'':data_arr[i].save_num //入库总数
             };
-            // console.log(tableRow)
             tableData.push(tableRow);
 
         }
-        console.log(tableData)
-        $("#jadminTbody").bootstrapTable({
+
+        $("#jadminTbody").bootstrapTable("destroy").bootstrapTable({
+            pagination:false,
             data:tableData,
             fixedColumns:true,
-            fixedNumber:2
+            fixedNumber:4,
+            onCheck:function (row) {
+                selectedPurchase.push(row.purchaseId);
+            },
+            onUncheck:function (row) {
+                _.pull(selectedPurchase,row.purchaseId);
+            },
+            onCheckAll:function () {
+                var allData = tableData;
+                selectedPurchase = [];
+                for(var i=0;i<allData.length;i++){
+                    selectedPurchase.push(allData[i].purchaseId);
+                }
+            },
+            onUncheckAll:function () {
+                selectedPurchase = [];
+            },
+            columns:[
+                {
+                    checkbox:true,
+                }
+            ]
 
         })
-        // $("#jadminTbody").bootstrapTable('load',tableData)
-        // $("#jadminTbody").bootstrapTable('destroy').bootstrapTable({
-        //     // pagination:true,
-        //     data:tableData,
-        //     striped:true,
-        //     // rowAttributes:tableData,
-        //     // fixedColumns:true,
-        //     // fixedNumber:2,
-        //     // sidePagination:"server",
-        //     columns:[
-        //         {
-        //             // filed:'state',
-        //             checkbox:true,
-        //             align:'center',
-        //             formatter:function (value,row,index) {
-        //                 console.log(row)
-        //             }
-        //         },
-        //         {
-        //             filed:'purchaseId',
-        //             title:"申购编号"
-        //         },
-        //         {
-        //             filed:'applyTime',
-        //             title:'申购时间'
-        //         },
-        //         {
-        //             filed:'applyName',
-        //             title:'申购人'
-        //         },
-        //         {
-        //             filed:'clazz',
-        //             title:'物料种类'
-        //         },
-        //         {
-        //             filed:'applyNum',
-        //             title:'申购数量'
-        //         },
-        //         {
-        //             filed:'applyRemark',
-        //             title:'申购备注'
-        //         },
-        //         {
-        //             filed:'applyVertify',
-        //             title:'审核状态'
-        //         },
-        //         {
-        //             filed:'applyVertTname',
-        //             title:'审核人'
-        //         },
-        //         {
-        //             filed:'purNum',
-        //             title:'采购总数'
-        //         },
-        //         {
-        //             filed:'remibNum',
-        //             title:'报账总数'
-        //         },
-        //         {
-        //             filed:'purTname',
-        //             title:'采购人'
-        //         },
-        //         {
-        //             filed:'saveNum',
-        //             title:'入库总数'
-        //         }
-        //
-        //     ],
-        //     responseHandler:function (data) {
-        //         console.log(data)
-        //     },
-        //     onLoadSuccess:function (data) {
-        //         console.log('success:'+data.row[0])
-        //     },
-        //     onLoadError:function (data) {
-        //         console.log('error:'+data.row[0])
-        //     }
-        // })
-        // $('#jadminTbody').bootstrapTable({
-        //     data:tableData,
-        //     columns:[{
-        //         filed:'purchaseId',
-        //         title:"申购编号"
-        //     }
-        //     ]
-        // })
-        // $('#jadminTbody').bootstrapTable('load',tableData);
         // 分页初始化
-        // goPage("j",1,10);
-    }
-}
-// 根据条件显示物料申购记录
-function getSelectedPurchase(){
-  var clazz = $('#jmaterial').val();
-  var tname = $('#japply_person').val();
-  var startTime = $('#jstart_time').val();
-  var endTime = $('#jend_time').val();
-  if(tname === "申购人"){
-    tname = "";
-  }
-  if(clazz === "选择物料种类"){
-    clazz = "";
-  }
-  if(startTime==''){
-    if(endTime==''){
+        goPageBT("j",1,5)
 
     }
-  }
-  $.ajax({
-    type: 'post',
-    url: base_url + '/purchase/getSelectedPurchase',
-    datatype: 'json',
-    data: {
-      'clazz': clazz,
-      'tname': tname,
-      'startTime': startTime,
-      'endTime': endTime
-    },
-    beforeSend: function(xhr) {
-      xhr.withCredentials = true;
-    },
-    crossDomain:true,
-    success: function(data){
-      // console.log(data);
-      if(data.status === 0){
-        console.log(data);
-        var data_arr = data.data;
-        var html = '';
-        for(var i=0; i<data_arr.length; i++){
-          html += '<tr><td>'+data_arr[i].pur_time+'</td><td>'+data_arr[i].tname+'</td><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].pur_num+'</td>';
-        }
-        $('#jadminTbody').html(html);
-        // console.log(material_class);
-      }
-      // 分页初始化
-      goPage("j",1,10);
-    }
-  });
 }
+// 生成申购单 还有问题*************************************
+function exportApply() {
 
-// 根据条件显示各个部分的记录
-function getSelectedRecords(kind){
-  var query = {};
-  query.startTime = $('#'+kind+'start_time').val();
-  query.endTime = $('#'+kind+'end_time').val();
-  query.material = $('#'+kind+'material').val();
-  var applyPerson;
-  var purchasePerson;
-  var storePerson;
-  var purchaseAuditStatus;
-  var reimburseAuditStatus;
-  var purchaseNumber;
+    var postdata = {};
+    postdata.purchase_ids = selectedPurchase;
+    api_material_purchase.downloadApply(JSON.stringify(postdata))
+        .done(function (data) {
 
-  if(query.material == '物料种类'){
-    query.material = '';
-  }
-  if($('#'+kind+'apply_person').val()!=undefined){
-    query.applyPerson = $('#'+kind+'apply_person').val();
-  }
-  if($('#'+kind+'purchase_person').val()!=undefined){
-    query.purchasePerson = $('#'+kind+'purchase_person').val();
-  }
-  if($('#'+kind+'store_person').val()!=undefined){
-    query.storePerson = $('#'+kind+'store_person').val();
-  }
-  if($('#'+kind+'purchase_audit_status').val()!=undefined){
-    if($('#'+kind+'purchase_audit_status').val()=='审核状态')
-      query.purchaseAuditStatus = '';
-    else
-      query.purchaseAuditStatus = $('#'+kind+'purchase_audit_status').val();
-  }
-  if($('#'+kind+'reimburse_audit_status').val()!=undefined){
-    if($('#'+kind+'reimburse_audit_status').val()=='审核状态')
-      query.reimburseAuditStatus = '';
-    else
-      query.reimburseAuditStatus = $('#'+kind+'reimburse_audit_status').val();
-  }
-
-  console.log(query)
-
-
-
+        })
 }
-
-
-// 新增申购记录
+// 新增申购记录 有问题*****************************
 function addOneApply(){
     var post_data={};
     post_data.clazz = $("#add_apply_material").val();
@@ -411,13 +293,16 @@ function addOneApply(){
     post_data.apply_remark = $("#add_apply_note").val();
     api_material_purchase.addApplyFPchse(post_data)
         .done(function (data) {
+            $("#add_apply_material").val("");
+            $("#add_apply_number").val(0);
+            $("#add_apply_note").val("");
             if(data.status === 0){
                 swal(
                     '申购成功',
                     '申购物料成功',
                     'success'
                 );
-                getAllMaterial();
+                init_data();
             }
             else{
                 swal(
@@ -428,44 +313,472 @@ function addOneApply(){
             }
         })
 }
+// 获取所有申购记录（审核部分）
+function getApplyFPchseVerify() {
+    var postData = {};
+    postData.clazz = $('#smaterial').val();
+    postData.startTime = $('#sstart_time').val();
+    postData.endTime = $('#send_time').val();
+    postData.purchase_id = $("#spurchase_number").val();
+    if(postData.clazz === "物料种类"||postData.clazz==="暂无选项"){
+        postData.clazz = "";
+    }
+    if($("#spurchase_audit_status").val()==='待审核'){
+        postData.apply_verify = false
+    }
+    else if($("#spurchase_audit_status").val()==='已审核'){
+        postData.apply_verify = true
+    }
+    api_material_purchase.getSelectedPurchase(postData)
+        .done(fillApplyTableVerify)
 
-// 新增采购记录 400 Wrong********************
+}
+// 填充申购审核表格
+function fillApplyTableVerify(data) {
+    var data_arr = data.data;
+    var html = '';
+
+    for(var i=0; i<data_arr.length; i++){
+        if(data_arr[i].apply_remark==null)
+            data_arr[i].apply_remark=''
+        if(data_arr[i].apply_vertify==true)
+            data_arr[i].vertify = "已审核";
+        else if(data_arr[i].apply_vertify==false)
+            data_arr[i].vertify = "待审核"
+        html += '<tr><td>'+data_arr[i].purchase_id+'</td><td>'+data_arr[i].apply_time+'</td><td>'+data_arr[i].apply_tname+'</td>' +
+                '<td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].apply_remark+'</td><td>'+data_arr[i].vertify+'</td>' +
+                '<td><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].apply_num+'</div><input type="number" class="modifyInput'+data_arr[i].purchase_id+' form-control" value="'+data_arr[i].apply_num+'" id="modifyNum'+data_arr[i].purchase_id+'"></td>' +
+                '<td><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].pur_tname+'</div><select class="modifyInput'+data_arr[i].purchase_id+' form-control" id="options'+data_arr[i].purchase_id+'"></select></td>';
+        html += '<td><div class="row">' +
+                    '<button class="btn btn-sm btn-success col-sm-12 col-xs-12 '+data_arr[i].pur_tname+'" id="verify'+data_arr[i].purchase_id+'" onclick="verifyOneApply(this)">确认</button>' +
+                    '</div>' +
+                    '<div class="row">' +
+                    '<button class="btn btn-sm btn-default col-sm-5 col-xs-5 '+data_arr[i].pur_tname+'" id="modify'+data_arr[i].purchase_id+'" onclick="modifyOneApply(this)">编辑</button>' +
+                    '<button class="btn btn-sm btn-danger col-sm-5 col-xs-5 col-sm-offset-2 col-xs-offset-2" id="delete'+data_arr[i].purchase_id+'" onclick="deleteOneApply(this)">删除</button>' +
+                    '</div>' +
+                '</td></tr>';
+    }
+    $('#sadminTbody').html(html);
+    // 分页初始化
+    goPage("s",1,5);
+
+}
+// 删除申购记录
+function deleteOneApply(data) {
+    swal({
+            title: "真的删除该记录吗么？",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+        }).then(function (isConfirm) {
+            if(isConfirm.value){
+                var id = data.id.substring(6,data.id.length)
+                api_material_purchase.deleteApplyFPchse(id)
+                    .done(function (data) {
+                        if(data.status==0) {
+                            swal({
+                                title: "删除成功!",
+                                type: "success"
+                            }).then(function () {
+                                getApplyFPchseVerify()
+                            })
+
+                        }
+
+                    })
+            }
+            else{
+                swal({
+                    title:"已取消",
+                    type:"error"
+                })
+            }
+        })
+
+
+}
+// 修改申购记录
+function modifyOneApply(data) {
+    var id = data.id.substring(6,data.id.length)
+    $(".modify"+id).hide();
+    $(".modifyInput"+id).show();
+    $("#options"+id).html(optionsForPurchaserText)
+
+    for(var i=0;i<optionsForPurchaser.length;i++){
+        if($("#"+data.id).hasClass(optionsForPurchaser[i])){
+            $("#options"+id).val(optionsForPurchaser[i])
+            break;
+        }
+    }
+}
+// 确认修改申购记录
+function verifyOneApply(data) {
+    var id = data.id.substring(6,data.id.length);
+    var postdata = {};
+    postdata.purchase_id = id;
+    postdata.purchase_tname = $("#options"+id).find("option:selected").text();
+    if($(".modifyInput"+id).css("display")=="none"){
+        if(postdata.purchase_tname==""){
+            for(var i = 0;i<optionsForPurchaser.length;i++){
+                if($("#"+data.id).hasClass(optionsForPurchaser[i])){
+                    postdata.purchase_tname = optionsForPurchaser[i];
+                    break;
+                }
+            }
+        }
+    }
+    postdata.apply_num = $("#modifyNum"+id).val();
+    api_material_purchase.applyVerify(postdata)
+        .done(function (data) {
+            if(data.status==0){
+                swal(
+                    '审核成功',
+                    '审核申购记录成功',
+                    'success'
+                );
+            }
+            else{
+                swal(
+                    '审核失败',
+                    data.message,
+                    'error'
+                )
+            }
+        })
+
+}
+
+// 物料采购页
+// 根据条件获取采购记录
+function getPurchase() {
+    var postData = {};
+    postData.clazz = $('#cmaterial').val()==="物料种类"||$('#cmaterial').val()==="暂无选项"?"%":$('#cmaterial').val();
+    postData.begin = $('#cstart_time').val()===""?"1999-10-10":$('#cstart_time').val();
+    postData.end = $('#cend_time').val()===""?"2999-10-10":$('#cend_time').val();
+    postData.pur_tname = $("#cpurchase_person").val()==="采购人"||$("#cpurchase_person").val()==="暂无选项"?"%":$("#cpurchase_person").val();
+    postData.purchase_id = $("#cpurchase_number").val()===""?"%":$("#cpurchase_number").val();
+
+    api_material_purchase.getPurchase(postData)
+        .done(fillPurchaseTable)
+
+}
+// 填充采购记录表格
+function fillPurchaseTable(data) {
+    if(data.status==0){
+        var data_arr = data.data;
+        var tableData=[];
+
+        for(var i=0; i<data_arr.length; i++){
+            var tableRow = {
+                purchaseId:data_arr[i].purchase_id,
+                purTime:data_arr[i].pur_time,
+                purTname:data_arr[i].pur_tname,
+                clazz:data_arr[i].clazz,
+                purNum:data_arr[i].pur_num,
+                purRemark:data_arr[i].pur_remFark==null ? '': data_arr[i].pur_remFark,
+                id:data_arr[i].id
+            };
+            tableData.push(tableRow);
+
+        }
+
+        $("#cadminTbody").bootstrapTable("destroy").bootstrapTable({
+            pagination:false,
+            data:tableData,
+            fixedColumns:true,
+            fixedNumber:4,
+            onCheck:function (row) {
+                selectedPurPurchase.push(row.id);
+            },
+            onUncheck:function (row) {
+                _.pull(selectedPurPurchase,row.id);
+            },
+            onCheckAll:function () {
+                var allData = tableData;
+                selectedPurchase = [];
+                for(var i=0;i<allData.length;i++){
+                    selectedPurPurchase.push(allData[i].id);
+                }
+            },
+            onUncheckAll:function () {
+                selectedPurchase = [];
+            },
+            columns:[
+                {
+                    checkbox:true,
+                }
+            ]
+
+        })
+        // 分页初始化
+        goPageBT("c",1,20)
+
+    }
+}
+// 新增采购记录
 function addOnePurchase() {
   var newPurchase = {};
   newPurchase.purchase_id = $("#add_purchase_num").val();
   newPurchase.pur_time = $("#add_purchase_date").val();
   newPurchase.pur_num = $("#add_purchase_number").val();
   newPurchase.pur_remark = $("#add_purchase_note").val();
-  console.log(newPurchase)
     api_material_purchase.addPurchase(newPurchase)
         .done(function (data) {
+            $("#add_purchase_num").val("");
+            $("#add_purchase_date").val("");
+            $("#add_purchase_number").val("");
+            $("#add_purchase_note").val("");
             if(data.status === 0){
                 swal(
                     '申购成功',
                     '申购物料成功',
                     'success'
                 );
-                getAllMaterial();
+                init_data();
             }
             else{
                 swal(
                     '申购失败',
-                    '申购物料失败，请重试！',
+                    data.message,
+                    // '申购物料失败，请重试！',
                     'error'
                 );
             }
         })
 }
+// 生成采购单 还有问题*************************************
+function exportPurchase() {
+    console.log(selectedPurPurchase);
+}
+// 根据条件获取报账记录
+function getRemi() {
+    var postData = {};
+    postData.clazz = $('#bmaterial').val()==="物料种类"||$('#bmaterial').val()==="暂无选项"?"%":$('#bmaterial').val();
+    postData.begin = $('#bstart_time').val()===""?"1999-10-10":$('#bstart_time').val();
+    postData.end = $('#bend_time').val()===""?"2999-10-10":$('#bend_time').val();
+    postData.tname = $("#bpurchase_person").val()==="采购人"||$("#bpurchase_person").val()==="暂无选项"?"%":$("#bpurchase_person").val();
+    postData.purchaseId = $("#bpurchase_number").val()===""?"%":$("#bpurchase_number").val();
+    if($("#bremiburse_audit_status").val()==="审核状态")
+        postData.verify="%";
+    else if($("#bremiburse_audit_status").val()==="待审核")
+        postData.verify="0";
+    else if($("#bremiburse_audit_status").val()==="已审核")
+        postData.verify="1";
+    api_material_purchase.getRemi(postData)
+        .done(fillRemiTable)
+}
+// 填充报账记录表格
+function fillRemiTable(data) {
+    if(data.status==0){
+        var data_arr = data.data;
+        var tableData=[];
 
+        for(var i=0; i<data_arr.length; i++){
+            var tableRow = {
+                purchaseId:data_arr[i].purchase_id,
+                remibTime:data_arr[i].remib_time,
+                purTname:data_arr[i].pur_tname,
+                clazz:data_arr[i].clazz,
+                remibNum:data_arr[i].remib_num,
+                purTime:data_arr[i].pur_time,
+                remibVertify:data_arr[i].remib_vertify==false?"待审核":"已审核",
+                remibVerbTname:data_arr[i].remib_vert_tname==null?"":data_arr[i].remib_vert_tname,
+                remibRemark:data_arr[i].remib_remark==null ? '': data_arr[i].remib_remark,
+                id:data_arr[i].id
+            };
+            tableData.push(tableRow);
+
+        }
+
+        $("#cadminTbody").bootstrapTable("destroy").bootstrapTable({
+            pagination:false,
+            data:tableData,
+            fixedColumns:true,
+            fixedNumber:4,
+            onCheck:function (row) {
+                selectedRemi.push(row.id);
+            },
+            onUncheck:function (row) {
+                _.pull(selectedRemi,row.id);
+            },
+            onCheckAll:function () {
+                var allData = tableData;
+                selectedRemi = [];
+                for(var i=0;i<allData.length;i++){
+                    selectedRemi.push(allData[i].id);
+                }
+            },
+            onUncheckAll:function () {
+                selectedRemi = [];
+            },
+            columns:[
+                {
+                    checkbox:true,
+                }
+            ]
+
+        })
+        // 分页初始化
+        goPageBT("c",1,20)
+
+    }
+}
+// 生成报账单 还有问题*************************************
+function exportRemi() {
+    console.log(selectedRemi)
+}
 // 新增报账记录
-function addOneReimburse() {
-  var newReimburse = {};
-  newReimburse.num = $("#add_reimburse_num").val();
-  newReimburse.number = $("#add_reimburse_number").val();
-  newReimburse.note = $("#add_reimburse_note").val();
-  console.log(newReimburse)
+function addOneRemiburse() {
+  var newRemiburse = {};
+  newRemiburse.purchaseId = $("#add_remiburse_num").val();
+  newRemiburse.num = $("#add_remiburse_number").val();
+  newRemiburse.remark = $("#add_remiburse_note").val();
+  api_material_purchase.addRemi(newRemiburse)
+      .done(function (data) {
+          $("#add_remiburse_num").val("");
+          $("#add_remiburse_number").val("");
+          $("#add_remiburse_note").val("");
+          if(data.status === 0){
+              swal(
+                  '添加报账成功',
+                  '添加报账成功',
+                  'success'
+              );
+              init_data();
+          }
+          else{
+              swal(
+                  '报账失败',
+                  // data.message,
+                  '报账，请重试！',
+                  'error'
+              );
+          }
+      })
+}
+// 根据条件查询报账记录（审核部分）
+function getRemiVerify() {
+    var postData = {};
+    postData.clazz = $('#hmaterial').val()==="物料种类"||$('#hmaterial').val()==="暂无选项"?"%":$('#hmaterial').val();
+    postData.begin = $('#hstart_time').val()===""?"1999-10-10":$('#hstart_time').val();
+    postData.end = $('#hend_time').val()===""?"2999-10-10":$('#hend_time').val();
+    postData.purchaseId = $("#hpurchase_number").val()===""?"%":$("#hpurchase_number").val();
+    if($("#hremiburse_audit_status").val()==="审核状态")
+        postData.verify="%";
+    else if($("#hremiburse_audit_status").val()==="待审核")
+        postData.verify="0";
+    else if($("#hremiburse_audit_status").val()==="已审核")
+        postData.verify="1";
+    api_material_purchase.getRemi(postData)
+        .done(fillRemiTableVerify)
+
+}
+// 填充报账记录表格（审核）
+function fillRemiTableVerify(data) {
+    var data_arr = data.data;
+    var html = '';
+
+    for(var i=0; i<data_arr.length; i++){
+        if(data_arr[i].remib_remark==null)
+            data_arr[i].remib_remark=''
+        if(data_arr[i].remib_vertify==true)
+            data_arr[i].vertify = "已审核";
+        else if(data_arr[i].remib_vertify==false)
+            data_arr[i].vertify = "待审核"
+        html += '<tr><td>'+data_arr[i].purchase_id+'</td><td>'+data_arr[i].remib_time+'</td><td>'+data_arr[i].pur_tname+'</td>' +
+            '<td>'+data_arr[i].clazz+'</td>' +
+            '<td><div class="modify'+data_arr[i].id+'">'+data_arr[i].remib_num+'</div><input type="number" class="modifyInput'+data_arr[i].id+' form-control" value="'+data_arr[i].remib_num+'" id="modifyNum'+data_arr[i].id+'"></td>'+
+            '<td>'+data_arr[i].remib_remark+'</td><td>'+data_arr[i].vertify+'</td>'
+        html += '<td><div class="row">' +
+            '<button class="btn btn-sm btn-success col-sm-12 col-xs-12 " id="verify'+data_arr[i].id+'" onclick="verifyOneRemi(this)">确认</button>' +
+            '</div>' +
+            '<div class="row">' +
+            '<button class="btn btn-sm btn-default col-sm-5 col-xs-5 " id="modify'+data_arr[i].id+'" onclick="modifyOneRemi(this)">编辑</button>' +
+            '<button class="btn btn-sm btn-danger col-sm-5 col-xs-5 col-sm-offset-2 col-xs-offset-2" id="delete'+data_arr[i].id+'" onclick="deleteOneRemi(this)">删除</button>' +
+            '</div>' +
+            '</td></tr>';
+    }
+    $('#hadminTbody').html(html);
+    // 分页初始化
+    goPage("h",1,10);
+}
+// 删除申购记录
+function deleteOneRemi(data) {
+    swal({
+        title: "真的删除该记录吗么？",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "确认",
+        cancelButtonText: "取消"
+    }).then(function (isConfirm) {
+        if(isConfirm.value){
+            var id = data.id.substring(6,data.id.length)
+            api_material_purchase.deleteRemi(id)
+                .done(function (data) {
+                    if(data.status==0) {
+                        swal({
+                            title: "删除成功!",
+                            type: "success"
+                        }).then(function () {
+                            init_data()
+                        })
+
+                    }
+
+                })
+        }
+        else{
+            swal({
+                title:"已取消",
+                type:"error"
+            })
+        }
+    })
+
+
+}
+// 修改申购记录
+function modifyOneRemi(data) {
+    var id = data.id.substring(6,data.id.length)
+    $(".modify"+id).hide();
+    $(".modifyInput"+id).show();
+    $("#options"+id).html(optionsForPurchaserText)
+
+    for(var i=0;i<optionsForPurchaser.length;i++){
+        if($("#"+data.id).hasClass(optionsForPurchaser[i])){
+            $("#options"+id).val(optionsForPurchaser[i])
+            break;
+        }
+    }
+}
+// 确认修改申购记录
+function verifyOneRemi(data) {
+    var id = data.id.substring(6,data.id.length);
+    var postdata = {};
+    postdata.id = id;
+    postdata.apply_num = $("#modifyNum"+id).val();
+    api_material_purchase.remiVerify(postdata)
+        .done(function (data) {
+            if(data.status==0){
+                swal(
+                    '审核成功',
+                    '审核报账记录成功',
+                    'success'
+                );
+            }
+            else{
+                swal(
+                    '审核失败',
+                    data.message,
+                    'error'
+                )
+            }
+        })
+
 }
 
+// 物料入库页
 // 新增入库记录
 function addOneStore() {
   var newStore = {};

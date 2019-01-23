@@ -21,6 +21,10 @@ var api_material_purchase = {
             postdata
         )
     },
+    // 生成申购单
+    downloadApply:function (postdata) {
+        downloads('/applyFPchse/ExcelDownloads',postdata)
+    },
     // 新增一条物料申购
     addApplyFPchse:function (post_data) {
         return post_query(
@@ -38,44 +42,23 @@ var api_material_purchase = {
         )
     },
     // 物料申购审核
-    applyVerify:function (purchase_id,purchase_tname,apply_num) {
+    applyVerify:function (postdata) {
         return post_query(
             '/applyFPchse/ApplyVertify',
-            {
-                'purchase_id':purchase_id,
-                'purchase_tname':purchase_tname,
-                'apply_num':apply_num
-            }
-        )
-    },
-    // 根据时间段查询物料申购记录
-    getApplyFPchseByTime:function (startTime,endTime) {
-        return post_query(
-            '/applyFPchse/getApplyFPchseByTime',
-            {
-                'startTime':startTime,
-                'endTime':endTime
-            }
+            postdata
         )
     },
 
     // 采购***************************************
     // 查询采购记录
-    getPurchase:function (purchase_id,clazz,pur_tname,begin,end) {
+    getPurchase:function (postdata) {
         return post_query(
             '/purchase/getPurchase',
-            {
-               'purchase_id':purchase_id,
-                'clazz':clazz,
-                'pur_tname':pur_tname,
-                'begin':begin,
-                'end':end
-            }
+            postdata
         )
     },
-    // 新增一条采购记录 400 Wrong
+    // 新增一条采购记录
     addPurchase:function (postdata) {
-        console.log(233)
         return post_query(
             '/purchase/add',
             postdata
@@ -83,8 +66,35 @@ var api_material_purchase = {
     },
 
     // 采购报账************************************
-
-
+    // 查询采购报账记录
+    getRemi:function (postdata) {
+        return post_query(
+            '/reim/getReim',
+            postdata
+        )
+    },
+    // 新增报账记录
+    addRemi:function (postdata) {
+        return post_query(
+            '/reim/add',
+            postdata
+        )
+    },
+    // 删除报账 还没有这个接口*********************************
+    deleteRemi:function(id) {
+        return post_query(
+            '/reim/delete',
+            {id:id}
+        )
+    },
+    // 修改报账 接口还有问题**********************************
+    remiVerify:function (postdata) {
+        return post_query(
+            '/reim/verify',
+            postdata
+        )
+    },
     // 入库***************************************
+    // 获取入库记录
 
 }

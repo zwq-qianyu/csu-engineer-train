@@ -11,7 +11,7 @@
     <script type="text/javascript" src="../js/bootstrap3.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/aside.css">
 	<link rel="stylesheet" type="text/css" href="./css/header.css">
-    <link rel="stylesheet" type="text/css" href="./css/divide-group.css">
+    <link rel="stylesheet" type="text/css" href="../css/navigation.css">
 	<link rel="stylesheet" type="text/css" href="./css/materal.css">
 	<link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="shortcut icon" href="../img/fav.png" />
@@ -125,7 +125,7 @@
                                                             <a href="###" id="klastPage" class="btn btn-sm">尾页</a></li>
                                                         <li>
                                                             <!-- <select id="jumpWhere"></select> -->
-                                                            <input type="text" id="kjumpWhere">
+                                                            <input type="text" class="jumpWhere" id="kjumpWhere">
                                                         </li>
                                                         <li><a href="###" id="kjumpPage" onclick="jumpPage('k')" class="btn btn-sm btn-primary">跳转</a></li>
                                                     </ul>
@@ -220,30 +220,32 @@
 														</div>
 
 														<div class="col-xs-2 col-sm-2">
-															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('j')">
+															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedApply()">
 														</div>
 													</div>
 
 													<!-- 表格主体部分 -->
-													<table id="jadminTbody" data-checkbox="true" class="table table-striped" >
-														<thead>
-														<tr>
-															<th data-field="purchaseId">申购编号</th>
-															<th data-field="applyTime">申购时间</th>
-															<th data-field="applyName">申购人</th>
-															<th data-field="clazz">物料种类</th>
-															<th data-field="applyNum">申购数量</th>
-															<th data-field="applyRemark">申购备注</th>
-															<th data-field="applyVertify">审核状态</th>
-															<th data-field="applyVertTname">审核人</th>
-															<th data-field="purNum">采购数量</th>
-															<th data-field="remibNum">报账数量</th>
-															<th data-field="purTname">采购人</th>
-															<th data-field="saveNum">入库数量</th>
-														</tr>
-														</thead>
-													</table>
-
+													<div class="table-responsive">
+														<table id="jadminTbody" data-checkbox="true" class="table table-striped table-no-bordered" style="min-width: 1200px">
+															<thead>
+															<tr>
+																<th><input type="checkbox"></th>
+																<th data-field="purchaseId" >申购编号</th>
+																<th data-field="applyTime">申购时间</th>
+																<th data-field="applyName">申购人</th>
+																<th data-field="clazz">物料种类</th>
+																<th data-field="applyNum">申购数量</th>
+																<th data-field="applyRemark">申购备注</th>
+																<th data-field="applyVertify">审核状态</th>
+																<th data-field="applyVertTname">审核人</th>
+																<th data-field="purNum">采购数量</th>
+																<th data-field="remibNum">报账数量</th>
+																<th data-field="purTname">采购人</th>
+																<th data-field="saveNum">入库数量</th>
+															</tr>
+															</thead>
+														</table>
+													</div>
 
 													<!-- 分页功能部分 -->
 													<div id="jbarcon" class="barcon">
@@ -260,9 +262,9 @@
 																	<a href="###" id="jlastPage" class="btn btn-sm">尾页</a></li>
 																<li>
 																	<!-- <select id="jumpWhere"></select> -->
-																	<input type="text" id="jjumpWhere">
+																	<input type="text" class="jumpWhere" id="jjumpWhere">
 																</li>
-																<li><a href="###" id="jjumpPage" onclick="jumpPage('j')" class="btn btn-sm btn-primary">跳转</a></li>
+																<li><a href="###" id="jjumpPage" onclick="jumpPageBT('j')" class="btn btn-sm btn-primary">跳转</a></li>
 															</ul>
 														</div>
 														<div class="clearfix"></div>
@@ -270,7 +272,7 @@
 
 													<!-- 操作按钮组 -->
 													<div class="btn-group-vertical right" role="group" aria-label="...">
-														<button type="button" class="btn btn-default">生成申购单</button>
+														<button type="button" class="btn btn-default" onclick="exportApply()">生成申购单</button>
 														<button type="button" class="btn btn-default" data-toggle="modal" data-target="#add_apply">新增申购申请</button>
 														<!-- 新增申购申请 Modal -->
 														<div class="modal fade" id="add_apply" tabindex="-1" role="dialog" aria-labelledby="add_applyTitle" aria-hidden="true">
@@ -359,27 +361,29 @@
 															<input class="form-control" placeholder="申购编号" id="spurchase_number">
 														</div>
 														<div class="col-xs-2 col-sm-2">
-															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('s')">
+															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getApplyFPchseVerify()">
 														</div>
 													</div>
 
 													<!-- 表格主体部分 -->
-													<table class="table table-striped">
-														<thead>
-														<tr>
-															<th>申购编号</th>
-															<th>申购日期</th>
-															<th>申购人</th>
-															<th>物料种类</th>
-															<th>申购备注</th>
-															<th>审核状态</th>
-															<th>申购数量</th>
-															<th>采购人</th>
-															<th>审核操作</th>
-														</tr>
-														</thead>
-														<tbody id="sadminTbody"></tbody>
-													</table>
+													<div class="table-responsive">
+														<table class="table table-striped" style="min-width: 1200px;">
+															<thead>
+															<tr>
+																<th>申购编号</th>
+																<th>申购日期</th>
+																<th>申购人</th>
+																<th>物料种类</th>
+																<th>申购备注</th>
+																<th>审核状态</th>
+																<th width="100px">申购数量</th>
+																<th width="100px">采购人</th>
+																<th style="width: 150px">审核操作</th>
+															</tr>
+															</thead>
+															<tbody class="vertical-middle" id="sadminTbody"></tbody>
+														</table>
+													</div>
 
 													<!-- 分页功能部分 -->
 													<div id="sbarcon" class="barcon">
@@ -396,7 +400,7 @@
 																	<a href="###" id="slastPage" class="btn btn-sm">尾页</a></li>
 																<li>
 																	<!-- <select id="jumpWhere"></select> -->
-																	<input type="text" id="sjumpWhere">
+																	<input type="text" class="jumpWhere" id="sjumpWhere">
 																</li>
 																<li><a href="###" id="sjumpPage" onclick="jumpPage('s')" class="btn btn-sm btn-primary">跳转</a></li>
 															</ul>
@@ -420,7 +424,7 @@
 
 											<!-- 采购记录 cadminTbody-->
 											<div class="panel panel-default no-border">
-												<div class="panel-heading">														采购记录</div>
+												<div class="panel-heading">采购记录</div>
 												<div class="panel-body">
 													<!-- 筛选条件部分 -->
 													<div class="row">
@@ -450,25 +454,26 @@
 														</div>
 
 														<div class="col-xs-2 col-sm-2">
-															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('c')">
+															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getPurchase()">
 														</div>
 													</div>
 
 													<!-- 表格主体部分 -->
-													<table class="table table-striped">
-														<thead>
-														<tr>
-															<th>框选</th>
-															<th>申购编号</th>
-															<th>采购日期</th>
-															<th>采购人</th>
-															<th>物料种类</th>
-															<th>采购数量</th>
-															<th>采购备注</th>
-														</tr>
-														</thead>
-														<tbody id="cadminTbody"></tbody>
-													</table>
+													<div class="table-responsive">
+														<table id="cadminTbody" data-checkbox="true" class="table table-striped table-no-bordered">
+															<thead>
+															<tr>
+																<th><input type="checkbox"></th>
+																<th data-field="purchaseId">申购编号</th>
+																<th data-field="purTime">采购日期</th>
+																<th data-field="purTname">采购人</th>
+																<th data-field="clazz">物料种类</th>
+																<th data-field="purNum">采购数量</th>
+																<th data-field="purRemark">采购备注</th>
+															</tr>
+															</thead>
+														</table>
+													</div>
 
 													<!-- 分页功能部分 -->
 													<div id="cbarcon" class="barcon">
@@ -485,9 +490,9 @@
 																	<a href="###" id="clastPage" class="btn btn-sm">尾页</a></li>
 																<li>
 																	<!-- <select id="jumpWhere"></select> -->
-																	<input type="text" id="cjumpWhere">
+																	<input type="text" class="jumpWhere" id="cjumpWhere">
 																</li>
-																<li><a href="###" id="cjumpPage" onclick="jumpPage('c')" class="btn btn-sm btn-primary">跳转</a></li>
+																<li><a href="###" id="cjumpPage" onclick="jumpPageBT('c')" class="btn btn-sm btn-primary">跳转</a></li>
 															</ul>
 														</div>
 														<div class="clearfix"></div>
@@ -495,7 +500,7 @@
 
 													<!-- 操作按钮组 -->
 													<div class="btn-group-vertical right" role="group" aria-label="...">
-														<button type="button" class="btn btn-default">生成采购单</button>
+														<button type="button" class="btn btn-default" onclick="exportPurchase()">生成采购单</button>
 														<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#add_purchase">新增采购记录</button>
 														<!-- 新增采购记录 Modal -->
 														<div class="modal fade" id="add_purchase" tabindex="-1" role="dialog" aria-labelledby="add_purchaseTitle" aria-hidden="true">
@@ -586,7 +591,7 @@
 													</div>
 													<div class="row">
 														<div class="col-xs-2 col-sm-2">
-															<select class="form-control custom-select select-person  left-flatpickr" id="breimburse_audit_status">
+															<select class="form-control custom-select select-person  left-flatpickr" id="bremiburse_audit_status">
 																<option>审核状态</option>
 																<option>待审核</option>
 																<option>已审核</option>
@@ -604,22 +609,23 @@
 													</div>
 
 													<!-- 表格主体部分 -->
-													<table class="table table-striped">
-														<thead>
-														<tr>
-															<th>框选</th>
-															<th>申购编号</th>
-															<th>新增报账申请日期</th>
-															<th>采购人</th>
-															<th>物料种类</th>
-															<th>报账数量</th>
-															<th>审核状态</th>
-															<th>审核人</th>
-															<th>报账备注</th>
-														</tr>
-														</thead>
-														<tbody id="badminTbody"></tbody>
-													</table>
+													<div class="table-responsive">
+														<table id="badminTbody" data-checkbox="true" class="table table-striped table-no-bordered" style="min-width: 1200px;">
+															<thead>
+															<tr>
+																<th><input type="checkbox"></th>
+																<th data-filed="purchaseId">申购编号</th>
+																<th data-filed="remibTime">新增报账申请日期</th>
+																<th data-filed="purTname">采购人</th>
+																<th data-filed="clazz">物料种类</th>
+																<th data-filed="remibNum">报账数量</th>
+																<th data-filed="remibVertify">审核状态</th>
+																<th data-filed="remibVerbTname">审核人</th>
+																<th data-filed="remibRemark">报账备注</th>
+															</tr>
+															</thead>
+														</table>
+													</div>
 
 													<!-- 分页功能部分 -->
 													<div id="bbarcon" class="barcon">
@@ -636,9 +642,9 @@
 																	<a href="###" id="blastPage" class="btn btn-sm">尾页</a></li>
 																<li>
 																	<!-- <select id="jumpWhere"></select> -->
-																	<input type="text" id="bjumpWhere">
+																	<input type="text" class="jumpWhere" id="bjumpWhere">
 																</li>
-																<li><a href="###" id="bjumpPage" onclick="jumpPage('b')" class="btn btn-sm btn-primary">跳转</a></li>
+																<li><a href="###" id="bjumpPage" onclick="jumpPageBT('b')" class="btn btn-sm btn-primary">跳转</a></li>
 															</ul>
 														</div>
 														<div class="clearfix"></div>
@@ -646,14 +652,14 @@
 
 													<!-- 操作按钮组 -->
 													<div class="btn-group-vertical right" role="group" aria-label="...">
-														<button type="button" class="btn btn-default">生成报账单</button>
-														<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#add_reimburse">新增报账申请</button>
+														<button type="button" class="btn btn-default" onclick="exportRemi()">生成报账单</button>
+														<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#add_remiburse">新增报账申请</button>
 														<!-- 新增采购报账记录 Modal -->
-														<div class="modal fade" id="add_reimburse" tabindex="-1" role="dialog" aria-labelledby="add_reimburseTitle" aria-hidden="true">
+														<div class="modal fade" id="add_remiburse" tabindex="-1" role="dialog" aria-labelledby="add_remiburseTitle" aria-hidden="true">
 															<div class="modal-dialog modal-dialog-centered" role="document">
 																<div class="modal-content">
 																	<div class="modal-header">
-																		<h5 class="modal-title" id="add_reimburseTitle">新增采购报账</h5>
+																		<h5 class="modal-title" id="add_remiburseTitle">新增采购报账</h5>
 																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
@@ -662,21 +668,21 @@
 																		<form>
 																			<div class="form-group padding">
 																				<div class="row">
-																					<label class="col-sm-3 col-form-label" for="add_reimburse_num">申购编号</label>
+																					<label class="col-sm-3 col-form-label" for="add_remiburse_num">申购编号</label>
 																					<div class="col-sm-9">
-																						<input type="text" placeholder="请输入您所需要报账的申购项目编号" class="form-control" id="add_reimburse_num">
+																						<input type="text" placeholder="请输入您所需要报账的申购项目编号" class="form-control" id="add_remiburse_num">
 																					</div>
 																				</div>
 																				<div class="row">
-																					<label class="col-sm-3 col-form-label" for="add_reimburse_number">报账数量</label>
+																					<label class="col-sm-3 col-form-label" for="add_remiburse_number">报账数量</label>
 																					<div class="col-sm-9">
-																						<input class="form-control" type="number" id="add_reimburse_number">
+																						<input class="form-control" type="number" id="add_remiburse_number">
 																					</div>
 																				</div>
 																				<div class="row">
-																					<label class="col-sm-3 col-form-label" for="add_reimburse_note">报账备注</label>
+																					<label class="col-sm-3 col-form-label" for="add_remiburse_note">报账备注</label>
 																					<div class="col-sm-9">
-																						<input class="form-control" type="text" id="add_reimburse_note">
+																						<input class="form-control" type="text" id="add_remiburse_note">
 																					</div>
 																				</div>
 																			</div>
@@ -684,7 +690,7 @@
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-																		<button type="button" class="btn btn-primary" onclick="addOneReimburse()" data-dismiss="modal">确定</button>
+																		<button type="button" class="btn btn-primary" onclick="addOneRemiburse()" data-dismiss="modal">确定</button>
 																	</div>
 																</div>
 															</div>
@@ -715,7 +721,7 @@
 															<input class="flatpickr mycalendar form-control " name="end-time" placeholder="结束时间" id="hend_time">
 														</div>
 														<div class="col-xs-2 col-sm-2">
-															<select class="form-control custom-select select-person" id="hreimburse_audit_status">
+															<select class="form-control custom-select select-person" id="hremiburse_audit_status">
 																<option>审核状态</option>
 																<option>待审核</option>
 																<option>已审核</option>
@@ -772,7 +778,7 @@
 																	<a href="###" id="hlastPage" class="btn btn-sm">尾页</a></li>
 																<li>
 																	<!-- <select id="jumpWhere"></select> -->
-																	<input type="text" id="hjumpWhere">
+																	<input type="text" class="jumpWhere" id="hjumpWhere">
 																</li>
 																<li><a href="###" id="hjumpPage" onclick="jumpPage('h')" class="btn btn-sm btn-primary">跳转</a></li>
 															</ul>
@@ -855,7 +861,7 @@
 															<a href="###" id="rlastPage" class="btn btn-sm">尾页</a></li>
 														<li>
 															<!-- <select id="jumpWhere"></select> -->
-															<input type="text" id="rjumpWhere">
+															<input type="text" class="jumpWhere" id="rjumpWhere">
 														</li>
 														<li><a href="###" id="rjumpPage" onclick="jumpPage('r')" class="btn btn-sm btn-primary">跳转</a></li>
 													</ul>
@@ -940,6 +946,7 @@
 	<script src="./js/api/api_material_purchase.js"></script>
 	<script src="./js/config/config-material-buy.js"></script>
 	<script src="./js/meteral-buy.js"></script>
+	<script src="../js/lodash.min.js"></script>
 	<!-- 分页开始 -->
 	<script type="text/javascript" src="../js/cut_page2.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/cut_page.css">

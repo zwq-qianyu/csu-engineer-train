@@ -19,6 +19,24 @@ function post_json(url, json_obj) {
     });
 }
 
+function downloads(url,json_obj) {
+    $.ajax({
+        type: 'post',
+        url: base_url + url,
+        datatype: 'json',
+        data: json_obj,
+        success: function (result) {
+            // 创建a标签，设置属性，并触发点击下载
+            var $a = $("<a>");
+            $a.attr("href", result.data.file);
+            $a.attr("download", result.data.filename);
+            $("body").append($a);
+            $a[0].click();
+            $a.remove();
+        }
+    });
+}
+
 function net_err(data){
     swal('出错了','网络错误','error')
 }

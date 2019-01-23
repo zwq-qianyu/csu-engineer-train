@@ -6,7 +6,7 @@
 .barcon1 {
   font-size: 16px;
   float: right;
-  margin-top: 20px;
+  margin-top: 30px;
 	height: 20px;
 	line-height: 20px;
 }
@@ -115,7 +115,7 @@
   opacity: .4;
 }
 
-#kjumpWhere {
+.jumpWhere {
   width: 50px;
   padding: 5px;
   border: 1px solid black;
