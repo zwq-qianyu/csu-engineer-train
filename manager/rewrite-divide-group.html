@@ -1,553 +1,463 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
-
-<head>
-	<meta charset="utf-8">
-	<title>管理员界面</title>
-	<!-- jquery -->
-	<script type="text/javascript" src="../js/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/logout.js"></script>
-	<!-- bootstrap -->
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap3.min.css">
-	<script type="text/javascript" src="../js/bootstrap3.min.js"></script>
-	<!-- bootstrap 结束 -->
-	<link rel="stylesheet" type="text/css" href="./css/aside.css">
-	<link rel="stylesheet" type="text/css" href="./css/header.css">
+<div id="body">
 	<link rel="stylesheet" type="text/css" href="./css/divide-group.css">
-	<link rel="shortcut icon" href="../img/fav.png" />
-	<!-- fontawesome.css -->
 	<link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
-	<!-- sweetalert2 -->
-	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
-	<!-- <script async type="text/javascript" src="../js/sweetalert2.js"></script> -->
-	<!-- sweetalert2结束 -->
-</head>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="tab" role="tabpanel">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">课时分配</a></li>
+						<li role="presentation"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">批次工序排课查询</a></li>
+						<li role="presentation"><a href="#Section3" aria-controls="messages" role="tab" data-toggle="tab">学生分组</a></li>
+						<li role="presentation"><a href="#Section4" aria-controls="messages" role="tab" data-toggle="tab">学生课表查询</a></li>
+						<li role="presentation"><a href="#Section5" aria-controls="messages" role="tab" data-toggle="tab">特殊学生课程分配</a></li>
+					</ul>
+					<!-- Tab panes -->
+					<div class="tab-content tabs">
+						<!-- 课时分配 -->
+						<div role="tabpanel" class="tab-pane fade in active" id="Section1">
+							<div class="panel panel-info">
+								<div class="panel-heading">课时分配</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-xs-3">
+											<select class="form-control custom-select" id="course_divide1_select_batch">
 
+											</select>
+										</div>
+										<div class="col-xs-3">
+											<select class="form-control custom-select" id="course_divide1_select_temp">
 
+											</select>
+										</div>
+										<input type="button" name="" class="btn btn-primary" value="绑定" onclick="bundleTemplate()">
+									</div>
+									<div class="row tips">
+										<span>&emsp;注意：</span>
+										<br>
+										<span>&emsp;&emsp;1、如若绑定之后欲对某批次排课方案进行修改，只能修改母模版后再次绑定；</span>
+										<br>
+										<span>&emsp;&emsp;2、再次绑定仅限于在学生分组信息分配之前操作。</span>
+									</div>
+									<br>
+									<div class="row" id="divide_course_select_batch">
+										<div class="col-xs-3">
+											<select class="form-control custom-select" id="course_divide1_select_batch2">
+											</select>
+										</div>
 
-<body>
-	<header>
-		<!-- <iframe src="./header.html" width="100%" height="120px;" frameborder="no"></iframe> -->
-		<nav>
-			<div id="nav-left">
-				<a href=""><img src="../img/logo.svg" alt="图标" id="main-icon"></a>
-				<span id="nav-name">中南大学工程训练中心教学管理系统--管理端</span>
-			</div>
-			<a class="btn btn-default get-out" onclick="logout()"><img src="./img/out.svg" class="out-icon">退 出</a>
-		</nav>
-	</header>
-	<!-- 面包屑导航 -->
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#">管理端</a></li>
-			<li class="breadcrumb-item"><a href="#">实习排课</a></li>
-			<li class="breadcrumb-item active">学生分组</li>
-		</ol>
-	</nav>
-	<!-- 面包屑导航结束 -->
-	<!-- 主体部分 -->
-	<div class="mainbody row">
-		<aside class="col-xs-2 col-sm-2">
-			<!-- <iframe src="./aside.html" width="100%" height="700px;" frameborder="no"></iframe> -->
-			<div id="aside">
-				<ul class="list-group">
-					<li class="list-group-item"><img class="icon" src="./img/user-manage.svg"> 用户管理
-						<ul>
-							<li><a href="./student-manage.html">学生管理</a></li>
-							<li><a href="./teacher-manage.html">教师管理</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/paike.svg"> 实习排课
-						<ul>
-							<li><a href="./course-schedul.html">排课模版</a></li>
-							<li class="left-active"><a href="./divide-group.html">学生分组</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/score.svg"> 成绩管理
-						<ul>
-							<li><a href="./weight.html">权重设置</a></li>
-							<li><a href="./score.html">成绩列表</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/extra-work.svg"> 开放情况
-						<ul>
-							<li><a href="./extra-work.html">开放记录</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/materal-manage.svg"> 物料管理
-						<ul>
-							<li><a href="./materal-record.html">物料登记</a></li>
-							<li><a href="./materal-buy.html">物料申购</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/setup.svg"> 个人设置
-						<ul>
-							<li><a href="./setup.html">密码修改</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</aside>
-		<div class="right col-xs-10 col-sm-10">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-offset-1 col-md-10">
-						<div class="tab" role="tabpanel">
-							<!-- Nav tabs -->
-							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">课时分配</a></li>
-								<li role="presentation"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">批次工序排课查询</a></li>
-								<li role="presentation"><a href="#Section3" aria-controls="messages" role="tab" data-toggle="tab">学生分组</a></li>
-								<li role="presentation"><a href="#Section4" aria-controls="messages" role="tab" data-toggle="tab">学生课表查询</a></li>
-								<li role="presentation"><a href="#Section5" aria-controls="messages" role="tab" data-toggle="tab">特殊学生课程分配</a></li>
-							</ul>
-							<!-- Tab panes -->
-							<div class="tab-content tabs">
-								<!-- 课时分配 -->
-								<div role="tabpanel" class="tab-pane fade in active" id="Section1">
-									<div class="panel panel-info">
-										<div class="panel-heading">课时分配</div>
-										<div class="panel-body">
-											<div class="row">
-												<div class="col-xs-3">
-													<select class="form-control custom-select" id="course_divide1_select_batch">
+										<div class="col-xs-2">
+											<input type="button" name="" class="btn btn-danger" value="编辑off" id="edit-distribution">
+										</div>
 
-													</select>
-												</div>
-												<div class="col-xs-3">
-													<select class="form-control custom-select" id="course_divide1_select_temp">
-
-													</select>
-												</div>
-												<input type="button" name="" class="btn btn-primary" value="绑定" onclick="bundleTemplate()">
-											</div>
-											<div class="row tips">
-												<span>&emsp;注意：</span>
-												<br>
-												<span>&emsp;&emsp;1、如若绑定之后欲对某批次排课方案进行修改，只能修改母模版后再次绑定；</span>
-												<br>
-												<span>&emsp;&emsp;2、再次绑定仅限于在学生分组信息分配之前操作。</span>
-											</div>
-											<br>
-											<div class="row" id="divide_course_select_batch">
-												<div class="col-xs-3">
-													<select class="form-control custom-select" id="course_divide1_select_batch2">
-													</select>
-												</div>
-
-												<div class="col-xs-2">
-													<input type="button" name="" class="btn btn-danger" value="编辑off" id="edit-distribution">
-												</div>
-
-												<div class="col-xs-2">
-													<input type="button" name="" class="btn btn-success" value="保存" id="save-distribution">
-												</div>
-											</div>
-											<br>
-											<div class="row">
-												<div class="col-sm-3 col-xs-3">
-													<select class="form-control custom-select" id="course_divide1_select_week">
-													</select>
-												</div>
-											</div>
-											<table class="table table-bordered" id="class-time-tracer">
-												<tbody id="class-time-container"></tbody>
-											</table>
-
-											<div class="row">
-												<table class="table table-bordered distribute-table" id="distribution-table">
-													<thead id="distribution-table-head">
-													</thead>
-													<tbody id="distribution-table-body">
-													</tbody>
-												</table>
-											</div>
-											<br>
-											<div>
-												<h4 class="text-info">编辑说明</h4>
-												<ol style="font-size:0.8em">
-													<li>选择批次之后，会出现课表</li>
-													<li>点击编辑，进入编辑模式之后，课表上方将出现一个条子，这个条子上的数字代表的就是课时，可以看到有白色、蓝色、绿色三种状态</li>
-													<li>白色是未分配的状态，点击之后变为蓝色选中状态，再点击下方的课时表填入，就会变为绿色的已分配状态，点击绿色课时会自动跳转到其所在的周的课表，双击绿色课时会解除分配状态，回到白色</li>
-												</ol>
-											</div>
+										<div class="col-xs-2">
+											<input type="button" name="" class="btn btn-success" value="保存" id="save-distribution">
 										</div>
 									</div>
-								</div>
-
-								<!-- 批次、工序排课查询 -->
-								<div role="tabpanel" class="tab-pane fade" id="Section2">
-									<div class="panel panel-info">
-										<div class="panel-heading">批次工序排课查询</div>
-										<div class="panel-body">
-											<div class="table1">
-												<div class="row">
-													<div class="col-xs-3 col-sm-3">
-														<select class="form-control custom-select" id="seach_clazzes_select_batch1">
-														</select>
-													</div>
-													<input type="button" name="" class="btn btn-success btn-sm" value="查询排课表" id="query-by-batch-button">
-													<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表" id="print-query-by-batch-table">
-												</div>
-												<table class="table" id="query-by-batch-result">
-													<thead>
-														<tr>
-															<th>课时\组号</th>
-
-														</tr>
-													</thead>
-													<tbody>
-		 
-													</tbody>
-												</table>
-											</div>
-
-											<hr>
-											<div class="table2">
-												<div class="row">
-													<div class="col-xs-3 col-sm-3">
-														<select class="form-control custom-select" id="seach_clazzes_select_process">
-														</select>
-													</div>
-													<div class="col-xs-3 col-sm-3">
-														<select class="form-control custom-select" id="seach_clazzes_select_batch2">
-														</select>
-													</div>
-													<input type="button" name="" class="btn btn-success btn-sm" value="查询排课表" id="query-by-batch-and-proced-button">
-													<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表" id="print-query-by-batch-proced-table">
-												</div>
-												<table class="table" id="query-by-batch-and-proced-table" >
-													<thead id="query-by-batch-and-proced-head">
-														<tr>
-															<th>课时\工种</th>
-
-														</tr>
-													</thead>
-													<tbody id="query-by-batch-and-proced-result">
-														
-													</tbody>
-												</table>
-											</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-3 col-xs-3">
+											<select class="form-control custom-select" id="course_divide1_select_week">
+											</select>
 										</div>
 									</div>
-								</div>
+									<table class="table table-bordered" id="class-time-tracer">
+										<tbody id="class-time-container"></tbody>
+									</table>
 
-								<!-- 学生分组 -->
-								<div role="tabpanel" class="tab-pane fade" id="Section3">
-									<div class="panel panel-info">
-										<div class="panel-heading">学生分组</div>
-										<div class="panel-body">
-											<!-- 选择批次对学生分组 -->
-											<div class="row group-divide">
-												<div class="col-xs-3 col-sm-3">
-													<select class="form-control custom-select" id="student_divide_select_batch1">
-													</select>
-												</div>
-												<input id="group-student-button" type="button" name="" class="btn btn-success pull-right" value="学生分组" >
-											</div>
-											<div class="row tips">
-												<span>注意：</sapn>
-													<br>
-													<span>学生分组之后，相应批次的排课方案不可修改，且学生端口可以查询到排课信息</sapn>
-											</div>
-
-											<hr>
-											<!-- 学生列表筛选 -->
-											<div class="row student-select">
-												<div class="col-xs-2 col-sm-2">
-													<h4 class="text-center">学生列表</h4>
-												</div>
-
-												<div class="col-xs-2 col-sm-2">
-													<select class="form-control custom-select" id="student_divide_select_batch2">
-													</select>
-												</div>
-												<div class="col-xs-2 col-sm-2">
-													<select class="form-control custom-select" id="student_divide_select_group">
-													</select>
-												</div>
-												<div class="col-xs-1 col-sm-1">
-													<input type="button" name="" class="btn btn-sm btn-default" value="筛选" id="get-student-list-by-batch-and-group">
-												</div>
-
-												<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印名单" id="print-student-grouped-table">
-											</div>
-
-											<!-- 学生列表表格 -->
-											<div class="table-responsive" id="student-grouped-table">
-												<table class="table">
-													<thead>
-														<tr>
-															<th>学号</th>
-															<th>姓名</th>
-															<th>班级</th>
-															<th>批次</th>
-															<th>组号</th>
-															<th>操作</th>
-														</tr>
-													</thead>
-													<tbody id="student-group-result">
-													</tbody>
-												</table>
-											</div>
-
-										</div>
+									<div class="row">
+										<table class="table table-bordered distribute-table" id="distribution-table">
+											<thead id="distribution-table-head">
+											</thead>
+											<tbody id="distribution-table-body">
+											</tbody>
+										</table>
+									</div>
+									<br>
+									<div>
+										<h4 class="text-info">编辑说明</h4>
+										<ol style="font-size:0.8em">
+											<li>选择批次之后，会出现课表</li>
+											<li>点击编辑，进入编辑模式之后，课表上方将出现一个条子，这个条子上的数字代表的就是课时，可以看到有白色、蓝色、绿色三种状态</li>
+											<li>白色是未分配的状态，点击之后变为蓝色选中状态，再点击下方的课时表填入，就会变为绿色的已分配状态，点击绿色课时会自动跳转到其所在的周的课表，双击绿色课时会解除分配状态，回到白色</li>
+										</ol>
 									</div>
 								</div>
+							</div>
+						</div>
 
-								<!-- 学生课表查询【还差打印排课表功能】 -->
-								<div role="tabpanel" class="tab-pane fade" id="Section4">
-									<div class="panel panel-info">
-										<div class="panel-heading">学生课表查询</div>
-										<div class="panel-body">
-											<!-- 筛选区域 -->
-											<div class="row student-select">
-												<div class="col-xs-2 col-sm-2">
-													<input type="text" name="" class="form-control" placeholder="学生学号" id="search_stu_by_number">
-												</div>
-												<!-- <div class="col-xs-2 col-sm-2">
+						<!-- 批次、工序排课查询 -->
+						<div role="tabpanel" class="tab-pane fade" id="Section2">
+							<div class="panel panel-info">
+								<div class="panel-heading">批次工序排课查询</div>
+								<div class="panel-body">
+									<div class="table1">
+										<div class="row">
+											<div class="col-xs-3 col-sm-3">
+												<select class="form-control custom-select" id="seach_clazzes_select_batch1">
+												</select>
+											</div>
+											<input type="button" name="" class="btn btn-success btn-sm" value="查询排课表" id="query-by-batch-button">
+											<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表" id="print-query-by-batch-table">
+										</div>
+										<table class="table" id="query-by-batch-result">
+											<thead>
+												<tr>
+													<th>课时\组号</th>
+
+												</tr>
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
+									</div>
+
+									<hr>
+									<div class="table2">
+										<div class="row">
+											<div class="col-xs-3 col-sm-3">
+												<select class="form-control custom-select" id="seach_clazzes_select_process">
+												</select>
+											</div>
+											<div class="col-xs-3 col-sm-3">
+												<select class="form-control custom-select" id="seach_clazzes_select_batch2">
+												</select>
+											</div>
+											<input type="button" name="" class="btn btn-success btn-sm" value="查询排课表" id="query-by-batch-and-proced-button">
+											<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表" id="print-query-by-batch-proced-table">
+										</div>
+										<table class="table" id="query-by-batch-and-proced-table">
+											<thead id="query-by-batch-and-proced-head">
+												<tr>
+													<th>课时\工种</th>
+
+												</tr>
+											</thead>
+											<tbody id="query-by-batch-and-proced-result">
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 学生分组 -->
+						<div role="tabpanel" class="tab-pane fade" id="Section3">
+							<div class="panel panel-info">
+								<div class="panel-heading">学生分组</div>
+								<div class="panel-body">
+									<!-- 选择批次对学生分组 -->
+									<div class="row group-divide">
+										<div class="col-xs-3 col-sm-3">
+											<select class="form-control custom-select" id="student_divide_select_batch1">
+											</select>
+										</div>
+										<input id="group-student-button" type="button" name="" class="btn btn-success pull-right" value="学生分组">
+									</div>
+									<div class="row tips">
+										<span>注意：</sapn>
+											<br>
+											<span>学生分组之后，相应批次的排课方案不可修改，且学生端口可以查询到排课信息</sapn>
+									</div>
+
+									<hr>
+									<!-- 学生列表筛选 -->
+									<div class="row student-select">
+										<div class="col-xs-2 col-sm-2">
+											<h4 class="text-center">学生列表</h4>
+										</div>
+
+										<div class="col-xs-2 col-sm-2">
+											<select class="form-control custom-select" id="student_divide_select_batch2">
+											</select>
+										</div>
+										<div class="col-xs-2 col-sm-2">
+											<select class="form-control custom-select" id="student_divide_select_group">
+											</select>
+										</div>
+										<div class="col-xs-1 col-sm-1">
+											<input type="button" name="" class="btn btn-sm btn-default" value="筛选" id="get-student-list-by-batch-and-group">
+										</div>
+
+										<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印名单" id="print-student-grouped-table">
+									</div>
+
+									<!-- 学生列表表格 -->
+									<div class="table-responsive" id="student-grouped-table">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>学号</th>
+													<th>姓名</th>
+													<th>班级</th>
+													<th>批次</th>
+													<th>组号</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody id="student-group-result">
+											</tbody>
+										</table>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<!-- 学生课表查询【还差打印排课表功能】 -->
+						<div role="tabpanel" class="tab-pane fade" id="Section4">
+							<div class="panel panel-info">
+								<div class="panel-heading">学生课表查询</div>
+								<div class="panel-body">
+									<!-- 筛选区域 -->
+									<div class="row student-select">
+										<div class="col-xs-2 col-sm-2">
+											<input type="text" name="" class="form-control" placeholder="学生学号" id="search_stu_by_number">
+										</div>
+										<!-- <div class="col-xs-2 col-sm-2">
 			                    					<input type="text" name="" class="form-control" placeholder="学生姓名">
 			                    				</div> -->
 
-												<div class="col-xs-1 col-sm-1">
-													<input type="button" name="" class="btn btn-sm btn-default" value="查询排课表" onclick="getStuClassTableByNum()">
-												</div>
-
-												<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印排课表" id="print-stud-class-table">
-											</div>
-											<!-- 筛选区域结束 -->
-
-											<!-- 学生课表表格 -->
-											<div class="table-responsive" id="query_stud-class-table">
-												<table class="table">
-													<thead>
-														<tr>
-															<!-- <th>选择</th> -->
-															<th>课时</th>
-															<th>工种</th>
-															<th>批次</th>
-															<th>组号</th>
-															<!-- <th>操作</th> -->
-														</tr>
-													</thead>
-													<tbody id="search_stu_tbody">
-													</tbody>
-												</table>
-											</div>
+										<div class="col-xs-1 col-sm-1">
+											<input type="button" name="" class="btn btn-sm btn-default" value="查询排课表" onclick="getStuClassTableByNum()">
 										</div>
+
+										<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印排课表" id="print-stud-class-table">
+									</div>
+									<!-- 筛选区域结束 -->
+
+									<!-- 学生课表表格 -->
+									<div class="table-responsive" id="query_stud-class-table">
+										<table class="table">
+											<thead>
+												<tr>
+													<!-- <th>选择</th> -->
+													<th>课时</th>
+													<th>工种</th>
+													<th>批次</th>
+													<th>组号</th>
+													<!-- <th>操作</th> -->
+												</tr>
+											</thead>
+											<tbody id="search_stu_tbody">
+											</tbody>
+										</table>
 									</div>
 								</div>
+							</div>
+						</div>
 
-								<!-- 特殊学生课程分配 -->
-								<div role="tabpanel" class="tab-pane fade" id="Section5">
-									<div class="panel panel-info">
-										<div class="panel-heading">特殊学生课程分配</div>
-										<div class="panel-body">
-											<!-- 特殊学生列表筛选 -->
-											<div class="row student-select">
-												<div class="col-xs-2 col-sm-2">
-													<h4 class="text-center">学生列表</h4>
-												</div>
-
-												
-												<div class="col-xs-2 col-sm-2">
-													<input type="text" name="" class="form-control" placeholder="学生学号" id="spec_stud_id">
-												</div>
-												<button class="btn btn-default" id="special_stu_search_stu">查询</button>
+						<!-- 特殊学生课程分配 -->
+						<div role="tabpanel" class="tab-pane fade" id="Section5">
+							<div class="panel panel-info">
+								<div class="panel-heading">特殊学生课程分配</div>
+								<div class="panel-body">
+									<!-- 特殊学生列表筛选 -->
+									<div class="row student-select">
+										<div class="col-xs-2 col-sm-2">
+											<h4 class="text-center">学生列表</h4>
+										</div>
 
 
-											</div>
-											<!-- 学生列表表格 -->
-											<div class="table-responsive">
-												<table class="table" id="mytable">
-													<thead>
-														<tr>
-															<!-- <th>选择</th> -->
-															<th>学号</th>
-															<th>姓名</th>
-															<th>班级</th>
-															<th>批次</th>
-															<!-- <th>操作</th> -->
-														</tr>
-													</thead>
-													<tbody id="query-student-result">
-														
-													</tbody>
-												</table>
-											</div>
+										<div class="col-xs-2 col-sm-2">
+											<input type="text" name="" class="form-control" placeholder="学生学号" id="spec_stud_id">
+										</div>
+										<button class="btn btn-default" id="special_stu_search_stu">查询</button>
 
-											<br>
-											<!-- 绑定模版 -->
-											<div class="row">
-												<div class="col-md-7 col-xs-7">
-												</div>
-												<div class="col-md-3 col-xs-3">
-													<select class="form-control" id="score-template-selector">
-														<!-- <option>权重模版选择</option>
+
+									</div>
+									<!-- 学生列表表格 -->
+									<div class="table-responsive">
+										<table class="table" id="mytable">
+											<thead>
+												<tr>
+													<!-- <th>选择</th> -->
+													<th>学号</th>
+													<th>姓名</th>
+													<th>班级</th>
+													<th>批次</th>
+													<!-- <th>操作</th> -->
+												</tr>
+											</thead>
+											<tbody id="query-student-result">
+
+											</tbody>
+										</table>
+									</div>
+
+									<br>
+									<!-- 绑定模版 -->
+									<div class="row">
+										<div class="col-md-7 col-xs-7">
+										</div>
+										<div class="col-md-3 col-xs-3">
+											<select class="form-control" id="score-template-selector">
+												<!-- <option>权重模版选择</option>
 														<option>1学分学生模版</option>
 														<option>2学分学生模版</option>
 														<option>5学分学生模版</option> -->
-													</select>
-												</div>
-												<input type="button" class="btn btn-success" value="添加至特殊学生表" id="add-to-special-stud">
+											</select>
+										</div>
+										<input type="button" class="btn btn-success" value="添加至特殊学生表" id="add-to-special-stud">
+									</div>
+
+									<div class="specialStudentList">
+										<hr>
+										<div class="row">
+											<div class="col-xs-2 col-sm-2">
+												<h4 class="text-center">特殊学生列表</h4>
 											</div>
 
-											<div class="specialStudentList">
-												<hr>
-												<div class="row">
-													<div class="col-xs-2 col-sm-2">
-														<h4 class="text-center">特殊学生列表</h4>
-													</div>
+											<div class="col-xs-2 col-sm-2">
+												<input type="text" name="" class="form-control" placeholder="学生学号">
+											</div>
+											<div class="col-xs-2 col-sm-2">
+												<input type="text" name="" class="form-control" placeholder="学生姓名">
+											</div>
 
-													<div class="col-xs-2 col-sm-2">
-														<input type="text" name="" class="form-control" placeholder="学生学号">
-													</div>
-													<div class="col-xs-2 col-sm-2">
-														<input type="text" name="" class="form-control" placeholder="学生姓名">
-													</div>
+											<button class="btn btn-default">查询</button>
+										</div>
+										<hr>
+										<!-- 学生列表表格 -->
+										<div class="table-responsive">
+											<table class="table" id="mytable">
+												<thead>
+													<tr>
+														<th>选择</th>
+														<th>学号</th>
+														<th>姓名</th>
+														<th>班级</th>
+														<th>打分权重模版</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><input type="checkbox" name=""></td>
+														<td>1302160126</td>
+														<td>邱梓峰</td>
+														<td>信科1601</td>
+														<td>1学分学生权重</td>
+														<td>
+															<input type="button" class="btn btn-sm btn-primary" name="" value="查询课表">
+															<input type="button" class="btn btn-sm btn-success" name="" value="编辑" data-toggle="modal" data-target="#edit-specialStudentSchedule">
+															<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<br>
 
-													<button class="btn btn-default">查询</button>
-												</div>
-												<hr>
-												<!-- 学生列表表格 -->
-												<div class="table-responsive">
-													<table class="table" id="mytable">
-														<thead>
-															<tr>
-																<th>选择</th>
-																<th>学号</th>
-																<th>姓名</th>
-																<th>班级</th>
-																<th>打分权重模版</th>
-																<th>操作</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td><input type="checkbox" name=""></td>
-																<td>1302160126</td>
-																<td>邱梓峰</td>
-																<td>信科1601</td>
-																<td>1学分学生权重</td>
-																<td>
-																	<input type="button" class="btn btn-sm btn-primary" name="" value="查询课表">
-																	<input type="button" class="btn btn-sm btn-success" name="" value="编辑" data-toggle="modal" data-target="#edit-specialStudentSchedule">
-																	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<br>
-
-												<div class="row pull-right">
-													<input type="button" class="btn btn-danger" value="删&emsp;除">
-													<!-- <input type="button" class="btn btn-default" value="编辑排课" data-toggle="modal" data-target="#edit-specialStudentSchedule"> -->
-													<!-- 编辑 modal -->
-													<div class="modal fade" id="edit-specialStudentSchedule" tabindex="-1" role="dialog" aria-labelledby="edit-specialStudentScheduleTitle"
-													 aria-hidden="true">
-														<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title" id="edit-specialStudentScheduleTitle">学生信息修改</h5>
-																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																	</button>
-																</div>
-																<div class="modal-body">
-																	<div class="row">
-																		<div class="col-xs-3 col-md-3">
-																			<select class="form-control">
-																				<option>选择已有批次</option>
-																				<option>2018A01</option>
-																				<option>2018A02</option>
-																			</select>
-																		</div>
-																	</div>
-																	<table class="table">
-																		<thead>
-																			<tr>
-																				<th></th>
-																				<th>车工</th>
-																				<th>钳工</th>
-																				<th>铣削</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr>
-																				<td>1(2018/03/13/56)</td>
-																				<td>C <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
-																				<td>A <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
-																				<td>B <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
-																			</tr>
-																			<tr>
-																				<td>2(2018/03/13/56)</td>
-																				<td>C <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
-																				<td>A <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
-																				<td>B <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
-																			</tr>
-																			<tr>
-																				<td>3(2018/03/13/56)</td>
-																				<td>C <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
-																				<td>A <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
-																				<td>B <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
-																			</tr>
-																		</tbody>
-																	</table>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-																	<button type="button" class="btn btn-primary">确定</button>
-																</div>
-
-																<div class="modal-body2">
-																	<table class="table">
-																		<thead>
-																			<tr>
-																				<th>框选</th>
-																				<th>课时</th>
-																				<th>工种</th>
-																				<th>批次</th>
-																				<th>小组</th>
-																				<th>操作</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr>
-																				<td><input type="checkbox"></td>
-																				<td>1(2018/03/13/56)</td>
-																				<td>车工</td>
-																				<td>2018A01</td>
-																				<td>B</td>
-																				<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
-																			</tr>
-																			<tr>
-																				<td><input type="checkbox"></td>
-																				<td>2(2018/03/13/56)</td>
-																				<td>铣削</td>
-																				<td>2018A02</td>
-																				<td>A</td>
-																				<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
-																			</tr>
-																			<tr>
-																				<td><input type="checkbox"></td>
-																				<td>3(2018/03/13/56)</td>
-																				<td>钳工</td>
-																				<td>2018B01</td>
-																				<td>A</td>
-																				<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
-																			</tr>
-																		</tbody>
-																	</table>
-																	<div class="pull-right">
-																		<input type="button" class="btn btn-danger" value="删除">
-																	</div>
+										<div class="row pull-right">
+											<input type="button" class="btn btn-danger" value="删&emsp;除">
+											<!-- <input type="button" class="btn btn-default" value="编辑排课" data-toggle="modal" data-target="#edit-specialStudentSchedule"> -->
+											<!-- 编辑 modal -->
+											<div class="modal fade" id="edit-specialStudentSchedule" tabindex="-1" role="dialog" aria-labelledby="edit-specialStudentScheduleTitle"
+											 aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="edit-specialStudentScheduleTitle">学生信息修改</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="row">
+																<div class="col-xs-3 col-md-3">
+																	<select class="form-control">
+																		<option>选择已有批次</option>
+																		<option>2018A01</option>
+																		<option>2018A02</option>
+																	</select>
 																</div>
 															</div>
+															<table class="table">
+																<thead>
+																	<tr>
+																		<th></th>
+																		<th>车工</th>
+																		<th>钳工</th>
+																		<th>铣削</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>1(2018/03/13/56)</td>
+																		<td>C <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
+																		<td>A <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
+																		<td>B <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
+																	</tr>
+																	<tr>
+																		<td>2(2018/03/13/56)</td>
+																		<td>C <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
+																		<td>A <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
+																		<td>B <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
+																	</tr>
+																	<tr>
+																		<td>3(2018/03/13/56)</td>
+																		<td>C <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
+																		<td>A <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
+																		<td>B <a href="#" class="fa fa-plus" aria-hidden="true"></a></td>
+																	</tr>
+																</tbody>
+															</table>
 														</div>
-													</div><!-- /.modal -->
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+															<button type="button" class="btn btn-primary">确定</button>
+														</div>
+
+														<div class="modal-body2">
+															<table class="table">
+																<thead>
+																	<tr>
+																		<th>框选</th>
+																		<th>课时</th>
+																		<th>工种</th>
+																		<th>批次</th>
+																		<th>小组</th>
+																		<th>操作</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td><input type="checkbox"></td>
+																		<td>1(2018/03/13/56)</td>
+																		<td>车工</td>
+																		<td>2018A01</td>
+																		<td>B</td>
+																		<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+																	</tr>
+																	<tr>
+																		<td><input type="checkbox"></td>
+																		<td>2(2018/03/13/56)</td>
+																		<td>铣削</td>
+																		<td>2018A02</td>
+																		<td>A</td>
+																		<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+																	</tr>
+																	<tr>
+																		<td><input type="checkbox"></td>
+																		<td>3(2018/03/13/56)</td>
+																		<td>钳工</td>
+																		<td>2018B01</td>
+																		<td>A</td>
+																		<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+																	</tr>
+																</tbody>
+															</table>
+															<div class="pull-right">
+																<input type="button" class="btn btn-danger" value="删除">
+															</div>
+														</div>
+													</div>
 												</div>
-											</div>
+											</div><!-- /.modal -->
 										</div>
 									</div>
 								</div>
@@ -565,9 +475,7 @@
 			$addButton: $('#add')
 		}); -->
 	</script>
-	<script src="../config/common_config.js"></script>
 	<script src="../js/sweetalert.min.js"></script>
-	<script src="../js/lodash.min.js"></script>
 	<script src="./js/config/config-divide-group.js"></script>
 	<script src="./js/api/api_experiment.js"></script>
 	<script src="./js/api/api_batch.js"></script>
@@ -576,6 +484,4 @@
 	<script src="./js/api/api_student.js"></script>
 	<script src="./js/api/api_weight.js"></script>
 	<script type="text/javascript" src="./js/divide-group.js"></script>
-</body>
-
-</html>
+</div>

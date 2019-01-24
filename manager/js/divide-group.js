@@ -1,9 +1,9 @@
-window.onload = function () {
-  init_data();
-};
+$(document).ready(function () {
+  init_data()
+  console.log('init divide-group.js')
+})
 
 function init_data() {
-
   fillWeekSelectorOptions();
   // drawDistributionTable()();
   // 获取所有模版
@@ -12,7 +12,6 @@ function init_data() {
   fillBatchSelectorOptions();
   // 获取所有工种
   fillProcedOptions();
-
   fillScoreTemplateOptions();
 }
 

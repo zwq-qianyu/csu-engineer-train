@@ -1,206 +1,63 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
-
-<head>
-	<meta charset="utf-8">
-	<title>管理员界面</title>
-	<!-- jquery -->
-	<script type="text/javascript" src="../js/jquery.min.js"></script>
-	<!-- bootstrap -->
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../js/logout.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/aside.css">
-	<link rel="stylesheet" type="text/css" href="./css/header.css">
+<div id="body">
 	<link rel="stylesheet" type="text/css" href="./css/course-schedul.css">
-	<link rel="shortcut icon" href="../img/fav.png" />
-	<!-- sweetalert2 -->
-	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
-	<!-- sweetalert2结束 -->
-</head>
+	<!-- 排课模版-排课方案 -->
+	<div class="card">
+		<div class="card-header">
+			<h5>排课方案</h5>
+		</div>
+		<div class="card-body">
+			<!-- 操作区域 -->
+			<div class="operate-area">
+			
+				<div class="row operate">
+					<span>选择模板:</span>
+					<select class="form-control custom-select col-4" id="template-selector">
+						
+					</select>
+					<button class="btn  btn-info" id="new-template">新建</button>
+					<button class="btn  btn-success" id="edit-template">编辑</button>
+					<button class="btn  btn-primary" id="save-template">保存</button>
+					<button class="btn  btn-danger" id="delete-template">删除</button>
+				</div>
+				<div>&nbsp;</div>
 
-<body>
-	<header>
-		<!-- <iframe src="./header.html" width="100%" height="120px;" frameborder="no"></iframe> -->
-		<nav>
-			<div id="nav-left">
-				<a href=""><img src="../img/logo.svg" alt="图标" id="main-icon"></a>
-				<span id="nav-name">中南大学工程训练中心教学管理系统--管理端</span>
+				<div class="row operate" id="edit-tool" style="display:none">
+					<span class="">教师组：</span>
+					<select class="form-control custom-select col-3" id="teacher-selector">
+					</select>
+					<span class="">工序：</span>
+					<select class="form-control custom-select col-3" id="proced-selector">
+					</select>
+					<button class="btn  btn-success" id="add-student-group">添加组</button>
+					<button class="btn  btn-primary" id="add-class-time">添加课时</button>
+				</div>
 			</div>
-			<a class="btn btn-default get-out" onclick="logout()"><img src="./img/out.svg" class="out-icon">退 出</a>
-		</nav>
-	</header>
-	<!-- 面包屑导航 -->
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#">管理端</a></li>
-			<li class="breadcrumb-item"><a href="#">实习排课</a></li>
-			<li class="breadcrumb-item active">排课模版</li>
-		</ol>
-	</nav>
-	<!-- 面包屑导航结束 -->
-	<!-- 主体部分 -->
-	<div class="mainbody row">
-		<aside class="col-xs-2 col-sm-2">
-			<!-- <iframe src="./aside.html" width="100%" height="700px;" frameborder="no"></iframe> -->
-			<div id="aside">
-				<ul class="list-group">
-					<li class="list-group-item"><img class="icon" src="./img/user-manage.svg"> 用户管理
-						<ul>
-							<li><a href="./student-manage.html">学生管理</a></li>
-							<li><a href="./teacher-manage.html">教师管理</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/paike.svg"> 实习排课
-						<ul>
-							<li class="left-active"><a href="./course-schedul.html">排课模版</a></li>
-							<li><a href="./divide-group.html">学生分组</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/score.svg"> 成绩管理
-						<ul>
-							<li><a href="./weight.html">权重设置</a></li>
-							<li><a href="./score.html">成绩列表</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/extra-work.svg"> 开放情况
-						<ul>
-							<li><a href="./extra-work.html">开放记录</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/materal-manage.svg"> 物料管理
-						<ul>
-							<li><a href="./materal-record.html">物料登记</a></li>
-							<li><a href="./materal-buy.html">物料申购</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item"><img class="icon" src="./img/setup.svg"> 个人设置
-						<ul>
-							<li><a href="./setup.html">密码修改</a></li>
-						</ul>
-					</li>
+			<!-- 操作区域结束 -->
+
+			<!-- table区域 -->
+			<div>
+				<hr />
+				<table class="table table-bordered" id="template-table">
+					<thead id="template-thead">
+				
+					</thead>
+					<tbody id="template-tbody">
+					
+					</tbody>
+				</table>
+				<!-- table区域结束 -->
+				<ul class="list-group border">
+					<li class="list-group-item active">编辑说明</li>
+					<li class="list-group-item">选择教师组和工序，点击表格项即可填入，双击表格项可以删除，双击表头可以删除整行整列</li>
+					<li class="list-group-item">更进一步，你可以使用快捷键 <key>q</key> 和 <key>e</key> 更改教师组，使用 <key>a</key> 和 <key>d</key> 更改工序</li>
 				</ul>
-			</div>
-		</aside>
-		<div class="right col-xs-10 col-sm-10">
-
-			<!-- 排课模版-排课方案 -->
-			<div class="card">
-				<div class="card-header">
-					<h5>排课方案</h5>
-				</div>
-				<div class="card-body">
-					<!-- 操作区域 -->
-					<div class="operate-area">
-						<!-- <button class="btn btn-outline-primary add-new" data-toggle="modal" data-target="#courseSchedul-button-addPlan" id="add-new-plan">添加新方案</button>
-						<div class="modal fade" id="courseSchedul-button-addPlan" tabindex="-1" role="dialog" aria-labelledby="courseSchedul-button-addPlanTitle" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="courseSchedul-button-addPlanTitle">添加新模版</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<div class="container-fluid">
-											<div class="row new-scheduleName-row">
-												<input type="text" class="form-control col-md-3" id="schedule-name-add" placeholder="新的模版名">
-											</div>
-											<br>
-											</div>
-											<br>
-											<div id="schedul-addLine-div" style="display: none;">
-												<input type="button" class="btn btn-outline-danger float-right" id="schedul-delLine" value="删除课时">
-												<input type="button" class="btn btn-outline-warning float-right" id="schedul-addLine" value="添加课时">
-											</div> 
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal" id="addNewPlan-close">关闭</button>
-										<button type="button" class="btn btn-primary" data-dismiss="modal"  id="addNewPlan-ensure">确定</button>
-									</div>
-								</div>
-							</div>
-						</div> -->
-						<div class="row operate">
-							<span>选择模板:</span>
-							<select class="form-control custom-select col-4" id="template-selector">
-								<!-- <option>排课模版A</option>
-								<option>排课模版B</option>
-								<option>排课模版C</option>
-								<option>排课模版D</option> -->
-							</select>
-							<button class="btn  btn-info" id="new-template">新建</button>
-							<button class="btn  btn-success" id="edit-template">编辑</button>
-							<button class="btn  btn-primary" id="save-template">保存</button>
-							<button class="btn  btn-danger" id="delete-template">删除</button>
-						</div>
-						<div>&nbsp;</div>
-
-						<div class="row operate" id="edit-tool" style="display:none">
-							<span class="">教师组：</span>
-							<select class="form-control custom-select col-3" id="teacher-selector">
-							</select>
-							<span class="">工序：</span>
-							<select class="form-control custom-select col-3" id="proced-selector">
-							</select>
-							<button class="btn  btn-success" id="add-student-group">添加组</button>
-							<button class="btn  btn-primary" id="add-class-time">添加课时</button>
-						</div>
-					</div>
-					<!-- 操作区域结束 -->
-
-					<!-- table区域 -->
-					<div>
-						<hr />
-						<table class="table table-bordered" id="template-table">
-							<thead id="template-thead">
-								<!-- <tr>
-									<th></th>
-									<th>A</th>
-									<th>B</th>
-									<th>C</th>
-									<th>D</th>
-								</tr> -->
-							</thead>
-							<tbody id="template-tbody">
-								<!-- <tr>
-									<td>1</td>
-									<td>钳工</td>
-									<td>车工</td>
-									<td>铣削</td>
-									<td>磨砂</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>车工</td>
-									<td>铣削</td>
-									<td>磨砂</td>
-									<td>钳工</td>
-								</tr> -->
-							</tbody>
-						</table>
-						<!-- table区域结束 -->
-						<ul class="list-group border">
-							<li class="list-group-item active">编辑说明</li>
-							<li class="list-group-item">选择教师组和工序，点击表格项即可填入，双击表格项可以删除，双击表头可以删除整行整列</li>
-							<li class="list-group-item">更进一步，你可以使用快捷键 <key>q</key> 和 <key>e</key> 更改教师组，使用 <key>a</key> 和 <key>d</key> 更改工序</li>
-						</ul>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
 	<!-- 主体部分结束 -->
 
-	<script src="../config/common_config.js"></script>
-	<script src="../js/lodash.min.js"></script>
-	<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 	<script src="../js/sweetalert.min.js"></script>
 	<script src="./js/api/api_experiment.js"></script>
 	<script src="./js/api/api_group.js"></script>
 	<script type="text/javascript" src="./js/course-schedul.js"></script>
-</body>
-
-</html>
+</div>

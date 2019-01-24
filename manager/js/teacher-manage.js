@@ -1,7 +1,8 @@
-window.onload = function(){
+$(document).ready(function () {
   init_data();
-}
+})
 
+console.log('init teacher-manage.js')
 var base_url = 'http://134.175.152.210:8084';
 var X1 = "选择教师组";
 

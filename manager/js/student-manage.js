@@ -1,18 +1,15 @@
-window.onload = function(){
+$(document).ready(function () {
   init_data();
-}
-
-var base_url = 'http://134.175.152.210:8084';
+  console.log('$(document).ready');
+});
 
 // 初始化页面数据
 function init_data(){
-
   // 初始化实习批次管理模块
   getAllSemesterName();
   // 学生列表初始化批次 + 初始化学生列表
   getAllBatch_StuList();
 }
-
 
 // 1、实习批次管理部分(OK)
 

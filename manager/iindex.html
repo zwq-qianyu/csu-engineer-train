@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>管理员界面</title>
+	<script type="text/javascript" src="../js/md5.js"></script>
+	<!-- jquery -->
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/logout.js"></script>
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<script asyne type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<!-- bootstrap结束 -->
+	<link rel="stylesheet" type="text/css" href="./css/aside.css">
+	<link rel="stylesheet" type="text/css" href="./css/header.css">
+	<link rel="shortcut icon" href="../img/fav.png" />
+	<!-- sweetalert2 -->
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert2.css">
+	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
+	<!-- sweetalert2结束 -->
+	<script src="../config/common_config.js"></script>
+	<!-- lodash工具库 -->
+	<script src="../js/lodash.min.js"></script>
+</head>
+
+<body>
+	<header>
+		<nav>
+			<div id="nav-left">
+				<a href=""><img src="../img/logo.svg" alt="图标" id="main-icon"></a>
+				<span id="nav-name">中南大学工程训练中心教学管理系统--管理端</span>
+			</div>
+			<a class="btn btn-default get-out" onclick="logout()"><img src="./img/out.svg" class="out-icon">退 出</a>
+		</nav>
+	</header>
+	<!-- 面包屑导航 -->
+	<!-- <nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">管理端</a></li>
+			<li class="breadcrumb-item"><a href="#">用户管理</a></li>
+			<li class="breadcrumb-item active">学生管理</li>
+		</ol>
+	</nav> -->
+	<!-- 面包屑导航结束 -->
+	<!-- 主体部分 -->
+	<div class="mainbody row">
+		<aside class="col-xs-2 col-sm-2" id="navigation">
+			<div id="aside">
+				<ul class="list-group">
+					<li class="list-group-item"><img class="icon" src="./img/user-manage.svg"> 用户管理
+						<ul>
+							<li><a href="./rewrite-student-manage.html">学生管理</a></li>
+							<li><a href="./rewrite-teacher-manage.html">教师管理</a></li>
+						</ul>
+					</li>
+					<li class="list-group-item"><img class="icon" src="./img/paike.svg"> 实习排课
+						<ul>
+							<li><a href="./rewrite-course-schedul.html">排课模版</a></li>
+							<li><a href="./rewrite-divide-group.html">学生分组</a></li>
+						</ul>
+					</li>
+					<li class="list-group-item"><img class="icon" src="./img/score.svg"> 成绩管理
+						<ul>
+							<li><a href="./rewrite-weight.html">权重设置</a></li>
+							<li><a href="./rewrite-score.html">成绩列表</a></li>
+						</ul>
+					</li>
+					<li class="list-group-item"><img class="icon" src="./img/extra-work.svg"> 开放情况
+						<ul>
+							<li><a href="./rewrite-extra-work.html">开放记录</a></li>
+						</ul>
+					</li>
+					<li class="list-group-item"><img class="icon" src="./img/materal-manage.svg"> 物料管理
+						<ul>
+							<li><a href="./rewrite-materal-record.html">物料登记</a></li>
+							<li><a href="./rewrite-materal-buy.html">物料申购</a></li>
+						</ul>
+					</li>
+					<li class="list-group-item"><img class="icon" src="./img/setup.svg"> 个人设置
+						<ul>
+							<li><a href="./rewrite-setup.html">密码修改</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</aside>
+
+		<div class="container clearfix col-xs-10 col-sm-10" id="working-space">
+
+		</div>
+	</div>
+	<!-- 主体部分结束 -->
+	<script>
+		function load(jqueryObj, url) {
+			$.ajaxSetup({ cache: false });
+			console.log(url)
+			jqueryObj.load(url, function (result) {
+				var $result = $(result);
+				$result.find("script").appendTo(jqueryObj);
+				// $(function(){
+				// 	init_data();
+				// });
+			});
+		}
+
+		// $.ajaxSetup({ cache: false });
+		$(function () {
+			$('#navigation').on('click', 'a', function (event) {
+				event.preventDefault();
+				$('#working-space').load($(this).attr('href'));
+				// load($('#working-space'), $(this).attr('href') + ' #body')
+			});
+		});
+	</script>
+</body>
+</html>
