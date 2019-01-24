@@ -8,4 +8,14 @@ var api_student = {
             }
         )
     },
+    getStudent:function (student_id){
+        return post_query('/student/getStudent/'+student_id,{});
+    },
+    addSpStudent:function(student_id,template_name){
+        return post_query('/student/addSpStudent',
+        {
+            sid:student_id,
+            template_name:template_name
+        });
+    }
 }

@@ -12,10 +12,9 @@ function init_data() {
   fillBatchSelectorOptions();
   // 获取所有工种
   fillProcedOptions();
-  // 根据批次获取对   api_proced.getAllProced应的分组号
-  getAllSGroupByBatch();
-}
 
+  fillScoreTemplateOptions();
+}
 
 
 // 填充模板选项
@@ -29,39 +28,45 @@ function fillTemplateSelectorOptions() {
         for (var i = 0; i < data_arr.length; i++) {
           $('<option>').text(data_arr[i]).appendTo($templateSelector)
         }
+      } else {
+        fetch_err(data)
       }
-    });
+    }).fail(net_err);
 }
 
 // 填充批次
 function fillBatchSelectorOptions() {
   api_batch.getAllBatch()
     .done(function (data) {
-      var data_arr = data.data;
-      // 课时分配
-      var cdsb1 = $('#course_divide1_select_batch')
-      var cdsb2 = $('#course_divide1_select_batch2')
+      if (data.status === 0) {
+        var data_arr = data.data;
+        // 课时分配
+        var cdsb1 = $('#course_divide1_select_batch')
+        var cdsb2 = $('#course_divide1_select_batch2')
 
-      //  批次、工序排课查询
-      var scsb1 = $('#seach_clazzes_select_batch1')
-      var scsb2 = $('#seach_clazzes_select_batch2')
+        //  批次、工序排课查询
+        var scsb1 = $('#seach_clazzes_select_batch1')
+        var scsb2 = $('#seach_clazzes_select_batch2')
 
-      //  学生分组
-      var sdsb1 = $('#student_divide_select_batch1')
-      var sdsb2 = $('#student_divide_select_batch2')
+        //  学生分组
+        var sdsb1 = $('#student_divide_select_batch1')
+        var sdsb2 = $('#student_divide_select_batch2')
 
-      var temp = $('<span><option>实习批次选择</option></span>')
+        var temp = $('<span><option>实习批次选择</option></span>')
 
-      for (var i = 0; i < data_arr.length; i++) {
-        $('<option>').text(data_arr[i].batch_name).appendTo(temp)
+        for (var i = 0; i < data_arr.length; i++) {
+          $('<option>').text(data_arr[i].batch_name).appendTo(temp)
+        }
+        cdsb1.html(temp.html())
+        cdsb2.html(temp.html())
+        scsb1.html(temp.html())
+        scsb2.html(temp.html())
+        sdsb1.html(temp.html())
+        sdsb2.html(temp.html())
+      }else {
+        fetch_err(data)
       }
-      cdsb1.html(temp.html())
-      cdsb2.html(temp.html())
-      scsb1.html(temp.html())
-      scsb2.html(temp.html())
-      sdsb1.html(temp.html())
-      sdsb2.html(temp.html())
-    });
+    }).fail(net_err);
 }
 
 // 绑定模板(或者再次绑定)
@@ -87,15 +92,9 @@ function bundleTemplate() {
             'success'
           );
         } else {
-          // console.log(data);
-          swal(
-            '绑定失败',
-            String(data.message),
-            'error'
-          );
+          fetch_err(data)
         }
-      },
-      )
+      }).fail(net_err);
   }
 }
 
@@ -116,8 +115,10 @@ $course_divide1_select_batch2.change(function () {
         if (data.status === 0) {
           ProcessNewDistributionData(data.data)
           initDistributionTable()
+        }else {
+          fetch_err(data)
         }
-      })
+      }).fail(net_err);
   }
 });
 
@@ -348,11 +349,9 @@ $('#save-distribution').click(function () { // 获取数据保存
               if (data.status === 0) {
                 swal('修改成功了', '大概……', 'success');
               } else {
-                swal('服务器验证失败', '请与管理员联系', 'error')
+                fetch_err(data)
               }
-            }).fail(function (data) {
-              swal('其他原因', '网络是否正常？', 'error')
-            })
+            }).fail(net_err);
           $edit_distribution.click() // 触发编辑按钮的点击，关闭编辑模式
         } else {
         }
@@ -381,8 +380,10 @@ function fillProcedOptions() {
           $('<option>').text(val).appendTo($temp)
         })
         $('#seach_clazzes_select_process').html($temp.html());
+      }else {
+        fetch_err(data)
       }
-    })
+    }).fail(net_err)
 }
 
 // 根据实习批次查询课表【数据返回格式需要修改】
@@ -395,9 +396,9 @@ $('#query-by-batch-button').click(function () {
         if (data.status === 0) {
           displayResultByBatch(data.data)
         } else {
-          swal('获取数据出错', '', '')
+          fetch_err(data)
         }
-      })
+      }).fail(net_err);
   }
 });
 
@@ -451,6 +452,28 @@ function displayResultByBatch(data) {
   });
 }
 
+$('#print-query-by-batch-table').click(function () {
+  // console.log("$('#print-query-by-batch-table').click")
+  var $table = $('#query-by-batch-result');
+  var $trs = $('tr', $table);
+  var data = []
+
+  $trs.each(function (i) {
+    var row = []
+    if (i !== 0) {
+      $('td', this).each(function () {
+        row.push($(this).text());
+      });
+    } else {
+      $('th', this).each(function (i) {
+        row.push($(this).text())
+      })
+    }
+    data.push(row)
+  });
+  // console.log(data)
+  api_experiment.send_download_excel(data);
+});
 
 // 根据工种和实习批次查询课表 
 $('#query-by-batch-and-proced-button').click(function () {
@@ -487,7 +510,7 @@ function displayResultByBatchAndProced(data) {
   $tr.appendTo($table_head);
 
   data = _.groupBy(data, 'class_time') // 按课时分组
-  console.log(data)
+  // console.log(data)
   _.each(data, function (class_group, class_time) {
     var time_quant = class_group[0].time_quant;
     var time_quant_arr = parse_time_quant(time_quant);
@@ -512,6 +535,28 @@ function displayResultByBatchAndProced(data) {
   });
 }
 
+$('#print-query-by-batch-proced-table').click(function () {
+  var $table = $('#query-by-batch-and-proced-table');
+  var $trs = $('tr', $table);
+  var data = []
+
+  $trs.each(function (i) {
+    var row = []
+    if (i !== 0) {
+      $('td', this).each(function () {
+        row.push($(this).text());
+      });
+    } else {
+      $('th', this).each(function (i) {
+        row.push($(this).text())
+      })
+    }
+    data.push(row)
+  });
+  // console.log(data)
+  api_experiment.send_download_excel(data);
+});
+
 // 3、学生分组
 
 // 学生分组
@@ -530,14 +575,9 @@ function groupStudent() {
           );
         }
         else {
-          // console.log(data);
-          swal(
-            '分组失败',
-            String(data.message),
-            'error'
-          );
+          fetch_err(data)
         }
-      });
+      }).fail(net_err);
   }
   else {
     swal(
@@ -565,14 +605,14 @@ function getAllSGroupByBatch() {
           _.each(data_arr, function (val, i) {
             $('<option></option>').text(val).appendTo($selector)
           });
+        }else {
+          fetch_err(data)
         }
-      });
+      }).fail(net_err);
   }
 }
 
 $('#student_divide_select_batch2').change(getAllSGroupByBatch);
-
-
 
 $('#get-student-list-by-batch-and-group').click(function () {
   var sgroup = $('#student_divide_select_group').val();
@@ -587,10 +627,12 @@ $('#get-student-list-by-batch-and-group').click(function () {
     ).done(function (data) {
       if (data.status === 0) {
         displayGroupStudentResult(data.data)
+      }else {
+        fetch_err(data)
       }
-    })
+    }).fail(net_err)
   }
-})
+});
 
 
 var student_group_data = []
@@ -639,10 +681,38 @@ $('#student-group-result').on('click', 'button', function () {
           'success'
         );
         $ptr.remove()
+      }else {
+        fetch_err(data)
       }
-    })
+    }).fail(net_err);
 })
 
+$('#print-student-grouped-table').click(function () {
+  var $table = $('#student-grouped-table');
+  var $trs = $('tr', $table);
+  var data = []
+
+  $trs.each(function (i) {
+    var row = []
+    if (i !== 0) {
+      $('td', this).each(function (j) {
+        if (j === 4) {
+          row.push($('select', this).val());
+        }
+        else if (j == 5) { }
+        else row.push($(this).text())
+      });
+    } else {
+      $('th', this).each(function (j) {
+        if (j !== 5)
+          row.push($(this).text())
+      })
+    }
+    data.push(row)
+  });
+  // console.log(data)
+  api_experiment.send_download_excel(data);
+})
 
 // 4、学生课表查询
 // 根据学生学号查询课表
@@ -654,7 +724,7 @@ function getStuClassTableByNum() {
         if (data.status === 0) {
           // console.log(data);
           var data_arr = data.data;
-          var $table_body = $('#search_stu_tbody')
+          var $table_body = $('#search_stu_tbody').empty();
           data_arr = _.sortBy(data_arr, 'class_time');
           _.each(data_arr, function (val, i) {
             var $tr = $('<tr>');
@@ -668,7 +738,102 @@ function getStuClassTableByNum() {
             $('<td>').text(val.s_group_id).appendTo($tr);
             $tr.appendTo($table_body);
           })
+        }else {
+          fetch_err(data);
         }
-      });
+      }).fail(net_err);
   }
 }
+
+
+// 打印学生课表
+$('#print-stud-class-table').click(function () {
+  var $table = $('#query_stud-class-table');
+  var $trs = $('tr', $table);
+  var data = []
+  $trs.each(function (i) {
+    var row = []
+    if (i !== 0) {
+      $('td', this).each(function () {
+        row.push($(this).text());
+      });
+    } else {
+      $('th', this).each(function (i) {
+        row.push($(this).text())
+      })
+    }
+    data.push(row)
+  });
+  // console.log(data)
+  api_experiment.send_download_excel(data);
+});
+
+
+
+
+// 5. 特殊学生页面
+function fillScoreTemplateOptions() {
+  var temp_selector = $('#score-template-selector').empty()
+  $('<option>').text('权重模版选择').appendTo(temp_selector);
+  api_weight.findAllTemplate()
+    .done(function (data) {
+      if (data.status === 0) {
+        data = data.data;
+        _.each(data, function (val) {
+          $('<option>').text(val).appendTo(temp_selector);
+        });
+      }else {
+        fetch_err(data)
+      }
+    }).fail(net_err)
+}
+
+var spec_stud = null;
+$('#special_stu_search_stu').click(function () {
+  // console.log("$('#special_stu_search_stu').click")
+  var stud_id = $('#spec_stud_id').val();
+  if (stud_id)
+    stud_id = stud_id.trim()
+  if (stud_id) {
+    api_student.getStudent(stud_id)
+      .done(function (data) {
+        if (data.status === 0) {
+          fill_student_result(data.data)
+          spec_stud = data.data;
+        } else {
+          fetch_err(data)
+        }
+      }).fail(net_err);
+  }
+});
+
+function fill_student_result(data) {
+  var $tbody = $('#query-student-result').empty();
+  // console.log(data);
+  var $tr = $('<tr>');
+  $('<td>').text(data.sid).appendTo($tr);
+  $('<td>').text(data.sname).appendTo($tr);
+  $('<td>').text(data.clazz).appendTo($tr);
+  $('<td>').text(data.batch_name).appendTo($tr);
+  $tr.appendTo($tbody);
+}
+
+$('#add-to-special-stud').click(addToSpecialStud)
+
+function addToSpecialStud() {
+  var temp_name = $('#score-template-selector').val()
+  if (!temp_name || temp_name == '权重模版选择') return;
+  if (spec_stud) {
+    api_student.addSpStudent(spec_stud.sid, temp_name)
+      .done(function (data) {
+        if (data.status === 0) {
+          swal('添加成功', data.message, 'success');
+          spec_stud = null;
+          $('#query-student-result').empty();
+        } else {
+          fetch_err(data);
+        }
+      }).fail(net_err);
+  }
+}
+
