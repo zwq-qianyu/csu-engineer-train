@@ -23,6 +23,8 @@ function init_data(){
     getRemi();
     // 获取所有采购报账记录（审核）
     getRemiVerify();
+    // 获取所有入库记录
+    getSaveBy5();
     // $('.nav-tabs li').click(function(){
     //     $(this).addClass('active').siblings().removeClass('active');
     //     var _id = $(this).attr('data-id');
@@ -275,7 +277,7 @@ function fillApplyTable(data) {
 
     }
 }
-// 生成申购单 还有问题*************************************
+// 生成申购单 还有问题##############################################
 function exportApply() {
 
     var postdata = {};
@@ -285,7 +287,7 @@ function exportApply() {
 
         })
 }
-// 新增申购记录 有问题*****************************
+// 新增申购记录 有问题###############################################
 function addOneApply(){
     var post_data={};
     post_data.clazz = $("#add_apply_material").val();
@@ -547,11 +549,11 @@ function addOnePurchase() {
             }
         })
 }
-// 生成采购单 还有问题*************************************
+// 生成采购单 还有问题################################################
 function exportPurchase() {
     console.log(selectedPurPurchase);
 }
-// 根据条件获取报账记录
+// 根据条件获取报账记录 还有问题#########################################
 function getRemi() {
     var postData = {};
     postData.clazz = $('#bmaterial').val()==="物料种类"||$('#bmaterial').val()==="暂无选项"?"%":$('#bmaterial').val();
@@ -624,7 +626,7 @@ function fillRemiTable(data) {
 
     }
 }
-// 生成报账单 还有问题*************************************
+// 生成报账单 还有问题######################################################
 function exportRemi() {
     console.log(selectedRemi)
 }
@@ -703,7 +705,8 @@ function fillRemiTableVerify(data) {
     // 分页初始化
     goPage("h",1,10);
 }
-// 删除申购记录
+// 这三个还没测试，拿不到数据#####################################################
+// 删除报账记录
 function deleteOneRemi(data) {
     swal({
         title: "真的删除该记录吗么？",
@@ -738,7 +741,7 @@ function deleteOneRemi(data) {
 
 
 }
-// 修改申购记录
+// 修改报账记录
 function modifyOneRemi(data) {
     var id = data.id.substring(6,data.id.length)
     $(".modify"+id).hide();
@@ -752,7 +755,7 @@ function modifyOneRemi(data) {
         }
     }
 }
-// 确认修改申购记录
+// 确认修改报账记录 即审核报账有问题（参数应该是报账记录的id和数量）审核人由后台获取###########
 function verifyOneRemi(data) {
     var id = data.id.substring(6,data.id.length);
     var postdata = {};
@@ -779,12 +782,75 @@ function verifyOneRemi(data) {
 }
 
 // 物料入库页
-// 新增入库记录
+// 查询入库记录 报错同报账记录##################################################
+function getSaveBy5() {
+    var postData = {};
+    postData.clazz = $('#rmaterial').val()==="物料种类"||$('#rmaterial').val()==="暂无选项"?"%":$('#rmaterial').val();
+    postData.begin = $('#rstart_time').val()===""?"1999-10-10":$('#rstart_time').val();
+    postData.end = $('#rend_time').val()===""?"2999-10-10":$('#rend_time').val();
+    postData.pid = $("#rpurchase_number").val()===""?"%":$("#rpurchase_number").val();
+    postData.tname = $("#rstore_person").val()==="入库人"||$("#rstore_person").val()==="暂无选项"?"%":$("#rstore_person").val();
+    api_material_purchase.getSaveBy5(postData)
+        .done(fillSaveTable)
+}
+// 填充入库记录表格
+function fillSaveTable(data) {
+    if(data.status==0){
+        var data_arr = data.data;
+        var tableData=[];
+
+        for(var i=0; i<data_arr.length; i++){
+            var tableRow = {
+                purchaseId:data_arr[i].purchase_id,
+                saveTime:data_arr[i].save_time,
+                clazz:data_arr[i].clazz,
+                saveNum:data_arr[i].save_num,
+                saveTname:data_arr[i].save_tname,
+                saveRemark:data_arr[i].save_remark==null ? '': data_arr[i].save_remark,
+                id:data_arr[i].id
+            };
+            tableData.push(tableRow);
+
+        }
+
+        $("#radminTbody").bootstrapTable("destroy").bootstrapTable({
+            pagination:false,
+            data:tableData,
+            fixedColumns:true,
+            fixedNumber:4,
+        })
+        // 分页初始化
+        goPageBT("r",1,20)
+
+    }
+}
+// 新增入库记录  缺参数 时间，然后入库人还是让后端获取当前登录人比较统一################
 function addOneStore() {
   var newStore = {};
-  newStore.num = $("#add_store_num").val();
+  newStore.pid = $("#add_store_num").val();
   newStore.date = $("#add_store_date").val();
-  newStore.number = $("#add_store_number").val();
-  newStore.note = $("#add_store_note").val();
-  console.log(newStore)
+  newStore.num = $("#add_store_number").val();
+  newStore.remark = $("#add_store_note").val();
+  api_material_purchase.addSave(newStore)
+      .done(function (data) {
+          $("#add_store_num").val("");
+          $("#add_store_date").val("");
+          $("#add_store_number").val("");
+          $("#add_store_note").val("");
+          if(data.status === 0){
+              swal(
+                  '添加成功',
+                  '新增入库记录成功',
+                  'success'
+              );
+              init_data();
+          }
+          else{
+              swal(
+                  '添加失败',
+                  '新增入库记录失败，请重试！',
+                  'error'
+              );
+          }
+      })
 }
