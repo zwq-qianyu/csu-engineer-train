@@ -1,0 +1,9 @@
+//未编译样式
+.box {
+    width: 300px;
+    height: 400px;
+    &-title {
+      height: 30px;
+      line-height: 30px;
+    }
+  } 
