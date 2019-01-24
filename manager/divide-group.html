@@ -187,7 +187,7 @@
 														</select>
 													</div>
 													<input type="button" name="" class="btn btn-success btn-sm" value="查询排课表" id="query-by-batch-button">
-													<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表">
+													<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表" id="print-query-by-batch-table">
 												</div>
 												<table class="table" id="query-by-batch-result">
 													<thead>
@@ -197,18 +197,7 @@
 														</tr>
 													</thead>
 													<tbody>
-														<!-- <tr>
-															<td>1(2019/3/13/56)</td>
-															<td>钳工</td>
-															<td>车工</td>
-															<td>铣削</td>
-														</tr>
-														<tr>
-															<td>2(2019/3/21/78)</td>
-															<td>车工</td>
-															<td>铣削</td>
-															<td>钳工</td>
-														</tr> -->
+		 
 													</tbody>
 												</table>
 											</div>
@@ -225,9 +214,9 @@
 														</select>
 													</div>
 													<input type="button" name="" class="btn btn-success btn-sm" value="查询排课表" id="query-by-batch-and-proced-button">
-													<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表">
+													<input type="button" name="" class="btn btn-info btn-sm pull-right" value="打印排课表" id="print-query-by-batch-proced-table">
 												</div>
-												<table class="table" >
+												<table class="table" id="query-by-batch-and-proced-table" >
 													<thead id="query-by-batch-and-proced-head">
 														<tr>
 															<th>课时\工种</th>
@@ -281,12 +270,12 @@
 													<input type="button" name="" class="btn btn-sm btn-default" value="筛选" id="get-student-list-by-batch-and-group">
 												</div>
 
-												<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印名单">
+												<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印名单" id="print-student-grouped-table">
 											</div>
 
 											<!-- 学生列表表格 -->
-											<div class="table-responsive">
-												<table class="table" id="mytable">
+											<div class="table-responsive" id="student-grouped-table">
+												<table class="table">
 													<thead>
 														<tr>
 															<th>学号</th>
@@ -298,7 +287,6 @@
 														</tr>
 													</thead>
 													<tbody id="student-group-result">
-												
 													</tbody>
 												</table>
 											</div>
@@ -325,12 +313,12 @@
 													<input type="button" name="" class="btn btn-sm btn-default" value="查询排课表" onclick="getStuClassTableByNum()">
 												</div>
 
-												<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印排课表">
+												<input type="button" name="" class="btn btn-sm btn-default pull-right" value="打印排课表" id="print-stud-class-table">
 											</div>
 											<!-- 筛选区域结束 -->
 
-											<!-- 学生列表表格 -->
-											<div class="table-responsive">
+											<!-- 学生课表表格 -->
+											<div class="table-responsive" id="query_stud-class-table">
 												<table class="table">
 													<thead>
 														<tr>
@@ -343,26 +331,9 @@
 														</tr>
 													</thead>
 													<tbody id="search_stu_tbody">
-														<!-- <tr>
-																      	<td><input type="checkbox" name=""></td>
-																      	<td>1(2019/03/13/56)</td>
-																      	<td>铣削</td>
-																        <td>2019A01</td>
-																        <td>A</td>
-																        <td>
-																        	<input type="button" class="btn btn-sm btn-info" name="" value="编辑">
-																        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-																        </td>
-																      </tr> -->
 													</tbody>
 												</table>
 											</div>
-
-											<!-- 全体操作 -->
-											<!-- <div class="row operate-n">
-																	<input type="checkbox" style="margin-left: 50px;" name=""> 全选
-			                    				<input type="button" class="btn btn-danger pull-right" name="" value="删&emsp;除">
-			                    			</div> -->
 										</div>
 									</div>
 								</div>
@@ -378,14 +349,12 @@
 													<h4 class="text-center">学生列表</h4>
 												</div>
 
+												
 												<div class="col-xs-2 col-sm-2">
-													<input type="text" name="" class="form-control" placeholder="学生学号">
+													<input type="text" name="" class="form-control" placeholder="学生学号" id="spec_stud_id">
 												</div>
-												<div class="col-xs-2 col-sm-2">
-													<input type="text" name="" class="form-control" placeholder="学生姓名">
-												</div>
-
 												<button class="btn btn-default" id="special_stu_search_stu">查询</button>
+
 
 											</div>
 											<!-- 学生列表表格 -->
@@ -401,17 +370,8 @@
 															<!-- <th>操作</th> -->
 														</tr>
 													</thead>
-													<tbody>
-														<tr>
-															<!-- <td><input type="checkbox" name=""></td> -->
-															<td>1302160126</td>
-															<td>邱梓峰</td>
-															<td>信科1601</td>
-															<td>A</td>
-															<!-- <td>
-																        	<input type="button" class="btn btn-sm btn-danger" name="" value="删除">
-																        </td> -->
-														</tr>
+													<tbody id="query-student-result">
+														
 													</tbody>
 												</table>
 											</div>
@@ -422,14 +382,14 @@
 												<div class="col-md-7 col-xs-7">
 												</div>
 												<div class="col-md-3 col-xs-3">
-													<select class="form-control">
-														<option>权重模版选择</option>
+													<select class="form-control" id="score-template-selector">
+														<!-- <option>权重模版选择</option>
 														<option>1学分学生模版</option>
 														<option>2学分学生模版</option>
-														<option>5学分学生模版</option>
+														<option>5学分学生模版</option> -->
 													</select>
 												</div>
-												<input type="button" class="btn btn-success" value="添加至特殊学生表">
+												<input type="button" class="btn btn-success" value="添加至特殊学生表" id="add-to-special-stud">
 											</div>
 
 											<div class="specialStudentList">
@@ -614,6 +574,7 @@
 	<script src="./js/api/api_proced.js"></script>
 	<script src="./js/api/api_studentGroup.js"></script>
 	<script src="./js/api/api_student.js"></script>
+	<script src="./js/api/api_weight.js"></script>
 	<script type="text/javascript" src="./js/divide-group.js"></script>
 </body>
 
