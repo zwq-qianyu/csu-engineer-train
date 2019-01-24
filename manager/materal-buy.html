@@ -827,24 +827,25 @@
 												</div>
 
 												<div class="col-xs-2 col-sm-2">
-													<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('r')">
+													<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSaveBy5()">
 												</div>
 											</div>
 
 											<!-- 表格主体部分 -->
-											<table class="table table-striped">
-												<thead>
-												<tr>
-													<th>申购日期</th>
-													<th>入库日期</th>
-													<th>物料种类</th>
-													<th>入库数量</th>
-													<th>入库人</th>
-													<th>入库备注</th>
-												</tr>
-												</thead>
-												<tbody id="radminTbody"></tbody>
-											</table>
+											<div class="table-responsive">
+												<table id="radminTbody" data-checkbox="false" class="table table-striped table-no-bordered">
+													<thead>
+													<tr>
+														<th data-field="purchaseId">申购编号</th>
+														<th data-field="saveTime">入库日期</th>
+														<th data-field="clazz">物料种类</th>
+														<th data-field="saveNum">入库数量</th>
+														<th data-field="saveTname">入库人</th>
+														<th data-field="saveRemark">入库备注</th>
+													</tr>
+													</thead>
+												</table>
+											</div>
 
 											<!-- 分页功能部分 -->
 											<div id="rbarcon" class="barcon">
@@ -863,7 +864,7 @@
 															<!-- <select id="jumpWhere"></select> -->
 															<input type="text" class="jumpWhere" id="rjumpWhere">
 														</li>
-														<li><a href="###" id="rjumpPage" onclick="jumpPage('r')" class="btn btn-sm btn-primary">跳转</a></li>
+														<li><a href="###" id="rjumpPage" onclick="jumpPageBT('r')" class="btn btn-sm btn-primary">跳转</a></li>
 													</ul>
 												</div>
 												<div class="clearfix"></div>
