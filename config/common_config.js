@@ -9,6 +9,7 @@ function post_query(url, query) {
         url: base_url+url,
         dataType: 'json',
         data: query,
+        crossDomain:true,
     })
 }
 
@@ -19,6 +20,7 @@ function post_json(url, json_obj) {
         dataType: 'json',
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(json_obj),
+        crossDomain:true,
     });
 }
 
@@ -28,6 +30,7 @@ function downloads(url,json_obj) {
         url: base_url + url,
         datatype: 'json',
         data: json_obj,
+        crossDomain:true,
         success: function (result) {
             // 创建a标签，设置属性，并触发点击下载
             var $a = $("<a>");

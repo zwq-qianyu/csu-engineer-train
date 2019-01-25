@@ -4,6 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10">
+				<table id="nav-tab"></table>
 				<div class="tab" role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
@@ -21,12 +22,12 @@
 								<div class="panel-heading">课时分配</div>
 								<div class="panel-body">
 									<div class="row">
-										<div class="col-xs-3">
+										<div class="col-3">
 											<select class="form-control custom-select" id="course_divide1_select_batch">
 
 											</select>
 										</div>
-										<div class="col-xs-3">
+										<div class="col-3">
 											<select class="form-control custom-select" id="course_divide1_select_temp">
 
 											</select>
@@ -42,22 +43,22 @@
 									</div>
 									<br>
 									<div class="row" id="divide_course_select_batch">
-										<div class="col-xs-3">
+										<div class="col-3">
 											<select class="form-control custom-select" id="course_divide1_select_batch2">
 											</select>
 										</div>
 
-										<div class="col-xs-2">
+										<div class="col-2">
 											<input type="button" name="" class="btn btn-danger" value="编辑off" id="edit-distribution">
 										</div>
 
-										<div class="col-xs-2">
+										<div class="col-2">
 											<input type="button" name="" class="btn btn-success" value="保存" id="save-distribution">
 										</div>
 									</div>
 									<br>
 									<div class="row">
-										<div class="col-sm-3 col-xs-3">
+										<div class="col-sm-3 col-3">
 											<select class="form-control custom-select" id="course_divide1_select_week">
 											</select>
 										</div>
@@ -94,7 +95,7 @@
 								<div class="panel-body">
 									<div class="table1">
 										<div class="row">
-											<div class="col-xs-3 col-sm-3">
+											<div class="col-3 col-sm-3">
 												<select class="form-control custom-select" id="seach_clazzes_select_batch1">
 												</select>
 											</div>
@@ -117,11 +118,11 @@
 									<hr>
 									<div class="table2">
 										<div class="row">
-											<div class="col-xs-3 col-sm-3">
+											<div class="col-3 col-sm-3">
 												<select class="form-control custom-select" id="seach_clazzes_select_process">
 												</select>
 											</div>
-											<div class="col-xs-3 col-sm-3">
+											<div class="col-3 col-sm-3">
 												<select class="form-control custom-select" id="seach_clazzes_select_batch2">
 												</select>
 											</div>
@@ -151,7 +152,7 @@
 								<div class="panel-body">
 									<!-- 选择批次对学生分组 -->
 									<div class="row group-divide">
-										<div class="col-xs-3 col-sm-3">
+										<div class="col-3 col-sm-3">
 											<select class="form-control custom-select" id="student_divide_select_batch1">
 											</select>
 										</div>
@@ -166,19 +167,19 @@
 									<hr>
 									<!-- 学生列表筛选 -->
 									<div class="row student-select">
-										<div class="col-xs-2 col-sm-2">
+										<div class="col-2 col-sm-2">
 											<h4 class="text-center">学生列表</h4>
 										</div>
 
-										<div class="col-xs-2 col-sm-2">
+										<div class="col-2 col-sm-2">
 											<select class="form-control custom-select" id="student_divide_select_batch2">
 											</select>
 										</div>
-										<div class="col-xs-2 col-sm-2">
+										<div class="col-2 col-sm-2">
 											<select class="form-control custom-select" id="student_divide_select_group">
 											</select>
 										</div>
-										<div class="col-xs-1 col-sm-1">
+										<div class="col-1 col-sm-1">
 											<input type="button" name="" class="btn btn-sm btn-default" value="筛选" id="get-student-list-by-batch-and-group">
 										</div>
 
@@ -214,14 +215,14 @@
 								<div class="panel-body">
 									<!-- 筛选区域 -->
 									<div class="row student-select">
-										<div class="col-xs-2 col-sm-2">
+										<div class="col-2 col-sm-2">
 											<input type="text" name="" class="form-control" placeholder="学生学号" id="search_stu_by_number">
 										</div>
-										<!-- <div class="col-xs-2 col-sm-2">
+										<!-- <div class="col-2 col-sm-2">
 			                    					<input type="text" name="" class="form-control" placeholder="学生姓名">
 			                    				</div> -->
 
-										<div class="col-xs-1 col-sm-1">
+										<div class="col-1 col-sm-1">
 											<input type="button" name="" class="btn btn-sm btn-default" value="查询排课表" onclick="getStuClassTableByNum()">
 										</div>
 
@@ -257,12 +258,12 @@
 								<div class="panel-body">
 									<!-- 特殊学生列表筛选 -->
 									<div class="row student-select">
-										<div class="col-xs-2 col-sm-2">
+										<div class="col-2 col-sm-2">
 											<h4 class="text-center">学生列表</h4>
 										</div>
 
 
-										<div class="col-xs-2 col-sm-2">
+										<div class="col-2 col-sm-2">
 											<input type="text" name="" class="form-control" placeholder="学生学号" id="spec_stud_id">
 										</div>
 										<button class="btn btn-default" id="special_stu_search_stu">查询</button>
@@ -291,9 +292,9 @@
 									<br>
 									<!-- 绑定模版 -->
 									<div class="row">
-										<div class="col-md-7 col-xs-7">
+										<div class="col-md-7 col-7">
 										</div>
-										<div class="col-md-3 col-xs-3">
+										<div class="col-md-3 col-3">
 											<select class="form-control" id="score-template-selector">
 												<!-- <option>权重模版选择</option>
 														<option>1学分学生模版</option>
@@ -307,14 +308,14 @@
 									<div class="specialStudentList">
 										<hr>
 										<div class="row">
-											<div class="col-xs-2 col-sm-2">
+											<div class="col-2 col-sm-2">
 												<h4 class="text-center">特殊学生列表</h4>
 											</div>
 
-											<div class="col-xs-2 col-sm-2">
+											<div class="col-2 col-sm-2">
 												<input type="text" name="" class="form-control" placeholder="学生学号">
 											</div>
-											<div class="col-xs-2 col-sm-2">
+											<div class="col-2 col-sm-2">
 												<input type="text" name="" class="form-control" placeholder="学生姓名">
 											</div>
 
@@ -368,7 +369,7 @@
 														</div>
 														<div class="modal-body">
 															<div class="row">
-																<div class="col-xs-3 col-md-3">
+																<div class="col-3 col-md-3">
 																	<select class="form-control">
 																		<option>选择已有批次</option>
 																		<option>2018A01</option>

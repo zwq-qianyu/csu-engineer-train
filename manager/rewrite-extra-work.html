@@ -1,8 +1,6 @@
 <div id="body">
 
 	<link rel="stylesheet" type="text/css" href="./css/extra-work.css">
-	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
-	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
 
 	<!-- 学生开放申请 -->
 	<div class="card">
@@ -11,13 +9,13 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="submit-time" placeholder="提交日期"
+				<input class="flatpickr mycalendar form-control col-2 col-sm-2 left-flatpickr" name="submit-time" placeholder="提交日期"
 				 id="stu_submit_time">
-				<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开放开始日期"
+				<input class="flatpickr mycalendar form-control col-2 col-sm-2 left-flatpickr" name="start-time" placeholder="开放开始日期"
 				 id="stu_extra_work_start_time">
-				<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
-				<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="开放结束时间" id="stu_extra_work_end_time">
-				<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype" id="stu_extra_select_process">
+				<span class="form-control col-1 col-sm-1 time-last">至</span>
+				<input class="flatpickr mycalendar form-control col-2 col-sm-2" name="end-time" placeholder="开放结束时间" id="stu_extra_work_end_time">
+				<select class="form-control custom-select col-2 col-sm-2 select-worktype" id="stu_extra_select_process">
 					<option>选择教师组</option>
 					<!-- <option>车工</option>
 							<option>钳工</option>
@@ -84,22 +82,22 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time"
-				 data-enable-time="true" data-time_24hr="true" placeholder="值班时间" id="teacher_overwork_start_time">
-				<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype" id="teacher_overwork_select_process">
+				<input class="flatpickr mycalendar form-control col-2 col-sm-2 left-flatpickr" name="start-time" data-enable-time="true"
+				 data-time_24hr="true" placeholder="值班时间" id="teacher_overwork_start_time">
+				<select class="form-control custom-select col-2 col-sm-2 select-worktype" id="teacher_overwork_select_process">
 					<!-- <option>选择工种</option>
 							<option>车工</option>
 							<option>钳工</option>
 							<option>铣削</option> -->
 				</select>
-				<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype" id="teacher_overwork_select_teacher">
+				<select class="form-control custom-select col-2 col-sm-2 select-worktype" id="teacher_overwork_select_teacher">
 					<!-- <option>选择教师</option>
 							<option>张三</option>
 							<option>李四</option>
 							<option>王五</option>
 							<option>李伟虹</option> -->
 				</select>
-				<input type="text" name="last-time" placeholder="输入时长" class="form-control col-xs-2 col-sm-2 last-time" id="teacher_overwork_last_time">
+				<input type="text" name="last-time" placeholder="输入时长" class="form-control col-2 col-sm-2 last-time" id="teacher_overwork_last_time">
 			</div>
 			<br>
 
@@ -123,11 +121,11 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time" placeholder="起始日期"
+				<input class="flatpickr mycalendar form-control col-2 col-sm-2 left-flatpickr" name="start-time" placeholder="起始日期"
 				 id="history_start_time">
-				<span class="form-control col-xs-1 col-sm-1 time-last">至</span>
-				<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time" placeholder="终止时间" id="history_end_time">
-				<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype" id="history_select_process">
+				<span class="form-control col-1 col-sm-1 time-last">至</span>
+				<input class="flatpickr mycalendar form-control col-2 col-sm-2" name="end-time" placeholder="终止时间" id="history_end_time">
+				<select class="form-control custom-select col-2 col-sm-2 select-worktype" id="history_select_process">
 					<!-- <option>选择工种</option>
 							<option>车工</option>
 							<option>钳工</option>
@@ -198,22 +196,22 @@
 						<div class="modal-body">
 							<div class="row">
 								<input type="hidden" id="edit_history_overworkId">
-								<input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time"
+								<input class="flatpickr mycalendar form-control col-2 col-sm-2 left-flatpickr" name="start-time"
 								 data-enable-time="true" data-time_24hr="true" placeholder="值班时间" id="edit_history_start_time">
-								<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype" id="edit_history_select_process">
+								<select class="form-control custom-select col-2 col-sm-2 select-worktype" id="edit_history_select_process">
 									<!-- <option>选择工种</option>
 											<option>车工</option>
 											<option>钳工</option>
 											<option>铣削</option> -->
 								</select>
-								<select class="form-control custom-select col-xs-2 col-sm-2 select-worktype" id="edit_history_select_teacher">
+								<select class="form-control custom-select col-2 col-sm-2 select-worktype" id="edit_history_select_teacher">
 									<!-- <option>选择教师</option>
 											<option>张三</option>
 											<option>李四</option>
 											<option>王五</option>
 											<option>李伟虹</option> -->
 								</select>
-								<input type="text" name="last-time" placeholder="输入时长" class="form-control col-xs-2 col-sm-2 last-time" id="edit_history_last_time">
+								<input type="text" name="last-time" placeholder="输入时长" class="form-control col-2 col-sm-2 last-time" id="edit_history_last_time">
 							</div>
 							<br>
 
@@ -331,7 +329,9 @@
 		}
 
 	</script>
+
 	<script type="text/javascript" src='./js/extra-work.js'></script>
+
 	<!-- 分页开始 -->
 	<script type="text/javascript" src="../js/cut_page.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/cut_page.css">

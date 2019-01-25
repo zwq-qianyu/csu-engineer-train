@@ -1,8 +1,6 @@
-window.onload = function(){
+$(function(){
   init_data();
-}
-
-var base_url = 'http://134.175.152.210:8084';
+})
 
 // 初始化数据
 function init_data(){
