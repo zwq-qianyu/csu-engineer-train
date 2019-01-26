@@ -1,5 +1,8 @@
-#header {
+#header-wrap{
+    padding: 20px 0;
+}
 
+#header {
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
@@ -10,6 +13,3 @@
     } 
 }
 
-// #logo{ 
-//     height:100%;
-// }

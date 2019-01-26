@@ -1,3 +1,7 @@
+#header-wrap {
+  padding: 20px 0;
+}
+
 #header {
   display: flex;
   display: -webkit-flex;
@@ -65,6 +69,26 @@
 }
 #navigation section a.hover {
   color: blue2;
+}
+
+.content-card header, .content-card section, .content-card footer {
+  padding: 10px 30px;
+}
+.content-card header {
+  background-color: #bfd3f7;
+}
+.content-card header .header-title {
+  position: relative;
+  display: inline-block;
+  padding: 0 7px 10px 7px;
+  top: 10px;
+  border-bottom: 4px solid #716fee;
+}
+.content-card section {
+  background-color: white;
+}
+.content-card footer {
+  background-color: #adadad;
 }
 
 /*# sourceMappingURL=global.css.map */
