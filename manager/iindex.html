@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<title>管理员界面</title>
@@ -17,78 +18,95 @@
 	<!-- lodash工具库 -->
 	<script src="../js/lodash.min.js"></script>
 	<!-- 项目相关 -->
-	<link rel="stylesheet" type="text/css" href="./css/aside.css">
-	<link rel="stylesheet" type="text/css" href="./css/header.css">
+	<!-- <link rel="stylesheet" type="text/css" href="./css/aside.css">
+	<link rel="stylesheet" type="text/css" href="./css/header.css"> -->
+	<link rel="stylesheet" href="./css/global.css">
 	<link rel="shortcut icon" href="../img/fav.png" />
 
 	<script src="../config/common_config.js"></script>
 	<script type="text/javascript" src="../js/md5.js"></script>
 	<script type="text/javascript" src="../js/logout.js"></script>
+
+	<style>
+		#header-wrap {
+			background-image: url("./img/header-background.jpg");
+			background-size: cover;
+		}
+
+		body {
+			background-image: url("./img/background.jpg");
+			background-size: cover;
+		}
+	</style>
 </head>
 
 <body>
-	<div class="container">
-		<header id="header">
-			<img src="../img/logo.svg" id="logo" alt="logo图片" style="height:100px">
-			<a class="btn get-out" onclick="logout()"><img src="./img/out.svg" class="out-icon">退 出</a>
-		</header>
-		<div class="h-25"></div>
 
+	<div class="container-fluid" id="header-wrap">
+		<header class="container" id="header">
+			<img src="./img/logo.png" id="logo" alt="logo图片">
+			<a class="btn get-out text-danger" onclick="logout()"><img src="./icon/out.svg" id="out-icon">退 出</a>
+		</header>
+		<br>
+	</div>
+
+	<div class="h-25">&emsp;</div>
+
+	<div class="container">
 		<div class="row">
-			<aside class="col-xs-2 col-sm-2" id="navigation">
-				<div id="aside">
-					<ul class="list-group">
-						<li class="list-group-item"><img class="icon" src="./img/user-manage.svg"> 用户管理
+			<aside class="col-3 col-sm-3" id="navigation">
+				<header>
+					<span id="end">管理端</span>
+					<span id="category">用户管理</span>
+					<span id="part">学生管理</span>
+				</header>
+
+				<section>
+					<ul>
+						<li class="category"><img class="icon" src="./icon/user-manage.svg"> <span class="category-name">用户管理</span>
 							<ul>
 								<li><a href="./rewrite-student-manage.html">学生管理</a></li>
 								<li><a href="./rewrite-teacher-manage.html">教师管理</a></li>
 							</ul>
 						</li>
-						<li class="list-group-item"><img class="icon" src="./img/paike.svg"> 实习排课
+						<li class="category"><img class="icon" src="./icon/class-distribute.svg"> <span class="category-name">实习排课</span>
 							<ul>
 								<li><a href="./rewrite-course-schedul.html">排课模版</a></li>
 								<li><a href="./rewrite-divide-group.html">学生分组</a></li>
 							</ul>
 						</li>
-						<li class="list-group-item"><img class="icon" src="./img/score.svg"> 成绩管理
+						<li class="category"><img class="icon" src="./icon/score.svg"> <span class="category-name">成绩管理</span>
 							<ul>
 								<li><a href="./rewrite-weight.html">权重设置</a></li>
 								<li><a href="./rewrite-score.html">成绩列表</a></li>
 							</ul>
 						</li>
-						<li class="list-group-item"><img class="icon" src="./img/extra-work.svg"> 开放情况
+						<li class="category"><img class="icon" src="./icon/extra-work.svg"> <span class="category-name">开放情况</span>
 							<ul>
 								<li><a href="./rewrite-extra-work.html">开放记录</a></li>
 							</ul>
 						</li>
-						<li class="list-group-item"><img class="icon" src="./img/materal-manage.svg"> 物料管理
+						<li class="category"><img class="icon" src="./icon/material-manage.svg"> <span class="category-name">物料管理</span>
 							<ul>
 								<li><a href="./rewrite-materal-record.html">物料登记</a></li>
 								<li><a href="./rewrite-materal-buy.html">物料申购</a></li>
 							</ul>
 						</li>
-						<li class="list-group-item"><img class="icon" src="./img/setup.svg"> 个人设置
+						<li class="category"><img class="icon" src="./icon/setup.svg"> <span class="category-name">个人设置</span>
 							<ul>
 								<li><a href="./rewrite-setup.html">密码修改</a></li>
 							</ul>
 						</li>
 					</ul>
-				</div>
+				</section>
 			</aside>
 
-			<div class="container clearfix col-xs-10 col-sm-10" id="working-space">
+			<div class="col-9">
+				<div id="working-space">
 
+				</div>
 			</div>
 		</div>
-		<!-- 面包屑导航 -->
-		<!-- <nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#">管理端</a></li>
-			<li class="breadcrumb-item"><a href="#">用户管理</a></li>
-			<li class="breadcrumb-item active">学生管理</li>
-		</ol>
-	</nav> -->
-		<!-- 面包屑导航结束 -->
 		<!-- 主体部分 -->
 	</div>
 	<!-- 主体部分结束 -->
@@ -103,7 +121,7 @@
 
 		$.ajaxSetup({
 			cache: false,
-			crossDomain:true
+			crossDomain: true
 		});
 
 		$(function () {
@@ -113,8 +131,8 @@
 				var a = $(this)
 				$('#working-space').load(a.attr('href'), function (data, status) {
 					if (status !== 'success') return;
-					$('.left-active', navi).removeClass('left-active')
-					a.addClass('left-active')
+					$('.active', navi).removeClass('active')
+					a.addClass('active')
 				});
 				// load($('#working-space'), $(this).attr('href') + ' #body')
 			});

@@ -1,0 +1,15 @@
+#header {
+
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    * {
+        flex: 0 0 auto;
+    } 
+}
+
+// #logo{ 
+//     height:100%;
+// }
