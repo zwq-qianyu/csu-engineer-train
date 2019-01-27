@@ -14,13 +14,9 @@ $text-gray:$gray;
 $text-black:#111;
 
 
-// 一些边框的颜色
-$border-gray:$gray;
-
+$nav-background:#edf0f5;
 
 // 表格
-$table-head: $blue3; // 表头
-$table-odd: $blue0; // 奇数行
-$table-even: blue1; // 偶数行
-
-
+$table-head: #5b8fb4; // 表头
+$table-odd: #e5f0f6 ; // 奇数行
+$table-even:inherit; // 偶数行

@@ -62,7 +62,7 @@ function fillBatchSelectorOptions() {
         scsb2.html(temp.html())
         sdsb1.html(temp.html())
         sdsb2.html(temp.html())
-      }else {
+      } else {
         fetch_err(data)
       }
     }).fail(net_err);
@@ -114,7 +114,7 @@ $course_divide1_select_batch2.change(function () {
         if (data.status === 0) {
           ProcessNewDistributionData(data.data)
           initDistributionTable()
-        }else {
+        } else {
           fetch_err(data)
         }
       }).fail(net_err);
@@ -379,7 +379,7 @@ function fillProcedOptions() {
           $('<option>').text(val).appendTo($temp)
         })
         $('#seach_clazzes_select_process').html($temp.html());
-      }else {
+      } else {
         fetch_err(data)
       }
     }).fail(net_err)
@@ -604,7 +604,7 @@ function getAllSGroupByBatch() {
           _.each(data_arr, function (val, i) {
             $('<option></option>').text(val).appendTo($selector)
           });
-        }else {
+        } else {
           fetch_err(data)
         }
       }).fail(net_err);
@@ -626,7 +626,7 @@ $('#get-student-list-by-batch-and-group').click(function () {
     ).done(function (data) {
       if (data.status === 0) {
         displayGroupStudentResult(data.data)
-      }else {
+      } else {
         fetch_err(data)
       }
     }).fail(net_err)
@@ -680,7 +680,7 @@ $('#student-group-result').on('click', 'button', function () {
           'success'
         );
         $ptr.remove()
-      }else {
+      } else {
         fetch_err(data)
       }
     }).fail(net_err);
@@ -737,7 +737,7 @@ function getStuClassTableByNum() {
             $('<td>').text(val.s_group_id).appendTo($tr);
             $tr.appendTo($table_body);
           })
-        }else {
+        } else {
           fetch_err(data);
         }
       }).fail(net_err);
@@ -781,7 +781,7 @@ function fillScoreTemplateOptions() {
         _.each(data, function (val) {
           $('<option>').text(val).appendTo(temp_selector);
         });
-      }else {
+      } else {
         fetch_err(data)
       }
     }).fail(net_err)
@@ -835,4 +835,57 @@ function addToSpecialStud() {
       }).fail(net_err);
   }
 }
+
+$('#query-spec-stud-id-button').click(function () {
+  // console.log("$('#query-spec-stud-id-button').click")
+  var stud_id = $('#query-spec-stud-id').val().trim();
+  $('#query-spec-stud-id-button').data('sid', stud_id);
+  console.log($('#query-spec-stud-id-button').data('sid'))
+
+  if (stud_id === '') { // 查询所有
+    // console.log('get all sp student');
+    api_student.getAllSpStudent()
+      .done(function (data) {
+        if (data.status === 0) {
+          fillSpStudentRecords(data.data)
+        } else {
+          fetch_err(data);
+        }
+      }).fail(net_err);
+  } else { // 查一个
+    api_student.getSpStudentById(stud_id)
+      .done(function (data) {
+        if (data.status === 0) {
+          fillSpStudentRecords([data.data]) // todo check api
+        } else {
+          fetch_err(data);
+        }
+      }).fail(net_err);
+  }
+});
+
+function fillSpStudentRecords(data) {
+  // console.log(data)
+  var $table = $('#query-spstudent-result').empty();
+  _.each(data, function (val, i) {
+    var $tr = $('<tr class="sid-row"></tr>').attr('data-sid', val.sid);
+    $('<td><input type="checkbox"></td>').appendTo($tr);
+    $('<td></td>').text(val.sid).appendTo($tr);
+    $('<td></td>').text(val.sname).appendTo($tr);
+    $('<td></td>').text(val.clazz).appendTo($tr);
+    $('<td></td>').text(val.template_name).appendTo($tr);
+    $('<td><input type="button" class="btn btn-sm btn-primary query-class" name="" value="查询课表"><input type="button" class="btn btn-sm btn-success" name="" value="编辑" data-toggle="modal" data-target="#edit-specialStudentSchedule"><input type="button" class="btn btn-sm btn-danger delete-sp-stud" name="" value="删除"></td>').appendTo($tr)
+    $tr.appendTo($table);
+  });
+}
+
+
+$('#query-spstudent-result').on('click','input.query-class',function(){ // todo 
+  var input = $(this);
+  console.log(input);
+  var tr = $(input).parent().parent();
+  console.log(tr);
+  var sid = tr.attr('data-sid');
+  console.log(sid);
+});
 

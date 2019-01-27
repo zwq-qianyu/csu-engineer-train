@@ -23,8 +23,6 @@
 	<!-- sweetalert2结束 -->
 </head>
 
-
-
 <body>
 	<header>
 		<!-- <iframe src="./header.html" width="100%" height="120px;" frameborder="no"></iframe> -->
@@ -355,7 +353,6 @@
 												</div>
 												<button class="btn btn-default" id="special_stu_search_stu">查询</button>
 
-
 											</div>
 											<!-- 学生列表表格 -->
 											<div class="table-responsive">
@@ -400,13 +397,9 @@
 													</div>
 
 													<div class="col-xs-2 col-sm-2">
-														<input type="text" name="" class="form-control" placeholder="学生学号">
+														<input type="text" name="" class="form-control" placeholder="学生学号" id="query-spec-stud-id">
 													</div>
-													<div class="col-xs-2 col-sm-2">
-														<input type="text" name="" class="form-control" placeholder="学生姓名">
-													</div>
-
-													<button class="btn btn-default">查询</button>
+													<button class="btn btn-default" id="query-spec-stud-id-button">查询</button>
 												</div>
 												<hr>
 												<!-- 学生列表表格 -->
@@ -422,13 +415,13 @@
 																<th>操作</th>
 															</tr>
 														</thead>
-														<tbody>
+														<tbody id="query-spstudent-result">
 															<tr>
-																<td><input type="checkbox" name=""></td>
-																<td>1302160126</td>
-																<td>邱梓峰</td>
-																<td>信科1601</td>
-																<td>1学分学生权重</td>
+																<td><input type="checkbox"></td>
+																<td></td>
+																<td></td> 
+																<td></td>
+																<td></td>
 																<td>
 																	<input type="button" class="btn btn-sm btn-primary" name="" value="查询课表">
 																	<input type="button" class="btn btn-sm btn-success" name="" value="编辑" data-toggle="modal" data-target="#edit-specialStudentSchedule">

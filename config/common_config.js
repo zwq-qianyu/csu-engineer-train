@@ -45,8 +45,10 @@ function downloads(url,json_obj) {
 
 function net_err(data){
     swal('出错了','网络错误','error')
+    console.log(data)
 }
 
 function fetch_err(data){
     swal('请求失败',data.message,'error')
-}
+    console.log(data)
+}   
