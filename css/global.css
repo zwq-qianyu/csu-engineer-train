@@ -17,7 +17,7 @@
   background: transparent;
 }
 #navigation header, #navigation section {
-  background: white;
+  background: #edf0f5;
   border-radius: 5px;
 }
 #navigation header {
@@ -32,7 +32,7 @@
   content: "";
 }
 #navigation header #end {
-  color: #adadad;
+  color: #555;
 }
 #navigation header #category, #navigation header #part {
   color: #111;
@@ -42,7 +42,7 @@
 }
 #navigation section ul {
   padding-left: 35px;
-  color: #adadad;
+  color: #555;
   list-style-type: none;
 }
 #navigation section ul li {
@@ -57,17 +57,18 @@
   padding-left: 0;
 }
 #navigation section .category-name {
-  color: #adadad;
+  color: #555;
 }
 #navigation section a, #navigation section a:visited {
   color: #111;
   text-decoration: none;
 }
-#navigation section a.active {
+#navigation section a:hover {
   color: #bfd3f7;
 }
-#navigation section a.hover {
-  color: blue2;
+#navigation section a.active, #navigation section a:active {
+  outline: none;
+  color: #716fee;
 }
 
 .content-card header, .content-card section, .content-card footer {

@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch-scss": "sass --watch ./scss/:./css"
   },
   "repository": {
     "type": "git",
