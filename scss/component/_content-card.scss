@@ -1,29 +1,24 @@
-
 $card-paddingx:30px;
 $card-paddingy:10px;
 
 .content-card{
-
-    header,section,footer{
+    margin-bottom:1.4em;
+    
+    header,main,footer{
         padding: $card-paddingy $card-paddingx;
     }
     
     header{
-        background-color: $blue1;
+        background-color: $card-head;
         .header-title{
             position: relative;
             display: inline-block;
             padding: 0 7px  10px 7px;
             top: $card-paddingy;
-            border-bottom: 4px solid $blue2;
+            border-bottom: 4px solid $card-head-title-border;
         }
     }
-
-    section{
+    main{
         background-color: white;
-    }
-
-    footer{
-        background-color: $gray;
     }
 }

@@ -19,7 +19,7 @@
   -ms-user-select: none;
   user-select: none;
 }
-#navigation header, #navigation section {
+#navigation header, #navigation main {
   background: #edf0f5;
   border-radius: 5px;
 }
@@ -40,58 +40,90 @@
 #navigation header #category, #navigation header #part {
   color: #111;
 }
-#navigation section {
+#navigation main {
   padding: 10px 15px;
 }
-#navigation section ul {
+#navigation main ul {
   padding-left: 35px;
   color: #555;
   list-style-type: none;
 }
-#navigation section ul li {
+#navigation main ul li {
   color: #111;
   padding: 5px 0;
 }
-#navigation section ul .icon {
+#navigation main ul .icon {
   width: 1.4em;
   height: 1.4em;
 }
-#navigation section > ul {
+#navigation main > ul {
   padding-left: 0;
 }
-#navigation section .category-name {
+#navigation main .category-name {
   color: #555;
 }
-#navigation section a, #navigation section a:visited {
+#navigation main a, #navigation main a:visited {
   color: #111;
   text-decoration: none;
 }
-#navigation section a:hover {
+#navigation main a:hover {
   color: #bfd3f7;
 }
-#navigation section a.active, #navigation section a:active {
+#navigation main a.active, #navigation main a:active {
   outline: none;
   color: #716fee;
 }
 
-.content-card header, .content-card section, .content-card footer {
+.table thead tr:first-child {
+  background: #5b8fb4;
+  color: #eee;
+}
+.table tbody tr:nth-child(odd) {
+  background: #e5f0f6;
+}
+
+.content-card {
+  margin-bottom: 1.4em;
+}
+.content-card header, .content-card main, .content-card footer {
   padding: 10px 30px;
 }
 .content-card header {
-  background-color: #bfd3f7;
+  background-color: #bbdaee;
 }
 .content-card header .header-title {
   position: relative;
   display: inline-block;
   padding: 0 7px 10px 7px;
   top: 10px;
-  border-bottom: 4px solid #716fee;
+  border-bottom: 4px solid #3f8bc7;
 }
-.content-card section {
+.content-card main {
   background-color: white;
 }
-.content-card footer {
-  background-color: #adadad;
+
+#body {
+  background: #f6f6f6;
+}
+
+.btn-outline {
+  border-color: #3f8bc7;
+  color: #3f8bc7;
+}
+.btn-outline:hover {
+  border-color: none;
+  color: #eee;
+  background-color: #3f8bc7;
+}
+
+.btn-default {
+  background: #56a3d7;
+  color: #eee;
+}
+.btn-default:hover {
+  background: inherit;
+  color: #56a3d7;
+  border-color: #56a3d7;
 }
 
 /*# sourceMappingURL=global.css.map */

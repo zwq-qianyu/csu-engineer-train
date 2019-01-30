@@ -25,7 +25,7 @@ function updateTemplateSelector() {
           $("<option></option>").text(d).attr('i_template', i).appendTo($alltemplates)
         })
         fetchAndUpdateTemplateTable()
-      }else {
+      } else {
         fetch_err(data)
       }
     }).fail(net_err)
@@ -44,7 +44,7 @@ function fetchAndUpdateTemplateTable() {
         data = data.data
         fillCurrentTemplate(data)
         updateTemplateTable(data)
-      }else {
+      } else {
         fetch_err(data)
       }
     }).fail(net_err)
@@ -162,7 +162,7 @@ $('#new-template').click(function () {
             if (data.status === 0) {
               swal('消息', '添加模板成功,请在下方编辑模板', 'success')
               updateTemplateSelector()
-            }else {
+            } else {
               fetch_err(data)
             }
           }).fail(net_err)
@@ -276,7 +276,7 @@ $('#template-tbody').on('click', 'td', function () {
   var t_group_id = teacher_groups[i_t_group_id].t_group_id;
   var i_pro_name = parseInt($('#proced-selector option:selected').attr('i_proced'));
   var pro_name = teacher_groups_proced[t_group_id][i_pro_name]
- 
+
   var i_group = parseInt($td.attr('group'))
   var i_class_time = parseInt($td.attr('class-time'))
   if (!i_group || !i_class_time) return;
@@ -356,16 +356,18 @@ $('#template-table').on('click', 'th', function () {
   clicktime = newClickTime;
 });
 
-
-
+$(document).off('keydown');
 $(document).keydown(function (event) {
   if (edit_mode) {
     var key = event.originalEvent.key;
-    //(key)
     var teacher_selector = $('#teacher-selector')
     var proced_selector = $('#proced-selector')
 
     var teacher_selector_raw = teacher_selector.get(0);
+    if (!teacher_selector_raw){ // 这个子页面可能被关闭了
+      $(document).off('keydown'); 
+      return;
+    }
     var proced_selector_raw = proced_selector.get(0);
     var p_indx = proced_selector_raw.selectedIndex;
     var t_ind = teacher_selector_raw.selectedIndex;
@@ -384,7 +386,7 @@ $(document).keydown(function (event) {
       proced_selector_raw.selectedIndex = p_indx + 1 > p_maxindx ? 0 : p_indx + 1;
     }
   } else return;
-})
+});
 
 
 $('#add-class-time').click(function () {

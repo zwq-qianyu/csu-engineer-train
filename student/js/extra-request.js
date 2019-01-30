@@ -2,8 +2,6 @@ $(function () {
   init_data();
 });
 
-var base_url = 'http://134.175.152.210:8084';
-
 function init_data() {
   // 获取所有教师组
   getAllGroup();
@@ -15,22 +13,20 @@ function init_data() {
 
 // 获取所有教师组
 function getAllGroup() {
-  $.ajax({
-    type: 'post',
-    url: base_url + '/group/getAllGroup',
-    datatype: 'json',
-    data: {},
-    success: function (data) {
+  // api_group.getAllGroup() 
+  post_query('/group/getAllGroup', {})
+    .done(function (data) {
       if (data.status === 0) {
-        let data_arr = data.data;
-        let html = '<option>选择工种</option>';
-        for (let i = 0; i < data_arr.length; i++) {
-          html += '<option>' + data_arr[i].t_group_id + '</option>';
-        }
-        $('#request_select_process').html(html);
+        var data_arr = data.data;
+        var selector = $('#request_select_process').empty()
+        $('<option>选择工种</option>').appendTo(selector);
+        _.each(data_arr, function (val) {
+          $('<option></option>').text(val.t_group_id).appendTo(selector);
+        });
+      } else {
+        fetch_err(data);
       }
-    }
-  });
+    }).fail(net_err)
 }
 
 // 新增开放申请
@@ -40,17 +36,9 @@ function addOverworkApply() {
   let duration = $('#request_extra_last_time').val();
   let reason = $('#request_extra_reason').val();
   begin += ":00";
-  $.ajax({
-    type: 'post',
-    url: base_url + '/overwork/addOverworkApply',
-    datatype: 'json',
-    data: {
-      'begin': begin,
-      'pro_name': pro_name,
-      'duration': duration,
-      'reason': reason
-    },
-    success: function (data) {
+
+  post_query('/overwork/addOverworkApply', {})
+    .done(function (data) {
       if (data.status === 0) {
         // console.log(data);
         swal(
@@ -60,27 +48,36 @@ function addOverworkApply() {
         );
       }
       else {
-        console.log(data);
-        swal(
-          '新增失败',
-          '新增开放申请失败',
-          'error'
-        );
+        fetch_err(data);
+        // // console.log(data);
+        // swal(
+        //   '新增失败',
+        //   '新增开放申请失败',
+        //   'error'
+        // );
       }
-    }
-  });
+    }).fail(net_err)
+  // $.ajax({
+  //   type: 'post',
+  //   url: base_url + ,
+  //   datatype: 'json',
+  //   data: {
+  //     'begin': begin,
+  //     'pro_name': pro_name,
+  //     'duration': duration,
+  //     'reason': reason
+  //   },
+  //   success: function (data) {
+
+  //   }
+  // });
 }
 
 // 展示值班信息
 function getTeacherOverworkFromStudent() {
-  $.ajax({
-    type: 'post',
-    url: base_url + '/overwork/getTeacherOverworkFromStudent',
-    datatype: 'json',
-    data: {
 
-    },
-    success: function (data) {
+  post_query('/overwork/getTeacherOverworkFromStudent')
+    .done(function (data) {
       console.log(data);
       if (data.status === 0) {
         let data_arr = data.data;
@@ -91,31 +88,71 @@ function getTeacherOverworkFromStudent() {
           html += '<li><p><a href="#">' + chGMT(data_arr[i].overwork_time) + '&emsp;&emsp;' + data_arr[i].pro_name + '&emsp;&emsp;' + data_arr[i].tname + '&emsp;&emsp;' + delta_time + 'h </a></p></li>'
         }
         $('#zhiban_info ul').html(html);   //有数据了再打开这一行
+      }else {
+        fetch_err(data)
       }
-    }
-  });
+    })
+    .fail(net_err);
+
+  // $.ajax({
+  //   type: 'post',
+  //   url: base_url + '/overwork/getTeacherOverworkFromStudent',
+  //   datatype: 'json',
+  //   data: {
+
+  //   },
+  //   success: function (data) {
+  //     console.log(data);
+  //     if (data.status === 0) {
+  //       let data_arr = data.data;
+  //       var delta_time;
+  //       html = '';
+  //       for (let i = 0; i < data_arr.length; i++) {
+  //         delta_time = getGMThour(data_arr[i].overwork_time_end) - getGMThour(data_arr[i].overwork_time)
+  //         html += '<li><p><a href="#">' + chGMT(data_arr[i].overwork_time) + '&emsp;&emsp;' + data_arr[i].pro_name + '&emsp;&emsp;' + data_arr[i].tname + '&emsp;&emsp;' + delta_time + 'h </a></p></li>'
+  //       }
+  //       $('#zhiban_info ul').html(html);   //有数据了再打开这一行
+  //     }
+  //   }
+  // });
 }
 
 // 获取“我的申请”记录
 function getMyOverworkApply() {
-  $.ajax({
-    type: 'post',
-    url: base_url + '/overwork/getMyOverworkApply',
-    datatype: 'json',
-    data: {},
-    success: function (data) {
-      if (data.status === 0) {
-        let data_arr = data.data;
-        html = '';
-        for (let i = 0; i < data_arr; i++) {
-          html += '<tr><td>' + chGMT(data_arr[i].overwork_time) + '</td><td>' + data_arr[i].pro_name + '</td><td>' + data_arr[i].reason + '</td></tr>';
-        }
-        $('#adminTbody').html(html);   //有数据了再打开这一行
+  post_query('/overwork/getMyOverworkApply')
+  .done(function(data){
+    if (data.status === 0) {
+      let data_arr = data.data;
+      html = '';
+      for (let i = 0; i < data_arr; i++) {
+        html += '<tr><td>' + chGMT(data_arr[i].overwork_time) + '</td><td>' + data_arr[i].pro_name + '</td><td>' + data_arr[i].reason + '</td></tr>';
       }
-      // 教师值班记录分页初始化
-      goPage(1, 10);
+      $('#adminTbody').html(html);   //有数据了再打开这一行
+    }else {
+      fetch_err(data)
     }
-  });
+    // 教师值班记录分页初始化
+    goPage(1, 10);
+  }).fail(net_err);
+
+  // $.ajax({
+  //   type: 'post',
+  //   url: base_url + '/overwork/getMyOverworkApply',
+  //   datatype: 'json',
+  //   data: {},
+  //   success: function (data) {
+  //     if (data.status === 0) {
+  //       let data_arr = data.data;
+  //       html = '';
+  //       for (let i = 0; i < data_arr; i++) {
+  //         html += '<tr><td>' + chGMT(data_arr[i].overwork_time) + '</td><td>' + data_arr[i].pro_name + '</td><td>' + data_arr[i].reason + '</td></tr>';
+  //       }
+  //       $('#adminTbody').html(html);   //有数据了再打开这一行
+  //     }
+  //     // 教师值班记录分页初始化
+  //     goPage(1, 10);
+  //   }
+  // });
 }
 
 // 格林威治时间的转换

@@ -1,0 +1,20 @@
+.btn-outline{
+    border-color: $button-outline-color;
+    color: $button-outline-color;
+    &:hover{
+        border-color: none;
+        color: $text-white;
+        background-color: $button-outline-color;
+
+    }
+}
+
+.btn-default{
+    background: $button-default-back;
+    color:$text-white;
+    &:hover{
+        background: inherit;
+        color:$button-default-back;
+        border-color: $button-default-back;
+    }
+}

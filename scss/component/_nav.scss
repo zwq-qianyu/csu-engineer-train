@@ -4,7 +4,7 @@
     -ms-user-select: none;
     user-select: none;
 
-    header,section{
+    header,main{
         background: $nav-background;
         border-radius: 5px;
     }
@@ -29,7 +29,7 @@
         }
     }
 
-    section{
+    main{
         padding: 10px 15px; 
         ul{
             padding-left: 35px;

@@ -22,7 +22,7 @@ $(function () {
             a.addClass('active')
             var part = a.text();
             var category = a.parents('.category').find('.category-name').text();
-            console.log(part, category);
+            // console.log(part, category);
             $('#category', navi).text(category);
             $('#part', navi).text(part)
         });
