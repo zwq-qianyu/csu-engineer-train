@@ -1,65 +1,64 @@
- 
 <div id="body">
 	<link rel="stylesheet" href="./css/student-manage.css">
 	<!-- <div class="main-right clearfix col-xs-10 col-sm-10"> -->
 	<!-- 实习批次管理 -->
+	<div class="content-card">
+		<header>
+			<div class="header-title">
+				实习批次管理
+			</div>
+			<span class="f">注意：删除某一批次，将会删除此批次内的所有学生信息</span>
+		</header>
 
-	<div class="card">
-		<div class="card-header">
-			<div class="card-row">
-				<h5>实习批次管理<small class="tips">注意：删除某一批次，将会删除此批次内的所有学生信息</small></h5>
-				<button class="btn btn-success" data-toggle="modal" data-target="#add_new_batchModal">添加新学期</button>
-
-				<!-- 添加新学期 Modal -->
-				<div class="modal fade" id="add_new_batchModal" tabindex="-1" role="dialog" aria-labelledby="sadd_new_batchModalTitle"
-				 aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="sadd_new_batchModalTitle">添加新学期</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<form>
-									<div class="form-group row">
-										<label class="col-sm-2 col-form-label" for="new_semester">学期名</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control" placeholder="学期名" id="new_semester">
-										</div>
+		<main>
+			<button class="btn btn-success" data-toggle="modal" data-target="#add_new_batchModal">添加新学期</button>
+			<!-- 添加新学期 Modal -->
+			<div class="modal fade" id="add_new_batchModal" tabindex="-1" role="dialog" aria-labelledby="sadd_new_batchModalTitle"
+			 aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="sadd_new_batchModalTitle">添加新学期</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group row">
+									<label class="col-sm-2 col-form-label" for="new_semester">学期名</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" placeholder="学期名" id="new_semester">
 									</div>
-									<div class="form-group row">
-										<label class="col-sm-2 col-form-label" for="new_semester_batch">批次名</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control" placeholder="批次名" id="new_semester_batch">
-										</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-2 col-form-label" for="new_semester_batch">批次名</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" placeholder="批次名" id="new_semester_batch">
 									</div>
-									<div class="form-group row">
-										<label class="col-sm-2 col-form-label" for="new_semester_credit">学分</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control" placeholder="学分" id="new_semester_credit">
-										</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-2 col-form-label" for="new_semester_credit">学分</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" placeholder="学分" id="new_semester_credit">
 									</div>
-									<small style="color: red;">注意：</small>
-									<small style="color: green;">批次名请使用数字及英文大写字母的组合形式，具体为 年份+季节缩写+学分+序号，如 2018S101 代表 2018年 秋季学期 1学分培养方案 批次1</small>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-								<button type="button" class="btn btn-primary" onclick="addNewSemester()" data-dismiss="modal">确定</button>
-							</div>
+								</div>
+								<small style="color: red;">注意：</small>
+								<small style="color: green;">批次名请使用数字及英文大写字母的组合形式，具体为 年份+季节缩写+学分+序号，如 2018S101 代表 2018年 秋季学期 1学分培养方案 批次1</small>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="addNewSemester()" data-dismiss="modal">确定</button>
 						</div>
 					</div>
 				</div>
-				<!-- /.modal -->
-
-				<span class="clearfix"></span>
 			</div>
-		</div>
-		<!-- 学期与批次列表 -->
-		<div class="card-body allBatchManage">
-			<!-- <p>
+			<!-- /.modal -->
+			<span class="clearfix"></span>
+			<!-- 学期与批次列表 -->
+			<div class="allBatchManage">
+				<!-- <p>
 	    	 		<button class="btn btn-outline-primary" data-toggle="collapse" href="#fall" type="button" aria-expanded="false" aria-controls="fall">2019年秋季学期</button>
 	    	 		<a class="btn btn-sm btn-default" href="#"><img class="add-icon" src="./img/add.svg"></a>
 	    	 		<a class="btn btn-sm btn-default" href="#"><img class="edit-icon" src="./img/edit.svg"></a>
@@ -81,8 +80,9 @@
 			    		</ul>
 			    	</div>
 			    </div> -->
-		</div>
-		<!-- 学期与批次列表结束 -->
+			</div>
+			<!-- 学期与批次列表结束 -->
+		</main>
 
 		<!-- 添加新批次 Modal -->
 		<div class="modal fade" id="add_semester_batchModal" tabindex="-1" role="dialog" aria-labelledby="add_semester_batchModalTitle"
@@ -211,9 +211,13 @@
 	<!-- 实习批次管理结束 -->
 
 	<!-- 学生信息导入 -->
-	<div class="card">
-		<h5 class="card-header">学生信息导入</h5>
-		<div class="card-body">
+	<div class="content-card">
+		<header>
+			<div class="header-title">
+				学生信息导入
+			</div>
+		</header>
+		<main>
 			<h5 class="card-title">从Excel文件导入：<small class="download-excel"><a href="http://134.175.152.210:8084/admin/download"
 					 class="btn btn-outline-danger">标准模版下载</a></small></h5>
 			<div class="row choose-line">
@@ -237,15 +241,19 @@
 				</form>
 				<input type="button" class="btn btn-primary row" onclick="importStudents()" value="开始导入">
 			</div>
-
-		</div>
+		</main>
 	</div>
 	<!-- 学生信息导入结束 -->
 
 	<!-- 学生列表 -->
-	<div class="card">
-		<h5 class="card-header">学生列表</h5>
-		<div class="card-body stu-list">
+	<div class="content-card">
+		<header>
+			<div class="header-title">
+				学生列表
+			</div>
+		</header>
+
+		<main>
 			<div class="row">
 				<label class="col-xs-1 col-sm-1">批次：</label>
 				<select class="form-control custom-select col-xs-2 col-sm-2" id="stu_list_batch_name">
@@ -368,7 +376,7 @@
 				</table>
 
 				<!-- 分页功能部分 -->
-				<div id="barcon" class="barcon">
+				<div id="barcon" class="barcon clearfix">
 					<div id="barcon1" class="barcon1"></div>
 					<div id="barcon2" class="barcon2">
 						<ul>
@@ -394,7 +402,7 @@
 					<span class="clearfix"></span>
 				</div>
 			</div>
-		</div>
+		</main>
 	</div>
 	<!-- 学生列表结束 -->
 	<!-- 主体部分结束 -->

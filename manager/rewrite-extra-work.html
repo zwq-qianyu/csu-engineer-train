@@ -3,11 +3,13 @@
 	<link rel="stylesheet" type="text/css" href="./css/extra-work.css">
 
 	<!-- 学生开放申请 -->
-	<div class="card">
-		<div class="card-header">
-			<h5>学生开放申请</h5>
-		</div>
-		<div class="card-body">
+	<div class="content-card">
+		<header>
+			<div class="header-title">
+				学生开放申请
+			</div>
+		</header>
+		<main>
 			<div class="row">
 				<input class="flatpickr mycalendar form-control col-2 col-sm-2 left-flatpickr" name="submit-time" placeholder="提交日期"
 				 id="stu_submit_time">
@@ -25,7 +27,7 @@
 			</div>
 
 			<table class="table">
-				<thead class="thead-dark">
+				<thead>
 					<tr>
 						<th>提交日期</th>
 						<th>姓名</th>
@@ -50,7 +52,7 @@
 			</table>
 
 			<!-- 分页功能部分 -->
-			<div id="kbarcon" class="kbarcon">
+			<div id="kbarcon" class="kbarcon clearfix">
 				<div id="kbarcon1" class="kbarcon1"></div>
 				<div id="kbarcon2" class="kbarcon2">
 					<ul>
@@ -70,17 +72,18 @@
 					</ul>
 				</div>
 			</div>
-
-		</div>
+		</main>
 	</div>
 	<!-- 学生开放申请结束 -->
 
 	<!-- 新增教师值班 -->
-	<div class="card">
-		<div class="card-header">
-			<h5>新增教师值班</h5>
-		</div>
-		<div class="card-body">
+	<div class="content-card">
+		<header>
+			<div class="header-title">
+				新增教师值班
+			</div>
+		</header>
+		<main>
 			<div class="row">
 				<input class="flatpickr mycalendar form-control col-2 col-sm-2 left-flatpickr" name="start-time" data-enable-time="true"
 				 data-time_24hr="true" placeholder="值班时间" id="teacher_overwork_start_time">
@@ -110,16 +113,18 @@
 			<br>
 
 			<input type="button" name="" class="btn btn-success float-right" value="确定" onclick="addTeacherOverwork()">
-		</div>
+		</main>
 	</div>
 	<!-- 新增教师值班结束 -->
 
 	<!-- 教师值班记录 -->
-	<div class="card">
-		<div class="card-header">
-			<h5>教师值班记录</h5>
-		</div>
-		<div class="card-body">
+	<div class="content-card">
+		<header>
+			<div class="header-title">
+				教师值班记录
+			</div>
+		</header>
+		<main>
 			<div class="row">
 				<input class="flatpickr mycalendar form-control col-2 col-sm-2 left-flatpickr" name="start-time" placeholder="起始日期"
 				 id="history_start_time">
@@ -135,7 +140,7 @@
 			</div>
 
 			<table class="table">
-				<thead class="thead-dark">
+				<thead>
 					<tr>
 						<th>值班日期时间</th>
 						<th>姓名</th>
@@ -161,7 +166,7 @@
 			</table>
 
 			<!-- 分页功能部分 -->
-			<div id="barcon" class="barcon">
+			<div id="barcon" class="barcon clearfix">
 				<div id="barcon1" class="barcon1"></div>
 				<div id="barcon2" class="barcon2">
 					<ul>
@@ -234,7 +239,7 @@
 			<div class="tips">
 				<p>注意：学生端界面默认只公示即日起未来7天内的值班安排</p>
 			</div>
-		</div>
+		</main>
 	</div>
 	<!-- 教师值班记录结束 -->
 

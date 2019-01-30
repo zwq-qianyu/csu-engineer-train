@@ -24,6 +24,7 @@ function getAllGroup() {
           $('<option></option>').text(val.t_group_id).appendTo(selector);
         });
       } else {
+        console.log('err getallgroup')
         fetch_err(data);
       }
     }).fail(net_err)
@@ -48,6 +49,7 @@ function addOverworkApply() {
         );
       }
       else {
+        console.log('err addOverworkApply')
         fetch_err(data);
         // // console.log(data);
         // swal(
@@ -89,6 +91,7 @@ function getTeacherOverworkFromStudent() {
         }
         $('#zhiban_info ul').html(html);   //有数据了再打开这一行
       }else {
+        console.log('err getTeacherOverworkFromStudent')
         fetch_err(data)
       }
     })
@@ -129,6 +132,7 @@ function getMyOverworkApply() {
       }
       $('#adminTbody').html(html);   //有数据了再打开这一行
     }else {
+      console.log('err getMyOverworkApply')
       fetch_err(data)
     }
     // 教师值班记录分页初始化
