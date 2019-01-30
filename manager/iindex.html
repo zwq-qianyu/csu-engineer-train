@@ -22,19 +22,19 @@
 	<link rel="stylesheet" type="text/css" href="./css/header.css"> -->
 	<link rel="stylesheet" href="../css/global.css">
 	<link rel="shortcut icon" href="../img/fav.png" />
-
+	<link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
 	<script src="../config/common_config.js"></script>
 	<script type="text/javascript" src="../js/md5.js"></script>
 	<script type="text/javascript" src="../js/logout.js"></script>
 
 	<style>
 		#header-wrap {
-			background-image: url("./img/header-background.jpg");
+			background-image: url("../img/header-background.jpg");
 			background-size: cover;
 		}
 
 		body {
-			background-image: url("./img/background.jpg");
+			background-image: url("../img/background.jpg");
 			background-size: cover;
 		}
 	</style>
@@ -44,8 +44,8 @@
 
 	<div class="container-fluid" id="header-wrap">
 		<header class="container" id="header">
-			<img src="./img/logo.png" id="logo" alt="logo图片">
-			<a class="btn get-out text-danger" onclick="logout()"><img src="./icon/out.svg" id="out-icon">退 出</a>
+			<img src="../img/logo.png" id="logo" alt="logo图片">
+			<a class="btn get-out text-danger" onclick="logout()"><img src="../icon/out.svg" id="out-icon">退 出</a>
 		</header>
 	</div>
 
@@ -53,11 +53,11 @@
 
 	<div class="container">
 		<div class="row">
-			<aside class="col-3 col-sm-3" id="navigation">
+			<aside class="col-2" id="navigation">
 				<header>
 					<span id="end">管理端</span>
-					<span id="category">用户管理</span>
-					<span id="part">学生管理</span>
+					<span id="category"></span>
+					<span id="part"></span>
 				</header>
 
 				<section>
@@ -83,7 +83,7 @@
 						<li class="category"><img class="icon" src="./icon/extra-work.svg"> <span class="category-name">开放情况</span>
 							<ul>
 								<li><a href="./rewrite-extra-work.html">开放记录</a></li>
-							</ul>
+							</ul> 
 						</li>
 						<li class="category"><img class="icon" src="./icon/material-manage.svg"> <span class="category-name">物料管理</span>
 							<ul>
@@ -100,7 +100,7 @@
 				</section>
 			</aside>
 
-			<div class="col-9">
+			<div class="col-10">
 				<div id="working-space">
 
 				</div>
@@ -109,34 +109,6 @@
 		<!-- 主体部分 -->
 	</div>
 	<!-- 主体部分结束 -->
-	<script>
-		function load(jqueryObj, url) {
-			console.log(url)
-			jqueryObj.load(url, function (result) {
-				var $result = $(result);
-				$result.find("script").appendTo(jqueryObj);
-			});
-		}
-
-		$.ajaxSetup({
-			cache: false,
-			crossDomain: true
-		});
-
-		$(function () {
-			var navi = $('#navigation');
-			navi.on('click', 'a', function (event) {
-				event.preventDefault();
-				var a = $(this)
-				$('#working-space').load(a.attr('href'), function (data, status) {
-					if (status !== 'success') return;
-					$('.active', navi).removeClass('active')
-					a.addClass('active')
-				});
-				// load($('#working-space'), $(this).attr('href') + ' #body')
-			});
-		});
-	</script>
+    <script src="../js/boot-navigation.js"></script>
 </body>
-
 </html>

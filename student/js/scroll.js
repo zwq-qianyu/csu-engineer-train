@@ -1,5 +1,6 @@
 // JavaScript Document
 (function($){
+	console.log('scroll.js')
 	$.fn.myScroll = function(options){
 	//默认配置
 	var defaults = {

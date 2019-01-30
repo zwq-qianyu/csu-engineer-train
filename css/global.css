@@ -15,6 +15,9 @@
 
 #navigation {
   background: transparent;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 #navigation header, #navigation section {
   background: #edf0f5;
@@ -25,10 +28,10 @@
   padding: 4px;
   margin-bottom: 5px;
 }
-#navigation header span::before {
+#navigation header span:not(:empty)::before {
   content: ">";
 }
-#navigation header span:first-child::before {
+#navigation header span:not(:empty):first-child::before {
   content: "";
 }
 #navigation header #end {

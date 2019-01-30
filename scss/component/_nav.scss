@@ -1,15 +1,19 @@
-
 #navigation{
     background: transparent;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     header,section{
         background: $nav-background;
         border-radius: 5px;
     }
+    
     header{
         text-align: center;
         padding: 4px;
         margin-bottom: 5px;
-        span{
+        span:not(:empty){
             &::before{
                content: ">"; 
             }
