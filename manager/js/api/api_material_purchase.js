@@ -68,7 +68,7 @@ var api_material_purchase = {
     // 采购报账************************************
     // 查询采购报账记录
     getRemi:function (postdata) {
-        return post_query(
+        return post_json(
             '/reim/getReim',
             postdata
         )
@@ -97,7 +97,7 @@ var api_material_purchase = {
     // 入库***************************************
     // 获取入库记录
     getSaveBy5:function (postdata) {
-        return post_query(
+        return post_json(
             '/save/getSaveBy5',
             postdata
         )
