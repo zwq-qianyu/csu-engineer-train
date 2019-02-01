@@ -590,19 +590,21 @@ function fillRemiTable(data) {
                 id:data_arr[i].id
             };
             tableData.push(tableRow);
-
         }
 
-        $("#cadminTbody").bootstrapTable("destroy").bootstrapTable({
+        console.log(tableData)
+        $("#badminTbody").bootstrapTable("destroy").bootstrapTable({
             pagination:false,
             data:tableData,
-            fixedColumns:true,
-            fixedNumber:4,
+            // fixedColumns:true,
+            // fixedNumber:4,
             onCheck:function (row) {
                 selectedRemi.push(row.id);
+                console.log(selectedRemi);
             },
             onUncheck:function (row) {
                 _.pull(selectedRemi,row.id);
+                console.log(selectedRemi);
             },
             onCheckAll:function () {
                 var allData = tableData;
@@ -610,9 +612,13 @@ function fillRemiTable(data) {
                 for(var i=0;i<allData.length;i++){
                     selectedRemi.push(allData[i].id);
                 }
+                console.log(selectedRemi);
+
             },
             onUncheckAll:function () {
                 selectedRemi = [];
+                console.log(selectedRemi);
+
             },
             columns:[
                 {
@@ -622,7 +628,7 @@ function fillRemiTable(data) {
 
         })
         // 分页初始化
-        goPageBT("c",1,20)
+        goPageBT("b",1,20)
 
     }
 }
