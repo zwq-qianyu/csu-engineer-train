@@ -2,6 +2,8 @@ $(function () {
   init_data();
 });
 
+var base_url = 'http://134.175.152.210:8084';
+
 function init_data() {
   // 获取所有教师组
   getAllGroup();
