@@ -22,5 +22,13 @@ var api_score = {
     //批量导入学生成绩
     importScore:function (post_data) {
         return post_file('/score/importScore',post_data);
+    },
+    //查询提交记录
+    getScoreRecord:function (post_data) {
+        return post_query('/score/getScoreRecord',post_data);
+    },
+    //查询成绩修改记录
+    getScoreUpdate:function (post_data) {
+        return post_json('/score/getScoreUpdate',post_data);
     }
 };

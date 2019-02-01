@@ -53,6 +53,55 @@ var score_list_table_config={
 var weights = {};
 //修改时选择的row的index
 var score_row_index=null;
+//成绩提交列表 bootstrap table 配置信息
+var submit_list_table_config={
+    columns: [
+        {
+            field:'submitTime',
+            title:'提交时间'
+        },{
+            field:'batchName',
+            title:'批次'
+        },{
+            field:'group',
+            title:'组号'
+        },{
+            field:'process',
+            title:'工种'
+        },{
+            field:'submitter',
+            title:'提交人'
+        }
+    ],
+    data:[],
+    pagination: true,
+    pageList: [10, 20, 50],
+};
+
+//成绩修改列表 bootstrap table 配置信息
+var update_list_table_config={
+    columns:[
+        {
+            field:'update_time',
+            title:'修改时间'
+        },{
+            field:'sname',
+            title:'学生姓名'
+        },{
+            field:'clazz',
+            title:'班级'
+        },{
+            field:'batch_name',
+            title:'批次'
+        },{
+            field:'reason',
+            title:'备注'
+        }
+    ],
+    data:[],
+    pagination: true,
+    pageList: [10, 20, 50],
+};
 //成绩录入记录表格设置
 var entry_table_config = {
     columns: [
