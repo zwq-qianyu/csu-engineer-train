@@ -24,11 +24,13 @@
     <script async type="text/javascript" src="../js/sweetalert2.js"></script>
     <!-- sweetalert2结束 -->
     <!-- bootStrap table 插件 -->
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/lib/bootstrap-table.min.css">
     <script type="text/javascript" src="../js/bootstrap-table.min.js"></script>
     <!--固定表的列-->
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap-table-fixed-columns.css">
+    <link rel="stylesheet" type="text/css" href="../css/lib/bootstrap-table-fixed-columns.css">
     <script type="text/javascript" src="../js/bootstrap-table-fixed-columns.js"></script>
+    <!--lodash-->
+    <script type="text/javascript" src="../js/lodash.min.js"></script>
 </head>
 <body>
 <header>
@@ -125,24 +127,13 @@
                         <div class="row select-area">
                             <select class="form-control custom-select col-xs-3 col-sm-3" id="score_list_select_batch">
                                 <option>实习批次选择</option>
-                                <!--<option>2018A01</option>-->
-                                <!--<option>2018A02</option>-->
-                                <!--<option>2019A01</option>-->
-                                <!--<option>2019A02</option>-->
                             </select>
                             <select class="form-control custom-select col-xs-3 col-sm-3" id="score_list_select_process">
-                                <option>工种</option>
-                                <!--<option>车削</option>-->
-                                <!--<option>铣削</option>-->
-                                <!--<option>车工</option>-->
-                                <!--<option>钳工</option>-->
+                                <option>选择工种</option>
                             </select>
                             <select class="form-control custom-select col-xs-3 col-sm-3"
                                     id="score_list_select_group_number">
                                 <option>组号</option>
-                                <!-- <option>A</option>
-                                <option>B</option>
-                                <option>C</option> -->
                             </select>
                         </div>
                         <div class="row input-select">
@@ -173,33 +164,7 @@
                                             </select>
 
                                             <table class="table col-xs-9 addGradeTest-table">
-                                                <!-- <thead>
-                                                    <tr>
-                                                        <th>打分项</th>
-                                                        <th>权重</th>
-                                                    </tr>
-                                                </thead> -->
                                                 <tbody id="setDegreeTable">
-                                                <!-- <tr>
-                                                    <td>优秀</td>
-                                                    <td><input type="text" name=""> %</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>良好</td>
-                                                    <td><input type="text" name=""> %</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>中等</td>
-                                                    <td><input type="text" name=""> %</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>及格</td>
-                                                    <td><input type="text" name=""> %</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>不及格</td>
-                                                    <td><input type="text" name=""> %</td>
-                                                </tr> -->
                                                 </tbody>
                                             </table>
                                             <br>
@@ -219,47 +184,6 @@
 
                         </div>
                         <br><br>
-                        <table class="table table-striped score-list-table">
-                            <thead class="thead-dark" id="score_list_thead">
-                            <!-- <tr>
-                                <th scope="col">批次/组</th>
-                                <th scope="col">姓名</th>
-                                <th scope="col">车工</th>
-                                <th scope="col">钳工</th>
-                                <th scope="col">铣削</th>
-                                <th scope="col">上机</th>
-                                <th scope="col">考勤</th>
-                                <th scope="col">实习报告</th>
-                                <th scope="col">小车制造</th>
-                                <th scope="col">小车设计</th>
-                                <th scope="col">总成绩</th>
-                                <th scope="col">等级</th>
-                                <th scope="col">发布情况</th>
-                                <th scope="col">操作</th>
-                            </tr> -->
-                            </thead>
-                            <tbody class="score-table" id="score_list_tbody">
-                            <!-- <tr>
-                                <td>2018A01/A</td>
-                                <td>刘淇欣</td>
-                                <td>90</td>
-                                <td>90</td>
-                                <td>90</td>
-                                <td>-2</td>
-                                <td>90</td>
-                                <td>90</td>
-                                <td>90</td>
-                                <td>90</td>
-                                <td>90</td>
-                                <td>优</td>
-                                <td>未发布</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#scorelistEditModal">修改</button>
-                                </td>
-                            </tr> -->
-                            </tbody>
-                        </table>
-
                         <table id="score_list_table">
                         </table>
 
@@ -276,39 +200,14 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="table-responsive">
-                                            <table class="table table-striped" id="edit-score-table" style="min-width: 1200px;overflow-x: scroll;">
+                                            <table class="table table-striped" id="edit-score-table"
+                                                   style="min-width: 1200px;overflow-x: scroll;">
                                                 <thead>
                                                 <tr>
-                                                    <th scope="col">批次/组</th>
-                                                    <th scope="col">姓名</th>
-                                                    <th scope="col">车工</th>
-                                                    <th scope="col">钳工</th>
-                                                    <th scope="col">铣削</th>
-                                                    <th scope="col">上机</th>
-                                                    <th scope="col">考勤</th>
-                                                    <th scope="col">实习报告</th>
-                                                    <th scope="col">小车制造</th>
-                                                    <th scope="col">小车设计</th>
-                                                    <th scope="col">总成绩</th>
-                                                    <th scope="col">等级</th>
-                                                    <th scope="col">发布情况</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    <td>2018A01/A</td>
-                                                    <td>刘淇欣</td>
-                                                    <td><input type="text" name="" value="90"></td>
-                                                    <td><input type="text" name="" value="90"></td>
-                                                    <td><input type="text" name="" value="90"></td>
-                                                    <td><input type="text" name="" value="-2"></td>
-                                                    <td><input type="text" name="" value="90"></td>
-                                                    <td><input type="text" name="" value="90"></td>
-                                                    <td><input type="text" name="" value="90"></td>
-                                                    <td><input type="text" name="" value="90"></td>
-                                                    <td>90</td>
-                                                    <td><input type="text" name="" value="优"></td>
-                                                    <td>未发布</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -332,11 +231,7 @@
                         <div class="row">
                             <div class="col-xs-3 col-sm-3">
                                 <select class="form-control csutom-select" id="score_list_select_batch2">
-                                    <!-- <option>实习批次选择</option>
-                                    <option>2018A01</option>
-                                    <option>2018A02</option>
-                                    <option>2018B01</option>
-                                    <option>2018B02</option> -->
+                                    <option>实习批次选择</option>
                                 </select>
                             </div>
                             <button class="btn btn-dark" onclick="publishScore()">发布总成绩</button>
@@ -350,29 +245,21 @@
                     <h5 class="card-header">成绩批量导入</h5>
                     <div class="card-body">
                         <h5 class="card-title">从Excel文件导入：
-                            <small class="download-excel"><a href="http://134.175.152.210:8084/admin/download" class="btn btn-outline-danger">标准模版下载</a></small>
+                            <small class="download-excel"><a href="http://134.175.152.210:8084/admin/downloadScore"
+                                                             class="btn btn-outline-danger">标准模版下载</a></small>
                         </h5>
                         <div class="row choose-line">
-                            <p>学生信息批量导入：</p>
+                            <p>学生成绩批量导入：</p>
                             <form class="form-inline" role="form">
                                 <input type="file" name="choose-file" class="form-control-file" id="tf">
                                 <select class="form-control custom-select" id="input_score_select_batch">
-                                    <!-- <option>选择导入至批次</option>
-                                    <option>2019A01</option>
-                                    <option>2019A02</option>
-                                    <option>2019B01</option>
-                                    <option>2019B02</option> -->
+                                    <option>实习批次选择</option>
+
                                 </select>
                                 <select class="form-control custom-select" id="input_score_select_scoreitem">
-                                    <!-- <option>选择打分项</option>
-                                    <option>车削</option>
-                                    <option>考勤</option>
-                                    <option>小车设计</option> -->
+                                    <option>选择工种</option>
+
                                 </select>
-                                <!-- <div class="">
-                                    <span>分组数量：</span>
-                                    <input type="text" name="" class="form-control">
-                                </div> -->
                                 <button class="btn btn-danger" onclick="importStudentsScore()">开始导入</button>
                             </form>
                         </div>
@@ -479,14 +366,16 @@
                     </div>
                     <div class="card-body">
                         <div class="row select-area">
-                            <select class="form-control custom-select col-xs-2 col-sm-2" id="score_edithistory_select_batch">
+                            <select class="form-control custom-select col-xs-2 col-sm-2"
+                                    id="score_edithistory_select_batch">
                                 <!-- <option>实习批次选择</option>
                                 <option>2018A01</option>
                                 <option>2018A02</option>
                                 <option>2019A01</option>
                                 <option>2019A02</option> -->
                             </select>
-                            <input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr" name="start-time"
+                            <input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr"
+                                   name="start-time"
                                    placeholder="修改开始日期" id="score_edithistory_begin_time">
                             <span>至</span>
                             <input class="flatpickr mycalendar form-control col-xs-2 col-sm-2" name="end-time"
@@ -581,7 +470,8 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="specialListEditModalTitle">学生信息修改</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -624,11 +514,13 @@
                                                     </table>
                                                     <div>
                                                         <label for="edit-state">成绩修改备注</label>
-                                                        <textarea id="edit-state" rows="2" class="form-control"></textarea>
+                                                        <textarea id="edit-state" rows="2"
+                                                                  class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">关闭
                                                     </button>
                                                     <button type="button" class="btn btn-primary">确定</button>
                                                 </div>

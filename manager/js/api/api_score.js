@@ -18,5 +18,9 @@ var api_score = {
     //更新成绩接口
     updateScore:function (post_data) {
         return post_json('/score/updateScore',post_data);
+    },
+    //批量导入学生成绩
+    importScore:function (post_data) {
+        return post_query(post_data);
     }
 };
