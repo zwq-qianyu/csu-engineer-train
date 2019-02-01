@@ -251,16 +251,14 @@
                         <div class="row choose-line">
                             <p>学生成绩批量导入：</p>
                             <form class="form-inline" role="form">
-                                <input type="file" name="choose-file" class="form-control-file" id="tf">
+                                <input type="file" class="form-control-file" id="tf">
                                 <select class="form-control custom-select" id="input_score_select_batch">
                                     <option>实习批次选择</option>
-
                                 </select>
                                 <select class="form-control custom-select" id="input_score_select_scoreitem">
                                     <option>选择工种</option>
-
                                 </select>
-                                <button class="btn btn-danger" onclick="importStudentsScore()">开始导入</button>
+                                <button type="button" class="btn btn-danger" onclick="importStudentsScore()">开始导入</button>
                             </form>
                         </div>
 

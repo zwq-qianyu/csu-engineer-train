@@ -21,6 +21,6 @@ var api_score = {
     },
     //批量导入学生成绩
     importScore:function (post_data) {
-        return post_query(post_data);
+        return post_file('/score/importScore',post_data);
     }
 };

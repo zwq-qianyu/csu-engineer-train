@@ -581,27 +581,27 @@ function publishScore() {
 // ========================================================================
 // 2、成绩批量导入
 function importStudentsScore() {
-    var form = new FormData(document.getElementById("tf"));
+    var form = new FormData();
     let batchName = $('#input_score_select_batch').val();
     let scoreitem = $('#input_score_select_scoreitem').val();
     form.append("batch_name", batchName);
     form.append("pro_name", scoreitem);
-    console.log(form);
-    $.ajax({
-        url: base_url + "/score/importScore",
-        type: "post",
-        data: form,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            // window.clearInterval(timer);
-            console.log("over..");
+    form.append('file',$('#tf')[0].files[0]);
+    api_score.importScore(form).done(function (data) {
+        console.log('success');
+        if(data.status===0){
+            swal(
+                '成功',
+                '批量导入成绩成功',
+                'success'
+            );
             $('#tf').empty();
-            // init_data();
-        },
-        error: function (e) {
-            alert("错误！！");
-            // window.clearInterval(timer);
+        }else {
+            swal(
+                '失败',
+                '批量导入成绩失败',
+                'error'
+            )
         }
     });
 }
