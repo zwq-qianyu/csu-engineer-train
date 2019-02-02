@@ -27,6 +27,16 @@ function post_json(url, json_obj) {
     });
 }
 
+function post_file(url, data) {
+    return $.ajax({
+        type:'post',
+        url:base_url+url,
+        data:data,
+        processData:false,
+        contentType: false
+    })
+}
+
 function downloads(url,json_obj) {
     $.ajax({
         type: 'post',
