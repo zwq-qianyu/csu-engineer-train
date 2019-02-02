@@ -229,7 +229,7 @@ function fillApplyTable(data) {
             var tableRow = {
                 purchaseId:data_arr[i].purchase_id,
                 applyTime:data_arr[i].apply_time,
-                applyName:data_arr[i].apply_name,
+                applyName:data_arr[i].apply_tname,
                 clazz:data_arr[i].clazz,
                 applyNum:data_arr[i].apply_num,
                 applyRemark:data_arr[i].apply_remark==null ? '': data_arr[i].apply_remark,
@@ -277,12 +277,22 @@ function fillApplyTable(data) {
 
     }
 }
-// 生成申购单 还有问题##############################################
+// 生成申购单
 function exportApply() {
-
     var postdata = {};
     postdata.purchase_ids = selectedPurchase;
-    api_material_purchase.downloadApply(JSON.stringify(postdata))
+    console.log(selectedPurchase)
+    api_material_purchase.downloadApply(postdata)
+        .done(function (data) {
+
+        })
+}
+// 导出excel 应该是还没写###########################################
+function excelApply() {
+    var postdata = {};
+    postdata.purchase_ids = selectedPurchase;
+    console.log(selectedPurchase)
+    api_material_purchase.downloadApplyExcel(postdata)
         .done(function (data) {
 
         })
@@ -291,7 +301,7 @@ function exportApply() {
 function addOneApply(){
     var post_data={};
     post_data.clazz = $("#add_apply_material").val();
-    post_data.num = ''+$("#add_apply_number").val()+'';
+    post_data.num = parseInt($("#add_apply_number").val());
     post_data.apply_remark = $("#add_apply_note").val();
     api_material_purchase.addApplyFPchse(post_data)
         .done(function (data) {
@@ -478,7 +488,7 @@ function fillPurchaseTable(data) {
                 purTname:data_arr[i].pur_tname,
                 clazz:data_arr[i].clazz,
                 purNum:data_arr[i].pur_num,
-                purRemark:data_arr[i].pur_remFark==null ? '': data_arr[i].pur_remFark,
+                purRemark:data_arr[i].pur_remark==null ? '': data_arr[i].pur_remark,
                 id:data_arr[i].id
             };
             tableData.push(tableRow);
@@ -549,9 +559,15 @@ function addOnePurchase() {
             }
         })
 }
-// 生成采购单 还有问题################################################
+// 生成采购单
 function exportPurchase() {
-    console.log(selectedPurPurchase);
+    var postdata = {};
+    postdata.purchase_ids = selectedPurPurchase;
+    console.log(selectedPurPurchase)
+    api_material_purchase.downloadPurchase(postdata)
+        .done(function (data) {
+
+        })
 }
 // 根据条件获取报账记录 还有问题#########################################
 function getRemi() {
@@ -632,9 +648,15 @@ function fillRemiTable(data) {
 
     }
 }
-// 生成报账单 还有问题######################################################
+// 生成报账单
 function exportRemi() {
     console.log(selectedRemi)
+    var postdata = {};
+    postdata.reimIds = selectedRemi;
+    api_material_purchase.downloadReims(postdata)
+        .done(function (data) {
+
+        })
 }
 // 新增报账记录
 function addOneRemiburse() {
@@ -671,6 +693,7 @@ function getRemiVerify() {
     postData.clazz = $('#hmaterial').val()==="物料种类"||$('#hmaterial').val()==="暂无选项"?"%":$('#hmaterial').val();
     postData.begin = $('#hstart_time').val()===""?"1999-10-10":$('#hstart_time').val();
     postData.end = $('#hend_time').val()===""?"2999-10-10":$('#hend_time').val();
+    postData.tname = "%";
     postData.purchaseId = $("#hpurchase_number").val()===""?"%":$("#hpurchase_number").val();
     if($("#hremiburse_audit_status").val()==="审核状态")
         postData.verify="%";
@@ -834,7 +857,7 @@ function fillSaveTable(data) {
 function addOneStore() {
   var newStore = {};
   newStore.pid = $("#add_store_num").val();
-  newStore.date = $("#add_store_date").val();
+  newStore.time = $("#add_store_date").val();
   newStore.num = $("#add_store_number").val();
   newStore.remark = $("#add_store_note").val();
   api_material_purchase.addSave(newStore)

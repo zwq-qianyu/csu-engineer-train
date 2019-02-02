@@ -94,3 +94,6 @@ th, td {
 [class^="modifyInput"]{
 	display: none;
 }
+.fixed-table-loading{
+	display: none;
+}

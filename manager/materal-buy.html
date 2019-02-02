@@ -9,8 +9,8 @@
 	<!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="../css/bootstrap3.min.css">
     <script type="text/javascript" src="../js/bootstrap3.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/aside.css">
-	<link rel="stylesheet" type="text/css" href="./css/header.css">
+	<link rel="stylesheet" type="text/css" href="../manager/css/aside.css">
+	<link rel="stylesheet" type="text/css" href="../manager/css/header.css">
     <link rel="stylesheet" type="text/css" href="../css/navigation.css">
 	<link rel="stylesheet" type="text/css" href="./css/materal.css">
 	<link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -319,7 +319,7 @@
 															</div>
 														</div>
 														<!-- /.modal -->
-														<button type="button" class="btn btn-danger">导出EXCEL</button>
+														<button type="button" class="btn btn-danger" onclick="excelApply()">导出EXCEL</button>
 													</div>
 
 													<div class="clearfix"></div>
@@ -610,7 +610,7 @@
 
 													<!-- 表格主体部分 -->
 													<div class="table-responsive">
-														<table id="badminTbody" data-checkbox="true" class="table table-striped table-no-bordered" style="min-width: 1200px;">
+														<table id="badminTbody" data-checkbox="true" class="table table-striped table-no-bordered">
 															<thead>
 															<tr>
 																<th><input type="checkbox"></th>
@@ -742,7 +742,7 @@
 															<input class="form-control" placeholder="申购编号" id="hpurchase_number">
 														</div>
 														<div class="col-xs-2 col-sm-2">
-															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedRecords('h')">
+															<input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getRemiVerify()">
 														</div>
 													</div>
 
