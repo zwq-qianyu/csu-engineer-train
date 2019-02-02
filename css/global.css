@@ -1,6 +1,10 @@
 #header-wrap {
   padding: 20px 0;
 }
+#header-wrap #out-icon img {
+  width: 45px;
+  height: 45px;
+}
 
 #header {
   display: flex;
