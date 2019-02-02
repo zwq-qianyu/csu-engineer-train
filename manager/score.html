@@ -251,16 +251,15 @@
                         <div class="row choose-line">
                             <p>学生成绩批量导入：</p>
                             <form class="form-inline" role="form">
-                                <input type="file" name="choose-file" class="form-control-file" id="tf">
+                                <input type="file" class="form-control-file" id="tf">
                                 <select class="form-control custom-select" id="input_score_select_batch">
                                     <option>实习批次选择</option>
-
                                 </select>
                                 <select class="form-control custom-select" id="input_score_select_scoreitem">
                                     <option>选择工种</option>
-
                                 </select>
-                                <button class="btn btn-danger" onclick="importStudentsScore()">开始导入</button>
+                                <button type="button" class="btn btn-danger" onclick="importStudentsScore()">开始导入
+                                </button>
                             </form>
                         </div>
 
@@ -304,57 +303,20 @@
                     <div class="card-body">
                         <div class="row select-area">
                             <select class="form-control custom-select col-xs-2 col-sm-2" id="score_submit_select_batch">
-                                <!-- <option>实习批次选择</option>
-                                <option>2018A01</option>
-                                <option>2018A02</option>
-                                <option>2019A01</option>
-                                <option>2019A02</option> -->
+                                <option>实习批次选择</option>
                             </select>
                             <select class="form-control custom-select col-xs-2 col-sm-2"
                                     id="score_submit_select_process">
-                                <!-- <option>工种</option>
-                                <option>车削</option>
-                                <option>铣削</option>
-                                <option>车工</option>
-                                <option>钳工</option> -->
+                                <option>工种</option>
                             </select>
                             <select class="form-control custom-select col-xs-2 col-sm-2"
                                     id="score_submit_select_groupid">
                                 <option>组号</option>
-                                <!-- <option>A</option>
-                                <option>B</option>
-                                <option>C</option> -->
                             </select>
                             <button class="btn btn-success" onclick="getScoreRecord()">查&emsp;询</button>
                         </div>
                         <br><br>
-                        <table class="table table-striped">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th>提交时间</th>
-                                <th>批次</th>
-                                <th>组号</th>
-                                <th>工种</th>
-                                <th>提交人</th>
-                            </tr>
-                            </thead>
-                            <tbody id="score_submit_list">
-                            <!-- <tr>
-                                <td>2018-10-05 12:00</td>
-                                <td>2019A01</td>
-                                <td>A</td>
-                                <td>铣削</td>
-                                <td>王旭</td>
-                            </tr>
-                            <tr>
-                                <td>2018-10-21 10:04</td>
-                                <td>2019A02</td>
-                                <td>B</td>
-                                <td>铣削</td>
-                                <td>王旭</td>
-                            </tr> -->
-                            </tbody>
-                        </table>
+                        <table id="submit_list_table"></table>
                     </div>
                 </div>
             </div>
@@ -368,11 +330,7 @@
                         <div class="row select-area">
                             <select class="form-control custom-select col-xs-2 col-sm-2"
                                     id="score_edithistory_select_batch">
-                                <!-- <option>实习批次选择</option>
-                                <option>2018A01</option>
-                                <option>2018A02</option>
-                                <option>2019A01</option>
-                                <option>2019A02</option> -->
+                                <option>实习批次选择</option>
                             </select>
                             <input class="flatpickr mycalendar form-control col-xs-2 col-sm-2 left-flatpickr"
                                    name="start-time"
@@ -389,27 +347,7 @@
                             <input type="text" class="form-control col-xs-2 col-sm-2" placeholder="学号"
                                    id="score_edithistory_sid">
                         </div>
-
-                        <table class="table">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th>修改日期</th>
-                                <th>学生姓名</th>
-                                <th>班级</th>
-                                <th>批次</th>
-                                <th>备注</th>
-                            </tr>
-                            </thead>
-                            <tbody id="score_edithistory_tbody">
-                            <!-- <tr>
-                                <td>2018-10-04 20:45</td>
-                                <td>张扬帆</td>
-                                <td>材料1610班</td>
-                                <td>2018A01</td>
-                                <td>无碳小车校赛开放</td>
-                            </tr> -->
-                            </tbody>
-                        </table>
+                        <table id="update_list_table"></table>
                     </div>
                 </div>
             </div>

@@ -33,9 +33,36 @@ function getAllProced() {
     });
 }
 
-// ========================================================================
-// 1、 成绩列表
+//根据批次名获取分组并填充
+function getGroupByBatch(batchName, filter) {
+    return api_common.getAllSGroup({
+        batch_name: batchName
+    }).done(function (data) {
+        if (data.status === 0) {
+            let data_arr = data.data;
+            let groupSelect = $(filter).empty().append('<option>组号</option>');
+            for (let i = 0; i < data_arr.length; i++) {
+                let option = $('<option></option>');
+                option.text(data_arr[i]);
+                groupSelect.append(option);
+            }
+        }
+    })
+}
 
+function getProcessByBatch(batchName, filter) {
+    return api_common.getBatchProced(batchName).done(function (data) {
+        if (data.status === 0) {
+            let data_arr = data.data;
+            let process_select = $(filter).empty().append('<option>选择工种</option>');
+            for (let i = 0; i < data_arr.length; i++) {
+                let option = $('<option></option>');
+                option.text(data_arr[i].proid.pro_name);
+                process_select.append(option);
+            }
+        }
+    })
+}
 
 // 获取所有批次
 function getAllBatch_StuList() {
@@ -61,27 +88,8 @@ function getAllBatch_StuList() {
     });
 }
 
-// 根据批次获取对应的分组号，并填充列表
-function getAllSGroupByBatch() {
-    let batch_name = $('#score_list_select_batch').val();
-    return api_common.getAllSGroup(
-        {
-            batch_name: batch_name
-        }
-    ).done(function (data) {
-        if (data.status === 0) {
-            // console.log(data);
-            let data_arr = data.data;
-            let group_list = $('#score_list_select_group_number').empty();
-            group_list.append('<option>组号</option>');
-            for (let i = 0; i < data_arr.length; i++) {
-                let option = $('<option></option>');
-                option.text(data_arr[i]);
-                group_list.append(option);
-            }
-        }
-    });
-}
+// ========================================================================
+// 1、 成绩列表
 
 // 根据批次名获取工序,并填充列表
 function getProcedByBatchName(batch_name = '') {
@@ -93,10 +101,10 @@ function getProcedByBatchName(batch_name = '') {
         if (data.status === 0) {
             processes = [];
             let data_arr = data.data;
-            score_list_table_config.columns=_.cloneDeep(score_list_columns_front);
+            score_list_table_config.columns = _.cloneDeep(score_list_columns_front);
 
-            weights={};
-            let score_list = $('#score_list_select_process').empty().append('<option>选择工种</option>');
+            weights = {};
+            let process_select = $('#score_list_select_process').empty().append('<option>选择工种</option>');
             for (let i = 0; i < data_arr.length; i++) {
                 score_list_table_config.columns.push(
                     {
@@ -104,16 +112,15 @@ function getProcedByBatchName(batch_name = '') {
                         title: data_arr[i].proid.pro_name
                     }
                 );
-                weights[data_arr[i].proid.pro_name]=data_arr[i].weight;
+                weights[data_arr[i].proid.pro_name] = data_arr[i].weight;
                 processes.push(data_arr[i].proid.pro_name);
                 let option = $('<option></option>');
                 option.text(data_arr[i].proid.pro_name);
-                score_list.append(option);
+                process_select.append(option);
             }
-            score_list_table_config.columns=_.concat(score_list_table_config.columns,score_list_columns_end);
-            let score_list_table=$('#score_list_table');
-            score_list_table.bootstrapTable('destroy');
-            score_list_table.bootstrapTable(score_list_table_config);
+            score_list_table_config.columns = _.concat(score_list_table_config.columns, score_list_columns_end);
+            let score_list_table = $('#score_list_table');
+            score_list_table.bootstrapTable('destroy').bootstrapTable(score_list_table_config);
         }
 
     });
@@ -140,22 +147,22 @@ function fillTable(data) {
                 sid: data_arr[i].sid
             };
             for (let j = 0; j < processes.length; j++) {
-                if (!_.isNil(data_arr[i][processes[j]])&&!isNaN(Number(data_arr[i][processes[j]]))) {
+                if (!_.isNil(data_arr[i][processes[j]]) && !isNaN(Number(data_arr[i][processes[j]]))) {
                     tableRow[processes[j]] = Number(data_arr[i][processes[j]]);
-                }else {
-                    tableRow[processes[j]]='无';
+                } else {
+                    tableRow[processes[j]] = '无';
                 }
             }
 
-            if (!_.isNil(data_arr[i].total_score)&&!isNaN(Number(data_arr[i].total_score))) {
+            if (!_.isNil(data_arr[i].total_score) && !isNaN(Number(data_arr[i].total_score))) {
                 tableRow['scoreSum'] = Number(data_arr[i].total_score);
-            }else {
-                tableRow['scoreSum']='无';
+            } else {
+                tableRow['scoreSum'] = '无';
             }
             if (!_.isNil(data_arr[i].degree)) {
                 tableRow['degree'] = data_arr[i].degree;
-            }else {
-                tableRow['degree']='无';
+            } else {
+                tableRow['degree'] = '无';
             }
             if (null !== data_arr[i].release) {
                 tableRow['publishStatus'] = data_arr[i].release;
@@ -163,8 +170,8 @@ function fillTable(data) {
             tableData.push(tableRow);
         }
         //根据对批次组进行排序
-        tableData=_.sortBy(tableData,'batchAndGroup');
-        score_list_table_config.data=tableData;
+        tableData = _.sortBy(tableData, 'batchAndGroup');
+        score_list_table_config.data = tableData;
         $('#score_list_table').bootstrapTable('load', tableData);
     }
 }
@@ -307,42 +314,42 @@ function setDegree() {
 
 // 弹出并生成修改成绩的模态框
 function editOneStuScore(obj) {
-    let index=$($(obj).parent().parent()[0]).data('index');
-    score_row_index=index;
-    let score_list_columns=score_list_table_config.columns;
-    let select_data=score_list_table_config.data[index];
-    let length=score_list_columns.length;
-    let heard_tr=$('#edit-score-table thead tr').empty();
-    for (let i = 0; i < length-1; i++) {
-        let th=$('<th></th>');
+    let index = $($(obj).parent().parent()[0]).data('index');
+    score_row_index = index;
+    let score_list_columns = score_list_table_config.columns;
+    let select_data = score_list_table_config.data[index];
+    let length = score_list_columns.length;
+    let heard_tr = $('#edit-score-table thead tr').empty();
+    for (let i = 0; i < length - 1; i++) {
+        let th = $('<th></th>');
         th.text(score_list_columns[i].title);
         heard_tr.append(th);
     }
-    let body_tr=$('#edit-score-table tbody tr').empty();
+    let body_tr = $('#edit-score-table tbody tr').empty();
     for (let i = 0; i < 3; i++) {
-        let td=$('<td></td>');
+        let td = $('<td></td>');
         td.text(select_data[score_list_columns[i].field]);
         body_tr.append(td);
     }
-    for (let i = 3; i <length-4; i++) {
-        let input=$('<input type="number" onchange="onEditSignalScore(this)" value="" size="3">');
+    for (let i = 3; i < length - 4; i++) {
+        let input = $('<input type="number" onchange="onEditSignalScore(this)" value="" size="3">');
         input.val(select_data[score_list_columns[i].field]);
-        input.data('title',score_list_columns[i].title);
+        input.data('title', score_list_columns[i].title);
         body_tr.append($('<td></td>').append(input));
     }
-    body_tr.append($('<td></td>').text(select_data[score_list_columns[length-4].field]));
-    let select=$('<select><option>自动</option><option>优秀</option><option>良好</option><option>中等</option><option>及格</option><option>不及格</option></select>').val('自动');
+    body_tr.append($('<td></td>').text(select_data[score_list_columns[length - 4].field]));
+    let select = $('<select><option>自动</option><option>优</option><option>良</option><option>中</option><option>及格</option><option>不及格</option></select>').val('自动');
     body_tr.append($('<td></td>').append(select));
-    body_tr.append($('<td></td>').text(select_data[score_list_columns[length-2].field]));
+    body_tr.append($('<td></td>').text(select_data[score_list_columns[length - 2].field]));
     //清空原因
     $('#edit-state').empty();
 }
 
 //单项成绩改变时总成绩做出响应
 function onEditSignalScore(obj) {
-    obj=$(obj);
-    let value=Number(obj.value);
-    if(value<0){
+    obj = $(obj);
+    let value = Number(obj.value);
+    if (value < 0) {
         swal(
             '分数设置错误',
             '分数不能为负数',
@@ -351,55 +358,54 @@ function onEditSignalScore(obj) {
         obj.val('');
         return;
     }
-    let score_sum=0;
+    let score_sum = 0;
     $('#edit-score-table tbody tr td input').each(function () {
-        let item=$(this);
-        score_sum+=Number(item.val())*weights[item.data('title')];
+        let item = $(this);
+        score_sum += Number(item.val()) * weights[item.data('title')];
     });
-    let tds=$('#edit-score-table tbody tr td');
-    let tds_length=tds.length;
-    $(tds[tds_length-3]).text(score_sum);
+    let tds = $('#edit-score-table tbody tr td');
+    let tds_length = tds.length;
+    $(tds[tds_length - 3]).text(score_sum);
 }
 
 //修改学生成绩
 function editScore() {
-    let post_data={};
-    let select_data=score_list_table_config.data[score_row_index];
-    let tds=$('#scorelistEditModal table tbody tr td');
-    post_data['sid']=$(tds[2]).text();
-    post_data['reason']=$('#edit-state').val();
-    let score_sum=0;
+    let post_data = {};
+    let select_data = score_list_table_config.data[score_row_index];
+    let tds = $('#scorelistEditModal table tbody tr td');
+    post_data['sid'] = $(tds[2]).text();
+    post_data['reason'] = $('#edit-state').val();
+    let score_sum = 0;
     $('#scorelistEditModal table tbody tr td input').each(function () {
-        let item=$(this);
-        let val=item.val();
-        let number=Number(val);
-        let title=item.data('title');
+        let item = $(this);
+        let val = item.val();
+        let number = Number(val);
+        let title = item.data('title');
         //判断成绩是否发生过改变
-        if(val!==''&&number!==select_data[title]){
-            post_data[title]=number;
-            select_data[title]=number;
+        if (val !== '' && number !== select_data[title]) {
+            post_data[title] = number;
+            select_data[title] = number;
         }
-        score_sum+=number*weights[title];
+        score_sum += number * weights[title];
     });
-    if(score_sum!==select_data['total_score'])
-    {
-        post_data['total_score']=score_sum;
-        select_data['total_score']=score_sum;
+    if (score_sum !== select_data['total_score']) {
+        post_data['total_score'] = score_sum;
+        select_data['total_score'] = score_sum;
     }
-    let degree=$('#scorelistEditModal table tbody select').val();
-    if(degree!=='自动'){
-        post_data['degree']=degree;
-        select_data['degree']=degree;
+    let degree = $('#scorelistEditModal table tbody select').val();
+    if (degree !== '自动') {
+        post_data['degree'] = degree;
+        select_data['degree'] = degree;
     }
     api_score.updateScore(post_data).done(function (data) {
-        if(data.status===0){
+        if (data.status === 0) {
             swal(
                 '成功',
                 '成绩修改成功',
                 'success'
             );
-            $('#score_list_table').bootstrapTable('updateRow',score_row_index,select_data);
-        }else {
+            $('#score_list_table').bootstrapTable('updateRow', score_row_index, select_data);
+        } else {
             swal(
                 '更新失败',
                 data.message,
@@ -429,8 +435,7 @@ $('#score_list_select_batch').change(function () {
     getProcedByBatchName(batch_name).done(function () {
         getScoreList(post_data);
     });
-    // 根据批次获取对应的分组号--成绩列表部分
-    getAllSGroupByBatch();
+    getGroupByBatch(batch_name, '#score_list_select_group_number')
 });
 
 //改变工种时做出响应
@@ -446,19 +451,19 @@ $('#score_list_select_process').change(function () {
         return;
     }
     if (pro_name === '选择工种') {
-        score_list_table_config.fixedColumns=true;
+        score_list_table_config.fixedColumns = true;
         $('#score_list_table').bootstrapTable('destroy').bootstrapTable(score_list_table_config);
-    }else {
-        let score_list_table=$('#score_list_table');
-        if(score_list_table_config.fixedColumns){
-            score_list_table_config.fixedColumns=false;
+    } else {
+        let score_list_table = $('#score_list_table');
+        if (score_list_table_config.fixedColumns) {
+            score_list_table_config.fixedColumns = false;
             score_list_table.bootstrapTable('destroy').bootstrapTable(score_list_table_config);
         }
-        score_list_table.bootstrapTable('showColumn',pro_name);
+        score_list_table.bootstrapTable('showColumn', pro_name);
         //隐藏除选择以外的所有工种
-        _.forEach(processes,function (value) {
-            if(value!==pro_name){
-                score_list_table.bootstrapTable('hideColumn',value);
+        _.forEach(processes, function (value) {
+            if (value !== pro_name) {
+                score_list_table.bootstrapTable('hideColumn', value);
             }
         })
     }
@@ -468,47 +473,23 @@ $('#score_list_select_process').change(function () {
 $('#score_list_select_group_number').change(function () {
     let s_group_id = $('#score_list_select_group_number').val();
 
-    let table=$('#score_list_table');
-    let tableData=score_list_table_config.data;
+    let table = $('#score_list_table');
+    let tableData = score_list_table_config.data;
     //显示所有行
-    if(s_group_id==='组号'){
+    if (s_group_id === '组号') {
         for (let i = 0; i < tableData.length; i++) {
-            table.bootstrapTable('showRow',i);
+            table.bootstrapTable('showRow', i);
         }
-    }else {
-        let regex=new RegExp(s_group_id+'$');
+    } else {
+        let regex = new RegExp(s_group_id + '$');
         for (let i = 0; i < tableData.length; i++) {
-            if(!regex.test(tableData[i].batchAndGroup)){
-                table.bootstrapTable('hideRow',i);
-            }else {
-                table.bootstrapTable('showRow',i);
+            if (!regex.test(tableData[i].batchAndGroup)) {
+                table.bootstrapTable('hideRow', i);
+            } else {
+                table.bootstrapTable('showRow', i);
             }
         }
     }
-
-    // if (batch_name === '实习批次选择') {
-    //     swal(
-    //         '请先选择批次',
-    //         '请选择对应批次后查询成绩！',
-    //         'warning'
-    //     );
-    //     return;
-    // }
-    // if (s_group_id === '组号') {
-    //     s_group_id = 'all';
-    // }
-    // if (pro_name === '选择工种') {
-    //     pro_name = 'all';
-    // }
-    // let post_data = {
-    //     batch_name: batch_name,
-    //     s_group_id: s_group_id,
-    //     pro_name: pro_name,
-    //     sId: 'all',
-    //     sName: 'all'
-    // };
-    // // 根据条件查询成绩列表
-    // getScoreList(post_data);
 });
 //点击查询按钮时做出响应
 $('#get_score_list').click(function () {
@@ -550,7 +531,7 @@ function publishScore() {
 
     api_score.release(
         {
-            batch_name:batch_name
+            batch_name: batch_name
         }
     ).done(function (data) {
         if (data.status === 0) {
@@ -560,13 +541,13 @@ function publishScore() {
                 'success'
             );
             //如果发布批次与已选择批次相同则刷新表格
-            let tableBatchName=$('#score_list_select_batch').val();
-            if(tableBatchName===batch_name){
-                let tableData=score_list_table_config.data;
-                let table=$('#score_list_table');
+            let tableBatchName = $('#score_list_select_batch').val();
+            if (tableBatchName === batch_name) {
+                let tableData = score_list_table_config.data;
+                let table = $('#score_list_table');
                 for (let i = 0; i < tableData.length; i++) {
-                    tableData[i].publishStatus='已发布';
-                    table.bootstrapTable('updateRow',i,tableData[i]);
+                    tableData[i].publishStatus = '已发布';
+                    table.bootstrapTable('updateRow', i, tableData[i]);
                 }
             }
         } else {
@@ -578,30 +559,41 @@ function publishScore() {
         }
     });
 }
+
 // ========================================================================
 // 2、成绩批量导入
+
+//根据批次的变化查询对应的工序
+
+$('#input_score_select_batch').change(function () {
+    let batchName = $('#input_score_select_batch').val();
+
+    getProcessByBatch(batchName, '#input_score_select_scoreitem');
+
+});
+
 function importStudentsScore() {
-    var form = new FormData(document.getElementById("tf"));
+    var form = new FormData();
     let batchName = $('#input_score_select_batch').val();
     let scoreitem = $('#input_score_select_scoreitem').val();
     form.append("batch_name", batchName);
     form.append("pro_name", scoreitem);
-    console.log(form);
-    $.ajax({
-        url: base_url + "/score/importScore",
-        type: "post",
-        data: form,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            // window.clearInterval(timer);
-            console.log("over..");
+    form.append('file', $('#tf')[0].files[0]);
+    api_score.importScore(form).done(function (data) {
+        console.log('success');
+        if (data.status === 0) {
+            swal(
+                '成功',
+                '批量导入成绩成功',
+                'success'
+            );
             $('#tf').empty();
-            // init_data();
-        },
-        error: function (e) {
-            alert("错误！！");
-            // window.clearInterval(timer);
+        } else {
+            swal(
+                '失败',
+                '批量导入成绩失败',
+                'error'
+            )
         }
     });
 }
@@ -611,7 +603,7 @@ function importStudentsScore() {
 
 
 // ========================================================================
-// 3、成绩提交记录
+// 4、成绩提交记录
 
 // 根据批次获取对应的分组号--成绩提交记录
 // function getAllSGroupByBatch() {
@@ -637,12 +629,14 @@ function importStudentsScore() {
 //     });
 // }
 
+
 $('#score_submit_select_batch').change(function () {
+    let batchName = $('#score_submit_select_batch').val();
     // 根据批次获取对应的分组号--成绩提交记录
-    getAllSGroupByBatch();
-    // 查询教师提交成绩记录
-    getScoreRecord();
-})
+    getGroupByBatch(batchName, '#score_submit_select_groupid');
+    getProcessByBatch(batchName, '#score_submit_select_process');
+});
+
 
 // 查询教师提交成绩记录
 function getScoreRecord() {
@@ -650,33 +644,57 @@ function getScoreRecord() {
     let pro_name = $('#score_submit_select_process').val();
     let s_group_id = $('#score_submit_select_groupid').val();
     let send_data = {};
-    if (batch_name !== "实习批次选择" & batch_name !== null) {
+    if (batch_name !== "实习批次选择") {
         send_data.batch_name = batch_name;
+    } else {
+        send_data.batch_name = '';
     }
-    if (pro_name !== "选择工种" & pro_name !== null) {
+    if (pro_name !== "选择工种") {
         send_data.pro_name = pro_name;
+    } else {
+        send_data.pro_name = '';
     }
-    if (s_group_id !== "组号" & s_group_id !== null) {
+    if (s_group_id !== "组号") {
         send_data.s_group_id = s_group_id;
+    } else {
+        send_data.s_group_id = '';
     }
-    // console.log(send_data);
-    $.ajax({
-        type: 'post',
-        url: base_url + '/score/getScoreRecord',
-        datatype: 'json',
-        data: send_data,
-        success: function (data) {
-            if (data.status === 0) {
-                // console.log(data);
-                let data_arr = data.data;
-                let html = '';
-                for (let i = 0; i < data_arr.length; i++) {
-                    html += '<tr><td>' + chGMT(data_arr[i].submit_time) + '</td><td>' + data_arr[i].batch_name + '</td><td>' + data_arr[i].s_group_id + '</td><td>' + data_arr[i].pro_name + '</td><td>' + data_arr[i].tid + '</td></tr>';
-                }
-                $('#score_submit_list').html(html);
+
+    api_score.getScoreRecord(send_data).done(function (data) {
+        if (data.status === 0) {
+            let data_arr = data.data;
+            let tableData = [];
+            for (let i = 0; i < data_arr.length; i++) {
+                let tableRow = {
+                    submitTime: chGMT(data_arr[i].submit_time),
+                    batchName: data_arr[i].batch_name,
+                    group: data_arr[i].s_group_id,
+                    submitter: data_arr[i].pro_name
+                };
+                tableData.push(tableRow);
             }
+            submit_list_table_config.data = tableData;
+            $('#submit_list_table').bootstrapTable('destroy').bootstrapTable(submit_list_table_config);
         }
     });
+    // console.log(send_data);
+    // $.ajax({
+    //     type: 'post',
+    //     url: base_url + '/score/getScoreRecord',
+    //     datatype: 'json',
+    //     data: send_data,
+    //     success: function (data) {
+    //         if (data.status === 0) {
+    //             // console.log(data);
+    //             let data_arr = data.data;
+    //             let html = '';
+    //             for (let i = 0; i < data_arr.length; i++) {
+    //                 html +=  '</td><td>' + data_arr[i].pro_name + '</td><td>' + data_arr[i].tid + '</td></tr>';
+    //             }
+    //             $('#score_submit_list').html(html);
+    //         }
+    //     }
+    // });
 }
 
 
@@ -689,39 +707,26 @@ function searchUpdateHistory() {
     let sname = $('#score_edithistory_sname').val();
     let sid = $('#score_edithistory_sid').val();
 
-    let send_data = {};
-    // console.log(begin === "");
-    if (batch_name !== "实习批次选择" & batch_name !== null & batch_name !== "") {
+    let send_data = {
+        begin: begin,
+        end: end,
+        sname: sname,
+        sid: sid
+    };
+    if (batch_name !== "实习批次选择") {
         send_data.batch_name = batch_name;
+    }else {
+        send_data.batch_name='';
     }
-    if (begin !== null & begin !== "") {
-        send_data.begin = begin;
-    }
-    if (end !== null & end !== "") {
-        send_data.end = end;
-    }
-    if (sname !== null & sname !== "") {
-        send_data.sname = sname;
-    }
-    if (sid !== null & sid !== "") {
-        send_data.sid = sid;
-    }
-    console.log(send_data);
-    $.ajax({
-        type: 'post',
-        url: base_url + '/score/getScoreUpdate',
-        datatype: 'json',
-        data: send_data,
-        success: function (data) {
-            if (data.status === 0) {
-                console.log(data);
-                let data_arr = data.data;
-                let html = '';
-                for (let i = 0; i < data_arr.length; i++) {
-                    html += '<tr><td>' + chGMT(data_arr[i].update_time) + '</td><td>' + data_arr[i].sname + '</td><td>' + data_arr[i].clazz + '</td><td>' + data_arr[i].batch_name + '</td><td>' + data_arr[i].reason + '</td></tr>';
-                }
-                $('#score_edithistory_tbody').html(html);
+    api_score.getScoreUpdate(send_data).done(function (data) {
+        if(data.status===0){
+            let data_arr=data.data;
+            tableData=[];
+            for (let i = 0; i < data_arr.length; i++) {
+                data_arr[i].update_time=chGMT(data_arr[i].update_time);
             }
+            update_list_table_config.data=data_arr;
+            $('#update_list_table').bootstrapTable('destroy').bootstrapTable(update_list_table_config);
         }
     });
 }
@@ -729,7 +734,7 @@ function searchUpdateHistory() {
 $('#score_edithistory_seach').click(function () {
     // 查询成绩修改记录
     searchUpdateHistory();
-})
+});
 
 // ========================================================================
 // 5、特殊学生成绩列表
