@@ -13,9 +13,16 @@ $card-paddingy:10px;
         .header-title{
             position: relative;
             display: inline-block;
-            padding: 0 7px  10px 7px;
-            top: $card-paddingy;
-            border-bottom: 4px solid $card-head-title-border;
+            padding: 0 8px;
+            &::after{
+                position: absolute;
+                display: block;
+                content: "";
+                width: 100%;
+                bottom: -$card-paddingy;
+                left:0;
+                border-bottom: 4px solid $card-head-title-border;
+            }
         }
     }
     main{
