@@ -24,7 +24,7 @@
 	<script async type="text/javascript" src="../js/sweetalert2.js"></script>
 	<!-- sweetalert2结束 -->
 	<!-- bootStrap table 插件 -->
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap-table.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/lib/bootstrap-table.min.css">
 	<script type="text/javascript" src="../js/bootstrap-table.min.js"></script>
 </head>
 <body>
@@ -614,14 +614,14 @@
 															<thead>
 															<tr>
 																<th><input type="checkbox"></th>
-																<th data-filed="purchaseId">申购编号</th>
-																<th data-filed="remibTime">新增报账申请日期</th>
-																<th data-filed="purTname">采购人</th>
-																<th data-filed="clazz">物料种类</th>
-																<th data-filed="remibNum">报账数量</th>
-																<th data-filed="remibVertify">审核状态</th>
-																<th data-filed="remibVerbTname">审核人</th>
-																<th data-filed="remibRemark">报账备注</th>
+																<th data-field="purchaseId">申购编号</th>
+																<th data-field="remibTime">新增报账申请日期</th>
+																<th data-field="purTname">采购人</th>
+																<th data-field="clazz">物料种类</th>
+																<th data-field="remibNum">报账数量</th>
+																<th data-field="remibVertify">审核状态</th>
+																<th data-field="remibVerbTname">审核人</th>
+																<th data-field="remibRemark">报账备注</th>
 															</tr>
 															</thead>
 														</table>
@@ -696,7 +696,7 @@
 															</div>
 														</div>
 														<!-- /.modal -->
-														<button type="button" class="btn btn-danger">导出EXCEL</button>
+														<button type="button" class="btn btn-danger" onclick="reimExportExcel()">导出EXCEL</button>
 													</div>
 
 													<div class="clearfix"></div>
@@ -750,7 +750,7 @@
 													<table class="table table-striped">
 														<thead>
 														<tr>
-															<th>申购日期</th>
+															<th>申购编号</th>
 															<th>新增报账申请日期</th>
 															<th>采购人</th>
 															<th>物料种类</th>
