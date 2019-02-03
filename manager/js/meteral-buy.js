@@ -229,7 +229,7 @@ function fillApplyTable(data) {
             var tableRow = {
                 purchaseId:data_arr[i].purchase_id,
                 applyTime:data_arr[i].apply_time,
-                applyName:data_arr[i].apply_name,
+                applyName:data_arr[i].apply_tname,
                 clazz:data_arr[i].clazz,
                 applyNum:data_arr[i].apply_num,
                 applyRemark:data_arr[i].apply_remark==null ? '': data_arr[i].apply_remark,
@@ -243,6 +243,7 @@ function fillApplyTable(data) {
             tableData.push(tableRow);
 
         }
+        console.log(tableData);
 
         $("#jadminTbody").bootstrapTable("destroy").bootstrapTable({
             pagination:false,
@@ -277,12 +278,22 @@ function fillApplyTable(data) {
 
     }
 }
-// 生成申购单 还有问题##############################################
+// 生成申购单
 function exportApply() {
-
     var postdata = {};
     postdata.purchase_ids = selectedPurchase;
-    api_material_purchase.downloadApply(JSON.stringify(postdata))
+    console.log(selectedPurchase)
+    api_material_purchase.downloadApply(postdata)
+        .done(function (data) {
+
+        })
+}
+// 导出excel
+function excelApply() {
+    var postdata = {};
+    postdata.purchase_ids = selectedPurchase;
+    console.log(selectedPurchase)
+    api_material_purchase.downloadApplyExcel(postdata)
         .done(function (data) {
 
         })
@@ -291,7 +302,7 @@ function exportApply() {
 function addOneApply(){
     var post_data={};
     post_data.clazz = $("#add_apply_material").val();
-    post_data.num = ''+$("#add_apply_number").val()+'';
+    post_data.num = parseInt($("#add_apply_number").val());
     post_data.apply_remark = $("#add_apply_note").val();
     api_material_purchase.addApplyFPchse(post_data)
         .done(function (data) {
@@ -377,15 +388,21 @@ function deleteOneApply(data) {
             if(isConfirm.value){
                 var id = data.id.substring(6,data.id.length)
                 api_material_purchase.deleteApplyFPchse(id)
-                    .done(function (data) {
-                        if(data.status==0) {
+                    .done(function (returndata) {
+                        console.log(returndata)
+                        if(returndata.status==0) {
                             swal({
                                 title: "删除成功!",
                                 type: "success"
                             }).then(function () {
                                 getApplyFPchseVerify()
                             })
-
+                        }
+                        else{
+                            swal({
+                                title:"删除失败!",
+                                type:"error"
+                            })
                         }
 
                     })
@@ -478,7 +495,7 @@ function fillPurchaseTable(data) {
                 purTname:data_arr[i].pur_tname,
                 clazz:data_arr[i].clazz,
                 purNum:data_arr[i].pur_num,
-                purRemark:data_arr[i].pur_remFark==null ? '': data_arr[i].pur_remFark,
+                purRemark:data_arr[i].pur_remark==null ? '': data_arr[i].pur_remark,
                 id:data_arr[i].id
             };
             tableData.push(tableRow);
@@ -549,11 +566,17 @@ function addOnePurchase() {
             }
         })
 }
-// 生成采购单 还有问题################################################
+// 生成采购单
 function exportPurchase() {
-    console.log(selectedPurPurchase);
+    var postdata = {};
+    postdata.purchase_ids = selectedPurPurchase;
+    console.log(selectedPurPurchase)
+    api_material_purchase.downloadPurchase(postdata)
+        .done(function (data) {
+
+        })
 }
-// 根据条件获取报账记录 还有问题#########################################
+// 根据条件获取报账记录
 function getRemi() {
     var postData = {};
     postData.clazz = $('#bmaterial').val()==="物料种类"||$('#bmaterial').val()==="暂无选项"?"%":$('#bmaterial').val();
@@ -568,10 +591,10 @@ function getRemi() {
     else if($("#bremiburse_audit_status").val()==="已审核")
         postData.verify="1";
     api_material_purchase.getRemi(postData)
-        .done(fillRemiTable)
+        .done(fillRemiTablee)
 }
 // 填充报账记录表格
-function fillRemiTable(data) {
+function fillRemiTablee(data) {
     if(data.status==0){
         var data_arr = data.data;
         var tableData=[];
@@ -592,12 +615,12 @@ function fillRemiTable(data) {
             tableData.push(tableRow);
         }
 
-        console.log(tableData)
+        console.log(tableData);
         $("#badminTbody").bootstrapTable("destroy").bootstrapTable({
             pagination:false,
             data:tableData,
-            // fixedColumns:true,
-            // fixedNumber:4,
+            fixedColumns:true,
+            fixedNumber:4,
             onCheck:function (row) {
                 selectedRemi.push(row.id);
                 console.log(selectedRemi);
@@ -628,13 +651,28 @@ function fillRemiTable(data) {
 
         })
         // 分页初始化
-        goPageBT("b",1,20)
+        goPageBT("b",1,5)
 
     }
 }
-// 生成报账单 还有问题######################################################
+// 生成报账单
 function exportRemi() {
     console.log(selectedRemi)
+    var postdata = {};
+    postdata.reimIds = selectedRemi;
+    api_material_purchase.downloadReims(postdata)
+        .done(function (data) {
+
+        })
+}
+// 导出报账excel
+function reimExportExcel() {
+    var postdata = {};
+    postdata.reimIds = selectedRemi;
+    api_material_purchase.reimExportExcel(postdata)
+        .done(function (data) {
+
+        })
 }
 // 新增报账记录
 function addOneRemiburse() {
@@ -671,6 +709,7 @@ function getRemiVerify() {
     postData.clazz = $('#hmaterial').val()==="物料种类"||$('#hmaterial').val()==="暂无选项"?"%":$('#hmaterial').val();
     postData.begin = $('#hstart_time').val()===""?"1999-10-10":$('#hstart_time').val();
     postData.end = $('#hend_time').val()===""?"2999-10-10":$('#hend_time').val();
+    postData.tname = "%";
     postData.purchaseId = $("#hpurchase_number").val()===""?"%":$("#hpurchase_number").val();
     if($("#hremiburse_audit_status").val()==="审核状态")
         postData.verify="%";
@@ -697,7 +736,7 @@ function fillRemiTableVerify(data) {
         html += '<tr><td>'+data_arr[i].purchase_id+'</td><td>'+data_arr[i].remib_time+'</td><td>'+data_arr[i].pur_tname+'</td>' +
             '<td>'+data_arr[i].clazz+'</td>' +
             '<td><div class="modify'+data_arr[i].id+'">'+data_arr[i].remib_num+'</div><input type="number" class="modifyInput'+data_arr[i].id+' form-control" value="'+data_arr[i].remib_num+'" id="modifyNum'+data_arr[i].id+'"></td>'+
-            '<td>'+data_arr[i].remib_remark+'</td><td>'+data_arr[i].vertify+'</td>'
+            '<td>'+data_arr[i].vertify+'</td><td>'+data_arr[i].remib_remark+'</td>'
         html += '<td><div class="row">' +
             '<button class="btn btn-sm btn-success col-sm-12 col-xs-12 " id="verify'+data_arr[i].id+'" onclick="verifyOneRemi(this)">确认</button>' +
             '</div>' +
@@ -711,8 +750,7 @@ function fillRemiTableVerify(data) {
     // 分页初始化
     goPage("h",1,10);
 }
-// 这三个还没测试，拿不到数据#####################################################
-// 删除报账记录
+// 删除报账记录##################################################
 function deleteOneRemi(data) {
     swal({
         title: "真的删除该记录吗么？",
@@ -747,7 +785,7 @@ function deleteOneRemi(data) {
 
 
 }
-// 修改报账记录
+// 修改报账记录##################################################
 function modifyOneRemi(data) {
     var id = data.id.substring(6,data.id.length)
     $(".modify"+id).hide();
@@ -761,7 +799,7 @@ function modifyOneRemi(data) {
         }
     }
 }
-// 确认修改报账记录 即审核报账有问题（参数应该是报账记录的id和数量）审核人由后台获取###########
+// 确认修改报账记录###############################################
 function verifyOneRemi(data) {
     var id = data.id.substring(6,data.id.length);
     var postdata = {};
@@ -788,7 +826,7 @@ function verifyOneRemi(data) {
 }
 
 // 物料入库页
-// 查询入库记录 报错同报账记录##################################################
+// 查询入库记录
 function getSaveBy5() {
     var postData = {};
     postData.clazz = $('#rmaterial').val()==="物料种类"||$('#rmaterial').val()==="暂无选项"?"%":$('#rmaterial').val();
@@ -830,11 +868,11 @@ function fillSaveTable(data) {
 
     }
 }
-// 新增入库记录  缺参数 时间，然后入库人还是让后端获取当前登录人比较统一################
+// 新增入库记录
 function addOneStore() {
   var newStore = {};
   newStore.pid = $("#add_store_num").val();
-  newStore.date = $("#add_store_date").val();
+  newStore.time = $("#add_store_date").val();
   newStore.num = $("#add_store_number").val();
   newStore.remark = $("#add_store_note").val();
   api_material_purchase.addSave(newStore)

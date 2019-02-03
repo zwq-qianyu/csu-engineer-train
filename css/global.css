@@ -1,6 +1,10 @@
 #header-wrap {
   padding: 20px 0;
 }
+#header-wrap #out-icon img {
+  width: 45px;
+  height: 45px;
+}
 
 #header {
   display: flex;
@@ -94,8 +98,15 @@
 .content-card header .header-title {
   position: relative;
   display: inline-block;
-  padding: 0 7px 10px 7px;
-  top: 10px;
+  padding: 0 8px;
+}
+.content-card header .header-title::after {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 100%;
+  bottom: -10px;
+  left: 0;
   border-bottom: 4px solid #3f8bc7;
 }
 .content-card main {

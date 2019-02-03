@@ -12,7 +12,7 @@ html,body{
 	/*margin-top: 10px;*/
 	padding: 20px;
 	height: 100%;
-	width: 520px;
+	width: 500px;
 }
 #mainbody {
 	background: url("../img/login-background.jpg") no-repeat;

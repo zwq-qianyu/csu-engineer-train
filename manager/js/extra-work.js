@@ -1,3 +1,5 @@
+console.log(base_url)
+
 $(function(){
   init_data();
 })
