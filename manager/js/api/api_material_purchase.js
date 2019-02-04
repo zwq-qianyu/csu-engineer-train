@@ -240,11 +240,18 @@ var api_material_purchase = {
     },
     // 增加入库记录
     addSave:function (postdata) {
-        console.log("233")
+        // console.log("233")
         return post_json(
             '/save/add',
             postdata
         )
-    }
+    },
 
+    // 获取信息
+    getInfo:function () {
+        return post_json(
+            '/user/getInfo',
+            {}
+        )
+    }
 }
