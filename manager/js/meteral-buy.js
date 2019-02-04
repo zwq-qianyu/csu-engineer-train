@@ -250,7 +250,7 @@ function fillApplyTable(data) {
             tableData.push(tableRow);
 
         }
-        console.log(tableData);
+        // console.log(tableData);
 
         $("#jadminTbody").bootstrapTable("destroy").bootstrapTable({
             pagination:false,
@@ -289,7 +289,7 @@ function fillApplyTable(data) {
 function exportApply() {
     var postdata = {};
     postdata.purchase_ids = selectedPurchase;
-    console.log(selectedPurchase)
+    // console.log(selectedPurchase)
     api_material_purchase.downloadApply(postdata)
         .done(function (data) {
 
@@ -299,7 +299,7 @@ function exportApply() {
 function excelApply() {
     var postdata = {};
     postdata.purchase_ids = selectedPurchase;
-    console.log(selectedPurchase)
+    // console.log(selectedPurchase)
     api_material_purchase.downloadApplyExcel(postdata)
         .done(function (data) {
 
@@ -396,7 +396,7 @@ function deleteOneApply(data) {
                 var id = data.id.substring(6,data.id.length)
                 api_material_purchase.deleteApplyFPchse(id)
                     .done(function (returndata) {
-                        console.log(returndata)
+                        // console.log(returndata)
                         if(returndata.status==0) {
                             swal({
                                 title: "删除成功!",
@@ -463,6 +463,7 @@ function verifyOneApply(data) {
                     '审核申购记录成功',
                     'success'
                 );
+                init_data();
             }
             else{
                 swal(
@@ -577,7 +578,7 @@ function addOnePurchase() {
 function exportPurchase() {
     var postdata = {};
     postdata.purchase_ids = selectedPurPurchase;
-    console.log(selectedPurPurchase)
+    // console.log(selectedPurPurchase)
     api_material_purchase.downloadPurchase(postdata)
         .done(function (data) {
 
@@ -622,7 +623,7 @@ function fillRemiTablee(data) {
             tableData.push(tableRow);
         }
 
-        console.log(tableData);
+        // console.log(tableData);
         $("#badminTbody").bootstrapTable("destroy").bootstrapTable({
             pagination:false,
             data:tableData,
@@ -630,11 +631,11 @@ function fillRemiTablee(data) {
             fixedNumber:4,
             onCheck:function (row) {
                 selectedRemi.push(row.id);
-                console.log(selectedRemi);
+                // console.log(selectedRemi);
             },
             onUncheck:function (row) {
                 _.pull(selectedRemi,row.id);
-                console.log(selectedRemi);
+                // console.log(selectedRemi);
             },
             onCheckAll:function () {
                 var allData = tableData;
@@ -642,12 +643,12 @@ function fillRemiTablee(data) {
                 for(var i=0;i<allData.length;i++){
                     selectedRemi.push(allData[i].id);
                 }
-                console.log(selectedRemi);
-
+                // console.log(selectedRemi);
+1
             },
             onUncheckAll:function () {
                 selectedRemi = [];
-                console.log(selectedRemi);
+                // console.log(selectedRemi);
 
             },
             columns:[
@@ -664,7 +665,7 @@ function fillRemiTablee(data) {
 }
 // 生成报账单
 function exportRemi() {
-    console.log(selectedRemi)
+    // console.log(selectedRemi)
     var postdata = {};
     postdata.reimIds = selectedRemi;
     api_material_purchase.downloadReims(postdata)
@@ -729,7 +730,7 @@ function getRemiVerify() {
 
 }
 // 填充报账记录表格（审核）
-function fillRemiTableVerify(data) {
+function fillRemiTableVerify(data){
     var data_arr = data.data;
     var html = '';
 
@@ -792,7 +793,7 @@ function deleteOneRemi(data) {
 
 
 }
-// 修改报账记录##################################################
+// 修改报账记录
 function modifyOneRemi(data) {
     var id = data.id.substring(6,data.id.length)
     $(".modify"+id).hide();
@@ -820,6 +821,7 @@ function verifyOneRemi(data) {
                     '审核报账记录成功',
                     'success'
                 );
+                init_data()
             }
             else{
                 swal(
