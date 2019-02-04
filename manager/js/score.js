@@ -127,7 +127,21 @@ function getProcedByBatchName(batch_name = '') {
 }
 
 // 根据条件查询成绩列表,并填充表格
-function getScoreList(post_data) {
+function getScoreList(post_data=null) {
+    if(post_data===null){
+        let batch_name=$('#score_list_select_batch').val();
+        let process_name=$('#score_list_select_process').val();
+        let group_name=$('#score_list_select_group_number').val();
+        let sname=$('#score_list_stu_name').val();
+        let sid=$('#score_list_stu_number').val();
+        post_data={
+            batch_name:  batch_name==='实习批次选择' ? 'all': batch_name,
+            s_group_id: process_name==='选择工种' ? 'all':process_name,
+            pro_name: group_name==='组号' ? 'all':group_name,
+            sId: sname ? sname:'all',
+            sName: sid ? sid:'all'
+        };
+    }
     return api_score.getScore(
         post_data,
     ).done(fillTable);
@@ -478,15 +492,15 @@ $('#score_list_select_group_number').change(function () {
     //显示所有行
     if (s_group_id === '组号') {
         for (let i = 0; i < tableData.length; i++) {
-            table.bootstrapTable('showRow', i);
+            table.bootstrapTable('showRow',{index:i});
         }
     } else {
         let regex = new RegExp(s_group_id + '$');
         for (let i = 0; i < tableData.length; i++) {
             if (!regex.test(tableData[i].batchAndGroup)) {
-                table.bootstrapTable('hideRow', i);
+                table.bootstrapTable('hideRow', {index:i});
             } else {
-                table.bootstrapTable('showRow', i);
+                table.bootstrapTable('showRow', {index:i});
             }
         }
     }
@@ -677,24 +691,6 @@ function getScoreRecord() {
             $('#submit_list_table').bootstrapTable('destroy').bootstrapTable(submit_list_table_config);
         }
     });
-    // console.log(send_data);
-    // $.ajax({
-    //     type: 'post',
-    //     url: base_url + '/score/getScoreRecord',
-    //     datatype: 'json',
-    //     data: send_data,
-    //     success: function (data) {
-    //         if (data.status === 0) {
-    //             // console.log(data);
-    //             let data_arr = data.data;
-    //             let html = '';
-    //             for (let i = 0; i < data_arr.length; i++) {
-    //                 html +=  '</td><td>' + data_arr[i].pro_name + '</td><td>' + data_arr[i].tid + '</td></tr>';
-    //             }
-    //             $('#score_submit_list').html(html);
-    //         }
-    //     }
-    // });
 }
 
 
