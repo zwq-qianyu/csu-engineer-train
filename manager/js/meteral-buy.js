@@ -678,7 +678,7 @@ function reimExportExcel() {
 function addOneRemiburse() {
   var newRemiburse = {};
   newRemiburse.purchaseId = $("#add_remiburse_num").val();
-  newRemiburse.num = $("#add_remiburse_number").val();
+  newRemiburse.num = parseInt($("#add_remiburse_number").val());
   newRemiburse.remark = $("#add_remiburse_note").val();
   api_material_purchase.addRemi(newRemiburse)
       .done(function (data) {
