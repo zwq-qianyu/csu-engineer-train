@@ -25,10 +25,12 @@ var api_score = {
     },
     //查询提交记录
     getScoreRecord:function (post_data) {
-        return post_query('/score/getScoreRecord',post_data);
+        let query=$.param(post_data);
+        return post_query('/score/getScoreRecord?'+query,{});
     },
     //查询成绩修改记录
     getScoreUpdate:function (post_data) {
-        return post_json('/score/getScoreUpdate',post_data);
+        let query=$.param(post_data);
+        return post_query('/score/getScoreUpdate?'+query,{});
     }
 };
