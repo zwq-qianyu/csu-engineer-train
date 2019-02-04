@@ -11,6 +11,18 @@ var api_student = {
     getStudent: function (student_id) {
         return post_query('/student/getStudent/' + student_id, {});
     },
+    getStudentByBatchName: function (batch_name) {
+        return post_query('/student/getStudentByBatchName', {
+            batchName: batch_name
+        });
+    },
+    getStudentByBatchAndSGroup: function (batch_name, s_group_id) {
+        return post_query('/student/getStudent',
+            {
+                batch_name: batch_name,
+                s_group_id: s_group_id
+            });
+    },
     addSpStudent: function (student_id, template_name) {
         return post_query('/student/addSpStudent',
             {
