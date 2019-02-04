@@ -1,5 +1,6 @@
 window.onload = function(){
   init_data();
+  // getInfo();
 }
 
 
@@ -52,6 +53,12 @@ function init_data(){
     // });
 }
 
+function getInfo() {
+    api_material_purchase.getInfo()
+        .done(function (data) {
+            console.log(data)
+        })
+}
 
 
 // 库存页*********************************
@@ -395,7 +402,7 @@ function deleteOneApply(data) {
                                 title: "删除成功!",
                                 type: "success"
                             }).then(function () {
-                                getApplyFPchseVerify()
+                                init_data()
                             })
                         }
                         else{
@@ -550,15 +557,15 @@ function addOnePurchase() {
             $("#add_purchase_note").val("");
             if(data.status === 0){
                 swal(
-                    '申购成功',
-                    '申购物料成功',
+                    '新增成功',
+                    '新增采购物料成功',
                     'success'
                 );
                 init_data();
             }
             else{
                 swal(
-                    '申购失败',
+                    '新增失败',
                     data.message,
                     // '申购物料失败，请重试！',
                     'error'

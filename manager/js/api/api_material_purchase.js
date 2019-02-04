@@ -245,6 +245,13 @@ var api_material_purchase = {
             '/save/add',
             postdata
         )
-    }
+    },
 
+    // 获取信息
+    getInfo:function () {
+        return post_json(
+            '/user/getInfo',
+            {}
+        )
+    }
 }
