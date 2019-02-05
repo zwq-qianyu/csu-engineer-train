@@ -660,18 +660,12 @@ function getScoreRecord() {
     let send_data = {};
     if (batch_name !== "实习批次选择") {
         send_data.batch_name = batch_name;
-    } else {
-        send_data.batch_name = '';
     }
     if (pro_name !== "选择工种") {
         send_data.pro_name = pro_name;
-    } else {
-        send_data.pro_name = '';
     }
     if (s_group_id !== "组号") {
         send_data.s_group_id = s_group_id;
-    } else {
-        send_data.s_group_id = '';
     }
 
     api_score.getScoreRecord(send_data).done(function (data) {
@@ -683,6 +677,7 @@ function getScoreRecord() {
                     submitTime: chGMT(data_arr[i].submit_time),
                     batchName: data_arr[i].batch_name,
                     group: data_arr[i].s_group_id,
+                    process: data_arr[i].pro_name,
                     submitter: data_arr[i].pro_name
                 };
                 tableData.push(tableRow);
@@ -703,16 +698,22 @@ function searchUpdateHistory() {
     let sname = $('#score_edithistory_sname').val();
     let sid = $('#score_edithistory_sid').val();
 
-    let send_data = {
-        begin: begin,
-        end: end,
-        sname: sname,
-        sid: sid
-    };
+    let send_data={};
+
     if (batch_name !== "实习批次选择") {
         send_data.batch_name = batch_name;
-    }else {
-        send_data.batch_name='';
+    }
+    if(begin!==''){
+        send_data.begin=begin;
+    }
+    if(end!==''){
+        send_data.end=end;
+    }
+    if(sname!==''){
+        send_data.sname=sname;
+    }
+    if(sid!==''){
+        send_data.sid=sid;
     }
     api_score.getScoreUpdate(send_data).done(function (data) {
         if(data.status===0){

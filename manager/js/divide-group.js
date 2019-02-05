@@ -416,7 +416,8 @@ function parse_time_quant(time_quant_string) {
 function displayResultByBatch(data) {
   var grouped_data = _.groupBy(data, 'class_time') // 使用class_time分组的数据
   // var class_times = _.keys(grouped_data) // 如果有出现排序问题就把这个keys排序，然后用来索引
-  var s_groups = _.keys(_.groupBy(data, 's_group_id'))
+  var s_groups = _.sortBy(_.keys(_.groupBy(data, 's_group_id')));
+
   var s_group_to_i = {}
   _.each(s_groups, function (sg, i) {
     s_group_to_i[sg] = i;
@@ -600,7 +601,7 @@ function getAllSGroupByBatch() {
         if (data.status === 0) {
           // console.log(data);
           var data_arr = data.data;
-
+          data_arr = _.sortBy(data_arr)
           _.each(data_arr, function (val, i) {
             $('<option></option>').text(val).appendTo($selector)
           });
@@ -616,21 +617,26 @@ $('#student_divide_select_batch2').change(getAllSGroupByBatch);
 $('#get-student-list-by-batch-and-group').click(function () {
   var sgroup = $('#student_divide_select_group').val();
   var batch_name = $('#student_divide_select_batch2').val();
-  if (batch_name && batch_name !== '实习批次选择' && sgroup && sgroup !== '组号') {
-    post_query(
-      '/student/getStudent',
-      {
-        batch_name: batch_name,
-        s_group_id: sgroup
-      }
-    ).done(function (data) {
-      if (data.status === 0) {
-        displayGroupStudentResult(data.data)
-      } else {
-        fetch_err(data)
-      }
-    }).fail(net_err)
+  // console.log(batch_name,sgroup)
+  if (batch_name && batch_name !== '实习批次选择') {
+    var promise = null;
+    if (sgroup && sgroup !== '组号') {
+      promise = api_student.getStudentByBatchAndSGroup(batch_name, sgroup);
+    } else if (sgroup = '组号') {  // 查出全部
+      promise = api_student.getStudentByBatchName(batch_name);
+    }
+    if (promise) {
+      promise.done(function (data) {
+        if (data.status === 0) {
+          displayGroupStudentResult(data.data)
+        } else {
+          fetch_err(data)
+        }
+      }).fail(net_err) 
+    }
+    return;
   }
+  swal('无效查询', '请填写正确的信息', 'warning')
 });
 
 
@@ -659,6 +665,7 @@ function displayGroupStudentResult(data) {
     btn_td.appendTo($tr);
     $tr.appendTo($table_body);
   })
+  
   $('.select-group-id', $table_body).each(function (index) {
     var raw_selector = $(this).get(0);
     raw_selector.selectedIndex = selectedindex;
