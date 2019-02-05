@@ -632,7 +632,7 @@ $('#get-student-list-by-batch-and-group').click(function () {
         } else {
           fetch_err(data)
         }
-      }).fail(net_err) 
+      }).fail(net_err)
     }
     return;
   }
@@ -646,51 +646,53 @@ function displayGroupStudentResult(data) {
   var $table_body = $('#student-group-result').empty();
   data = _.sortBy(data, 'sid');
   var $student_select_group = $('#student_divide_select_group')
-  var selectedindex = $student_select_group.get(0).selectedIndex - 1
-
+  // var selectedindex = $student_select_group.get(0).selectedIndex - 1
+  console.log(data)
   _.each(data, function (student, i) {
     var $tr = $('<tr>');
     $('<td>').text(student.sid).addClass('sid').appendTo($tr)
     $('<td>').text(student.sname).appendTo($tr)
     $('<td>').text(student.clazz).appendTo($tr)
     $('<td>').text(student.batch_name).appendTo($tr)
-    var grouptd = $('<td>');
-    var groupSelector = $('<select>').addClass('select-group-id');
-    groupSelector.html($student_select_group.html());
-    $(':first', groupSelector).remove()
-    groupSelector.appendTo(grouptd);
+    var grouptd = $('<td>').text(student.s_group_id);
     grouptd.appendTo($tr)
     var btn_td = $('<td>');
-    var savebutton = $('<button>').text('保存').addClass('btn btn-sm btn-info').appendTo(btn_td);
+    var savebutton = $('<button>').text('切换分组').addClass('btn btn-sm btn-info').appendTo(btn_td);
     btn_td.appendTo($tr);
     $tr.appendTo($table_body);
-  })
-  
-  $('.select-group-id', $table_body).each(function (index) {
-    var raw_selector = $(this).get(0);
-    raw_selector.selectedIndex = selectedindex;
   })
 }
 
 $('#student-group-result').on('click', 'button', function () {
   var $this = $(this);
-  // console.log($this);
+  var $student_select_group = $('#student_divide_select_group').clone();
   var $ptr = $this.parent().parent()
   var sid = $('.sid', $ptr).text();
-  var s_group_id = $('select', $ptr).val();
-  // console.log(s_group_id)
-  api_student.updateGroup(sid, s_group_id)
-    .done(function (data) {
-      if (data.status === 0) {
-        swal(
-          String(data.message), '',
-          'success'
-        );
-        $ptr.remove()
-      } else {
-        fetch_err(data)
-      }
-    }).fail(net_err);
+  $(':first', $student_select_group).remove();
+  swal({
+    title: '请选择分组',
+    content: $student_select_group[0],
+    buttons: true,
+    dangerMode: true
+  }).then(function (ensure) {
+    if (ensure) {
+      if(!ensure)return;
+      var s_group_id = $student_select_group.val();
+      console.log(sid,s_group_id);
+      api_student.updateGroup(sid, s_group_id)
+        .done(function (data) {
+          if (data.status === 0) {
+            swal(
+              '操作成功', String(data.message),
+              'success'
+            );
+            // console.log($ptr.children().eq(4).text(s_group_id));
+          } else {
+            fetch_err(data)
+          }
+        }).fail(net_err);
+    }
+  })
 })
 
 $('#print-student-grouped-table').click(function () {
