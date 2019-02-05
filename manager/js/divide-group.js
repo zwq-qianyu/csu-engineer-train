@@ -262,7 +262,7 @@ $class_time_container.on('click', 'td', function () {
         ct_group.time_quant = '';
       }
     } else { // 跳转
-      t = setTimeout(() => {
+      t = setTimeout(function () {
         var class_time = parseInt($this.attr('class_time'));
         jumpToDistributionTableWithClasstime(class_time)
       }, 250);
@@ -880,7 +880,7 @@ function fillSpStudentRecords(data) {
 }
 
 
-$('#query-spstudent-result').on('click','input.query-class',function(){ // todo 
+$('#query-spstudent-result').on('click', 'input.query-class', function () { // todo 
   var input = $(this);
   console.log(input);
   var tr = $(input).parent().parent();

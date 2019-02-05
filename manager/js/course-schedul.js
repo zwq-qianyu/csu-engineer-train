@@ -295,7 +295,7 @@ $('#template-tbody').on('click', 'td', function () {
   clicktime = newClickTime;
   if (!t_group_id || !tempName || !pro_name) return;
   console.log('single');
-  timeoutid = setTimeout(() => {
+  timeoutid = setTimeout(function () {
     currentTemplate[s_group_id][i_class_time] = {
       template_id: tempName,
       t_group_id: t_group_id,
@@ -326,7 +326,7 @@ $('#template-table').on('click', 'th', function () {
         if (ifTrue) {
           delete currentTemplate[s_group_id]
           modelData = []
-          setTimeout(() => {
+          setTimeout(function () {
             updateTemplateTable()
           }, 100);
         }
@@ -345,7 +345,7 @@ $('#template-table').on('click', 'th', function () {
             delete currentTemplate[g][class_time_head]
           }
           modelData = []
-          setTimeout(() => {
+          setTimeout(function () {
             updateTemplateTable()
           }, 100);
         }
@@ -364,8 +364,8 @@ $(document).keydown(function (event) {
     var proced_selector = $('#proced-selector')
 
     var teacher_selector_raw = teacher_selector.get(0);
-    if (!teacher_selector_raw){ // 这个子页面可能被关闭了
-      $(document).off('keydown'); 
+    if (!teacher_selector_raw) { // 这个子页面可能被关闭了
+      $(document).off('keydown');
       return;
     }
     var proced_selector_raw = proced_selector.get(0);
@@ -401,7 +401,7 @@ $('#add-class-time').click(function () {
     text: "将添加课时" + new_class_time + "，确定吗?",
     icon: "info",
     buttons: true,
-  }).then((ifAdd) => {
+  }).then(function (ifAdd) {
     // console.log(ifAdd)
     if (ifAdd) {
       modelData.push([])
@@ -423,7 +423,7 @@ function saveTemplate() {
       icon: 'info',
       buttons: true,
       dangerMode: true
-    }).then(ifTrue => {
+    }).then(function (ifTrue) {
       if (ifTrue) {
         $('#edit-tool').hide()
         var data = []
@@ -478,7 +478,7 @@ function doDeleteTemplate() {
       icon: 'warning',
       buttons: true,
       dangerMode: true
-    }).then(ifTrue => {
+    }).then(function (ifTrue) {
       if (ifTrue) {
         api_experiment.deleteTemplate(temp_id)
           .done(function success(data) {
