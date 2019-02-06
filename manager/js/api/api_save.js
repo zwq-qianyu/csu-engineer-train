@@ -1,6 +1,5 @@
-var api_material_purchase = {
-
-    // 入库***************************************
+// 入库
+var api_save = {
     // 获取入库记录
     getSaveBy5:function (postdata) {
         return post_json(

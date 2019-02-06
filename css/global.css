@@ -92,6 +92,7 @@
   line-height: 30px;
   padding-left: 24px;
   margin-left: 24px;
+  margin-right: -32px;
 }
 #navigation main > ul > li ul li a, #navigation main > ul > li ul li a:visited {
   font-size: 1rem;

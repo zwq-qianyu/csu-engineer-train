@@ -53,13 +53,6 @@ function init_data(){
     // });
 }
 
-function getInfo() {
-    api_material_purchase.getInfo()
-        .done(function (data) {
-            console.log(data)
-        })
-}
-
 
 // 库存页*********************************
 // 获取所有物料
@@ -149,7 +142,7 @@ function addOneMateral(){
 // 其他记录页******************************
 // 获取所有申购人信息
 function getApplyer(){
-  api_material_purchase.getAllNameByAuthType(1)
+  api_applyFPchse.getAllNameByAuthType(1)
       .done(function (data) {
           var data_arr = data.data;
           var html = '<option>申购人</option>';
@@ -162,7 +155,7 @@ function getApplyer(){
 }
 // 获取所有采购人信息
 function getPurchaser() {
-    api_material_purchase.getAllNameByAuthType(2)
+    api_applyFPchse.getAllNameByAuthType(2)
     .done(function (data) {
         optionsForPurchaser = ["采购人"];
         var data_arr = data.data;
@@ -180,7 +173,7 @@ function getPurchaser() {
 }
 // 获取所有入库人信息
 function getStorer() {
-    api_material_purchase.getAllNameByAuthType(3)
+    api_applyFPchse.getAllNameByAuthType(3)
         .done(function (data) {
             var data_arr = data.data;
             var html = '<option>入库人</option>';
@@ -195,7 +188,7 @@ function getStorer() {
 // 物料申购页
 // 获取所有申购记录
 function getAllApplyFPchse(){
-    api_material_purchase.getAllApplyFPchse()
+    api_applyFPchse.getAllApplyFPchse()
         .done(fillApplyTable)
 }
 // 根据条件显示物料申购记录
@@ -218,11 +211,11 @@ function getSelectedApply(){
     }
     if(postData.clazz==""&&postData.apply_tname==""&&postData.startTime==""
         &&postData.endTime==""&&postData.pur_tname==""&&postData.purchase_id==""){
-        api_material_purchase.getAllApplyFPchse()
+        api_applyFPchse.getAllApplyFPchse()
             .done(fillApplyTable)
     }
     else{
-        api_material_purchase.getSelectedPurchase(postData)
+        api_applyFPchse.getSelectedPurchase(postData)
             .done(fillApplyTable)
     }
 }
@@ -290,7 +283,7 @@ function exportApply() {
     var postdata = {};
     postdata.purchase_ids = selectedPurchase;
     // console.log(selectedPurchase)
-    api_material_purchase.downloadApply(postdata)
+    api_applyFPchse.downloadApply(postdata)
         .done(function (data) {
 
         })
@@ -300,7 +293,7 @@ function excelApply() {
     var postdata = {};
     postdata.purchase_ids = selectedPurchase;
     // console.log(selectedPurchase)
-    api_material_purchase.downloadApplyExcel(postdata)
+    api_applyFPchse.downloadApplyExcel(postdata)
         .done(function (data) {
 
         })
@@ -311,7 +304,7 @@ function addOneApply(){
     post_data.clazz = $("#add_apply_material").val();
     post_data.num = parseInt($("#add_apply_number").val());
     post_data.apply_remark = $("#add_apply_note").val();
-    api_material_purchase.addApplyFPchse(post_data)
+    api_applyFPchse.addApplyFPchse(post_data)
         .done(function (data) {
             $("#add_apply_material").val("");
             $("#add_apply_number").val(0);
@@ -349,7 +342,7 @@ function getApplyFPchseVerify() {
     else if($("#spurchase_audit_status").val()==='已审核'){
         postData.apply_verify = true
     }
-    api_material_purchase.getSelectedPurchase(postData)
+    api_applyFPchse.getSelectedPurchase(postData)
         .done(fillApplyTableVerify)
 
 }
@@ -394,7 +387,7 @@ function deleteOneApply(data) {
         }).then(function (isConfirm) {
             if(isConfirm.value){
                 var id = data.id.substring(6,data.id.length)
-                api_material_purchase.deleteApplyFPchse(id)
+                api_applyFPchse.deleteApplyFPchse(id)
                     .done(function (returndata) {
                         // console.log(returndata)
                         if(returndata.status==0) {
@@ -455,7 +448,7 @@ function verifyOneApply(data) {
         }
     }
     postdata.apply_num = $("#modifyNum"+id).val();
-    api_material_purchase.applyVerify(postdata)
+    api_applyFPchse.applyVerify(postdata)
         .done(function (data) {
             if(data.status==0){
                 swal(
@@ -486,7 +479,7 @@ function getPurchase() {
     postData.pur_tname = $("#cpurchase_person").val()==="采购人"||$("#cpurchase_person").val()==="暂无选项"?"%":$("#cpurchase_person").val();
     postData.purchase_id = $("#cpurchase_number").val()===""?"%":$("#cpurchase_number").val();
 
-    api_material_purchase.getPurchase(postData)
+    api_purchase.getPurchase(postData)
         .done(fillPurchaseTable)
 
 }
@@ -550,7 +543,7 @@ function addOnePurchase() {
   newPurchase.pur_time = $("#add_purchase_date").val();
   newPurchase.pur_num = $("#add_purchase_number").val();
   newPurchase.pur_remark = $("#add_purchase_note").val();
-    api_material_purchase.addPurchase(newPurchase)
+    api_purchase.addPurchase(newPurchase)
         .done(function (data) {
             $("#add_purchase_num").val("");
             $("#add_purchase_date").val("");
@@ -579,7 +572,7 @@ function exportPurchase() {
     var postdata = {};
     postdata.purchase_ids = selectedPurPurchase;
     // console.log(selectedPurPurchase)
-    api_material_purchase.downloadPurchase(postdata)
+    api_purchase.downloadPurchase(postdata)
         .done(function (data) {
 
         })
@@ -598,7 +591,7 @@ function getRemi() {
         postData.verify="0";
     else if($("#bremiburse_audit_status").val()==="已审核")
         postData.verify="1";
-    api_material_purchase.getRemi(postData)
+    api_reim.getRemi(postData)
         .done(fillRemiTablee)
 }
 // 填充报账记录表格
@@ -668,7 +661,7 @@ function exportRemi() {
     // console.log(selectedRemi)
     var postdata = {};
     postdata.reimIds = selectedRemi;
-    api_material_purchase.downloadReims(postdata)
+    api_reim.downloadReims(postdata)
         .done(function (data) {
 
         })
@@ -677,7 +670,7 @@ function exportRemi() {
 function reimExportExcel() {
     var postdata = {};
     postdata.reimIds = selectedRemi;
-    api_material_purchase.reimExportExcel(postdata)
+    api_reim.reimExportExcel(postdata)
         .done(function (data) {
 
         })
@@ -688,7 +681,7 @@ function addOneRemiburse() {
   newRemiburse.purchaseId = $("#add_remiburse_num").val();
   newRemiburse.num = parseInt($("#add_remiburse_number").val());
   newRemiburse.remark = $("#add_remiburse_note").val();
-  api_material_purchase.addRemi(newRemiburse)
+  api_reim.addRemi(newRemiburse)
       .done(function (data) {
           $("#add_remiburse_num").val("");
           $("#add_remiburse_number").val("");
@@ -725,7 +718,7 @@ function getRemiVerify() {
         postData.verify="0";
     else if($("#hremiburse_audit_status").val()==="已审核")
         postData.verify="1";
-    api_material_purchase.getRemi(postData)
+    api_reim.getRemi(postData)
         .done(fillRemiTableVerify)
 
 }
@@ -769,7 +762,7 @@ function deleteOneRemi(data) {
     }).then(function (isConfirm) {
         if(isConfirm.value){
             var id = data.id.substring(6,data.id.length)
-            api_material_purchase.deleteRemi(id)
+            api_reim.deleteRemi(id)
                 .done(function (data) {
                     if(data.status==0) {
                         swal({
@@ -813,7 +806,8 @@ function verifyOneRemi(data) {
     var postdata = {};
     postdata.id = id;
     postdata.apply_num = $("#modifyNum"+id).val();
-    api_material_purchase.remiVerify(postdata)
+    postdata.tname = basicInfo.name;
+    api_reim.remiVerify(postdata)
         .done(function (data) {
             if(data.status==0){
                 swal(
@@ -843,7 +837,7 @@ function getSaveBy5() {
     postData.end = $('#rend_time').val()===""?"2999-10-10":$('#rend_time').val();
     postData.pid = $("#rpurchase_number").val()===""?"%":$("#rpurchase_number").val();
     postData.tname = $("#rstore_person").val()==="入库人"||$("#rstore_person").val()==="暂无选项"?"%":$("#rstore_person").val();
-    api_material_purchase.getSaveBy5(postData)
+    api_save.getSaveBy5(postData)
         .done(fillSaveTable)
 }
 // 填充入库记录表格
@@ -884,7 +878,7 @@ function addOneStore() {
   newStore.time = $("#add_store_date").val();
   newStore.num = $("#add_store_number").val();
   newStore.remark = $("#add_store_note").val();
-  api_material_purchase.addSave(newStore)
+  api_save.addSave(newStore)
       .done(function (data) {
           $("#add_store_num").val("");
           $("#add_store_date").val("");
