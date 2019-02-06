@@ -65,41 +65,46 @@
 #navigation main {
   padding: 10px 40px;
 }
-#navigation main .category {
-  border-bottom: 1px solid #575757;
-}
-#navigation main .category:last-child {
-  border-bottom: none;
-}
-#navigation main ul {
-  padding-left: 24px;
+#navigation main > ul {
+  padding-left: 0;
   color: #555;
   list-style-type: none;
 }
-#navigation main ul li {
+#navigation main > ul .category {
+  border-bottom: 1px solid #575757;
+}
+#navigation main > ul .category:last-child {
+  border-bottom: none;
+}
+#navigation main > ul > li {
   color: #111;
   padding: 5px 0;
 }
-#navigation main ul .icon {
-  width: 1.4em;
-  height: 1.4em;
+#navigation main > ul > li .category-name {
+  color: #575757;
+  font-size: 1.2rem;
 }
-#navigation main > ul {
-  padding-left: 0;
+#navigation main > ul > li ul {
+  padding: 0;
+  list-style: none;
 }
-#navigation main .category-name {
-  color: #555;
+#navigation main > ul > li ul li {
+  line-height: 30px;
+  padding-left: 24px;
+  margin-left: 24px;
 }
-#navigation main a, #navigation main a:visited {
+#navigation main > ul > li ul li a, #navigation main > ul > li ul li a:visited {
+  font-size: 1rem;
   color: #111;
   text-decoration: none;
+  font-weight: 600;
 }
-#navigation main a:hover {
-  color: #bfd3f7;
+#navigation main > ul > li ul > li:hover {
+  background: #b9ddf5;
 }
-#navigation main a.active, #navigation main a:active {
-  outline: none;
-  color: #716fee;
+#navigation main > ul .icon {
+  width: 1.4rem;
+  height: 1.4rem;
 }
 #navigation #nav-bottom {
   width: 100%;
@@ -202,7 +207,7 @@
 #container_body #content_body {
   float: left;
   width: 900px;
-  height: 900px;
+  height: 1800px;
   box-shadow: 0 10px 10px #919191;
   margin-bottom: 40px;
   background: #f6f6f6;
