@@ -25,8 +25,8 @@ $("#login_submit").click(function(){
         // console.log(data);
         basicInfo = data.data;
         if(data.data["身份"] === "admin") {
-          // window.location.href = './manager/iindex.html';
-          window.location.href = './manager/student-manage.html';
+          window.location.href = './manager/iindex.html';
+          // window.location.href = './manager/student-manage.html';
         }
         else if (data.data["身份"] === "teacher") {
           window.location.href = './teacher/teach-schedule.html';

@@ -23,9 +23,11 @@
 	<link rel="stylesheet" href="../css/global.css">
 	<link rel="shortcut icon" href="../img/fav.png" />
 	<link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="../js/setHeight.js"></script>
 	<script src="../config/common_config.js"></script>
 	<script type="text/javascript" src="../js/md5.js"></script>
 	<script type="text/javascript" src="../js/logout.js"></script>
+
 
 	<style>
 		#header-wrap {
@@ -62,7 +64,7 @@
 					<span id="part"></span>
 				</header>
 
-				<main>
+				<main id="nav_main">
 					<ul>
 						<li class="category"><img class="icon" src="./icon/user-manage.svg"> <span class="category-name">用户管理</span>
 							<ul>
@@ -100,19 +102,24 @@
 						</li>
 					</ul>
 				</main>
-
-				<img id="nav-bottom" src="../img/nav-bottom.jpg">
 			</aside>
 
 			<div id="content_body">
 				<div id="working-space">
 
 				</div>
+				<div class="clearfix"></div>
 			</div>
 		</div>
 		<!-- 主体部分 -->
 	</div>
 	<!-- 主体部分结束 -->
+	<script>
+		$(function () {
+            setHeight()
+        })
+	</script>
     <script src="../js/boot-navigation.js"></script>
+
 </body>
 </html>

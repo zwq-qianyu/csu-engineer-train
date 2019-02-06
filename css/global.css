@@ -64,6 +64,11 @@
 }
 #navigation main {
   padding: 10px 40px;
+  min-height: 750px;
+  background-image: url("../../img/nav-bottom.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100%;
 }
 #navigation main > ul {
   padding-left: 0;
@@ -104,11 +109,9 @@
   background: #b9ddf5;
 }
 #navigation main > ul .icon {
-  width: 1.4rem;
-  height: 1.4rem;
-}
-#navigation #nav-bottom {
-  width: 100%;
+  width: 24px;
+  height: 24px;
+  margin-top: -4px;
 }
 
 .nav-tabs {
@@ -158,6 +161,7 @@
 }
 
 .content-card {
+  background: #ffffff;
   margin-bottom: 1.4em;
 }
 .content-card header, .content-card main, .content-card footer {
@@ -184,6 +188,10 @@
   background-color: white;
 }
 
+.content-card:last-child {
+  margin-bottom: 0 !important;
+}
+
 #body {
   background: #f6f6f6;
 }
@@ -208,7 +216,7 @@
 #container_body #content_body {
   float: left;
   width: 900px;
-  height: 1800px;
+  min-height: 800px;
   box-shadow: 0 10px 10px #919191;
   margin-bottom: 40px;
   background: #f6f6f6;

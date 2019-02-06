@@ -26,5 +26,7 @@ $(function () {
             $('#category', navi).text(category);
             $('#part', navi).text(part)
         });
-    });
+        setHeight()
+    })
+
 });

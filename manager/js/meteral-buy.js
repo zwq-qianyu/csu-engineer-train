@@ -1,7 +1,6 @@
-window.onload = function(){
-  init_data();
-  // getInfo();
-}
+$(function(){
+    init_data();
+})
 
 
 // 初始化页面数据
