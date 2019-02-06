@@ -22,8 +22,10 @@ $("#login_submit").click(function(){
     success: function(data){
       // console.log(data);
       if(data.status === 0){
-        console.log(data);
+        // console.log(data);
+        basicInfo = data.data;
         if(data.data["身份"] === "admin") {
+          // window.location.href = './manager/iindex.html';
           window.location.href = './manager/student-manage.html';
         }
         else if (data.data["身份"] === "teacher") {

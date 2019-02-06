@@ -29,31 +29,33 @@
 
 	<style>
 		#header-wrap {
-			background-image: url("../img/header-background.jpg");
-			background-size: cover;
+			background: url("../img/header-background.jpg") no-repeat;
+			background-size: 100% 100%;
 		}
 
 		body {
-			background-image: url("../img/background.jpg");
-			background-size: cover;
+			background: url("../img/background.jpg") no-repeat;
+			background-size: 100% 100%;
+			min-width: 1200px;
+			font-family: "Microsoft YaHei UI Light",sans-serif;
 		}
 	</style>
 </head>
 
 <body>
 
-	<div class="container-fluid" id="header-wrap">
-		<header class="container" id="header">
+	<div id="header-wrap">
+		<header id="header">
 			<img src="../img/logo.png" id="logo" alt="logo">
-			<a class="btn get-out text-danger" onclick="logout()"><img src="../icon/logout.svg" id="out-icon">退 出</a>
+			<a id="logout_tip" class="btn get-out text-needed" onclick="logout()"><img src="../icon/logout.svg" id="out-icon">退 出</a>
 		</header>
 	</div>
 
-	<div class="h-25">&emsp;</div>
+	<!--<div class="h-23">&emsp;</div>-->
 
-	<div class="container">
-		<div class="row">
-			<aside class="col-2" id="navigation">
+	<div id="container_body">
+		<div>
+			<aside id="navigation">
 				<header>
 					<span id="end">管理端</span>
 					<span id="category"></span>
@@ -98,9 +100,11 @@
 						</li>
 					</ul>
 				</main>
+
+				<img id="nav-bottom" src="../img/nav-bottom.jpg">
 			</aside>
 
-			<div class="col-10">
+			<div id="content_body">
 				<div id="working-space">
 
 				</div>

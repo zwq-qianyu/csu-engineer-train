@@ -3,16 +3,16 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
     header,main{
         background: $nav-background;
-        border-radius: 5px;
     }
     
     header{
+        line-height: 38px;
+        box-sizing: border-box;
         text-align: center;
         padding: 4px;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
         span:not(:empty){
             &::before{
                content: ">"; 
@@ -22,17 +22,24 @@
             }
         }
         #end{
-            color: $text-gray;
+            color: $text-nav-head;
+            font-weight: bold;
         }
         #category,#part{
-            color: $text-black;
+            color: $text-nav-head;
         }
     }
 
     main{
-        padding: 10px 15px; 
+        padding: 10px 40px;
+        .category{
+            border-bottom: 1px solid $text-nav-head;
+            &:last-child{
+                border-bottom: none;
+            }
+        }
         ul{
-            padding-left: 35px;
+            padding-left: 24px;
             color: $text-gray;
             list-style-type: none;
             li{
@@ -61,5 +68,9 @@
             outline: none;
             color: $blue2;
         }
+    }
+
+    #nav-bottom{
+        width: 100%;
     }
 }

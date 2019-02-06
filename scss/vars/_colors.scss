@@ -12,12 +12,17 @@ $gray:rgb(173, 173, 173);
 $text-white:#eee;
 $text-gray:#555;
 $text-black:#111;
+$text-nav-head:#575757;
+$text-card-title:#112d4e;
+$text-card-item:#4d4d4d;
 
 // 右容器背景
 $body-background:#f6f6f6;
 
 // 导航背景
 $nav-background:#edf0f5;
+$nav-background-active:#b9ddf5;
+
 
 // 表格
 $table-head: #5b8fb4; // 表头
@@ -32,4 +37,5 @@ $card-head-title-border:#3f8bc7;
 
 // button
 $button-outline-color: #3f8bc7;
+$button-outline-hover:#e5f0f6;
 $button-default-back:#56a3d7;

@@ -539,7 +539,7 @@ function fillPurchaseTable(data) {
 
         })
         // 分页初始化
-        goPageBT("c",1,20)
+        goPageBT("c",1,5)
 
     }
 }
@@ -756,7 +756,7 @@ function fillRemiTableVerify(data){
     }
     $('#hadminTbody').html(html);
     // 分页初始化
-    goPage("h",1,10);
+    goPage("h",1,5);
 }
 // 删除报账记录##################################################
 function deleteOneRemi(data) {
@@ -873,7 +873,7 @@ function fillSaveTable(data) {
             fixedNumber:4,
         })
         // 分页初始化
-        goPageBT("r",1,20)
+        goPageBT("r",1,5)
 
     }
 }
