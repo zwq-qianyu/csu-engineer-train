@@ -79,7 +79,7 @@ var api_material_purchase = {
     },
     // 新增一条物料申购
     addApplyFPchse:function (post_data) {
-        return post_json(
+        return post_query(
             '/applyFPchse/addApplyFPchse',
             post_data
         )
