@@ -65,7 +65,7 @@ function getAllMaterial(){
 
         for(var i=0; i<data_arr.length; i++){
             html += '<tr><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].num+'</td>';
-            html += '<td><img class="delete-image" id="'+data_arr[i].clazz+'" onclick="devareOneMateral(this)" src="../../icon/delete-item.svg"/> ' +
+            html += '<td><img class="delete-image" id="'+data_arr[i].clazz+'" onclick="devareOneMateral(this)" src="../icon/delete-item.svg"/> ' +
                 // '<button class="btn btn-danger btn-sm" id="'+data_arr[i].clazz+'" onclick="devareOneMateral(this)">删除</button>' +
                 '</td></tr>';
             material_class.push(data_arr[i].clazz);
