@@ -65,7 +65,9 @@ function getAllMaterial(){
 
         for(var i=0; i<data_arr.length; i++){
             html += '<tr><td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].num+'</td>';
-            html += '<td><button class="btn btn-danger btn-sm" id="'+data_arr[i].clazz+'" onclick="devareOneMateral(this)">删除</button></td></tr>';
+            html += '<td><img class="delete-image" id="'+data_arr[i].clazz+'" onclick="devareOneMateral(this)" src="../../icon/delete-item.svg"/> ' +
+                // '<button class="btn btn-danger btn-sm" id="'+data_arr[i].clazz+'" onclick="devareOneMateral(this)">删除</button>' +
+                '</td></tr>';
             material_class.push(data_arr[i].clazz);
         }
         $('#kadminTbody').html(html);
@@ -86,25 +88,41 @@ function getAllMaterial(){
 }
 // 删除一种物料
 function devareOneMateral(obj){
-    var clazz = obj.getAttribute('id');
-    api_material.deletePurchase(clazz)
-        .done(function (data) {
-            if(data.status === 0){
-                swal(
-                    '删除成功',
-                    '删除物料成功',
-                    'success'
-                );
-                getAllMaterial();
-            }
-            else{
-                swal(
-                    '删除失败',
-                    '删除物料失败，请重试！',
-                    'error'
-                );
-            }
-        })
+    swal({
+        title: "真的删除该种物料吗？",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "确认",
+        cancelButtonText: "取消"
+    }).then(function (isConfirm) {
+        if(isConfirm.value){
+            var clazz = obj.getAttribute('id');
+            api_material.deletePurchase(clazz)
+                .done(function (data) {
+                    if(data.status === 0){
+                        swal(
+                            '删除成功',
+                            '删除物料成功',
+                            'success'
+                        );
+                        getAllMaterial();
+                    }
+                    else{
+                        swal(
+                            '删除失败',
+                            '删除物料失败，请重试！',
+                            'error'
+                        );
+                    }
+                })
+        }
+        else{
+            swal({
+                title:"已取消",
+                type:"error"
+            })
+        }
+    })
 }
 // 添加一种新的物料
 function addOneMateral(){
@@ -378,7 +396,7 @@ function fillApplyTableVerify(data) {
 // 删除申购记录
 function deleteOneApply(data) {
     swal({
-            title: "真的删除该记录吗么？",
+            title: "真的删除该记录吗？",
             type: "info",
             showCancelButton: true,
             confirmButtonText: "确认",
@@ -753,7 +771,7 @@ function fillRemiTableVerify(data){
 // 删除报账记录##################################################
 function deleteOneRemi(data) {
     swal({
-        title: "真的删除该记录吗么？",
+        title: "真的删除该记录吗？",
         type: "info",
         showCancelButton: true,
         confirmButtonText: "确认",

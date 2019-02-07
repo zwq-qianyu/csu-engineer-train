@@ -1,11 +1,13 @@
 .btn-outline{
-    border-color: $button-outline-color;
+    //border-color: $button-outline-color;
     color: $button-outline-color;
     border-radius: 4px;
+    border:2px solid $button-outline-color;
     &:hover{
         //border-color: transparent;
         //color: $text-white;
         background-color: $button-outline-hover;
+        color: $button-outline-color;
 
     }
 }
@@ -18,5 +20,14 @@
         background: inherit;
         color:$button-default-back;
         border-color: $button-default-back;
+    }
+}
+.btn-group{
+    margin: 26px 0;
+    line-height: 46px;
+    &.right{
+        .btn{
+            margin-left: -2px;
+        }
     }
 }

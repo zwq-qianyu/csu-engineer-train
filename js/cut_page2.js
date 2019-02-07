@@ -47,7 +47,8 @@ function goPage(pname,pno,psize){
         // ================================================= tbody 部分
         $("#"+pname+"adminTbody tr").eq(i).show();
     }
-    var tempStr = "共"+num+"条记录 | 分"+totalPage+"页 | 当前第"+currentPage+"页";
+    var tempStr = "第"+"<span class='text-page'>"+currentPage+"</span>/"+"<span class='text-page'>"+ totalPage+"</span>页，跳转到";
+    // var tempStr = "共"+num+"条记录 | 分"+totalPage+"页 | 当前第"+currentPage+"页";
     // ================================================= barcon1 部分
     document.getElementById(pname+"barcon1").innerHTML = tempStr;
 
@@ -126,7 +127,8 @@ function goPageBT(pname,pno,psize) {
         // ================================================= tbody 部分
         $("#"+pname+"adminTbody tbody tr").eq(i).show();
     }
-    var tempStr = "共"+num+"条记录 | 分"+totalPage+"页 | 当前第"+currentPage+"页";
+    var tempStr = "第"+"<span class='text-page'>"+currentPage+"</span>/"+"<span class='text-page'>"+ totalPage+"</span>页，跳转到";
+    // var tempStr = "共"+num+"条记录 | 分"+totalPage+"页 | 当前第"+currentPage+"页";
     // ================================================= barcon1 部分
     document.getElementById(pname+"barcon1").innerHTML = tempStr;
 

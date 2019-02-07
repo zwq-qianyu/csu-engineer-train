@@ -17,14 +17,6 @@
 	text-align: center;
 }
 
-/*.select-person {*/
-	/*margin-left: 25px;*/
-/*}*/
-
-/*.float-right {*/
-	/*margin-left: 100px;*/
-/*}*/
-
 .left-flatpickr {
 	margin-left: 20px;
 }
@@ -78,6 +70,9 @@ th, td {
 	border-left: none;
 	border-right: none;
 }
+input[name="btSelectAll"]{
+	display: none;
+}
 .no-background{
 	background-color: #ffffff;
 }
@@ -96,4 +91,9 @@ th, td {
 }
 .fixed-table-loading{
 	display: none;
+}
+.delete-image{
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
 }
