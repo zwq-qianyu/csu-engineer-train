@@ -380,9 +380,9 @@ function fillApplyTableVerify(data) {
                 '<td><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].apply_num+'</div><input type="number" class="modifyInput'+data_arr[i].purchase_id+' form-control" value="'+data_arr[i].apply_num+'" id="modifyNum'+data_arr[i].purchase_id+'"></td>' +
                 '<td><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].pur_tname+'</div><select class="modifyInput'+data_arr[i].purchase_id+' form-control" id="options'+data_arr[i].purchase_id+'"></select></td>';
         html += '<td><div class="row">' +
-                '<img src="../icon/check-1.svg" class="row-image col-sm-4 col-xs-4 '+data_arr[i].pur_tname+'" id="verify'+data_arr[i].purchase_id+'" onclick="verifyOneApply(this)">' +
-                '<img src="../icon/edit-1.svg" class="row-image col-sm-4 col-xs-4 '+data_arr[i].pur_tname+'" id="modify'+data_arr[i].purchase_id+'" onclick="modifyOneApply(this)">' +
-                '<img src="../icon/delete-2.svg" class="row-image col-sm-4 col-xs-4" id="delete'+data_arr[i].purchase_id+'" onclick="deleteOneApply(this)"> ' +
+                '<img src="../icon/check.svg" class="row-image col-sm-4 col-xs-4 '+data_arr[i].pur_tname+'" id="verify'+data_arr[i].purchase_id+'" onclick="verifyOneApply(this)">' +
+                '<img src="../icon/edit.svg" class="row-image col-sm-4 col-xs-4 '+data_arr[i].pur_tname+'" id="modify'+data_arr[i].purchase_id+'" onclick="modifyOneApply(this)">' +
+                '<img src="../icon/delete.svg" class="row-image col-sm-4 col-xs-4" id="delete'+data_arr[i].purchase_id+'" onclick="deleteOneApply(this)"> ' +
                 '</div>' +
                 '</td></tr>';
     }
@@ -753,9 +753,9 @@ function fillRemiTableVerify(data){
             '<td><div class="modify'+data_arr[i].id+'">'+data_arr[i].remib_num+'</div><input type="number" class="modifyInput'+data_arr[i].id+' form-control" value="'+data_arr[i].remib_num+'" id="modifyNum'+data_arr[i].id+'"></td>'+
             '<td>'+data_arr[i].vertify+'</td><td>'+data_arr[i].remib_remark+'</td>'
         html += '<td><div class="row">' +
-            '<img src="../icon/check-1.svg" class="row-image col-sm-4 col-xs-4" id="verify'+data_arr[i].id+'" onclick="verifyOneRemi(this)">' +
-            '<img src="../icon/edit-1.svg" class="row-image col-sm-4 col-xs-4" id="modify'+data_arr[i].id+'" onclick="modifyOneRemi(this)">' +
-            '<img src="../icon/delete-2.svg" class="row-image col-sm-4 col-xs-4" id="delete'+data_arr[i].id+'" onclick="deleteOneRemi(this)"> ' +
+            '<img src="../icon/check.svg" class="row-image col-sm-4 col-xs-4" id="verify'+data_arr[i].id+'" onclick="verifyOneRemi(this)">' +
+            '<img src="../icon/edit.svg" class="row-image col-sm-4 col-xs-4" id="modify'+data_arr[i].id+'" onclick="modifyOneRemi(this)">' +
+            '<img src="../icon/delete.svg" class="row-image col-sm-4 col-xs-4" id="delete'+data_arr[i].id+'" onclick="deleteOneRemi(this)"> ' +
             '</div>' +
             '</td></tr>';
     }
