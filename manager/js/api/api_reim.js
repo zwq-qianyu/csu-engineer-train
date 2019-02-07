@@ -80,7 +80,7 @@ var api_reim = {
     },
     // 修改报账 接口还有问题**********************************
     remiVerify:function (postdata) {
-        return post_json(
+        return post_query(
             '/reim/verify',
             postdata
         )

@@ -3,7 +3,7 @@ $(function(){
     init_data();
     api_user.getInfo().done(function (data) {
         if(data.status==0){
-            tname=data.data["姓名"]
+            tname=data.data["id"]
             console.log(tname)
         }
     })
