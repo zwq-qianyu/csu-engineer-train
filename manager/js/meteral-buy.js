@@ -377,8 +377,8 @@ function fillApplyTableVerify(data) {
             data_arr[i].vertify = "待审核"
         html += '<tr><td>'+data_arr[i].purchase_id+'</td><td>'+data_arr[i].apply_time+'</td><td>'+data_arr[i].apply_tname+'</td>' +
                 '<td>'+data_arr[i].clazz+'</td><td>'+data_arr[i].apply_remark+'</td><td>'+data_arr[i].vertify+'</td>' +
-                '<td><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].apply_num+'</div><input type="number" class="modifyInput'+data_arr[i].purchase_id+' form-control" value="'+data_arr[i].apply_num+'" id="modifyNum'+data_arr[i].purchase_id+'"></td>' +
-                '<td><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].pur_tname+'</div><select class="modifyInput'+data_arr[i].purchase_id+' form-control" id="options'+data_arr[i].purchase_id+'"></select></td>';
+                '<td class="input_td"><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].apply_num+'</div><input type="number" class="modifyInput'+data_arr[i].purchase_id+' form-control" value="'+data_arr[i].apply_num+'" id="modifyNum'+data_arr[i].purchase_id+'"></td>' +
+                '<td class="input_td"><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].pur_tname+'</div><select class="modifyInput'+data_arr[i].purchase_id+' form-control" id="options'+data_arr[i].purchase_id+'"></select></td>';
         html += '<td><div class="row">' +
                 '<img src="../icon/check.svg" class="row-image col-sm-4 col-xs-4 '+data_arr[i].pur_tname+'" id="verify'+data_arr[i].purchase_id+'" onclick="verifyOneApply(this)">' +
                 '<img src="../icon/edit.svg" class="row-image col-sm-4 col-xs-4 '+data_arr[i].pur_tname+'" id="modify'+data_arr[i].purchase_id+'" onclick="modifyOneApply(this)">' +
@@ -463,25 +463,33 @@ function verifyOneApply(data) {
         }
     }
     postdata.apply_num = $("#modifyNum"+id).val();
-    api_applyFPchse.applyVerify(postdata)
-        .done(function (data) {
-            if(data.status==0){
-                swal(
-                    '审核成功',
-                    '审核申购记录成功',
-                    'success'
-                );
-                init_data();
-            }
-            else{
-                swal(
-                    '审核失败',
-                    data.message,
-                    'error'
-                )
-            }
-        })
-
+    if(postdata.purchase_tname=="采购人"){
+        swal(
+            '提示',
+            "请选择采购人",
+            'error'
+        )
+    }
+    else{
+        api_applyFPchse.applyVerify(postdata)
+            .done(function (data) {
+                if(data.status==0){
+                    swal(
+                        '审核成功',
+                        '审核申购记录成功',
+                        'success'
+                    );
+                    init_data();
+                }
+                else{
+                    swal(
+                        '审核失败',
+                        data.message,
+                        'error'
+                    )
+                }
+            })
+    }
 }
 
 // 物料采购页
@@ -750,8 +758,8 @@ function fillRemiTableVerify(data){
             data_arr[i].vertify = "待审核"
         html += '<tr><td>'+data_arr[i].purchase_id+'</td><td>'+data_arr[i].remib_time+'</td><td>'+data_arr[i].pur_tname+'</td>' +
             '<td>'+data_arr[i].clazz+'</td>' +
-            '<td><div class="modify'+data_arr[i].id+'">'+data_arr[i].remib_num+'</div><input type="number" class="modifyInput'+data_arr[i].id+' form-control" value="'+data_arr[i].remib_num+'" id="modifyNum'+data_arr[i].id+'"></td>'+
-            '<td>'+data_arr[i].vertify+'</td><td>'+data_arr[i].remib_remark+'</td>'
+            '<td  class="input_td"><div class="modify'+data_arr[i].id+'">'+data_arr[i].remib_num+'</div><input type="number" class="modifyInput'+data_arr[i].id+' form-control" value="'+data_arr[i].remib_num+'" id="modifyNum'+data_arr[i].id+'"></td>'+
+            '<td  class="input_td">'+data_arr[i].vertify+'</td><td>'+data_arr[i].remib_remark+'</td>'
         html += '<td><div class="row">' +
             '<img src="../icon/check.svg" class="row-image col-sm-4 col-xs-4" id="verify'+data_arr[i].id+'" onclick="verifyOneRemi(this)">' +
             '<img src="../icon/edit.svg" class="row-image col-sm-4 col-xs-4" id="modify'+data_arr[i].id+'" onclick="modifyOneRemi(this)">' +
@@ -824,7 +832,7 @@ function verifyOneRemi(data) {
     var id = data.id.substring(6,data.id.length);
     var postdata = {};
     postdata.id = id;
-    postdata.apply_num = $("#modifyNum"+id).val();
+    postdata.num = $("#modifyNum"+id).val();
     postdata.tname = basicInfo.name;
     api_reim.remiVerify(postdata)
         .done(function (data) {
