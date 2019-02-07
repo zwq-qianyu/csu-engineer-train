@@ -260,7 +260,6 @@ function fillApplyTable(data) {
             tableData.push(tableRow);
 
         }
-        // console.log(tableData);
 
         $("#jadminTbody").bootstrapTable("destroy").bootstrapTable({
             pagination:false,
