@@ -783,7 +783,7 @@ $('#print-stud-class-table').click(function () {
 function fillScoreTemplateOptions() {
   var temp_selector = $('#score-template-selector').empty()
   $('<option>').text('权重模版选择').appendTo(temp_selector);
-  api_weight.findAllTemplate()
+  api_proced.findAllTemplate()
     .done(function (data) {
       if (data.status === 0) {
         data = data.data;

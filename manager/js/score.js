@@ -18,7 +18,7 @@ function init_data() {
 
 // 获取所有工种
 function getAllProced() {
-    return api_common.getAllProced().done(function (data) {
+    return api_proced.getAllProced().done(function (data) {
         if (data.status === 0) {
             let data_arr = data.data;
             let score_list1 = $('#input_score_select_scoreitem').empty().append('<option>选择工种</option>');
@@ -35,9 +35,7 @@ function getAllProced() {
 
 //根据批次名获取分组并填充
 function getGroupByBatch(batchName, filter) {
-    return api_common.getAllSGroup({
-        batch_name: batchName
-    }).done(function (data) {
+    return api_batch.getAllSGroup(batchName).done(function (data) {
         if (data.status === 0) {
             let data_arr = data.data;
             let groupSelect = $(filter).empty().append('<option>组号</option>');
@@ -51,7 +49,7 @@ function getGroupByBatch(batchName, filter) {
 }
 
 function getProcessByBatch(batchName, filter) {
-    return api_common.getBatchProced(batchName).done(function (data) {
+    return api_proced.getBatchProced(batchName).done(function (data) {
         if (data.status === 0) {
             let data_arr = data.data;
             let process_select = $(filter).empty().append('<option>选择工种</option>');
@@ -66,7 +64,7 @@ function getProcessByBatch(batchName, filter) {
 
 // 获取所有批次
 function getAllBatch_StuList() {
-    return api_common.getAllBatch().done(function (data) {
+    return api_batch.getAllBatch().done(function (data) {
         if (data.status === 0) {
             // console.log(data);
             let batch1 = $('#score_list_select_batch').empty().append('<option>实习批次选择</option>');
@@ -97,7 +95,7 @@ function getProcedByBatchName(batch_name = '') {
         batch_name = $('#score_list_select_batch').val();
     }
     // console.log(batch_name);
-    return api_common.getBatchProced(batch_name).done(function (data) {
+    return api_proced.getBatchProced(batch_name).done(function (data) {
         if (data.status === 0) {
             processes = [];
             let data_arr = data.data;
@@ -740,7 +738,10 @@ $('#score_edithistory_seach').click(function () {
 function getSpProName() {
     let send_data = {
         "sid": $('#spStu_sname').val()
-    }
+    };
+    api_score.getSpProName(send_data).done(function (data) {
+
+    });
     $.ajax({
         type: 'post',
         url: base_url + '/student/getSpProName',

@@ -14,7 +14,7 @@ function init_data() {
 
 // 获取所有批次
 function getAllBatch() {
-    api_common.getAllBatch().done(function (data) {
+    api_batch.getAllBatch().done(function (data) {
         if (data.status === 0) {
             let data_arr = data.data;
             let batch1 = $('#weight_select_batch1').empty();
@@ -33,7 +33,7 @@ function getAllBatch() {
 
 //  获取所有权重模版名
 function findAllTemplate() {
-    api_weight.findAllTemplate().done(function (data) {
+    api_proced.findAllTemplate().done(function (data) {
         if (data.status === 0) {
             let data_arr = data.data;
             let templates1 = $('#weight_select_templates1').empty();
@@ -55,7 +55,7 @@ $('#weight_select_templates1').change(function () {
     let new_template = $('#weight_select_templates1').val();
 
     if (new_template !== "权重模版选择") {
-        api_weight.findTemplateItemByName(
+        api_proced.findTemplateItemByName(
             {
                 'name': new_template
             }
@@ -120,7 +120,7 @@ function submitWeight() {
         form_arr[names[i]] = weights[i] / 100;
     }
 
-    api_weight.addTemplate(template_name, form_arr).done(function (data) {
+    api_proced.addTemplate(template_name, form_arr).done(function (data) {
         if (data.status === 0) {
             swal(
                 '修改成功',
@@ -148,7 +148,7 @@ function band() {
             'warning'
         );
     } else {
-        api_weight.band(
+        api_proced.band(
             {
                 batch_name: batch_name,
                 template_name: template_name
@@ -194,7 +194,7 @@ function deleteTemplate() {
             cancelButtonText: '取消',
         }).then(result => {
             if (result.value) {
-                api_weight.deleteTemplate(
+                api_proced.deleteTemplate(
                     {
                         name: name
                     }
@@ -231,7 +231,7 @@ $('#weight_select_batch2').change(function () {
     let batch_name = $('#weight_select_batch2').val();
     // console.log(batch_name);
     if (batch_name !== "批次选择") {
-        api_common.getBatchProced(batch_name).done(function (data) {
+        api_proced.getBatchProced(batch_name).done(function (data) {
             if (data.status === 0) {
                 let data_arr = data.data;
                 let weight_list = $('#show_weight_list_tbody').empty();
@@ -254,7 +254,7 @@ $('#weight_select_batch2').change(function () {
 // 添加新权重方法
 function addTemplate() {
     //获取所有打分项,生成打分表格
-    api_common.getAllProced().done(function (data) {
+    api_proced.getAllProced().done(function (data) {
         if (data.status === 0) {
             let proces = data.data;
             proceCount = proces.length;
@@ -343,7 +343,7 @@ function createNewWeightTemp() {
             postData[names[i]] = weights[i] / 100;
         }
     }
-    api_weight.addTemplate(name, postData).done(function (data) {
+    api_proced.addTemplate(name, postData).done(function (data) {
         if (data.status === 0) {
             //重新初始化权重模板选择
             findAllTemplate();
