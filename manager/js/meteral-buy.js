@@ -833,7 +833,7 @@ function modifyOneRemi(data) {
         }
     }
 }
-// 确认修改报账记录###############################################
+// 确认修改报账记录
 function verifyOneRemi(data) {
     var id = data.id.substring(6,data.id.length);
     var postdata = {};

@@ -78,7 +78,7 @@ var api_reim = {
             ids
         )
     },
-    // 修改报账 接口还有问题**********************************
+    // 修改审核报账
     remiVerify:function (postdata) {
         return post_query(
             '/reim/verify',
