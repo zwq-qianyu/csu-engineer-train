@@ -1,5 +1,12 @@
+var tname = "";
 $(function(){
     init_data();
+    api_user.getInfo().done(function (data) {
+        if(data.status==0){
+            tname=data.data["姓名"]
+            console.log(tname)
+        }
+    })
 })
 
 
@@ -832,7 +839,9 @@ function verifyOneRemi(data) {
     var postdata = {};
     postdata.id = id;
     postdata.num = $("#modifyNum"+id).val();
-    postdata.tname = basicInfo.name;
+    postdata.tname = tname;
+    console.log(basicInfo)
+    console.log(postdata)
     api_reim.remiVerify(postdata)
         .done(function (data) {
             if(data.status==0){
