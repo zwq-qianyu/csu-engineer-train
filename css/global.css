@@ -252,6 +252,13 @@
   margin-left: -2px;
 }
 
+.btn-select {
+  height: 39px;
+  width: 80px;
+  font-size: 14px;
+  color: #3f8bc7;
+}
+
 .barcon {
   margin: 0 auto;
   text-align: center;

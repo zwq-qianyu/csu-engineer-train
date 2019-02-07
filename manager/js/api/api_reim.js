@@ -70,11 +70,12 @@ var api_reim = {
         // 发送ajax请求
         xhr.send(JSON.stringify(postdata.reimIds))
     },
-    // 删除报账 还没有这个接口*********************************
-    deleteRemi:function(id) {
-        return post_query(
-            'reim/delete',
-            JSON.stringify([id])
+    // 删除报账
+    deleteRemi:function(ids) {
+        console.log(233)
+        return post_json(
+            '/reim/delete',
+            ids
         )
     },
     // 修改报账 接口还有问题**********************************

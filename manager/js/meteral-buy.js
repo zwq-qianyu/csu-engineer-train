@@ -315,7 +315,7 @@ function excelApply() {
 
         })
 }
-// 新增申购记录 有问题###############################################
+// 新增申购记录
 function addOneApply(){
     var post_data={};
     post_data.clazz = $("#add_apply_material").val();
@@ -380,12 +380,10 @@ function fillApplyTableVerify(data) {
                 '<td><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].apply_num+'</div><input type="number" class="modifyInput'+data_arr[i].purchase_id+' form-control" value="'+data_arr[i].apply_num+'" id="modifyNum'+data_arr[i].purchase_id+'"></td>' +
                 '<td><div class="modify'+data_arr[i].purchase_id+'">'+data_arr[i].pur_tname+'</div><select class="modifyInput'+data_arr[i].purchase_id+' form-control" id="options'+data_arr[i].purchase_id+'"></select></td>';
         html += '<td><div class="row">' +
-                    '<button class="btn btn-sm btn-success col-sm-12 col-xs-12 '+data_arr[i].pur_tname+'" id="verify'+data_arr[i].purchase_id+'" onclick="verifyOneApply(this)">确认</button>' +
-                    '</div>' +
-                    '<div class="row">' +
-                    '<button class="btn btn-sm btn-default col-sm-5 col-xs-5 '+data_arr[i].pur_tname+'" id="modify'+data_arr[i].purchase_id+'" onclick="modifyOneApply(this)">编辑</button>' +
-                    '<button class="btn btn-sm btn-danger col-sm-5 col-xs-5 col-sm-offset-2 col-xs-offset-2" id="delete'+data_arr[i].purchase_id+'" onclick="deleteOneApply(this)">删除</button>' +
-                    '</div>' +
+                '<img src="../icon/check-1.svg" class="row-image col-sm-4 col-xs-4 '+data_arr[i].pur_tname+'" id="verify'+data_arr[i].purchase_id+'" onclick="verifyOneApply(this)">' +
+                '<img src="../icon/edit-1.svg" class="row-image col-sm-4 col-xs-4 '+data_arr[i].pur_tname+'" id="modify'+data_arr[i].purchase_id+'" onclick="modifyOneApply(this)">' +
+                '<img src="../icon/delete-2.svg" class="row-image col-sm-4 col-xs-4" id="delete'+data_arr[i].purchase_id+'" onclick="deleteOneApply(this)"> ' +
+                '</div>' +
                 '</td></tr>';
     }
     $('#sadminTbody').html(html);
@@ -714,8 +712,7 @@ function addOneRemiburse() {
           else{
               swal(
                   '报账失败',
-                  // data.message,
-                  '报账，请重试！',
+                  data.message,
                   'error'
               );
           }
@@ -756,11 +753,9 @@ function fillRemiTableVerify(data){
             '<td><div class="modify'+data_arr[i].id+'">'+data_arr[i].remib_num+'</div><input type="number" class="modifyInput'+data_arr[i].id+' form-control" value="'+data_arr[i].remib_num+'" id="modifyNum'+data_arr[i].id+'"></td>'+
             '<td>'+data_arr[i].vertify+'</td><td>'+data_arr[i].remib_remark+'</td>'
         html += '<td><div class="row">' +
-            '<button class="btn btn-sm btn-success col-sm-12 col-xs-12 " id="verify'+data_arr[i].id+'" onclick="verifyOneRemi(this)">确认</button>' +
-            '</div>' +
-            '<div class="row">' +
-            '<button class="btn btn-sm btn-default col-sm-5 col-xs-5 " id="modify'+data_arr[i].id+'" onclick="modifyOneRemi(this)">编辑</button>' +
-            '<button class="btn btn-sm btn-danger col-sm-5 col-xs-5 col-sm-offset-2 col-xs-offset-2" id="delete'+data_arr[i].id+'" onclick="deleteOneRemi(this)">删除</button>' +
+            '<img src="../icon/check-1.svg" class="row-image col-sm-4 col-xs-4" id="verify'+data_arr[i].id+'" onclick="verifyOneRemi(this)">' +
+            '<img src="../icon/edit-1.svg" class="row-image col-sm-4 col-xs-4" id="modify'+data_arr[i].id+'" onclick="modifyOneRemi(this)">' +
+            '<img src="../icon/delete-2.svg" class="row-image col-sm-4 col-xs-4" id="delete'+data_arr[i].id+'" onclick="deleteOneRemi(this)"> ' +
             '</div>' +
             '</td></tr>';
     }
@@ -768,7 +763,7 @@ function fillRemiTableVerify(data){
     // 分页初始化
     goPage("h",1,5);
 }
-// 删除报账记录##################################################
+// 删除报账记录
 function deleteOneRemi(data) {
     swal({
         title: "真的删除该记录吗？",
@@ -779,7 +774,8 @@ function deleteOneRemi(data) {
     }).then(function (isConfirm) {
         if(isConfirm.value){
             var id = data.id.substring(6,data.id.length)
-            api_reim.deleteRemi(id)
+            var ids = [].concat(id)
+            api_reim.deleteRemi(ids)
                 .done(function (data) {
                     if(data.status==0) {
                         swal({
@@ -789,6 +785,12 @@ function deleteOneRemi(data) {
                             init_data()
                         })
 
+                    }
+                    else{
+                        swal({
+                            title:"删除失败!",
+                            type:"error"
+                        })
                     }
 
                 })

@@ -131,7 +131,7 @@
                         </div>
 
                         <div class="col-xs-2 col-sm-2">
-                            <input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSelectedApply()">
+                            <input type="button" name=""class="btn btn-outline float-right" value="查询" onclick="getSelectedApply()">
                         </div>
                     </div>
 
@@ -275,7 +275,7 @@
                             <input class="form-control" placeholder="申购编号" id="spurchase_number">
                         </div>
                         <div class="col-xs-2 col-sm-2">
-                            <input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getApplyFPchseVerify()">
+                            <input type="button" name=""class="btn btn-outline float-right" value="查询" onclick="getApplyFPchseVerify()">
                         </div>
                     </div>
 
@@ -292,7 +292,7 @@
                                 <th>审核状态</th>
                                 <th width="100px">申购数量</th>
                                 <th width="100px">采购人</th>
-                                <th style="width: 150px">审核操作</th>
+                                <th style="width: 200px">审核操作</th>
                             </tr>
                             </thead>
                             <tbody class="vertical-middle" id="sadminTbody"></tbody>
@@ -366,7 +366,7 @@
                         </div>
 
                         <div class="col-xs-2 col-sm-2">
-                            <input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getPurchase()">
+                            <input type="button" name=""class="btn btn-outline float-right" value="查询" onclick="getPurchase()">
                         </div>
                     </div>
 
@@ -516,7 +516,7 @@
                             <input class="form-control" placeholder="申购编号" id="bpurchase_number">
                         </div>
                         <div class="col-xs-2 col-sm-2">
-                            <input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getRemi()">
+                            <input type="button" name=""class="btn btn-outline float-right" value="查询" onclick="getRemi()">
                         </div>
                     </div>
 
@@ -653,26 +653,29 @@
                             <input class="form-control" placeholder="申购编号" id="hpurchase_number">
                         </div>
                         <div class="col-xs-2 col-sm-2">
-                            <input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getRemiVerify()">
+                            <input type="button" name=""class="btn btn-outline float-right" value="查询" onclick="getRemiVerify()">
                         </div>
                     </div>
 
                     <!-- 表格主体部分 -->
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>申购编号</th>
-                            <th>新增报账申请日期</th>
-                            <th>采购人</th>
-                            <th>物料种类</th>
-                            <th>报账数量</th>
-                            <th>审核状态</th>
-                            <th>报账备注</th>
-                            <th>采购操作</th>
-                        </tr>
-                        </thead>
-                        <tbody id="hadminTbody"></tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped" style="min-width: 1200px">
+                            <thead>
+                            <tr>
+                                <th>申购编号</th>
+                                <th>新增报账申请日期</th>
+                                <th>采购人</th>
+                                <th>物料种类</th>
+                                <th>报账数量</th>
+                                <th>审核状态</th>
+                                <th>报账备注</th>
+                                <th style="width: 200px">采购操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="hadminTbody"></tbody>
+                        </table>
+                    </div>
+
 
                     <!-- 分页功能部分 -->
                     <div id="hbarcon" class="barcon">
@@ -741,7 +744,7 @@
                         </div>
 
                         <div class="col-xs-2 col-sm-2">
-                            <input type="button" name=""class="btn btn-success float-right" value="查询" onclick="getSaveBy5()">
+                            <input type="button" name=""class="btn btn-select btn-outline float-right" value="查询" onclick="getSaveBy5()">
                         </div>
                     </div>
 
