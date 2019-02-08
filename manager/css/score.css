@@ -84,6 +84,6 @@ th, td {
 	margin-bottom: 30px;
 }
 
-#scorelistEditModal tr td input {
+.edit-input {
 	width: 45px;
 }

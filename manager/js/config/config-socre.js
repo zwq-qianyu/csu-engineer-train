@@ -1,7 +1,7 @@
 //批次对应的工序列表
 var processes = [];
 //成绩列表表格前段固定列
-var score_list_columns_front=[
+var score_list_columns_front = [
     {
         field: 'batchAndGroup',
         title: '批次/组',
@@ -17,7 +17,7 @@ var score_list_columns_front=[
     }
 ];
 //成绩列表后段固定列
-var score_list_columns_end=[
+var score_list_columns_end = [
     {
         field: 'scoreSum',
         title: '总成绩'
@@ -41,64 +41,64 @@ var score_list_columns_end=[
     }
 ];
 //成绩列表 bootstrap table 配置信息
-var score_list_table_config={
+var score_list_table_config = {
     columns: [],
-    data:[],
+    data: [],
     pagination: true,
     pageList: [10, 20, 50],
-    fixedColumns:true,
-    fixedNumber:score_list_columns_front.length
+    fixedColumns: true,
+    fixedNumber: score_list_columns_front.length
 };
 //权重模板信息
 var weights = {};
 //修改时选择的row的index
-var score_row_index=null;
+var score_row_index = null;
 //成绩提交列表 bootstrap table 配置信息
-var submit_list_table_config={
+var submit_list_table_config = {
     columns: [
         {
-            field:'submitTime',
-            title:'提交时间'
-        },{
-            field:'batchName',
-            title:'批次'
-        },{
-            field:'group',
-            title:'组号'
-        },{
-            field:'process',
-            title:'工种'
-        },{
-            field:'submitter',
-            title:'提交人'
+            field: 'submitTime',
+            title: '提交时间'
+        }, {
+            field: 'batchName',
+            title: '批次'
+        }, {
+            field: 'group',
+            title: '组号'
+        }, {
+            field: 'process',
+            title: '工种'
+        }, {
+            field: 'submitter',
+            title: '提交人'
         }
     ],
-    data:[],
+    data: [],
     pagination: true,
     pageList: [10, 20, 50],
 };
 
 //成绩修改列表 bootstrap table 配置信息
-var update_list_table_config={
-    columns:[
+var update_list_table_config = {
+    columns: [
         {
-            field:'update_time',
-            title:'修改时间'
-        },{
-            field:'sname',
-            title:'学生姓名'
-        },{
-            field:'clazz',
-            title:'班级'
-        },{
-            field:'batch_name',
-            title:'批次'
-        },{
-            field:'reason',
-            title:'备注'
+            field: 'update_time',
+            title: '修改时间'
+        }, {
+            field: 'sname',
+            title: '学生姓名'
+        }, {
+            field: 'clazz',
+            title: '班级'
+        }, {
+            field: 'batch_name',
+            title: '批次'
+        }, {
+            field: 'reason',
+            title: '备注'
         }
     ],
-    data:[],
+    data: [],
     pagination: true,
     pageList: [10, 20, 50],
 };
@@ -123,21 +123,62 @@ var entry_table_config = {
         }, {
             title: '录入时间',
             field: 'entryTime'
-        },{
+        }, {
             title: '录入人',
             field: 'entryMan'
         },
     ],
-    data:[],
+    data: [],
     pagination: true,
     pageList: [10, 20, 50],
 };
+//特殊学生工序
+var special_processes = [];
+//特殊学生成绩列表前段固定列
+var special_score_list_columns_front = [
+    // {
+    //     checkbox: true
+    // },
+    {
+        field: 'name',
+        title: '姓名'
+    },
+    {
+        field: 'sid',
+        title: '学号'
+    }
+];
+//特殊学生成绩列表后段固定列
+var special_score_list_columns_end=[
+    {
+        field: 'scoreSum',
+        title: '总成绩'
+    },
+    {
+        field: 'degree',
+        title: '等级'
+    },
+    {
+        field: 'publishStatus',
+        title: '发布情况'
+    },
+    {
+        field: 'operate',
+        title: '操作',
+        formatter: function (value, row, index) {
+            return [
+                '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#specialListEditModal" onclick="updateSpScore()">修改</button>',
+            ]
+        }
+    }
+];
+
 //特殊学生成绩列表 bootstrap table 配置信息
-var special_score_list_table_config={
+var special_score_list_table_config = {
     columns: [],
-    data:[],
+    data: [],
     pagination: true,
     pageList: [10, 20, 50],
-    fixedColumns:true,
-    fixedNumber:score_list_columns_front.length
+    fixedColumns: true,
+    fixedNumber: score_list_columns_front.length
 };
