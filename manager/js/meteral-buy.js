@@ -913,6 +913,7 @@ function addOneStore() {
   newStore.time = $("#add_store_date").val();
   newStore.num = $("#add_store_number").val();
   newStore.remark = $("#add_store_note").val();
+  newStore.tname = tname;
   api_save.addSave(newStore)
       .done(function (data) {
           $("#add_store_num").val("");
