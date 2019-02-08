@@ -431,58 +431,45 @@ $('#score_list_select_batch').change(function () {
     getGroupByBatch(batch_name, '#score_list_select_group_number')
 });
 
-//改变工种时做出响应
-$('#score_list_select_process').change(function () {
-    let batch_name = $('#score_list_select_batch').val();
-    let pro_name = $('#score_list_select_process').val();
-    if (batch_name === '实习批次选择') {
-        swal(
-            '请先选择批次',
-            '请选择对应批次后查询成绩！',
-            'warning'
-        );
-        return;
+//对表格进行筛选
+function filterScoreTable(){
+    let process=$('#score_list_select_process').val();
+    let group=$('#score_list_select_group_number').val();
+    let filterTableConfig={
+        columns: score_list_table_config.columns,
+        data:[],
+        pagination: true,
+        pageList: [10, 20, 50],
+        fixedColumns:process === '选择工种',
+        fixedNumber:score_list_columns_front.length
+    };
+    if(group!=='组号'){
+        let regex=new RegExp(group+'$');
+        _.forEach(score_list_table_config.data,function (value) {
+            if(regex.test(value.batchAndGroup)){
+                filterTableConfig.data.push(value);
+            }
+        });
+    }else {
+        filterTableConfig.data=score_list_table_config.data;
     }
-    if (pro_name === '选择工种') {
-        score_list_table_config.fixedColumns = true;
-        $('#score_list_table').bootstrapTable('destroy').bootstrapTable(score_list_table_config);
-    } else {
-        let score_list_table = $('#score_list_table');
-        if (score_list_table_config.fixedColumns) {
-            score_list_table_config.fixedColumns = false;
-            score_list_table.bootstrapTable('destroy').bootstrapTable(score_list_table_config);
-        }
-        score_list_table.bootstrapTable('showColumn', pro_name);
-        //隐藏除选择以外的所有工种
-        _.forEach(processes, function (value) {
-            if (value !== pro_name) {
-                score_list_table.bootstrapTable('hideColumn', value);
+    let table=$('#score_list_table');
+    table.bootstrapTable('destroy').bootstrapTable(filterTableConfig);
+    if(!filterTableConfig.fixedColumns){
+        _.forEach(processes,function (value) {
+            if(value!==process){
+                table.bootstrapTable('hideColumn',value);
             }
         })
+
     }
-});
+}
+
+//改变工种时做出响应
+$('#score_list_select_process').change(filterScoreTable);
 
 //改变分组时做出响应
-$('#score_list_select_group_number').change(function () {
-    let s_group_id = $('#score_list_select_group_number').val();
-
-    let table = $('#score_list_table');
-    let tableData = score_list_table_config.data;
-    //显示所有行
-    if (s_group_id === '组号') {
-        table.bootstrapTable('destroy').bootstrapTable(score_list_table_config);
-    } else {
-
-        let regex = new RegExp(s_group_id + '$');
-        for (let i = 0; i < tableData.length; i++) {
-            if (!regex.test(tableData[i].batchAndGroup)) {
-                table.bootstrapTable('hideRow', {index: i});
-            } else {
-                table.bootstrapTable('showRow', {index: i});
-            }
-        }
-    }
-});
+$('#score_list_select_group_number').change(filterScoreTable);
 //点击查询按钮时做出响应
 $('#get_score_list').click(function () {
     let sId = $('#score_list_stu_number').val().trim();
@@ -676,12 +663,8 @@ function filterEntryTable(){
     $('#entry-list-table').bootstrapTable('destroy').bootstrapTable(filterTableConfig);
 }
 
-$('#entry-list-select-process').change(function () {
-    filterEntryTable();
-});
-$('#entry-list-select-group').change(function () {
-    filterEntryTable();
-});
+$('#entry-list-select-process').change(filterEntryTable);
+$('#entry-list-select-group').change(filterEntryTable);
 $('#get_entry_list').click(function () {
     let sid=$('#entry_list_stu_number').val().trim();
     let sName=$('#entry_list_stu_name').val().trim();
