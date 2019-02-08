@@ -164,6 +164,21 @@
 .table tbody tr:nth-child(odd) {
   background: #e5f0f6;
 }
+.table .table_id {
+  width: 120px;
+}
+.table .table_time {
+  width: 230px;
+}
+.table .table_people, .table .table_num, .table .table_status {
+  width: 100px;
+}
+.table .table_material {
+  width: 180px;
+}
+.table .table_note, .table .table_operate {
+  width: 200px;
+}
 
 .content-card {
   background: #ffffff;
