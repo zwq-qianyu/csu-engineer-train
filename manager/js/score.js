@@ -584,30 +584,49 @@ function fillEntryTable(data){
     if (data.status === 0) {
         let data_arr = data.data;
         let tableData = [];
-        let ajaxArray = [];
+        let studentAjaxArray = [];
+        let teacherAjaxArray=[];
         let TableDataObj = {};
         _.forEach(data_arr, function (value) {
-            TableDataObj[value.sid] = {
+            tableData.push({
                 sid: value.sid,
                 process: value.pro_name,
                 score: value.pro_score,
                 entryTime: chGMT(value.time)
-            };
-            ajaxArray.push(api_student.getStudent(value.sid));
-        });
-        $.when.apply($, ajaxArray).done(function () {
-            _.forEach(arguments, function (value) {
-                let data = value[0];
-                if (data.status === 0) {
-                    TableDataObj[data.data.sid].name = data.data.sname;
-                    TableDataObj[data.data.sid].batchNameAndGroup=batch_name+'/'+data.data.s_group_id;
-                }
-                tableData.push(TableDataObj[data.data.sid]);
             });
+            studentAjaxArray.push(api_student.getStudent(value.sid));
+            teacherAjaxArray.push(api_teacher.getTeacher(value.tid));
+        });
+        let studentAjaxGroup=$.when.apply($, studentAjaxArray).done(function () {
+            for (let i = 0; i < arguments.length; i++) {
+                let data=arguments[i][0];
+                try {
+                    if(data.status===0){
+                        tableData[i].name=data.data.sname;
+                        tableData[i].batchNameAndGroup=batch_name+'/'+data.data.s_group_id;
+                    }
+                }catch (e) {
+                    console.log(e);
+                }
+            }
+        });
+        let teacherAjaxGroup=$.when.apply($,teacherAjaxArray).done(function () {
+            for (let i = 0; i < arguments.length; i++) {
+                let data=arguments[i][0];
+                try {
+                    if(data.status===0){
+                        tableData[i].entryMan=data.data.tname;
+                    }
+                }catch (e) {
+                    console.log(e);
+                }
+            }
+        });
+        $.when(studentAjaxGroup,teacherAjaxGroup).done(function () {
             tableData=_.sortBy(tableData,'batchNameAndGroup');
             entry_table_config.data = tableData;
             $('#entry-list-table').bootstrapTable('destroy').bootstrapTable(entry_table_config);
-        });
+        })
     }
 
 }
