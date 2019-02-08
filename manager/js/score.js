@@ -6,31 +6,10 @@ window.onload = function () {
 function init_data() {
     // 获取所有批次
     getAllBatch_StuList();
-    // 获取所有工种
-    getAllProced();
-    // // 根据条件查询成绩列表
-    // getScoreList();
     // 查询教师提交成绩记录--初始化
     getScoreRecord();
     // 特殊学生成绩查询
-    getSpScore();
-}
-
-// 获取所有工种
-function getAllProced() {
-    return api_proced.getAllProced().done(function (data) {
-        if (data.status === 0) {
-            let data_arr = data.data;
-            let score_list1 = $('#input_score_select_scoreitem').empty().append('<option>选择工种</option>');
-            let score_list2 = $('#score_submit_select_process').empty().append('<option>选择工种</option>');
-            for (let i = 0; i < data_arr.length; i++) {
-                let option = $('<option></option>');
-                option.text(data_arr[i]);
-                score_list1.append(option.clone());
-                score_list2.append(option.clone());
-            }
-        }
-    });
+    // getSpScore();
 }
 
 //根据批次名获取分组并填充
@@ -72,6 +51,7 @@ function getAllBatch_StuList() {
             let batch3 = $('#input_score_select_batch').empty().append('<option>实习批次选择</option>');
             let batch4 = $('#score_submit_select_batch').empty().append('<option>实习批次选择</option>');
             let batch5 = $('#score_edithistory_select_batch').empty().append('<option>实习批次选择</option>');
+            let batch6 = $('#entry-list-select-batch').empty().append('<option>实习批次选择</option>');
             for (let i = 0; i < data.data.length; i++) {
                 let option = $('<option></option>');
                 option.text(data.data[i].batch_name);
@@ -80,6 +60,7 @@ function getAllBatch_StuList() {
                 batch3.append(option.clone());
                 batch4.append(option.clone());
                 batch5.append(option.clone());
+                batch6.append(option.clone());
 
             }
         }
@@ -125,19 +106,19 @@ function getProcedByBatchName(batch_name = '') {
 }
 
 // 根据条件查询成绩列表,并填充表格
-function getScoreList(post_data=null) {
-    if(post_data===null){
-        let batch_name=$('#score_list_select_batch').val();
-        let process_name=$('#score_list_select_process').val();
-        let group_name=$('#score_list_select_group_number').val();
-        let sname=$('#score_list_stu_name').val();
-        let sid=$('#score_list_stu_number').val();
-        post_data={
-            batch_name:  batch_name==='实习批次选择' ? 'all': batch_name,
-            s_group_id: process_name==='选择工种' ? 'all':process_name,
-            pro_name: group_name==='组号' ? 'all':group_name,
-            sId: sname ? sname:'all',
-            sName: sid ? sid:'all'
+function getScoreList(post_data = null) {
+    if (post_data === null) {
+        let batch_name = $('#score_list_select_batch').val();
+        let process_name = $('#score_list_select_process').val();
+        let group_name = $('#score_list_select_group_number').val();
+        let sname = $('#score_list_stu_name').val();
+        let sid = $('#score_list_stu_number').val();
+        post_data = {
+            batch_name: batch_name === '实习批次选择' ? 'all' : batch_name,
+            s_group_id: process_name === '选择工种' ? 'all' : process_name,
+            pro_name: group_name === '组号' ? 'all' : group_name,
+            sId: sname ? sname : 'all',
+            sName: sid ? sid : 'all'
         };
     }
     return api_score.getScore(
@@ -489,16 +470,15 @@ $('#score_list_select_group_number').change(function () {
     let tableData = score_list_table_config.data;
     //显示所有行
     if (s_group_id === '组号') {
-        for (let i = 0; i < tableData.length; i++) {
-            table.bootstrapTable('showRow',{index:i});
-        }
+        table.bootstrapTable('destroy').bootstrapTable(score_list_table_config);
     } else {
+
         let regex = new RegExp(s_group_id + '$');
         for (let i = 0; i < tableData.length; i++) {
             if (!regex.test(tableData[i].batchAndGroup)) {
-                table.bootstrapTable('hideRow', {index:i});
+                table.bootstrapTable('hideRow', {index: i});
             } else {
-                table.bootstrapTable('showRow', {index:i});
+                table.bootstrapTable('showRow', {index: i});
             }
         }
     }
@@ -612,6 +592,115 @@ function importStudentsScore() {
 
 //3、成绩录入记录
 //=========================================================================
+function fillEntryTable(data){
+    let batch_name = $('#entry-list-select-batch').val();
+    if (data.status === 0) {
+        let data_arr = data.data;
+        let tableData = [];
+        let ajaxArray = [];
+        let TableDataObj = {};
+        _.forEach(data_arr, function (value) {
+            TableDataObj[value.sid] = {
+                sid: value.sid,
+                process: value.pro_name,
+                score: value.pro_score,
+                entryTime: chGMT(value.time)
+            };
+            ajaxArray.push(api_student.getStudent(value.sid));
+        });
+        $.when.apply($, ajaxArray).done(function () {
+            _.forEach(arguments, function (value) {
+                let data = value[0];
+                if (data.status === 0) {
+                    TableDataObj[data.data.sid].name = data.data.sname;
+                    TableDataObj[data.data.sid].batchNameAndGroup=batch_name+'/'+data.data.s_group_id;
+                }
+                tableData.push(TableDataObj[data.data.sid]);
+            });
+            tableData=_.sortBy(tableData,'batchNameAndGroup');
+            entry_table_config.data = tableData;
+            $('#entry-list-table').bootstrapTable('destroy').bootstrapTable(entry_table_config);
+        });
+    }
+
+}
+$('#entry-list-select-batch').change(function () {
+    let batch_name = $('#entry-list-select-batch').val();
+    if (batch_name === '实习批次选择') {
+        return;
+    }
+    getProcessByBatch(batch_name, '#entry-list-select-process');
+    getGroupByBatch(batch_name, '#entry-list-select-group');
+    api_score.getInputInfo(batch_name).done(fillEntryTable)
+});
+
+function filterEntryTable(){
+    let process=$('#entry-list-select-process').val();
+    let group=$('#entry-list-select-group').val();
+    let regex=new RegExp(group+'$');
+    let tableData=entry_table_config.data;
+    let filterTableConfig={
+        columns: [
+            {
+                title: '批次/组',
+                field: 'batchNameAndGroup'
+            }, {
+                title: '学号',
+                field: 'sid'
+            }, {
+                title: '姓名',
+                field: 'name'
+            }, {
+                title: '打分项',
+                field: 'process'
+            }, {
+                title: '分数',
+                field: 'score'
+            }, {
+                title: '录入时间',
+                field: 'entryTime'
+            },{
+                title: '录入人',
+                field: 'entryMan'
+            },
+        ],
+        data:[],
+        pagination: true,
+        pageList: [10, 20, 50],
+    };
+    _.forEach(tableData,function (value) {
+        if((process==='选择工种'||process===value.process)&&(group==='组号'||regex.test(value.batchNameAndGroup))){
+            filterTableConfig.data.push(value);
+        }
+    });
+    $('#entry-list-table').bootstrapTable('destroy').bootstrapTable(filterTableConfig);
+}
+
+$('#entry-list-select-process').change(function () {
+    filterEntryTable();
+});
+$('#entry-list-select-group').change(function () {
+    filterEntryTable();
+});
+$('#get_entry_list').click(function () {
+    let sid=$('#entry_list_stu_number').val().trim();
+    let sName=$('#entry_list_stu_name').val().trim();
+    if(sid===''&&sName===''){
+        swal(
+            '条件错误',
+            '请输入姓名或者学号进行查询',
+            'warning'
+        );
+        return;
+    }
+    if(sid===''){
+        sid='all';
+    }
+    if(sName===''){
+        sName='all';
+    }
+    api_score.getInputInfo('all','all','all',sid,sName).done(fillEntryTable)
+});
 
 
 // ========================================================================
@@ -696,31 +785,31 @@ function searchUpdateHistory() {
     let sname = $('#score_edithistory_sname').val();
     let sid = $('#score_edithistory_sid').val();
 
-    let send_data={};
+    let send_data = {};
 
     if (batch_name !== "实习批次选择") {
         send_data.batch_name = batch_name;
     }
-    if(begin!==''){
-        send_data.begin=begin;
+    if (begin !== '') {
+        send_data.begin = begin;
     }
-    if(end!==''){
-        send_data.end=end;
+    if (end !== '') {
+        send_data.end = end;
     }
-    if(sname!==''){
-        send_data.sname=sname;
+    if (sname !== '') {
+        send_data.sname = sname;
     }
-    if(sid!==''){
-        send_data.sid=sid;
+    if (sid !== '') {
+        send_data.sid = sid;
     }
     api_score.getScoreUpdate(send_data).done(function (data) {
-        if(data.status===0){
-            let data_arr=data.data;
-            tableData=[];
+        if (data.status === 0) {
+            let data_arr = data.data;
+            tableData = [];
             for (let i = 0; i < data_arr.length; i++) {
-                data_arr[i].update_time=chGMT(data_arr[i].update_time);
+                data_arr[i].update_time = chGMT(data_arr[i].update_time);
             }
-            update_list_table_config.data=data_arr;
+            update_list_table_config.data = data_arr;
             $('#update_list_table').bootstrapTable('destroy').bootstrapTable(update_list_table_config);
         }
     });

@@ -280,7 +280,7 @@
                                 <option>组号</option>
                             </select>
                             <select class="form-control custom-select col-xs-3 col-sm-3" id="entry-list-select-process">
-                                <option>打分项</option>
+                                <option>选择工种</option>
                             </select>
                         </div>
                         <div class="row input-select">
@@ -288,8 +288,10 @@
                                    id="entry_list_stu_number">
                             <input type="text" name="stu-name" placeholder="学生姓名" class="form-control col-xs-3 col-sm-3"
                                    id="entry_list_stu_name">
-                            <button class="btn btn-sm btn-primary">查询</button>
+                            <button class="btn btn-sm btn-primary" id="get_entry_list">查询</button>
                         </div>
+                        <br>
+                        <br>
                         <table id="entry-list-table"></table>
                     </div>
                 </div>
@@ -493,6 +495,7 @@
 <script type="text/javascript" src="./js/config/config-socre.js"></script>
 <script type="text/javascript" src="./js/api/api_batch.js"></script>
 <script type="text/javascript" src="./js/api/api_proced.js"></script>
+<script type="text/javascript" src="./js/api/api_student.js"></script>
 <script type="text/javascript" src="./js/api/api_score.js"></script>
 <script type="text/javascript" src="./js/score.js"></script>
 </body>

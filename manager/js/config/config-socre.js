@@ -106,11 +106,11 @@ var update_list_table_config={
 var entry_table_config = {
     columns: [
         {
-            title: '批次/组号',
-            field: 'batchAndGroup'
+            title: '批次/组',
+            field: 'batchNameAndGroup'
         }, {
             title: '学号',
-            field: 'sId'
+            field: 'sid'
         }, {
             title: '姓名',
             field: 'name'
@@ -128,6 +128,16 @@ var entry_table_config = {
             field: 'entryMan'
         },
     ],
+    data:[],
     pagination: true,
     pageList: [10, 20, 50],
+};
+//特殊学生成绩列表 bootstrap table 配置信息
+var special_score_list_table_config={
+    columns: [],
+    data:[],
+    pagination: true,
+    pageList: [10, 20, 50],
+    fixedColumns:true,
+    fixedNumber:score_list_columns_front.length
 };

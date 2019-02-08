@@ -32,5 +32,16 @@ var api_score = {
     getScoreUpdate:function (post_data) {
         let query=$.param(post_data);
         return post_query('/score/getScoreUpdate?'+query,{});
+    },
+    //查询成绩录入记录
+    getInputInfo:function (batchName='all',proName='all',sgroup='all',sid='all',sname='all') {
+        let post_data={
+            batchName:batchName,
+            proName:proName,
+            sgroup:sgroup,
+            sid:sid,
+            sname:sname
+        };
+        return post_json('/score/getInputInfo',post_data);
     }
 };
