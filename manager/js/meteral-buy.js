@@ -3,7 +3,7 @@ $(function(){
     init_data();
     api_user.getInfo().done(function (data) {
         if(data.status==0){
-            tname=data.data["id"]
+            tname=data.data["姓名"]
             console.log(tname)
         }
     })
@@ -572,6 +572,7 @@ function addOnePurchase() {
   newPurchase.pur_time = $("#add_purchase_date").val();
   newPurchase.pur_num = $("#add_purchase_number").val();
   newPurchase.pur_remark = $("#add_purchase_note").val();
+  newPurchase.tName = tname;
     api_purchase.addPurchase(newPurchase)
         .done(function (data) {
             $("#add_purchase_num").val("");
