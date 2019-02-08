@@ -10,4 +10,19 @@
             background: $table-odd;
         }
     }
+    .table_id{
+        width: 120px;
+    }
+    .table_time{
+        width: 230px;
+    }
+    .table_people,.table_num,.table_status{
+        width: 100px;
+    }
+    .table_material{
+        width: 180px;
+    }
+    .table_note,.table_operate{
+        width: 200px;
+    }
 }
