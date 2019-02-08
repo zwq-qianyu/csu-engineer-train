@@ -622,7 +622,7 @@ function fillEntryTable(data){
                 }
             }
         });
-        $.when(studentAjaxGroup,teacherAjaxGroup).done(function () {
+        $.when(studentAjaxGroup,teacherAjaxGroup).always(function () {
             tableData=_.sortBy(tableData,'batchNameAndGroup');
             entry_table_config.data = tableData;
             $('#entry-list-table').bootstrapTable('destroy').bootstrapTable(entry_table_config);
@@ -708,31 +708,6 @@ $('#get_entry_list').click(function () {
 // ========================================================================
 // 4、成绩提交记录
 
-// 根据批次获取对应的分组号--成绩提交记录
-// function getAllSGroupByBatch() {
-//     let batch_name = $('#score_submit_select_batch').val();
-//     $.ajax({
-//         type: 'post',
-//         url: base_url + '/batch/getAllSGroup',
-//         datatype: 'json',
-//         data: {
-//             'batch_name': batch_name
-//         },
-//         success: function (data) {
-//             if (data.status === 0) {
-//                 console.log(data);
-//                 let data_arr = data.data;
-//                 let html = '<option>组号</option>';
-//                 for (let i = 0; i < data_arr.length; i++) {
-//                     html += '<option>' + data_arr[i] + '</option>'
-//                 }
-//                 $('#score_submit_select_groupid').html(html);
-//             }
-//         }
-//     });
-// }
-
-
 $('#score_submit_select_batch').change(function () {
     let batchName = $('#score_submit_select_batch').val();
     // 根据批次获取对应的分组号--成绩提交记录
@@ -761,18 +736,33 @@ function getScoreRecord() {
         if (data.status === 0) {
             let data_arr = data.data;
             let tableData = [];
+            let submitterAjaxArray=[];
             for (let i = 0; i < data_arr.length; i++) {
                 let tableRow = {
                     submitTime: chGMT(data_arr[i].submit_time),
                     batchName: data_arr[i].batch_name,
                     group: data_arr[i].s_group_id,
                     process: data_arr[i].pro_name,
-                    submitter: data_arr[i].pro_name
+                    // submitter: data_arr[i].pro_name
                 };
+                submitterAjaxArray.push(api_teacher.getTeacher(data_arr[i].tid));
                 tableData.push(tableRow);
             }
-            submit_list_table_config.data = tableData;
-            $('#submit_list_table').bootstrapTable('destroy').bootstrapTable(submit_list_table_config);
+            $.when.apply($,submitterAjaxArray).done(function () {
+                for (let i = 0; i < arguments.length; i++) {
+                    let data=arguments[i][0];
+                    try {
+                        if(data.status===0){
+                            tableData[i].submitter=data.data.tname;
+                        }
+                    }catch (e) {
+                        console.log(e);
+                    }
+                }
+            }).always(function () {
+                submit_list_table_config.data = tableData;
+                $('#submit_list_table').bootstrapTable('destroy').bootstrapTable(submit_list_table_config);
+            })
         }
     });
 }
