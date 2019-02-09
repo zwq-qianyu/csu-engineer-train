@@ -1,7 +1,6 @@
 function setHeight() {
     setTimeout(function()
     {
-        console.log("set height")
         var heightContent = $("#content_body").height();
 
         if(heightContent>800){
