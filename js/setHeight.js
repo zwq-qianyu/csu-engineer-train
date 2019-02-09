@@ -9,7 +9,7 @@ function setHeight() {
         }
         $("#nav_main").animate({height:heightContent-70+"px"});
         // $("#nav_main").css("height", heightContent-70)
-    }, 2000);
+    }, 1000);
 
 
 }
