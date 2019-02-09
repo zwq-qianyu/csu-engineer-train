@@ -117,9 +117,9 @@
 	</div>
 	<!-- 主体部分结束 -->
 	<script>
-		$(function () {
+        $("#content_body").bind('resize', function(e) {
             setHeight()
-        })
+        });
 	</script>
     <script src="../js/boot-navigation.js"></script>
 

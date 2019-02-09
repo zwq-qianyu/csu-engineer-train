@@ -1,3 +1,4 @@
+@charset "UTF-8";
 #header-wrap {
   padding: 10px 0;
   height: 100px;
@@ -38,11 +39,16 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  font-family: "Microsoft YaHei UI";
 }
 #navigation header, #navigation main {
   background: #edf0f5;
 }
 #navigation header {
+  background: url("../../img/nav-header.jpg");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 100%;
   line-height: 38px;
   box-sizing: border-box;
   text-align: center;
@@ -65,10 +71,10 @@
 #navigation main {
   padding: 10px 40px;
   min-height: 750px;
-  background-image: url("../../img/nav-bottom.jpg");
+  background-image: url("../../img/nav-top.jpg"), url("../../img/nav-bottom.jpg");
   background-repeat: no-repeat;
-  background-position: bottom;
-  background-size: 100%;
+  background-position: top, bottom;
+  background-size: 100%, 100%;
 }
 #navigation main > ul {
   padding-left: 0;
@@ -103,7 +109,6 @@
   font-size: 1rem;
   color: #111;
   text-decoration: none;
-  font-weight: 600;
 }
 #navigation main > ul > li ul > li:hover {
   background: #b9ddf5;
@@ -148,11 +153,14 @@
 
 .nav-item.nav-link {
   border: 2px solid #dcdcdc;
+  color: #4a4a4a;
   border-bottom: 2px solid transparent;
   margin: 0 10px -2px 0;
+  font-family: 黑体;
 }
 
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  color: #0691b8;
   border: 2px solid #079fc9;
   border-bottom: 2px solid transparent;
 }
@@ -163,6 +171,10 @@
 }
 .table tbody tr:nth-child(odd) {
   background: #e5f0f6;
+}
+.table th {
+  font-family: 黑体;
+  font-weight: normal;
 }
 .table .table_id {
   width: 120px;
@@ -180,6 +192,31 @@
   width: 200px;
 }
 
+table .row {
+  margin-bottom: 0;
+}
+
+input[name=btSelectAll] {
+  display: none;
+}
+
+.padding {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+#sadminTbody .row {
+  margin-right: 0;
+}
+
+[class^=modifyInput] {
+  display: none;
+}
+
+.fixed-table-loading {
+  display: none;
+}
+
 .content-card {
   background: #ffffff;
   margin-bottom: 1.4em;
@@ -194,6 +231,9 @@
   position: relative;
   display: inline-block;
   padding: 0 8px;
+  font-family: "Microsoft YaHei UI";
+  font-size: 1.2rem;
+  color: #112d4e;
 }
 .content-card header .header-title::after {
   position: absolute;
@@ -241,7 +281,8 @@
 .btn-outline {
   color: #3f8bc7;
   border-radius: 4px;
-  border: 2px solid #3f8bc7;
+  border: 1px solid #0066b7;
+  font-family: "Microsoft YaHei UI";
 }
 .btn-outline:hover {
   background-color: #e5f0f6;
@@ -252,6 +293,7 @@
   background: #56a3d7;
   color: #eee;
   border-radius: 4px;
+  font-family: "Microsoft YaHei UI";
 }
 .btn-default:hover {
   background: inherit;
@@ -264,14 +306,41 @@
   line-height: 46px;
 }
 .btn-group.right .btn {
-  margin-left: -2px;
+  margin-left: -1px;
 }
 
 .btn-select {
-  height: 39px;
   width: 80px;
-  font-size: 14px;
   color: #3f8bc7;
+}
+
+.select-top.row div[class^=col-] {
+  padding-left: 0;
+}
+
+.select-top > div[class^=col-] {
+  padding-right: 30px;
+}
+.select-top > div[class^=col-].last {
+  padding-right: 0;
+}
+.select-top > div[class^=col-].no-padding {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.select-top.title {
+  margin-bottom: 2px;
+  font-family: "Microsoft YaHei UI";
+  color: #4d4d4d;
+}
+
+.no-background {
+  background-color: #eee;
+}
+
+.row {
+  margin-bottom: 10px;
 }
 
 .barcon {
@@ -316,7 +385,6 @@
 }
 
 .barcon1 {
-  font-weight: 600;
   color: #505050;
 }
 

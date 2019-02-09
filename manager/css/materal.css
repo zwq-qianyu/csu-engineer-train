@@ -70,43 +70,7 @@ th, td {
 	padding: 0!important;
 	line-height: 3rem;
 }
-.select-top{
-	line-height: 39px;
-}
-.select-top.row div[class^="col-"]{
-	padding-left: 0;
-}
-.select-top.title{
-	margin-bottom: 0;
-}
-.select-top.row select{
-	margin-top: -3px;
-}
-input[name="btSelectAll"]{
-	display: none;
-}
-.no-background{
-	background-color: #ffffff;
-}
-.row{
-	margin-bottom: 10px;
-}
-table .row{
-	margin-bottom: 0;
-}
-.padding{
-	padding: 0 20px;
-	box-sizing: border-box;
-}
-#sadminTbody .row{
-	margin-right: 0;
-}
-[class^="modifyInput"]{
-	display: none;
-}
-.fixed-table-loading{
-	display: none;
-}
+
 .delete-image{
 	width: 20px;
 	height: 20px;

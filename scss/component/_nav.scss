@@ -3,11 +3,16 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-family: "Microsoft YaHei UI";
     header,main{
         background: $nav-background;
     }
     
     header{
+        background: url("../../img/nav-header.jpg");
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size:100%;
         line-height: 38px;
         box-sizing: border-box;
         text-align: center;
@@ -34,10 +39,10 @@
         padding: 10px 40px;
         //height: 800px;
         min-height: 750px;
-        background-image: url("../../img/nav-bottom.jpg");
+        background-image: url("../../img/nav-top.jpg"),url("../../img/nav-bottom.jpg");
         background-repeat: no-repeat;
-        background-position: bottom;
-        background-size:100%;
+        background-position: top,bottom;
+        background-size:100%,100%;
         >ul{
             padding-left: 0;
             color: $text-gray;
@@ -69,7 +74,6 @@
                             font-size: 1rem;
                             color: $text-black;
                             text-decoration: none;
-                            font-weight: 600;
                         }
                     }
                     >li:hover{

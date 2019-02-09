@@ -108,23 +108,27 @@
                         <div class="col-xs-2 col-sm-2">申购编号：</div>
                     </div>
                     <div class="row select-top">
-                        <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control" name="start-time" id="jstart_time">
+                        <div class="col-xs-5 col-sm-5 row no-padding">
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="start-time" id="jstart_time">
+                            </div>
+                            <div class="col-xs-1 col-sm-1 no-padding" style="text-align: center">
+                                至
+                            </div>
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="end-time" id="jend_time">
+                            </div>
                         </div>
-                        <div class="col-xs-1 col-sm-1" style="text-align: center">至</div>
                         <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control " name="end-time" id="jend_time">
-                        </div>
-                        <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="jmaterial">
+                            <select class="custom-select custom-select-sm select-person " id="jmaterial">
                                 <option>暂无选项</option>
                             </select>
                         </div>
-                        <div class="col-xs-3 col-sm-3">
-                            <input class="form-control" id="jpurchase_number">
+                        <div class="col-xs-3 col-sm-3 last">
+                            <input class="form-control form-control-sm" id="jpurchase_number">
                         </div>
-                        <div class="col-xs-2 col-sm-2">
-                            <input type="button" name=""class="btn btn-select btn-outline float-right" value="查询" onclick="getSelectedApply()">
+                        <div class="col-xs-2 col-sm-2 last">
+                            <input type="button" name=""class="btn btn-select btn-sm btn-outline float-right" value="查询" onclick="getSelectedApply()">
                         </div>
                     </div>
                     <div class="row select-top title">
@@ -133,12 +137,12 @@
                     </div>
                     <div class="row select-top">
                         <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="japply_person">
+                            <select class="custom-select custom-select-sm select-person" id="japply_person">
                                 <option>暂无选项</option>
                             </select>
                         </div>
                         <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="jpurchase_person">
+                            <select class="custom-select custom-select-sm select-person" id="jpurchase_person">
                                 <option>暂无选项</option>
                             </select>
                         </div>
@@ -262,35 +266,36 @@
                         <div class="col-xs-2 col-sm-2">申购编号：</div>
                     </div>
                     <div class="row select-top">
-                        <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control" name="start-time" id="sstart_time">
+                        <div class="col-xs-5 col-sm-5 row no-padding">
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="start-time" id="sstart_time">
+                            </div>
+                            <div class="col-xs-1 col-sm-1 no-padding" style="text-align: center">
+                                至
+                            </div>
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="end-time" id="send_time">
+                            </div>
                         </div>
-                        <div class="col-xs-1 col-sm-1" style="text-align: center">至</div>
                         <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control " name="end-time" id="send_time">
-                        </div>
-                        <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="spurchase_audit_status">
+                            <select class="custom-select custom-select-sm select-person" id="spurchase_audit_status">
                                 <option>审核状态</option>
                                 <option>待审核</option>
                                 <option>已审核</option>
-                                <!--<option>张三</option>
-                                <option>李四</option>
-                                <option>王五</option> -->
                             </select>
                         </div>
                         <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="smaterial">
+                            <select class="custom-select custom-select-sm select-person" id="smaterial">
                                 <option>暂无选项</option>
                             </select>
                         </div>
-                        <div class="col-xs-3 col-sm-3">
-                            <input class="form-control" id="spurchase_number">
+                        <div class="col-xs-3 col-sm-3 last">
+                            <input class="form-control form-control-sm" id="spurchase_number">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-2 col-sm-2 offset-10">
-                            <input type="button" name=""class="btn btn-select btn-outline float-right" value="查询" onclick="getApplyFPchseVerify()">
+                    <div class="select-top row">
+                        <div class="col-xs-2 col-sm-2 offset-10 last">
+                            <input type="button" name=""class="btn btn-select btn-sm btn-outline float-right" value="查询" onclick="getApplyFPchseVerify()">
                         </div>
                     </div>
 
@@ -361,30 +366,34 @@
                         <div class="col-xs-2 col-sm-2">申购编号：</div>
                     </div>
                     <div class="row select-top">
-                        <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control" name="start-time" id="cstart_time">
+                        <div class="col-xs-5 col-sm-5 row no-padding">
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="start-time" id="cstart_time">
+                            </div>
+                            <div class="col-xs-1 col-sm-1 no-padding" style="text-align: center">
+                                至
+                            </div>
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="end-time" id="cend_time">
+                            </div>
                         </div>
-                        <div class="col-xs-1 col-sm-1" style="text-align: center">至</div>
                         <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control " name="end-time" id="cend_time">
-                        </div>
-                        <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="cpurchase_person">
+                            <select class="custom-select custom-select-sm select-person" id="cpurchase_person">
                                 <option>暂无选项</option>
                             </select>
                         </div>
                         <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="cmaterial">
+                            <select class="custom-select custom-select-sm select-person" id="cmaterial">
                                 <option>暂无选项</option>
                             </select>
                         </div>
-                        <div class="col-xs-3 col-sm-3">
-                            <input class="form-control" id="cpurchase_number">
+                        <div class="col-xs-3 col-sm-3 last">
+                            <input class="form-control form-control-sm" id="cpurchase_number">
                         </div>
                     </div>
                     <div class="row select-top">
-                        <div class="col-xs-3 col-sm-3 offset-9">
-                            <input type="button" name=""class="btn btn-select btn-outline float-right" value="查询" onclick="getPurchase()">
+                        <div class="col-xs-2 col-sm-2 offset-10 last">
+                            <input type="button" name=""class="btn btn-select btn-sm btn-outline float-right" value="查询" onclick="getPurchase()">
                         </div>
                     </div>
 
@@ -501,25 +510,29 @@
                         <div class="col-xs-2 col-sm-2">采购人：</div>
                     </div>
                     <div class="row select-top">
-                        <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control" name="start-time" id="bstart_time">
+                        <div class="col-xs-5 col-sm-5 row no-padding">
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="start-time" id="bstart_time">
+                            </div>
+                            <div class="col-xs-1 col-sm-1 no-padding" style="text-align: center">
+                                至
+                            </div>
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="end-time" id="bend_time">
+                            </div>
                         </div>
-                        <div class="col-xs-1 col-sm-1" style="text-align: center;">至</div>
                         <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control " name="end-time" id="bend_time">
-                        </div>
-                        <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="bmaterial">
+                            <select class="custom-select custom-select-sm select-person" id="bmaterial">
                                 <option>暂无选项</option>
                             </select>
                         </div>
                         <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="bpurchase_person">
+                            <select class="custom-select custom-select-sm select-person" id="bpurchase_person">
                                 <option>暂无选项</option>
                             </select>
                         </div>
-                        <div class="col-xs-2 col-sm-2 offset-1">
-                            <input type="button" name=""class="btn btn-select btn-outline float-right" value="查询" onclick="getRemi()">
+                        <div class="col-xs-2 col-sm-2 offset-1 last">
+                            <input type="button" name=""class="btn btn-select btn-sm btn-outline float-right" value="查询" onclick="getRemi()">
                         </div>
                     </div>
                     <div class="row select-top title">
@@ -528,14 +541,14 @@
                     </div>
                     <div class="row select-top">
                         <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="bremiburse_audit_status">
+                            <select class="custom-select custom-select-sm select-person" id="bremiburse_audit_status">
                                 <option>审核状态</option>
                                 <option>待审核</option>
                                 <option>已审核</option>
                             </select>
                         </div>
-                        <div class="col-xs-3 col-sm-3">
-                            <input class="form-control" id="bpurchase_number">
+                        <div class="col-xs-3 col-sm-3 last">
+                            <input class="form-control form-control-sm" id="bpurchase_number">
                         </div>
                     </div>
 
@@ -650,32 +663,36 @@
                         <div class="col-xs-3 col-sm-3">申购编号：</div>
                     </div>
                     <div class="row select-top">
-                        <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control" name="start-time" id="hstart_time">
+                        <div class="col-xs-5 col-sm-5 row no-padding">
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="start-time" id="hstart_time">
+                            </div>
+                            <div class="col-xs-1 col-sm-1 no-padding" style="text-align: center">
+                                至
+                            </div>
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="end-time" id="hend_time">
+                            </div>
                         </div>
-                        <div class="col-xs-1 col-sm-1" style="text-align: center">至</div>
                         <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control " name="end-time" id="hend_time">
-                        </div>
-                        <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="hremiburse_audit_status">
+                            <select class="custom-select custom-select-sm select-person" id="hremiburse_audit_status">
                                 <option>审核状态</option>
                                 <option>待审核</option>
                                 <option>已审核</option>
                             </select>
                         </div>
                         <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="hmaterial">
+                            <select class="custom-select custom-select-sm select-person" id="hmaterial">
                                 <option>暂无选项</option>
                             </select>
                         </div>
-                        <div class="col-xs-3 col-sm-3">
-                            <input class="form-control" id="hpurchase_number">
+                        <div class="col-xs-3 col-sm-3 last">
+                            <input class="form-control form-control-sm" id="hpurchase_number">
                         </div>
                     </div>
                     <div class="row select-top">
-                        <div class="col-xs-2 col-sm-2 offset-10">
-                            <input type="button" name=""class="btn btn-select btn-outline float-right" value="查询" onclick="getRemiVerify()">
+                        <div class="col-xs-2 col-sm-2 offset-10 last">
+                            <input type="button" name=""class="btn btn-select btn-sm btn-outline float-right" value="查询" onclick="getRemiVerify()">
                         </div>
                     </div>
 
@@ -744,31 +761,35 @@
                         <div class="col-xs-3 col-sm-3">申购编号：</div>
                     </div>
                     <div class="row select-top">
-                        <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control" name="start-time" id="rstart_time">
+                        <div class="col-xs-5 col-sm-5 row no-padding">
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="start-time" id="rstart_time">
+                            </div>
+                            <div class="col-xs-1 col-sm-1 no-padding" style="text-align: center">
+                                至
+                            </div>
+                            <div class="col-xs-5 col-sm-5 no-padding">
+                                <input class="flatpickr mycalendar form-control form-control-sm" name="end-time" id="rend_time">
+                            </div>
                         </div>
-                        <div class="col-xs-1 col-sm-1" style="text-align: center">至</div>
                         <div class="col-xs-2 col-sm-2">
-                            <input class="flatpickr mycalendar form-control " name="end-time" id="rend_time">
-                        </div>
-                        <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="rmaterial">
+                            <select class="custom-select custom-select-sm select-person" id="rmaterial">
                                 <option>暂无选项</option>
                             </select>
                         </div>
                         <div class="col-xs-2 col-sm-2">
-                            <select class="form-control custom-select select-person" id="rstore_person">
+                            <select class="custom-select custom-select-sm select-person" id="rstore_person">
                                 <option>暂无选项</option>
                             </select>
                         </div>
 
-                        <div class="col-xs-3 col-sm-3">
-                            <input class="form-control" id="rpurchase_number">
+                        <div class="col-xs-3 col-sm-3 last">
+                            <input class="form-control form-control-sm" id="rpurchase_number">
                         </div>
                     </div>
                     <div class="row select-top">
-                        <div class="col-xs-2 col-sm-2 offset-10">
-                            <input type="button" name=""class="btn btn-select btn-outline float-right" value="查询" onclick="getSaveBy5()">
+                        <div class="col-xs-2 col-sm-2 offset-10 last">
+                            <input type="button" name=""class="btn btn-select btn-sm btn-outline float-right" value="查询" onclick="getSaveBy5()">
                         </div>
                     </div>
 

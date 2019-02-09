@@ -15,6 +15,9 @@ $card-paddingy:10px;
             position: relative;
             display: inline-block;
             padding: 0 8px;
+            font-family: "Microsoft YaHei UI";
+            font-size: 1.2rem;
+            color: $text-card-title;
             &::after{
                 position: absolute;
                 display: block;
