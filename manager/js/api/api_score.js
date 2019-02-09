@@ -32,5 +32,31 @@ var api_score = {
     getScoreUpdate:function (post_data) {
         let query=$.param(post_data);
         return post_query('/score/getScoreUpdate?'+query,{});
+    },
+    //查询成绩录入记录
+    getInputInfo:function (batchName='all',proName='all',sgroup='all',sid='all',sname='all') {
+        let post_data={
+            batchName:batchName,
+            proName:proName,
+            sgroup:sgroup,
+            sid:sid,
+            sname:sname
+        };
+        return post_json('/score/getInputInfo',post_data);
+    },
+    getSpScore:function (sid, sname='') {
+        let post_data={
+            sid:sid,
+            sname:sname
+        };
+        return post_query('/score/getSpScore',post_data);
+    },
+    updateSpScore:function (sid, new_score_map) {
+        return post_json('/score/updateSpScore?sid='+sid,new_score_map);
+    },
+    releaseSpScore:function (sids) {
+        return post_json('/score/releaseSpScore',{
+            sid:sids
+        });
     }
 };

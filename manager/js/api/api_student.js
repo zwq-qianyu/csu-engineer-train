@@ -41,5 +41,11 @@ var api_student = {
             '/student/getSpStudentById',
             { id: sp_sid }
         )
+    },
+    getSpProName:function (sid) {
+        let post_data={
+            sid:sid
+        };
+        return post_json('/student/getSpProName',post_data);
     }
 }
