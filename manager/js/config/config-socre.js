@@ -88,12 +88,18 @@ var update_list_table_config = {
             field: 'sname',
             title: '学生姓名'
         }, {
+            field: 'sid',
+            title: '学号'
+        },{
             field: 'clazz',
             title: '班级'
         }, {
             field: 'batch_name',
             title: '批次'
         }, {
+            field: 'tname',
+            title: '修改人'
+        },{
             field: 'reason',
             title: '备注'
         }
@@ -136,9 +142,6 @@ var entry_table_config = {
 var special_processes = [];
 //特殊学生成绩列表前段固定列
 var special_score_list_columns_front = [
-    // {
-    //     checkbox: true
-    // },
     {
         field: 'name',
         title: '姓名'

@@ -277,11 +277,11 @@ function setDegree() {
 
         let degreeForm = {
             "batchName": batch_name,
-            "good": great,
-            "great": good,
-            "middle": middle,
-            "notPass": pass,
-            "pass": notPass
+            "good": great/100,
+            "great": good/100,
+            "middle": middle/100,
+            "notPass": pass/100,
+            "pass": notPass/100
         };
         api_score.setDegree(modal, degreeForm).done(function (data) {
             if (data.status === 0) {
@@ -335,7 +335,7 @@ function editOneStuScore(obj) {
     body_tr.append($('<td></td>').append(select));
     body_tr.append($('<td></td>').text(select_data[score_list_columns[length - 2].field]));
     //清空原因
-    $('#edit-state').empty();
+    $('#edit-state').val('');
 }
 
 //单项成绩改变时总成绩做出响应
@@ -541,6 +541,16 @@ function publishScore() {
 
 // ========================================================================
 // 2、成绩批量导入
+
+//下载模板文件
+$('#download-score-file').click(function () {
+    // 创建a标签，设置属性，并触发点击下载
+    var $a = $("<a>");
+    $a.attr("href", base_url+'/admin/downloadScore');
+    $("body").append($a);
+    $a[0].click();
+    $a.remove();
+});
 
 //根据批次的变化查询对应的工序
 
@@ -800,8 +810,10 @@ function searchUpdateHistory() {
             let data_arr = data.data;
             tableData = [];
             for (let i = 0; i < data_arr.length; i++) {
+                data_arr[i].time=new Date(data_arr[i].update_time);
                 data_arr[i].update_time = chGMT(data_arr[i].update_time);
             }
+            data_arr=_.orderBy(data_arr,'time','desc');
             update_list_table_config.data = data_arr;
             $('#update_list_table').bootstrapTable('destroy').bootstrapTable(update_list_table_config);
         }
@@ -905,7 +917,7 @@ function updateSpScore() {
     tableBody.append($('<td></td>').text(selectData[columns[columns.length-2].field]));
     console.log(selectData);
     //清空备注
-    $('#special-edit-state').empty();
+    $('#special-edit-state').val('');
 }
 
 function editSpecialScore() {
@@ -928,6 +940,7 @@ function editSpecialScore() {
             post_data['等级'] = degree;
             selectData['degree'] = degree;
         }
+        post_data['reason']=$('#special-edit-state').val();
         api_score.updateSpScore(sid,post_data).done(function (data) {
             if(data.status===0){
                 swal(
@@ -990,7 +1003,5 @@ Date.prototype.format = function (format) {
 // 获取标准时间格式
 function chGMT(gmtDate) {
     var mydate = new Date(gmtDate);
-    mydate.setHours(mydate.getHours() + 8);
-    // return mydate.format("yyyy-MM-dd hh:mm:ss");
     return mydate.format("yyyy-MM-dd hh:mm");
 }
