@@ -28,7 +28,7 @@ function getAllSemesterName(){
     success: function(data){
       if(data.status === 0){
         semesters_obj = data.data;
-        // console.log(semesters_obj);
+        console.log(semesters_obj);
         for(let i=0; i<semesters_obj.length; i++){
           if(semesters_obj[i].semester_name !== null){
             let html = '';
@@ -59,7 +59,7 @@ function getAllSemesterName(){
                 if(data.status === 0){
                   let batchs = data.data;
                   // console.log(batchs);
-                  html += '<div class="collapse" id="'+semesters_obj[i].semester_name+'"><div class="card card-body"><ul>';
+                  html += '<div class="collapse show" id="'+semesters_obj[i].semester_name+'"><div class="card card-body"><ul>';
                   for(let j=0; j<batchs.length; j++){
                     // 修改批次图标
                     html += '<li>'+batchs[j].batch_name+'<i class="btn btn-sm btn-default" semester_name="'+batchs[j].semester_name+'" batch_name="'+batchs[j].batch_name+'" credit="'+batchs[j].credit+'"  onclick="editOneBatch_init(this)" data-toggle="modal" data-target="#editOneBatchModal"><img class="inner-edit-icon" src="./img/edit-inner.svg"></i>';
