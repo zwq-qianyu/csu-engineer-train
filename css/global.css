@@ -71,7 +71,7 @@
 #navigation main {
   padding: 10px 40px;
   min-height: 750px;
-  background-image: url("../../img/nav-top.jpg"), url("../../img/nav-bottom.jpg");
+  background-image: url("../img/nav-top.jpg"), url("../img/nav-bottom.jpg");
   background-repeat: no-repeat;
   background-position: top, bottom;
   background-size: 100%, 100%;
