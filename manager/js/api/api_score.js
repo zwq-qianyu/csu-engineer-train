@@ -44,10 +44,11 @@ var api_score = {
         };
         return post_json('/score/getInputInfo',post_data);
     },
-    getSpScore:function (sid, sname='') {
+    getSpScore:function (templateName,sid='', sname='') {
         let post_data={
             sid:sid,
-            sname:sname
+            sname:sname,
+            templateName:templateName
         };
         return post_query('/score/getSpScore',post_data);
     },

@@ -8,8 +8,8 @@ function init_data() {
     getAllBatch_StuList();
     // 查询教师提交成绩记录--初始化
     getScoreRecord();
-    // 特殊学生成绩查询
-    // getSpScore();
+    //权重模板初始化
+    getAllWeightTemplate();
 }
 
 //根据批次名获取分组并填充
@@ -828,84 +828,126 @@ $('#score_edithistory_seach').click(function () {
 // ========================================================================
 // 5、特殊学生成绩列表
 
+//获取所有的权重模板
+function getAllWeightTemplate() {
+    return api_proced.findAllTemplate().done(function (data) {
+        if(data.status===0){
+            let data_arr=data.data;
+            let weights=$('#weight-template-list').empty().append('<option>请选权重模板</option>');
+            for (let i = 0; i < data_arr.length; i++) {
+                let option=$('<option></option>');
+                option.text(data_arr[i]);
+                weights.append(option);
+            }
+        }
+    });
+}
+//设置特殊成绩列表
+function setSpScoreTable(processes){
+    special_score_list_table_config.columns = _.cloneDeep(special_score_list_columns_front);
+    _.forEach(processes,function (value) {
+        special_score_list_table_config.columns.push({
+            field:value,
+            title:value
+        });
+    });
+    special_score_list_table_config.columns = _.concat(special_score_list_table_config.columns, special_score_list_columns_end);
+    special_score_list_table_config.data=[];
+    $('#special_score_list_table').bootstrapTable('destroy').bootstrapTable(special_score_list_table_config);
+}
+
+//根据权重模板获取特殊学生成绩列表
+$('#weight-template-list').change(function () {
+    let templateName=$(this).val();
+    if(templateName==='请选权重模板'){
+        return;
+    }
+    let post_data={
+        name:templateName
+    };
+    return api_proced.findTemplateItemByName(post_data).done(function (data) {
+        if(data.status===0){
+            special_processes=[];
+            _.forEach(data.data,function (value) {
+                special_processes.push(value.pro_name);
+            });
+            setSpScoreTable(special_processes);
+            api_score.getSpScore(templateName).done(getSpScoreSuccess);
+        }
+    });
+});
+
 // 根据学号查询该学生需要做的工序
 function getSpProName() {
     let sid=$('#spStu_sname').val();
     return api_student.getSpProName(sid).done(function (data) {
         if (data.status === 0) {
-            special_processes = [];
-            special_score_list_table_config.columns = _.cloneDeep(special_score_list_columns_front);
-            _.forEach(data.data, function (value) {
-                special_score_list_table_config.columns.push({
-                    field: value,
-                    title: value
-                });
-                special_processes.push(value);
-            });
-            special_score_list_table_config.columns = _.concat(special_score_list_table_config.columns, special_score_list_columns_end);
-            $('#special_score_list_table').bootstrapTable('destroy').bootstrapTable(special_score_list_table_config);
+            special_processes = data.data;
+            setSpScoreTable(special_processes);
         }
     });
 }
 
-// 特殊学生成绩查询【接口有问题】
-function getSpScore() {
-    let sid=$('#spStu_sname').val();
-    return api_score.getSpScore(sid).done(function (data) {
-        if(data.status===0){
-            let data_arr=data.data;
-            let tableRow={
-                name: data_arr[0]['姓名'],
-                sid: data_arr[0]['学号'],
+//获取特殊学生成绩列表成功回调函数
+function getSpScoreSuccess(data) {
+    if(data.status===0){
+        let data_arr=data.data;
+        let tableRow={
+            name: data_arr[0]['姓名'],
+            sid: data_arr[0]['学号'],
 
-            };
-            _.forEach(special_processes,function (value) {
-                if(!_.isNil(data_arr[0][value])&& !isNaN(Number(data_arr[0][value]))){
-                    tableRow[value]=Number(data_arr[0][value]);
-                }else {
-                    tableRow[value]='无';
-                }
-            });
-            if(!_.isNil(data_arr[0]['总成绩']) && !isNaN(Number(data_arr[0]['总成绩']))){
-                tableRow['scoreSum']=Number(data_arr[0]['总成绩']);
+        };
+        _.forEach(special_processes,function (value) {
+            if(!_.isNil(data_arr[0][value])&& !isNaN(Number(data_arr[0][value]))){
+                tableRow[value]=Number(data_arr[0][value]);
             }else {
-                tableRow['scoreSum']='无';
+                tableRow[value]='无';
             }
-            if(!_.isNil(data_arr[0]['等级'])){
-                tableRow['degree']=data_arr[0]['等级'];
-            }else {
-                tableRow['degree']='无';
-            }
-            if(!_.isNil(data_arr[0]['发布情况'])){
-                tableRow['publishStatus']=data_arr[0]['发布情况'];
-            }
-            special_score_list_table_config.data=[tableRow];
-            $('#special_score_list_table').bootstrapTable('load',special_score_list_table_config.data);
+        });
+        if(!_.isNil(data_arr[0]['总成绩']) && !isNaN(Number(data_arr[0]['总成绩']))){
+            tableRow['scoreSum']=Number(data_arr[0]['总成绩']);
+        }else {
+            tableRow['scoreSum']='无';
         }
-    });
+        if(!_.isNil(data_arr[0]['等级'])){
+            tableRow['degree']=data_arr[0]['等级'];
+        }else {
+            tableRow['degree']='无';
+        }
+        if(!_.isNil(data_arr[0]['发布情况'])){
+            tableRow['publishStatus']=data_arr[0]['发布情况'];
+        }
+        special_score_list_table_config.data=[tableRow];
+        $('#special_score_list_table').bootstrapTable('load',special_score_list_table_config.data);
+        $('#special_score_list_table button').click(function () {
+            updateSpScore();
+        })
+    }
 }
 
 $('#get_special_score_list').click(function () {
-    getSpProName().done(getSpScore);
+    getSpProName().done(function () {
+        let sid=$('#spStu_sname').val();
+        api_score.getSpScore('',sid).done(getSpScoreSuccess);
+    });
 });
 
-// 特殊学生成绩修改
 function updateSpScore() {
     let columns=special_score_list_table_config.columns;
     let tableHead=$('#edit_special_score_table thead tr').empty();
-    for (let i = 0; i < columns.length - 1; i++) {
+    for (let i = 1; i < columns.length - 1; i++) {
         let  th=$('<th></th>');
         th.text(columns[i].title);
         tableHead.append(th);
     }
     let tableBody=$('#edit_special_score_table tbody tr').empty();
     let selectData=special_score_list_table_config.data[0];
-    for (let i = 0; i < 2; i++) {
+    for (let i = 1; i < 3; i++) {
         let td=$('<td></td>');
         td.text(selectData[columns[i].field]);
         tableBody.append(td);
     }
-    for (let i = 2; i < columns.length-4; i++) {
+    for (let i = 3; i < columns.length-4; i++) {
         let input=$('<input type="number" class="edit-input" value="">');
         input.val(selectData[columns[i].field]);
         input.data('field',columns[i].field);
@@ -920,7 +962,7 @@ function updateSpScore() {
     $('#special-edit-state').val('');
 }
 
-function editSpecialScore() {
+$('#submit-special-student-score').click(function () {
     let selectData=special_score_list_table_config.data[0];
     let tds=$('#edit_special_score_table tbody tr td');
     let sid=$(tds[1]).text();
@@ -941,41 +983,47 @@ function editSpecialScore() {
             selectData['degree'] = degree;
         }
         post_data['reason']=$('#special-edit-state').val();
-        api_score.updateSpScore(sid,post_data).done(function (data) {
-            if(data.status===0){
-                swal(
-                    '成功',
-                    '修改成绩成功',
-                    'success'
-                );
-                $('#special_score_list_table').bootstrapTable('updateRow',0,selectData);
-            }else {
-                swal(
-                    '更新失败',
-                    data.message,
-                    'error'
-                );
-            }
-        })
-    })
-
-}
+    });
+    return api_score.updateSpScore(sid,post_data).done(function (data) {
+        if(data.status===0){
+            swal(
+                '成功',
+                '修改成绩成功',
+                'success'
+            );
+            $('#special_score_list_table').bootstrapTable('updateRow',0,selectData);
+        }else {
+            swal(
+                '更新失败',
+                data.message,
+                'error'
+            );
+        }
+    });
+});
 
 // 发布特殊学生成绩
-function releaseSpScore() {
-    let sid=$('#spStu_sname').val();
-    if(sid!==''){
-        api_score.releaseSpScore(sid).done(function (data) {
-            if(data.status===0){
-                swal(
-                    '成功',
-                    '发布成绩成功',
-                    'success'
-                );
-            }
-        })
+$('#publish-special-score').click(function () {
+    let specialScoreListTable=$('#special_score_list_table');
+    let selections=specialScoreListTable.bootstrapTable('getSelections');
+    if(selections.length<1){
+        return;
     }
-}
+    let sids='';
+    for (let i = 0; i < selections.length - 1; i++) {
+        sids+=selections[i].sid+',';
+    }
+    sids+=selections[selections.length-1].sid;
+    api_score.releaseSpScore(sids).done(function (data) {
+        if(data.status===0){
+            swal(
+                '成功',
+                '发布成绩成功',
+                'success'
+            );
+        }
+    });
+});
 
 
 // ========================================================================

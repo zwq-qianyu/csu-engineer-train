@@ -143,6 +143,9 @@ var special_processes = [];
 //特殊学生成绩列表前段固定列
 var special_score_list_columns_front = [
     {
+        checkbox: true
+    },
+    {
         field: 'name',
         title: '姓名'
     },
@@ -170,7 +173,7 @@ var special_score_list_columns_end=[
         title: '操作',
         formatter: function (value, row, index) {
             return [
-                '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#specialListEditModal" onclick="updateSpScore()">修改</button>',
+                '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#specialListEditModal">修改</button>',
             ]
         }
     }
@@ -182,6 +185,6 @@ var special_score_list_table_config = {
     data: [],
     pagination: true,
     pageList: [10, 20, 50],
-    fixedColumns: true,
+    // fixedColumns: true,
     fixedNumber: score_list_columns_front.length
 };

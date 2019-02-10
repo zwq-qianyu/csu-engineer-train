@@ -360,9 +360,12 @@
                     </div>
                     <div class="card-body">
                         <div class="row specialList-select-area">
+                            <select class="form-control custom-select col-xs-4 col-sm-4" id="weight-template-list">
+                                <option>请选择权重模板</option>
+                            </select>
                             <input type="text" class="form-control col-xs-4 col-md-4" placeholder="学号" id="spStu_sname">
-                            <input type="button" class="btn btn-primary" value="查询" id="get_special_score_list">
-                            <button class="btn btn-outline-success" onclick="releaseSpScore()">发布成绩</button>
+                            <button class="btn btn-primary" id="get_special_score_list">查询</button>
+                            <!--<button class="btn btn-outline-success" onclick="releaseSpScore()">发布成绩</button>-->
                         </div>
                         <table id="special_score_list_table"></table>
                         <div class="modal fade" id="specialListEditModal" tabindex="-1" role="dialog"
@@ -399,7 +402,7 @@
                                         <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">关闭
                                         </button>
-                                        <button type="button" class="btn btn-primary" onclick="editSpecialScore()">确定</button>
+                                        <button type="button" class="btn btn-primary" id="submit-special-student-score">确定</button>
                                     </div>
                                 </div>
                             </div>
@@ -408,11 +411,11 @@
                         <!--<div class="row float-right tips">-->
                             <!--<p>注意：总成绩发布后将不可修改该批次成绩</p>-->
                         <!--</div>-->
-                        <!--<div class="clearfix">-->
-                        <!--</div>-->
-                        <!--<div class="row float-right">-->
-                            <!--<input type="button" class="btn btn-outline-success" value="发布总成绩" onclick="releaseSpScore()">-->
-                        <!--</div>-->
+                        <div class="clearfix">
+                        </div>
+                        <div class="row float-right">
+                            <input type="button" class="btn btn-outline-success" value="发布总成绩" id="publish-special-score">
+                        </div>
                     </div>
                 </div>
             </div>
